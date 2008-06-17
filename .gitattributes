@@ -1,1 +1,17 @@
 * text=auto !eol
+1.6/C/H5G/h5ex_g_create.c -text
+1.6/C/H5G/h5ex_g_iterate.c -text
+1.6/C/H5G/h5ex_g_iterate.h5 -text
+1.6/C/H5G/h5ex_g_traverse.c -text
+1.6/C/H5G/h5ex_g_traverse.h5 -text
+1.8/C/H5G/h5ex_g_compact.c -text
+1.8/C/H5G/h5ex_g_corder.c -text
+1.8/C/H5G/h5ex_g_create.c -text
+1.8/C/H5G/h5ex_g_intermediate.c -text
+1.8/C/H5G/h5ex_g_iterate.c -text
+1.8/C/H5G/h5ex_g_iterate.h5 -text
+1.8/C/H5G/h5ex_g_phase.c -text
+1.8/C/H5G/h5ex_g_traverse.c -text
+1.8/C/H5G/h5ex_g_traverse.h5 -text
+1.8/C/H5G/h5ex_g_visit.c -text
+1.8/C/H5G/h5ex_g_visit.h5 -text
