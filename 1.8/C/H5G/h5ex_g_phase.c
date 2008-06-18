@@ -18,11 +18,11 @@
 int
 main (void)
 {
-    hid_t       file, group, subgroup, fapl, gcpl;      /* handles */
+    hid_t       file, group, subgroup, fapl, gcpl;      /* Handles */
     herr_t      status;
     H5G_info_t  ginfo;
     hsize_t     size;
-    char        name[3]="G0";                  /* name of subgroup */
+    char        name[3]="G0";                  /* Name of subgroup */
     unsigned    i;
 
     /*

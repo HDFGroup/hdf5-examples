@@ -1,0 +1,2 @@
+bin_PROGRAMS = h5ex_g_create h5ex_g_iterate h5ex_g_traverse h5ex_g_compact \
+h5ex_g_corder h5ex_g_intermediate h5ex_g_phase h5ex_g_visit

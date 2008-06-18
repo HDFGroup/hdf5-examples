@@ -20,7 +20,7 @@ herr_t op_func (hid_t loc_id, const char *name, void *operator_data);
 int
 main (void)
 {
-    hid_t           file;           /* handle */
+    hid_t           file;           /* Handle */
     herr_t          status;
 
     /*

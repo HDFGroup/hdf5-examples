@@ -1,0 +1,19 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.61)
+AC_INIT(HDF5-examples, 0.1, nfortne2@hdfgroup.uiuc.edu)
+AM_INIT_AUTOMAKE(HDF5-examples, 0.1)
+
+# Sets compiler.
+CC=h5cc
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+# Set subdirectories
+AC_CONFIG_FILES([makefile 1.6/makefile 1.6/C/makefile 1.6/C/H5G/makefile \
+1.8/makefile 1.8/C/makefile 1.8/C/H5G/makefile])
+
+# Configure
+AC_OUTPUT

@@ -18,12 +18,12 @@
 int
 main (void)
 {
-    hid_t       file, group, subgroup, gcpl;        /* handles */
+    hid_t       file, group, subgroup, gcpl;        /* Handles */
     herr_t      status;
     H5G_info_t  ginfo;
-    ssize_t     size;                               /* size of name */
-    hsize_t     i;                                  /* index */
-    char        *name;                              /* output buffer */
+    ssize_t     size;                               /* Size of name */
+    hsize_t     i;                                  /* Index */
+    char        *name;                              /* Output buffer */
 
     /*
      * Create a new file using the default properties.

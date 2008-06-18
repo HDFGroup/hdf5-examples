@@ -13,7 +13,7 @@
 int
 main(void)
 {
-    hid_t       file, group;         /* handles */
+    hid_t       file, group;         /* Handles */
     herr_t      status;
 
     /*

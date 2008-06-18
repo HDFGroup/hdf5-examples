@@ -25,9 +25,9 @@
  * preventing infinite recursion.
  */
 struct opdata {
-    unsigned        recurs;         /* recursion level.  0=root */
-    struct opdata   *prev;          /* pointer to previous opdata */
-    haddr_t         addr;           /* group address */
+    unsigned        recurs;         /* Recursion level.  0=root */
+    struct opdata   *prev;          /* Pointer to previous opdata */
+    haddr_t         addr;           /* Group address */
 };
 
 /*
@@ -44,7 +44,7 @@ int group_check (struct opdata *od, haddr_t target_addr);
 int
 main (void)
 {
-    hid_t           file;           /* handle */
+    hid_t           file;           /* Handle */
     herr_t          status;
     H5O_info_t      infobuf;
     struct opdata   od;
@@ -104,7 +104,7 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
      * the Library.
      */
     status = H5Oget_info_by_name (loc_id, name, &infobuf, H5P_DEFAULT);
-    printf ("%*s", spaces, "");     /*Format output*/
+    printf ("%*s", spaces, "");     /* Format output */
     switch (infobuf.type) {
         case H5O_TYPE_GROUP:
             printf ("Group: %s {\n", name);

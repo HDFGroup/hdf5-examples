@@ -21,7 +21,7 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
 int
 main (void)
 {
-    hid_t           file;           /* handle */
+    hid_t           file;           /* Handle */
     herr_t          status;
 
     /*

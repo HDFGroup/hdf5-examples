@@ -43,7 +43,7 @@ int group_check (struct opdata *od, unsigned long target_groupno[2]);
 int
 main (void)
 {
-    hid_t           file;           /* handle */
+    hid_t           file;           /* Handle */
     herr_t          status;
     H5G_stat_t      statbuf;
     struct opdata   od;
@@ -101,7 +101,7 @@ herr_t op_func (hid_t loc_id, const char *name, void *operator_data)
      * the Library.
      */
     status = H5Gget_objinfo (loc_id, name, 0, &statbuf);
-    printf ("%*s", spaces, "");     /*Format output*/
+    printf ("%*s", spaces, "");     /* Format output */
     switch (statbuf.type) {
         case H5G_GROUP:
             printf ("Group: %s {\n", name);

@@ -20,7 +20,7 @@ herr_t op_func (hid_t loc_id, const char *name, const H5O_info_t *info,
 int
 main(void)
 {
-    hid_t       file, group, gcpl;      /* handles */
+    hid_t       file, group, gcpl;      /* Handles */
     herr_t      status;
 
     /*
@@ -72,13 +72,13 @@ herr_t op_func (hid_t loc_id, const char *name, const H5O_info_t *info,
 {
     herr_t          status;
 
-    printf ("/");               /*Print root group in object path*/
+    printf ("/");               /* Print root group in object path */
 
     /*
      * Check if the current object is the root group, and if not print
      * the full path name and type.
      */
-    if (name[0] == '.')         /*Root group, do not print '.'*/
+    if (name[0] == '.')         /* Root group, do not print '.' */
         printf ("  (Group)\n");
     else
         switch (info->type) {

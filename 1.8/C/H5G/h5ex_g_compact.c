@@ -21,7 +21,7 @@
 int
 main (void)
 {
-    hid_t       file, group, fapl;         /* handles */
+    hid_t       file, group, fapl;         /* Handles */
     herr_t      status;
     H5G_info_t  ginfo;
     hsize_t     size;
