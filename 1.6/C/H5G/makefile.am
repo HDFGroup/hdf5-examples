@@ -1,2 +1,0 @@
-bin_PROGRAMS = h5ex_g_create h5ex_g_iterate h5ex_g_traverse
-AM_CFLAGS = '-D H5_USE_16_API'
