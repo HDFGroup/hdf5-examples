@@ -1,10 +1,10 @@
 noinst_PROGRAMS = h5ex_g_create h5ex_g_iterate h5ex_g_traverse \
 h5ex_g_compact h5ex_g_corder h5ex_g_intermediate h5ex_g_phase h5ex_g_visit
 
-EXTRA_DIST = h5ex_g_create.test h5ex_g_iterate.h5 h5ex_g_iterate.test \
-h5ex_g_traverse.h5 h5ex_g_traverse.test h5ex_g_compact.test \
-h5ex_g_corder.test h5ex_g_intermediate.test h5ex_g_phase.test h5ex_g_visit.h5 \
-h5ex_g_visit.test test.sh
+EXTRA_DIST = h5ex_g_create.txt h5ex_g_iterate.h5 h5ex_g_iterate.txt \
+h5ex_g_traverse.h5 h5ex_g_traverse.txt h5ex_g_compact.txt h5ex_g_corder.txt \
+h5ex_g_intermediate.txt h5ex_g_phase.txt h5ex_g_visit.h5 h5ex_g_visit.txt \
+test.sh
 
 TESTS_ENVIRONMENT = sh
 TESTS = test.sh

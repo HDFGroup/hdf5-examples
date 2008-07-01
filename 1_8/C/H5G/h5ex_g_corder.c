@@ -51,13 +51,13 @@ main (void)
      * the creation order tracking property set.
      */
     subgroup = H5Gcreate (group, "H", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
-    H5Gclose (subgroup);
+    status = H5Gclose (subgroup);
     subgroup = H5Gcreate (group, "D", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
-    H5Gclose (subgroup);
+    status = H5Gclose (subgroup);
     subgroup = H5Gcreate (group, "F", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
-    H5Gclose (subgroup);
+    status = H5Gclose (subgroup);
     subgroup = H5Gcreate (group, "5", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
-    H5Gclose (subgroup);
+    status = H5Gclose (subgroup);
 
     /*
      * Get group info.
@@ -86,7 +86,7 @@ main (void)
          * Retrieve name, print it, and free the previously allocated
          * space.
          */
-        H5Lget_name_by_idx (group, ".", H5_INDEX_NAME, H5_ITER_INC, i, name,
+        size = H5Lget_name_by_idx (group, ".", H5_INDEX_NAME, H5_ITER_INC, i, name,
                     (size_t) size, H5P_DEFAULT);
         printf ("Index %d: %s\n", (int) i, name);
         free (name);
@@ -114,7 +114,7 @@ main (void)
          * Retrieve name, print it, and free the previously allocated
          * space.
          */
-        H5Lget_name_by_idx (group, ".", H5_INDEX_CRT_ORDER, H5_ITER_INC, i,
+        size = H5Lget_name_by_idx (group, ".", H5_INDEX_CRT_ORDER, H5_ITER_INC, i,
                     name, (size_t) size, H5P_DEFAULT);
         printf ("Index %d: %s\n", (int) i, name);
         free (name);

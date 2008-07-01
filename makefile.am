@@ -1,7 +1,9 @@
 if V16
 DO_16=1_6
 endif
+
 if V18
 DO_18=1_8
 endif
+
 SUBDIRS = $(DO_16) $(DO_18)

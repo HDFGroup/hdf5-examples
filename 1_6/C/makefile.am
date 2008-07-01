@@ -1,1 +1,5 @@
-SUBDIRS = H5G
+if H5G
+DO_H5G=H5G
+endif
+
+SUBDIRS = $(DO_H5G)

@@ -87,6 +87,10 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
+H5G_FALSE = @H5G_FALSE@
+H5G_TRUE = @H5G_TRUE@
+H5T_FALSE = @H5T_FALSE@
+H5T_TRUE = @H5T_TRUE@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
@@ -141,8 +145,8 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-EXTRA_DIST = h5ex_g_create.test h5ex_g_iterate.h5 h5ex_g_iterate.test \
-h5ex_g_traverse.h5 h5ex_g_traverse.test test.sh
+EXTRA_DIST = h5ex_g_create.txt h5ex_g_iterate.h5 h5ex_g_iterate.txt \
+h5ex_g_traverse.h5 h5ex_g_traverse.txt test.sh
 
 AM_CPPFLAGS = '-D H5_USE_16_API'
 TESTS_ENVIRONMENT = sh

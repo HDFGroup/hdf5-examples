@@ -1,7 +1,7 @@
 noinst_PROGRAMS = h5ex_g_create h5ex_g_iterate h5ex_g_traverse
 
-EXTRA_DIST = h5ex_g_create.test h5ex_g_iterate.h5 h5ex_g_iterate.test \
-h5ex_g_traverse.h5 h5ex_g_traverse.test test.sh
+EXTRA_DIST = h5ex_g_create.txt h5ex_g_iterate.h5 h5ex_g_iterate.txt \
+h5ex_g_traverse.h5 h5ex_g_traverse.txt test.sh
 
 AM_CPPFLAGS = '-D H5_USE_16_API'
 TESTS_ENVIRONMENT = sh
