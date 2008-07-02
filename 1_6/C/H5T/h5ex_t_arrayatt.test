@@ -22,8 +22,9 @@ HDF5 "h5ex_t_arrayatt.h5" {
 GROUP "/" {
    DATASET "DS1" {
       DATATYPE  H5T_STD_I32LE
-      DATASPACE  NULL
+      DATASPACE  SCALAR
       DATA {
+      (0): 0
       }
       ATTRIBUTE "A1" {
          DATATYPE  H5T_ARRAY { [3][5] H5T_STD_I64LE }

@@ -31,7 +31,8 @@ AM_CONDITIONAL(H5T, test "$H5EX_T")
 
 # Set subdirectories
 AC_CONFIG_FILES([makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile \
-1_8/makefile 1_8/C/makefile 1_8/C/H5G/makefile 1_8/C/H5T/makefile])
+1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile 1_8/C/H5G/makefile \
+1_8/C/H5T/makefile])
 
 # Configure
 AC_OUTPUT

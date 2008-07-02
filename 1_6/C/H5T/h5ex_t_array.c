@@ -1,12 +1,12 @@
 /************************************************************
 
   This example shows how to read and write array datatypes
-  to an attribute.  The program first writes integers arrays
-  of dimension ADIM0xADIM1 to an attribute with a dataspace
-  of DIM0, then closes the  file.  Next, it reopens the
-  file, reads back the data, and outputs it to the screen.
+  to a dataset.  The program first writes integers arrays of
+  dimension ADIM0xADIM1 to a dataset with a dataspace of
+  DIM0, then closes the  file.  Next, it reopens the file,
+  reads back the data, and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library verion 1.6
 
  ************************************************************/
 
@@ -14,9 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FILE            "h5ex_t_arrayatt.h5"
+#define FILE            "h5ex_t_array.h5"
 #define DATASET         "DS1"
-#define ATTRIBUTE       "A1"
 #define DIM0            4
 #define ADIM0           3
 #define ADIM1           5
@@ -24,7 +23,7 @@
 int
 main (void)
 {
-    hid_t       file, filetype, memtype, space, dset, attr;
+    hid_t       file, filetype, memtype, space, dset;
                                                 /* Handles */
     herr_t      status;
     hsize_t     dims[1] = {DIM0},
@@ -51,16 +50,8 @@ main (void)
     /*
      * Create array datatypes for file and memory.
      */
-    filetype = H5Tarray_create (H5T_STD_I64LE, 2, adims);
-    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims);
-
-    /*
-     * Create dataset with a null dataspace.
-     */
-    space = H5Screate (H5S_NULL);
-    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, H5P_DEFAULT,
-                H5P_DEFAULT, H5P_DEFAULT);
-    status = H5Sclose (space);
+    filetype = H5Tarray_create (H5T_STD_I64LE, 2, adims, NULL);
+    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims, NULL);
 
     /*
      * Create dataspace.  Setting maximum size to NULL sets the maximum
@@ -69,16 +60,15 @@ main (void)
     space = H5Screate_simple (1, dims, NULL);
 
     /*
-     * Create the attribute and write the array data to it.
+     * Create the dataset and write the array data to it.
      */
-    attr = H5Acreate (dset, ATTRIBUTE, filetype, space, H5P_DEFAULT,
-                H5P_DEFAULT);
-    status = H5Awrite (attr, memtype, wdata[0][0]);
+    dset = H5Dcreate (file, DATASET, filetype, space, H5P_DEFAULT);
+    status = H5Dwrite (dset, memtype, H5S_ALL, H5S_ALL, H5P_DEFAULT,
+                wdata[0][0]);
 
     /*
      * Close and release resources.
      */
-    status = H5Aclose (attr);
     status = H5Dclose (dset);
     status = H5Sclose (space);
     status = H5Tclose (filetype);
@@ -88,35 +78,34 @@ main (void)
 
     /*
      * Now we begin the read section of this example.  Here we assume
-     * the attribute and array have the same name and rank, but can
-     * have any size.  Therefore we must allocate a new array to read
-     * in data using malloc().
+     * the dataset and array have the same name and rank, but can have
+     * any size.  Therefore we must allocate a new array to read in
+     * data using malloc().
      */
 
     /*
-     * Open file, dataset, and attribute.
+     * Open file and dataset.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
-    attr = H5Aopen (dset, ATTRIBUTE, H5P_DEFAULT);
+    dset = H5Dopen (file, DATASET);
 
     /*
      * Get the datatype and its dimensions.
      */
-    filetype = H5Aget_type (attr);
-    ndims = H5Tget_array_dims (filetype, adims);
+    filetype = H5Dget_type (dset);
+    ndims = H5Tget_array_dims (filetype, adims, NULL);
 
     /*
      * Get dataspace and allocate memory for read buffer.  This is a
-     * three dimensional attribute when the array datatype is included
-     * so the dynamic allocation must be done in steps.
+     * three dimensional dataset when the array datatype is included so
+     * the dynamic allocation must be done in steps.
      */
-    space = H5Aget_space (attr);
+    space = H5Dget_space (dset);
     ndims = H5Sget_simple_extent_dims (space, dims, NULL);
 
     /*
      * Allocate array of pointers to two-dimensional arrays (the
-     * elements of the attribute.
+     * elements of the dataset.
      */
     rdata = (int ***) malloc (dims[0] * sizeof (int **));
 
@@ -145,18 +134,19 @@ main (void)
     /*
      * Create the memory datatype.
      */
-    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims);
+    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims, NULL);
 
     /*
      * Read the data.
      */
-    status = H5Aread (attr, memtype, rdata[0][0]);
+    status = H5Dread (dset, memtype, H5S_ALL, H5S_ALL, H5P_DEFAULT,
+                rdata[0][0]);
 
     /*
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n", ATTRIBUTE, i);
+        printf ("%s[%d]:\n", DATASET, i);
         for (j=0; j<adims[0]; j++) {
             printf (" [");
             for (k=0; k<adims[1]; k++)
@@ -172,7 +162,6 @@ main (void)
     free (rdata[0][0]);
     free (rdata[0]);
     free (rdata);
-    status = H5Aclose (attr);
     status = H5Dclose (dset);
     status = H5Sclose (space);
     status = H5Tclose (filetype);

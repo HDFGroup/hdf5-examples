@@ -7,7 +7,7 @@
   reopens the file, dereferences the references, and outputs
   the names of their targets to the screen.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library verion 1.6
 
  ************************************************************/
 
@@ -27,7 +27,7 @@ main (void)
     hsize_t     dims[1] = {DIM0};
     hobj_ref_t  wdata[DIM0],                /* Write buffer */
                 *rdata;                     /* Read buffer */
-    H5O_type_t  objtype;
+    H5G_obj_t   objtype;
     ssize_t     size;
     char        *name;
     int         ndims,
@@ -39,18 +39,17 @@ main (void)
     file = H5Fcreate (FILE, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 
     /*
-     * Create a dataset with a null dataspace.
+     * Create a dataset with a scalar dataspace.
      */
-    space = H5Screate (H5S_NULL);
-    obj = H5Dcreate (file, "DS2", H5T_STD_I32LE, space, H5P_DEFAULT,
-                H5P_DEFAULT, H5P_DEFAULT);
+    space = H5Screate (H5S_SCALAR);
+    obj = H5Dcreate (file, "DS2", H5T_STD_I32LE, space, H5P_DEFAULT);
     status = H5Dclose (obj);
     status = H5Sclose (space);
 
     /*
      * Create a group.
      */
-    obj = H5Gcreate (file, "G1", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+    obj = H5Gcreate (file, "G1", H5P_DEFAULT);
     status = H5Gclose (obj);
 
     /*
@@ -70,8 +69,7 @@ main (void)
     /*
      * Create the dataset and write the object references to it.
      */
-    dset = H5Dcreate (file, DATASET, H5T_STD_REF_OBJ, space, H5P_DEFAULT,
-                H5P_DEFAULT, H5P_DEFAULT);
+    dset = H5Dcreate (file, DATASET, H5T_STD_REF_OBJ, space, H5P_DEFAULT);
     status = H5Dwrite (dset, H5T_STD_REF_OBJ, H5S_ALL, H5S_ALL, H5P_DEFAULT,
                 wdata);
 
@@ -94,7 +92,7 @@ main (void)
      * Open file and dataset.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
+    dset = H5Dopen (file, DATASET);
 
     /*
      * Get dataspace and allocate memory for read buffer.  This is a
@@ -116,41 +114,47 @@ main (void)
      */
     for (i=0; i<dims[0]; i++) {
         printf ("%s[%d]:\n  ->", DATASET, i);
-
         /*
          * Open the referenced object, get its name and type.
          */
         obj = H5Rdereference (dset, H5R_OBJECT, &rdata[i]);
-        status = H5Rget_obj_type (dset, H5R_OBJECT, &rdata[i], &objtype);
+        objtype = H5Rget_obj_type (dset, H5R_OBJECT, &rdata[i]);
 
         /*
          * Get the length of the name, allocate space, then retrieve
          * the name.
          */
         size = 1 + H5Iget_name (obj, NULL, 0);
-        name = malloc (size);
-        size = H5Iget_name (obj, name, size);
+        if (size > 1) {
+            name = malloc (size);
+            size = 1 + H5Iget_name (obj, name, size);
+        }
 
         /*
          * Print the object type and close the object.
          */
         switch (objtype) {
-            case H5O_TYPE_GROUP:
+            case H5G_GROUP:
                 printf ("Group");
+                status = H5Gclose (obj);
                 break;
-            case H5O_TYPE_DATASET:
+            case H5G_DATASET:
                 printf ("Dataset");
+                status = H5Dclose (obj);
                 break;
-            case H5O_TYPE_NAMED_DATATYPE:
+            case H5G_TYPE:
                 printf ("Named Datatype");
+                status = H5Tclose (obj);
         }
-        status = H5Oclose (obj);
 
         /*
          * Print the name and deallocate space for the name.
          */
-        printf (": %s\n", name);
-        free (name);
+        if (size > 1) {
+            printf (": %s", name);
+            free (name);
+        }
+        printf ("\n");
     }
 
     /*

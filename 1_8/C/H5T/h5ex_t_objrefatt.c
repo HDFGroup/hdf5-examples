@@ -125,7 +125,7 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n  ->", DATASET, i);
+        printf ("%s[%d]:\n  ->", ATTRIBUTE, i);
 
         /*
          * Open the referenced object, get its name and type.
@@ -146,22 +146,20 @@ main (void)
          */
         switch (objtype) {
             case H5O_TYPE_GROUP:
-                printf ("Group:");
-                status = H5Gclose (obj);
+                printf ("Group");
                 break;
             case H5O_TYPE_DATASET:
-                printf ("Dataset:");
-                status = H5Dclose (obj);
+                printf ("Dataset");
                 break;
             case H5O_TYPE_NAMED_DATATYPE:
-                printf ("Named Datatype:");
-                status = H5Tclose (obj);
+                printf ("Named Datatype");
         }
+        status = H5Oclose (obj);
 
         /*
          * Print the name and deallocate space for the name.
          */
-        printf (" %s\n", name);
+        printf (": %s\n", name);
         free (name);
     }
 

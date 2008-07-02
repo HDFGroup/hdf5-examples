@@ -6,7 +6,7 @@
   of DIM0, then closes the  file.  Next, it reopens the
   file, reads back the data, and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library verion 1.6
 
  ************************************************************/
 
@@ -51,15 +51,14 @@ main (void)
     /*
      * Create array datatypes for file and memory.
      */
-    filetype = H5Tarray_create (H5T_STD_I64LE, 2, adims);
-    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims);
+    filetype = H5Tarray_create (H5T_STD_I64LE, 2, adims, NULL);
+    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims, NULL);
 
     /*
-     * Create dataset with a null dataspace.
+     * Create dataset with a scalar dataspace.
      */
-    space = H5Screate (H5S_NULL);
-    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, H5P_DEFAULT,
-                H5P_DEFAULT, H5P_DEFAULT);
+    space = H5Screate (H5S_SCALAR);
+    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, H5P_DEFAULT);
     status = H5Sclose (space);
 
     /*
@@ -71,8 +70,7 @@ main (void)
     /*
      * Create the attribute and write the array data to it.
      */
-    attr = H5Acreate (dset, ATTRIBUTE, filetype, space, H5P_DEFAULT,
-                H5P_DEFAULT);
+    attr = H5Acreate (dset, ATTRIBUTE, filetype, space, H5P_DEFAULT);
     status = H5Awrite (attr, memtype, wdata[0][0]);
 
     /*
@@ -97,14 +95,14 @@ main (void)
      * Open file, dataset, and attribute.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
-    attr = H5Aopen (dset, ATTRIBUTE, H5P_DEFAULT);
+    dset = H5Dopen (file, DATASET);
+    attr = H5Aopen_name (dset, ATTRIBUTE);
 
     /*
      * Get the datatype and its dimensions.
      */
     filetype = H5Aget_type (attr);
-    ndims = H5Tget_array_dims (filetype, adims);
+    ndims = H5Tget_array_dims (filetype, adims, NULL);
 
     /*
      * Get dataspace and allocate memory for read buffer.  This is a
@@ -145,7 +143,7 @@ main (void)
     /*
      * Create the memory datatype.
      */
-    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims);
+    memtype = H5Tarray_create (H5T_NATIVE_INT, 2, adims, NULL);
 
     /*
      * Read the data.
