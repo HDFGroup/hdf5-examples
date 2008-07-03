@@ -1,3 +1,4 @@
+#! /bin/sh
 return_val=0
 
 

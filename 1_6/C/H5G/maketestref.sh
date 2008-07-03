@@ -1,3 +1,4 @@
+#! /bin/sh
 ./h5ex_g_create
 h5dump h5ex_g_create.h5>h5ex_g_create.test
 rm -f h5ex_g_create.h5

@@ -1,3 +1,4 @@
+#! /bin/sh
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
 cmpd cmpdatt objref objrefatt regref regrefatt commit"

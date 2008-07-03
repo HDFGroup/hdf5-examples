@@ -1,3 +1,4 @@
+#! /bin/sh
 return_val=0
 
 
@@ -9,9 +10,9 @@ cmp -s tmp.test $srcdir/h5ex_g_create.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 
@@ -29,9 +30,9 @@ cmp -s tmp.test $srcdir/h5ex_g_iterate.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 
@@ -49,9 +50,9 @@ cmp -s tmp.test $srcdir/h5ex_g_traverse.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 
@@ -69,9 +70,9 @@ cmp -s tmp.test $srcdir/h5ex_g_visit.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 
@@ -84,9 +85,9 @@ cmp -s tmp.test $srcdir/h5ex_g_compact.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 rm -f h5ex_g_compact1.h5
@@ -99,9 +100,9 @@ cmp -s tmp.test $srcdir/h5ex_g_phase.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 rm -f h5ex_g_phase.h5
@@ -113,9 +114,9 @@ cmp -s tmp.test $srcdir/h5ex_g_corder.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 rm -f h5ex_g_corder.h5
@@ -127,9 +128,9 @@ cmp -s tmp.test $srcdir/h5ex_g_intermediate.test
 status=$?
 if test $status -ne 0
 then
-	echo "  FAILED!"
+    echo "  FAILED!"
 else
-	echo "  Passed"
+    echo "  Passed"
 fi
 return_val=`expr $status + $return_val`
 rm -f h5ex_g_intermediate.h5

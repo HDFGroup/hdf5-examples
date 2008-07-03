@@ -83,8 +83,7 @@ main (void)
   the group_check function, then if it is not a duplicate,
   H5Literate is called for that group.  This guarantees that
   the program will not enter infinite recursion due to a
-  circular path in the file, as long as reference counts
-  have not been improperly manipulated.
+  circular path in the file.
 
  ************************************************************/
 herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
@@ -111,10 +110,14 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
 
             /*
              * Check group address against linked list of operator
-             * data structures.  Only necessary if there is more
-             * than 1 link to the group.
+             * data structures.  We will always run the check, as the
+             * reference count cannot be relied upon if there are
+             * symbolic links, and H5Oget_info_by_name always follows
+             * symbolic links.  Alternatively we could use H5Lget_info
+             * and never recurse on groups discovered by symbolic
+             * links.
              */
-            if ( (infobuf.rc > 1) && group_check (od, infobuf.addr) ) {
+            if ( group_check (od, infobuf.addr) ) {
                 printf ("%*s  Warning: Loop detected!\n", spaces, "");
             }
             else {
