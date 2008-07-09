@@ -14,6 +14,20 @@
 
 @SET_MAKE@
 
+#
+# Copyright by The HDF Group.
+# Copyright by the Board of Trustees of the University of Illinois.
+# All rights reserved.
+#
+# This file is part of HDF5.  The full HDF5 copyright notice, including
+# terms governing use, modification, and redistribution, is contained in
+# the files COPYING and Copyright.html.  COPYING can be found at the root
+# of the source code distribution tree; Copyright.html can be found at the
+# root level of an installed copy of the electronic HDF5 document set and
+# is linked from the top-level documents page.  It can also be found at
+# http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
+# access to either file, you may request a copy from help@hdfgroup.org.
+
 SOURCES = h5ex_t_array.c h5ex_t_arrayatt.c h5ex_t_bit.c h5ex_t_bitatt.c h5ex_t_cmpd.c h5ex_t_cmpdatt.c h5ex_t_commit.c h5ex_t_convert.c h5ex_t_cpxcmpd.c h5ex_t_cpxcmpdatt.c h5ex_t_enum.c h5ex_t_enumatt.c h5ex_t_float.c h5ex_t_floatatt.c h5ex_t_int.c h5ex_t_intatt.c h5ex_t_objref.c h5ex_t_objrefatt.c h5ex_t_opaque.c h5ex_t_opaqueatt.c h5ex_t_regref.c h5ex_t_regrefatt.c h5ex_t_string.c h5ex_t_stringatt.c h5ex_t_vlen.c h5ex_t_vlenatt.c h5ex_t_vlstring.c h5ex_t_vlstringatt.c
 
 srcdir = @srcdir@
@@ -190,6 +204,8 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
+H5D_FALSE = @H5D_FALSE@
+H5D_TRUE = @H5D_TRUE@
 H5G_FALSE = @H5G_FALSE@
 H5G_TRUE = @H5G_TRUE@
 H5T_FALSE = @H5T_FALSE@

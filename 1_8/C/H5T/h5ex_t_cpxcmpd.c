@@ -262,6 +262,7 @@ main (void)
     status = H5Tclose (vehicletype);
     status = H5Fclose (file);
 
+
     /*
      * Now we begin the read section of this example.  Here we assume
      * the dataset has the same name and rank, but can have any size.

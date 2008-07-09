@@ -253,6 +253,7 @@ main (void)
                 H5P_DEFAULT);
     status = H5Awrite (attr, vehicletype, wdata);
 
+
     /*
      * Close and release resources.  Note that we cannot use
      * H5Dvlen_reclaim as it would attempt to free() the string
