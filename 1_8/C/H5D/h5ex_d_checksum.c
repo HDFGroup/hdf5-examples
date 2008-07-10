@@ -1,10 +1,11 @@
 /************************************************************
 
   This example shows how to read and write data to a dataset
-  using the N-Bit filter.  The program first checks if the
-  N-Bit filter is available, then if it is it writes
-  integers to a dataset using N-Bit, then closes the file.
-  Next, it reopens the file, reads back the data, and
+  using the Fletcher32 checksum filter.  The program first
+  checks if the Fletcher32 filter is available, then if it
+  is it writes integers to a dataset using Fletcher32, then
+  closes the file.  Next, it reopens the file, reads back
+  the data, checks if the filter detected an error and
   outputs the type of filter and the maximum value in the
   dataset to the screen.
 
@@ -42,8 +43,8 @@ main (void)
                     i, j;
 
     /*
-     * Check if N-Bit compression is available and can be used for both
-     * compression and decompression.  Normally we do not perform error
+     * Check if the Fletcher32 filter is available and can be used for
+     * both encoding and decoding.  Normally we do not perform error
      * checking in these examples for the sake of clarity, but in this
      * case we will make an exception because this filter is an
      * optional part of the hdf5 library.
@@ -53,7 +54,7 @@ main (void)
         printf ("N-Bit filter not available.\n");
         return 1;
     }
-    status = H5Zget_filter_info (H5Z_FILTER_FLETCHER32,&filter_info);
+    status = H5Zget_filter_info (H5Z_FILTER_FLETCHER32, &filter_info);
     if ( !(filter_info & H5Z_FILTER_CONFIG_ENCODE_ENABLED) ||
                 !(filter_info & H5Z_FILTER_CONFIG_DECODE_ENABLED) ) {
         printf ("N-Bit filter not available for encoding and decoding.\n");

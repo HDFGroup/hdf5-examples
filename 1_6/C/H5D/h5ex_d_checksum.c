@@ -1,14 +1,15 @@
 /************************************************************
 
   This example shows how to read and write data to a dataset
-  using the N-Bit filter.  The program first checks if the
-  N-Bit filter is available, then if it is it writes
-  integers to a dataset using N-Bit, then closes the file.
-  Next, it reopens the file, reads back the data, and
+  using the Fletcher32 checksum filter.  The program first
+  checks if the Fletcher32 filter is available, then if it
+  is it writes integers to a dataset using Fletcher32, then
+  closes the file.  Next, it reopens the file, reads back
+  the data, checks if the filter detected an error and
   outputs the type of filter and the maximum value in the
   dataset to the screen.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library verion 1.6
 
  ************************************************************/
 
@@ -16,7 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FILE            "h5ex_d_nbit.h5"
+#define FILE            "h5ex_d_checksum.h5"
 #define DATASET         "DS1"
 #define DIM0            32
 #define DIM1            64
@@ -26,7 +27,7 @@
 int
 main (void)
 {
-    hid_t           file, space, dset, dtype, dcpl;
+    hid_t           file, space, dset, dcpl;
                                                 /* Handles */
     herr_t          status;
     htri_t          avail;
@@ -42,18 +43,18 @@ main (void)
                     i, j;
 
     /*
-     * Check if N-Bit compression is available and can be used for both
-     * compression and decompression.  Normally we do not perform error
+     * Check if the Fletcher32 filter is available and can be used for
+     * both encoding and decoding.  Normally we do not perform error
      * checking in these examples for the sake of clarity, but in this
      * case we will make an exception because this filter is an
      * optional part of the hdf5 library.
      */
-    avail = H5Zfilter_avail(H5Z_FILTER_NBIT);
+    avail = H5Zfilter_avail(H5Z_FILTER_FLETCHER32);
     if (!avail) {
         printf ("N-Bit filter not available.\n");
         return 1;
     }
-    status = H5Zget_filter_info (H5Z_FILTER_NBIT, &filter_info);
+    status = H5Zget_filter_info (H5Z_FILTER_FLETCHER32, &filter_info);
     if ( !(filter_info & H5Z_FILTER_CONFIG_ENCODE_ENABLED) ||
                 !(filter_info & H5Z_FILTER_CONFIG_DECODE_ENABLED) ) {
         printf ("N-Bit filter not available for encoding and decoding.\n");
@@ -79,27 +80,17 @@ main (void)
     space = H5Screate_simple (2, dims, NULL);
 
     /*
-     * Create the datatype to use with the N-Bit filter.  It has an
-     * uncompressed size of 32 bits, but will have a size of 16 bits
-     * after being packed by the N-Bit filter.
-     */
-    dtype = H5Tcopy (H5T_STD_I32LE);
-    status = H5Tset_precision (dtype, 16);
-    status = H5Tset_offset (dtype, 5);
-
-    /*
      * Create the dataset creation property list, add the N-Bit filter
      * and set the chunk size.
      */
     dcpl = H5Pcreate (H5P_DATASET_CREATE);
-    status = H5Pset_nbit (dcpl);
+    status = H5Pset_fletcher32 (dcpl);
     status = H5Pset_chunk (dcpl, 2, chunk);
 
     /*
      * Create the dataset.
      */
-    dset = H5Dcreate (file, DATASET, dtype, space, H5P_DEFAULT, dcpl,
-                H5P_DEFAULT);
+    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, dcpl);
 
     /*
      * Write the data to the dataset.
@@ -111,7 +102,6 @@ main (void)
      * Close and release resources.
      */
     status = H5Pclose (dcpl);
-    status = H5Tclose (dtype);
     status = H5Dclose (dset);
     status = H5Sclose (space);
     status = H5Fclose (file);
@@ -125,7 +115,7 @@ main (void)
      * Open file and dataset using the default properties.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
+    dset = H5Dopen (file, DATASET);
 
     /*
      * Retrieve dataset creation property list.
@@ -137,8 +127,7 @@ main (void)
      * first filter because we know that we only added one filter.
      */
     nelmts = 0;
-    filter_type = H5Pget_filter (dcpl, 0, &flags, &nelmts, NULL, 0, NULL,
-                &filter_info);
+    filter_type = H5Pget_filter (dcpl, 0, &flags, &nelmts, NULL, 0, NULL);
     printf ("Filter type is: ");
     switch (filter_type) {
         case H5Z_FILTER_DEFLATE:
@@ -152,12 +141,6 @@ main (void)
             break;
         case H5Z_FILTER_SZIP:
             printf ("H5Z_FILTER_SZIP\n");
-            break;
-        case H5Z_FILTER_NBIT:
-            printf ("H5Z_FILTER_NBIT\n");
-            break;
-        case H5Z_FILTER_SCALEOFFSET:
-            printf ("H5Z_FILTER_SCALEOFFSET\n");
     }
 
     /*
@@ -165,6 +148,20 @@ main (void)
      */
     status = H5Dread (dset, H5T_NATIVE_INT, H5S_ALL, H5S_ALL, H5P_DEFAULT,
                 rdata[0]);
+
+    /*
+     * Check if the read was successful.  Normally we do not perform
+     * error checking in these examples for the sake of clarity, but in
+     * this case we will make an exception because this is how the
+     * fletcher32 checksum filter reports data errors.
+     */
+    if (status<0) {
+        fprintf (stderr, "Dataset read failed!\n");
+        status = H5Pclose (dcpl);
+        status = H5Dclose (dset);
+        status = H5Fclose (file);
+        return 2;
+    }
 
     /*
      * Find the maximum value in the dataset, to verify that it was

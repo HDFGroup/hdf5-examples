@@ -21,37 +21,46 @@ case `echo "testing\c"; echo 1,2,3`,`echo -n testing; echo 1,2,3` in
 esac
 ECHO_N="echo $ECHO_N"
 
-topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
-array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
-cmpd cmpdatt objref objrefatt regref regrefatt commit"
+
+topics="rdwr hyper chunk gzip szip extern compact unlimadd unlimmod unlimgzip \
+checksum shuffle fillval alloc"
+
+
+return_val=0
+
 
 for topic in $topics
 do
-    fname=h5ex_t_$topic
-    $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-    ./$fname>$fname.test
-    h5dump $fname.h5>>$fname.test
-    rm -f $fname.h5
-    echo "  Done."
+    fname=h5ex_d_$topic
+    $ECHO_N "Testing 1.6/C/H5D/$fname...$ECHO_C"
+    ./$fname>tmp.test
+    status=$?
+    if test $status -eq 1
+    then
+        echo "  Unsupported feature"
+    else
+        h5dump $fname.h5>>tmp.test
+        rm -f $fname.h5
+        cmp -s tmp.test $srcdir/$fname.test
+        status=$?
+        if test $status -ne 0
+        then
+            echo "  FAILED!"
+        else
+            echo "  Passed"
+        fi
+        return_val=`expr $status + $return_val`
+    fi
 done
+
 
 #######Non-standard tests#######
 
-fname=h5ex_t_cpxcmpd
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-./$fname>$fname.test
-h5dump -n $fname.h5>>$fname.test
-rm -f $fname.h5
-echo "  Done."
 
-fname=h5ex_t_cpxcmpdatt
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-./$fname>$fname.test
-h5dump -n $fname.h5>>$fname.test
-rm -f $fname.h5
-echo "  Done."
+#Remove external data file from h5ex_d_extern
+rm -f h5ex_d_extern.data
 
-fname=h5ex_t_convert
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-./$fname>$fname.test
-echo "  Done."
+
+rm -f tmp.test
+echo "$return_val tests failed in 1_6/C/H5D/"
+exit $return_val

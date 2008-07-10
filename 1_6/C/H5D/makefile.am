@@ -16,16 +16,16 @@
 ## Run automake to generate a Makefile.in from this file.
 ##
 
-if H5G
-DO_H5G=H5G
-endif
+noinst_PROGRAMS = h5ex_d_rdwr h5ex_d_hyper h5ex_d_chunk h5ex_d_gzip \
+h5ex_d_szip h5ex_d_extern h5ex_d_compact h5ex_d_unlimadd h5ex_d_unlimmod \
+h5ex_d_unlimgzip h5ex_d_checksum h5ex_d_shuffle h5ex_d_fillval h5ex_d_alloc
 
-if H5T
-DO_H5T=H5T
-endif
+EXTRA_DIST = h5ex_d_rdwr.test h5ex_d_hyper.test h5ex_d_chunk.test \
+h5ex_d_gzip.test h5ex_d_szip.test  h5ex_d_extern.test h5ex_d_compact.test \
+h5ex_d_unlimadd.test h5ex_d_unlimmod.test h5ex_d_unlimgzip.test \
+h5ex_d_checksum.test h5ex_d_shuffle.test h5ex_d_fillval.test h5ex_d_alloc.test \
+test.sh
 
-if H5D
-DO_H5D=H5D
-endif
-
-SUBDIRS = $(DO_H5G) $(DO_H5D) $(DO_H5T)
+AM_CPPFLAGS = '-D H5_USE_16_API'
+TESTS_ENVIRONMENT = sh
+TESTS = test.sh

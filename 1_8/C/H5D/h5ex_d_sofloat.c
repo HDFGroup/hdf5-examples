@@ -54,7 +54,7 @@ main (void)
         printf ("Scale-Offset filter not available.\n");
         return 1;
     }
-    status = H5Zget_filter_info (H5Z_FILTER_SCALEOFFSET,&filter_info);
+    status = H5Zget_filter_info (H5Z_FILTER_SCALEOFFSET, &filter_info);
     if ( !(filter_info & H5Z_FILTER_CONFIG_ENCODE_ENABLED) ||
                 !(filter_info & H5Z_FILTER_CONFIG_DECODE_ENABLED) ) {
         printf ("Scale-Offset filter not available for encoding and decoding.\n");

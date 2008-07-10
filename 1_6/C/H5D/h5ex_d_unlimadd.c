@@ -1,16 +1,15 @@
 /************************************************************
 
   This example shows how to create and extend an unlimited
-  dataset with gzip compression.  The program first writes
-  integers to a gzip compressed dataset with dataspace
-  dimensions of DIM0xDIM1, then closes the file.  Next, it
-  reopens the file, reads back the data, outputs it to the
-  screen, extends the dataset, and writes new data to the
-  extended portions of the dataset.  Finally it reopens the
-  file again, reads back the data, and outputs it to the
-  screen.
+  dataset.  The program first writes integers to a dataset
+  with dataspace dimensions of DIM0xDIM1, then closes the
+  file.  Next, it reopens the file, reads back the data,
+  outputs it to the screen, extends the dataset, and writes
+  new data to the extended portions of the dataset.  Finally
+  it reopens the file again, reads back the data, and
+  outputs it to the screen.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library verion 1.6
 
  ************************************************************/
 
@@ -18,7 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FILE            "h5ex_d_unlimgzip.h5"
+#define FILE            "h5ex_d_unlimadd.h5"
 #define DATASET         "DS1"
 #define DIM0            4
 #define DIM1            7
@@ -32,42 +31,18 @@ main (void)
 {
     hid_t           file, space, dset, dcpl;    /* Handles */
     herr_t          status;
-    htri_t          avail;
-    H5Z_filter_t    filter_type;
     hsize_t         dims[2] = {DIM0, DIM1},
                     extdims[2] = {EDIM0, EDIM1},
                     maxdims[2],
                     chunk[2] = {CHUNK0, CHUNK1},
                     start[2],
                     count[2];
-    size_t          nelmts;
-    unsigned int    flags,
-                    filter_info;
     int             wdata[DIM0][DIM1],          /* Write buffer */
                     wdata2[EDIM0][EDIM1],       /* Write buffer for
                                                    extension */
                     **rdata,                    /* Read buffer */
                     ndims,
                     i, j;
-
-    /*
-     * Check if gzip compression is available and can be used for both
-     * compression and decompression.  Normally we do not perform error
-     * checking in these examples for the sake of clarity, but in this
-     * case we will make an exception because this filter is an
-     * optional part of the hdf5 library.
-     */
-    avail = H5Zfilter_avail(H5Z_FILTER_DEFLATE);
-    if (!avail) {
-        printf ("gzip filter not available.\n");
-        return 1;
-    }
-    status = H5Zget_filter_info (H5Z_FILTER_DEFLATE, &filter_info);
-    if ( !(filter_info & H5Z_FILTER_CONFIG_ENCODE_ENABLED) ||
-                !(filter_info & H5Z_FILTER_CONFIG_DECODE_ENABLED) ) {
-        printf ("gzip filter not available for encoding and decoding.\n");
-        return 1;
-    }
 
     /*
      * Initialize data.
@@ -89,18 +64,16 @@ main (void)
     space = H5Screate_simple (2, dims, maxdims);
 
     /*
-     * Create the dataset creation property list, add the gzip
-     * compression filter and set the chunk size.
+     * Create the dataset creation property list, and set the chunk
+     * size.
      */
     dcpl = H5Pcreate (H5P_DATASET_CREATE);
-    status = H5Pset_deflate (dcpl, 9);
     status = H5Pset_chunk (dcpl, 2, chunk);
 
     /*
-     * Create the compressed unlimited dataset.
+     * Create the unlimited dataset.
      */
-    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, H5P_DEFAULT, dcpl,
-                H5P_DEFAULT);
+    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, dcpl);
 
     /*
      * Write the data to the dataset.
@@ -126,7 +99,7 @@ main (void)
      * Open file and dataset using the default properties.
      */
     file = H5Fopen (FILE, H5F_ACC_RDWR, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
+    dset = H5Dopen (file, DATASET);
 
     /*
      * Get dataspace and allocate memory for read buffer.  This is a
@@ -174,7 +147,7 @@ main (void)
     /*
      * Extend the dataset.
      */
-    status = H5Dset_extent (dset, extdims);
+    status = H5Dextend (dset, extdims);
 
     /*
      * Retrieve the dataspace for the newly extended dataset.
@@ -229,40 +202,7 @@ main (void)
      * Open file and dataset using the default properties.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
-
-    /*
-     * Retrieve dataset creation property list.
-     */
-    dcpl = H5Dget_create_plist (dset);
-
-    /*
-     * Retrieve and print the filter type.  Here we only retrieve the
-     * first filter because we know that we only added one filter.
-     */
-    nelmts = 0;
-    filter_type = H5Pget_filter (dcpl, 0, &flags, &nelmts, NULL, 0, NULL,
-                &filter_info);
-    printf ("\nFilter type is: ");
-    switch (filter_type) {
-        case H5Z_FILTER_DEFLATE:
-            printf ("H5Z_FILTER_DEFLATE\n");
-            break;
-        case H5Z_FILTER_SHUFFLE:
-            printf ("H5Z_FILTER_SHUFFLE\n");
-            break;
-        case H5Z_FILTER_FLETCHER32:
-            printf ("H5Z_FILTER_FLETCHER32\n");
-            break;
-        case H5Z_FILTER_SZIP:
-            printf ("H5Z_FILTER_SZIP\n");
-            break;
-        case H5Z_FILTER_NBIT:
-            printf ("H5Z_FILTER_NBIT\n");
-            break;
-        case H5Z_FILTER_SCALEOFFSET:
-            printf ("H5Z_FILTER_SCALEOFFSET\n");
-    }
+    dset = H5Dopen (file, DATASET);
 
     /*
      * Get dataspace and allocate memory for the read buffer as before.
@@ -283,7 +223,7 @@ main (void)
     /*
      * Output the data to the screen.
      */
-    printf ("Dataset after extension:\n");
+    printf ("\nDataset after extension:\n");
     for (i=0; i<dims[0]; i++) {
         printf (" [");
         for (j=0; j<dims[1]; j++)
@@ -296,7 +236,6 @@ main (void)
      */
     free (rdata[0]);
     free(rdata);
-    status = H5Pclose (dcpl);
     status = H5Dclose (dset);
     status = H5Sclose (space);
     status = H5Fclose (file);

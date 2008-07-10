@@ -10,7 +10,7 @@
   file again, reads back the data, and outputs it to the
   screen.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library verion 1.6
 
  ************************************************************/
 
@@ -99,8 +99,7 @@ main (void)
     /*
      * Create the compressed unlimited dataset.
      */
-    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, H5P_DEFAULT, dcpl,
-                H5P_DEFAULT);
+    dset = H5Dcreate (file, DATASET, H5T_STD_I32LE, space, dcpl);
 
     /*
      * Write the data to the dataset.
@@ -126,7 +125,7 @@ main (void)
      * Open file and dataset using the default properties.
      */
     file = H5Fopen (FILE, H5F_ACC_RDWR, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
+    dset = H5Dopen (file, DATASET);
 
     /*
      * Get dataspace and allocate memory for read buffer.  This is a
@@ -174,7 +173,7 @@ main (void)
     /*
      * Extend the dataset.
      */
-    status = H5Dset_extent (dset, extdims);
+    status = H5Dextend (dset, extdims);
 
     /*
      * Retrieve the dataspace for the newly extended dataset.
@@ -229,7 +228,7 @@ main (void)
      * Open file and dataset using the default properties.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET, H5P_DEFAULT);
+    dset = H5Dopen (file, DATASET);
 
     /*
      * Retrieve dataset creation property list.
@@ -241,8 +240,7 @@ main (void)
      * first filter because we know that we only added one filter.
      */
     nelmts = 0;
-    filter_type = H5Pget_filter (dcpl, 0, &flags, &nelmts, NULL, 0, NULL,
-                &filter_info);
+    filter_type = H5Pget_filter (dcpl, 0, &flags, &nelmts, NULL, 0, NULL);
     printf ("\nFilter type is: ");
     switch (filter_type) {
         case H5Z_FILTER_DEFLATE:
@@ -256,12 +254,6 @@ main (void)
             break;
         case H5Z_FILTER_SZIP:
             printf ("H5Z_FILTER_SZIP\n");
-            break;
-        case H5Z_FILTER_NBIT:
-            printf ("H5Z_FILTER_NBIT\n");
-            break;
-        case H5Z_FILTER_SCALEOFFSET:
-            printf ("H5Z_FILTER_SCALEOFFSET\n");
     }
 
     /*

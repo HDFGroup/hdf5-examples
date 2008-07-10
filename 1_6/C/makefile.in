@@ -65,7 +65,7 @@ RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	uninstall-recursive
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = H5G H5T
+DIST_SUBDIRS = H5G H5D H5T
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMDEP_FALSE = @AMDEP_FALSE@
@@ -148,7 +148,8 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 @H5G_TRUE@DO_H5G = H5G
 @H5T_TRUE@DO_H5T = H5T
-SUBDIRS = $(DO_H5G) $(DO_H5T)
+@H5D_TRUE@DO_H5D = H5D
+SUBDIRS = $(DO_H5G) $(DO_H5D) $(DO_H5T)
 all: all-recursive
 
 .SUFFIXES:

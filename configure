@@ -2770,7 +2770,7 @@ fi
 
 
 # Set subdirectories
-                                                                                                    ac_config_files="$ac_config_files makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile 1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile 1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile"
+                                                                                                              ac_config_files="$ac_config_files makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile 1_6/C/H5D/makefile 1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile 1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile"
 
 
 # Configure
@@ -3388,6 +3388,7 @@ do
   "1_6/makefile" ) CONFIG_FILES="$CONFIG_FILES 1_6/makefile" ;;
   "1_6/C/makefile" ) CONFIG_FILES="$CONFIG_FILES 1_6/C/makefile" ;;
   "1_6/C/H5G/makefile" ) CONFIG_FILES="$CONFIG_FILES 1_6/C/H5G/makefile" ;;
+  "1_6/C/H5D/makefile" ) CONFIG_FILES="$CONFIG_FILES 1_6/C/H5D/makefile" ;;
   "1_6/C/H5T/makefile" ) CONFIG_FILES="$CONFIG_FILES 1_6/C/H5T/makefile" ;;
   "1_8/makefile" ) CONFIG_FILES="$CONFIG_FILES 1_8/makefile" ;;
   "1_8/C/makefile" ) CONFIG_FILES="$CONFIG_FILES 1_8/C/makefile" ;;
