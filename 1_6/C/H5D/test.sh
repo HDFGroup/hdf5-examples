@@ -13,6 +13,14 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+
+case $CC in
+*/*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
+        test -x $H5DUMP || H5DUMP=h5dump;;
+*)      H5DUMP=h5dump;;
+esac
+
+
 case `echo "testing\c"; echo 1,2,3`,`echo -n testing; echo 1,2,3` in
   *c*,-n*) ECHO_N= ECHO_C='
 ' ;;
@@ -39,7 +47,7 @@ do
     then
         echo "  Unsupported feature"
     else
-        h5dump $fname.h5>>tmp.test
+        $H5DUMP $fname.h5>>tmp.test
         rm -f $fname.h5
         cmp -s tmp.test $srcdir/$fname.test
         status=$?

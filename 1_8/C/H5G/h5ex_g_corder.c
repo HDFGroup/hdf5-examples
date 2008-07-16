@@ -80,7 +80,7 @@ main (void)
         /*
          * Allocate storage for name.
          */
-        name = malloc (size);
+        name = (char *) malloc (size);
 
         /*
          * Retrieve name, print it, and free the previously allocated
@@ -108,7 +108,7 @@ main (void)
         /*
          * Allocate storage for name.
          */
-        name = malloc (size);
+        name = (char *) malloc (size);
 
         /*
          * Retrieve name, print it, and free the previously allocated

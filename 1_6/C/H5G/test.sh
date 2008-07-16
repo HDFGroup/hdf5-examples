@@ -13,6 +13,14 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+
+case $CC in
+*/*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
+        test -x $H5DUMP || H5DUMP=h5dump;;
+*)      H5DUMP=h5dump;;
+esac
+
+
 case `echo "testing\c"; echo 1,2,3`,`echo -n testing; echo 1,2,3` in
   *c*,-n*) ECHO_N= ECHO_C='
 ' ;;
@@ -27,7 +35,7 @@ return_val=0
 
 $ECHO_N "Testing 1_6/C/H5G/h5ex_g_create...$ECHO_C"
 ./h5ex_g_create
-h5dump h5ex_g_create.h5>tmp.test
+$H5DUMP h5ex_g_create.h5>tmp.test
 rm -f h5ex_g_create.h5
 cmp -s tmp.test $srcdir/h5ex_g_create.test
 status=$?

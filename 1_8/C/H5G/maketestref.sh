@@ -13,8 +13,14 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+case $CC in
+*/*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
+        test -x $H5DUMP || H5DUMP=h5dump;;
+*)      H5DUMP=h5dump;;
+esac
+
 ./h5ex_g_create
-h5dump h5ex_g_create.h5>h5ex_g_create.test
+$H5DUMP h5ex_g_create.h5>h5ex_g_create.test
 rm -f h5ex_g_create.h5
 
 ./h5ex_g_iterate>h5ex_g_iterate.test

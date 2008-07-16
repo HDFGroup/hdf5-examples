@@ -138,7 +138,7 @@ main (void)
          * the name.
          */
         size = 1 + H5Iget_name (obj, NULL, 0);
-        name = malloc (size);
+        name = (char *) malloc (size);
         size = H5Iget_name (obj, name, size);
 
         /*

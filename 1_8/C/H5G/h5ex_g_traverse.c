@@ -115,7 +115,9 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
              * symbolic links, and H5Oget_info_by_name always follows
              * symbolic links.  Alternatively we could use H5Lget_info
              * and never recurse on groups discovered by symbolic
-             * links.
+             * links, however it could still fail if an object's
+             * reference count was manually manipulated with
+             * H5Odecr_refcount.
              */
             if ( group_check (od, infobuf.addr) ) {
                 printf ("%*s  Warning: Loop detected!\n", spaces, "");

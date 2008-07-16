@@ -136,7 +136,7 @@ main (void)
          */
         size = 1 + H5Iget_name (obj, NULL, 0);
         if (size > 1) {
-            name = malloc (size);
+            name = (char *) malloc (size);
             size = 1 + H5Iget_name (obj, name, size);
         }
 

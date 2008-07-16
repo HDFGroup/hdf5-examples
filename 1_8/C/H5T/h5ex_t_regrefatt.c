@@ -157,7 +157,7 @@ main (void)
          * retrieve the name.
          */
         size = 1 + H5Iget_name (dset2, NULL, 0);
-        name = malloc (size);
+        name = (char *) malloc (size);
         size = H5Iget_name (dset2, name, size);
 
         /*
@@ -166,7 +166,7 @@ main (void)
          * read buffer will be 1-dimensional.
          */
         npoints = H5Sget_select_npoints (space);
-        rdata2 = malloc (npoints + 1);
+        rdata2 = (char *) malloc (npoints + 1);
 
         /*
          * Read the dataset region, and add a null terminator so we can
