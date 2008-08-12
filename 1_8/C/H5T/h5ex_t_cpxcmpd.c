@@ -65,7 +65,7 @@ main (void)
 {
     hid_t       file, vehicletype, colortype, sensortype, sensorstype, loctype,
                 strtype, rvehicletype, rsensortype, rsensorstype, space, dset,
-                group1, group2;
+                group;
                                             /* Handles */
     herr_t      status;
     hsize_t     dims[1] = {DIM0},
@@ -105,10 +105,12 @@ main (void)
     /*
      * Create groups to use for object references.
      */
-    group1 = H5Gcreate (file, "Land_Vehicles", H5P_DEFAULT, H5P_DEFAULT,
+    group = H5Gcreate (file, "Land_Vehicles", H5P_DEFAULT, H5P_DEFAULT,
                 H5P_DEFAULT);
-    group2 = H5Gcreate (file, "Air_Vehicles", H5P_DEFAULT, H5P_DEFAULT,
+    status = H5Gclose (group);
+    group = H5Gcreate (file, "Air_Vehicles", H5P_DEFAULT, H5P_DEFAULT,
                 H5P_DEFAULT);
+    status = H5Gclose (group);
 
     /*
      * Initialize variable-length compound in the first data element.
@@ -158,7 +160,7 @@ main (void)
     wdata[1].sensors.p = (void *) ptr;
 
     /*
-     * Initialize other fields in the seconnd data element.
+     * Initialize other fields in the second data element.
      */
     wdata[1].name = "Automobile";
     wdata[1].color = RED;

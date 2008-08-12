@@ -40,7 +40,7 @@ return_val=0
 for topic in $topics
 do
     fname=h5ex_d_$topic
-    $ECHO_N "Testing 1.8/C/H5D/$fname...$ECHO_C"
+    $ECHO_N "Testing 1_8/C/H5D/$fname...$ECHO_C"
     ./$fname>tmp.test
     status=$?
     if test $status -eq 1
@@ -70,7 +70,7 @@ rm -f h5ex_d_extern.data
 
 
 fname=h5ex_d_transform
-$ECHO_N "Testing 1.8/C/H5D/$fname...$ECHO_C"
+$ECHO_N "Testing 1_8/C/H5D/$fname...$ECHO_C"
 ./$fname>tmp.test
 status=$?
 if test $status -eq 1

@@ -1,7 +1,7 @@
 /************************************************************
 
   This example shows how to read and write opaque datatypes
-  to an attriobute.  The program first writes opaque data to
+  to an attribute.  The program first writes opaque data to
   an attribute with a dataspace of DIM0, then closes the
   file. Next, it reopens the file, reads back the data, and
   outputs it to the screen.
@@ -87,7 +87,7 @@ main (void)
 
     /*
      * Now we begin the read section of this example.  Here we assume
-     * the dataset has the same name and rank, but can have any size.
+     * the attribute has the same name and rank, but can have any size.
      * Therefore we must allocate a new array to read in data using
      * malloc().
      */

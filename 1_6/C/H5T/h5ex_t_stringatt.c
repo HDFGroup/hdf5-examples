@@ -1,8 +1,8 @@
 /************************************************************
 
   This example shows how to read and write string datatypes
-  to a dataset.  The program first writes strings to a
-  dataset with a dataspace of DIM0, then closes the file.
+  to an attribute.  The program first writes strings to an
+  attribute with a dataspace of DIM0, then closes the file.
   Next, it reopens the file, reads back the data, and
   outputs it to the screen.
 

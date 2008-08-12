@@ -62,7 +62,8 @@ main (void)
     space = H5Screate_simple (1, dims, NULL);
 
     /*
-     * Create the dataset and write the variable-length string data to it.
+     * Create the attribute and write the variable-length string data
+     * to it.
      */
     attr = H5Acreate (dset, ATTRIBUTE, filetype, space, H5P_DEFAULT,
                 H5P_DEFAULT);
@@ -81,7 +82,7 @@ main (void)
 
     /*
      * Now we begin the read section of this example.  Here we assume
-     * the dataset has the same name and rank, but can have any size.
+     * the attribute has the same name and rank, but can have any size.
      * Therefore we must allocate a new array to read in data using
      * malloc().
      */

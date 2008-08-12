@@ -1,9 +1,9 @@
 /************************************************************
 
   This example shows how to read and write region references
-  to a dataset.  The program first creates a dataset
+  to an attribute.  The program first creates a dataset
   containing characters and writes references to region of
-  the dataset to a new dataset with a dataspace of DIM0,
+  the dataset to a new attribute with a dataspace of DIM0,
   then closes the file.  Next, it reopens the file,
   dereferences the references, and outputs the referenced
   regions to the screen.

@@ -41,7 +41,7 @@ return_val=0
 for topic in $topics
 do
     fname=h5ex_t_$topic
-    $ECHO_N "Testing 1.6/C/H5T/$fname...$ECHO_C"
+    $ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
     ./$fname>tmp.test
     $H5DUMP $fname.h5>>tmp.test
     rm -f $fname.h5
@@ -60,7 +60,7 @@ done
 #######Non-standard tests#######
 
 fname=h5ex_t_cpxcmpd
-$ECHO_N "Testing 1.6/C/H5T/$fname...$ECHO_C"
+$ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
 ./$fname>tmp.test
 $H5DUMP -n $fname.h5>>tmp.test
 rm -f $fname.h5
@@ -76,7 +76,7 @@ return_val=`expr $status + $return_val`
 
 
 fname=h5ex_t_cpxcmpdatt
-$ECHO_N "Testing 1.6/C/H5T/$fname...$ECHO_C"
+$ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
 ./$fname>tmp.test
 $H5DUMP -n $fname.h5>>tmp.test
 rm -f $fname.h5
@@ -92,7 +92,7 @@ return_val=`expr $status + $return_val`
 
 
 fname=h5ex_t_convert
-$ECHO_N "Testing 1.6/C/H5T/$fname...$ECHO_C"
+$ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
 ./$fname>tmp.test
 cmp -s tmp.test $srcdir/$fname.test
 status=$?

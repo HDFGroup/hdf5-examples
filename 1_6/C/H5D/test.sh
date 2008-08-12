@@ -40,7 +40,7 @@ return_val=0
 for topic in $topics
 do
     fname=h5ex_d_$topic
-    $ECHO_N "Testing 1.6/C/H5D/$fname...$ECHO_C"
+    $ECHO_N "Testing 1_6/C/H5D/$fname...$ECHO_C"
     ./$fname>tmp.test
     status=$?
     if test $status -eq 1

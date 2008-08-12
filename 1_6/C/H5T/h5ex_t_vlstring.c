@@ -52,7 +52,8 @@ main (void)
     space = H5Screate_simple (1, dims, NULL);
 
     /*
-     * Create the dataset and write the variable-length string data to it.
+     * Create the dataset and write the variable-length string data to
+     * it.
      */
     dset = H5Dcreate (file, DATASET, filetype, space, H5P_DEFAULT);
     status = H5Dwrite (dset, memtype, H5S_ALL, H5S_ALL, H5P_DEFAULT, wdata);

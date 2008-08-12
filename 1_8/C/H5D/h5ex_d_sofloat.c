@@ -3,10 +3,10 @@
   This example shows how to read and write data to a dataset
   using the Scale-Offset filter.  The program first checks
   if the Scale-Offset filter is available, then if it is it
-  writes integers to a dataset using Scale-Offset, then
-  closes the file Next, it reopens the file, reads back the
-  data, and outputs the type of filter and the maximum value
-  in the dataset to the screen.
+  writes floating point numbers to a dataset using
+  Scale-Offset, then closes the file Next, it reopens the
+  file, reads back the data, and outputs the type of filter
+  and the maximum value in the dataset to the screen.
 
   This file is intended for use with HDF5 Library verion 1.8
 
