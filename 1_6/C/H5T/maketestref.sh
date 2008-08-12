@@ -27,6 +27,32 @@ case `echo "testing\c"; echo 1,2,3`,`echo -n testing; echo 1,2,3` in
 esac
 ECHO_N="echo $ECHO_N"
 
+exout() {
+    echo '*******************************'
+    echo '*  Output of example program  *'
+    echo '*******************************'
+    echo
+    $*
+}
+
+dumpout() {
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+dumpout2() {
+    echo
+    echo
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
 cmpd cmpdatt objref objrefatt regref regrefatt commit"
@@ -35,8 +61,8 @@ for topic in $topics
 do
     fname=h5ex_t_$topic
     $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-    ./$fname>$fname.test
-    $H5DUMP $fname.h5>>$fname.test
+    exout ./$fname >$fname.test
+    dumpout2 $fname.h5 >>$fname.test
     rm -f $fname.h5
     echo "  Done."
 done
@@ -45,19 +71,19 @@ done
 
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-./$fname>$fname.test
-$H5DUMP -n $fname.h5>>$fname.test
+exout ./$fname >$fname.test
+dumpout2 -n $fname.h5 >>$fname.test
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_cpxcmpdatt
 $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-./$fname>$fname.test
-$H5DUMP -n $fname.h5>>$fname.test
+exout ./$fname >$fname.test
+dumpout2 -n $fname.h5 >>$fname.test
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_convert
 $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-./$fname>$fname.test
+exout ./$fname >$fname.test
 echo "  Done."

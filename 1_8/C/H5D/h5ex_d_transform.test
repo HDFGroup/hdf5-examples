@@ -1,3 +1,7 @@
+*******************************
+*  Output of example program  *
+*******************************
+
 Original Data:
  [   0  -1  -2  -3  -4  -5  -6]
  [   0   0   0   0   0   0   0]
@@ -15,6 +19,12 @@ Data as written with transform "x+1" and read with transform "x-1":
  [   0   0   0   0   0   0   0]
  [   0   1   2   3   4   5   6]
  [   0   2   4   6   8  10  12]
+
+
+**********************
+*  Output of h5dump  *
+**********************
+
 HDF5 "h5ex_d_transform.h5" {
 FILE_CONTENTS {
  group      /

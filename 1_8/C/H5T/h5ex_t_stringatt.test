@@ -1,7 +1,17 @@
+*******************************
+*  Output of example program  *
+*******************************
+
 A1[0]: Parting
 A1[1]: is such
 A1[2]: sweet
 A1[3]: sorrow.
+
+
+**********************
+*  Output of h5dump  *
+**********************
+
 HDF5 "h5ex_t_stringatt.h5" {
 GROUP "/" {
    DATASET "DS1" {

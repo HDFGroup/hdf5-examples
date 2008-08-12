@@ -19,10 +19,36 @@ case $CC in
 *)      H5DUMP=h5dump;;
 esac
 
+exout() {
+    echo '*******************************'
+    echo '*  Output of example program  *'
+    echo '*******************************'
+    echo
+    $*
+}
+
+dumpout() {
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+dumpout2() {
+    echo
+    echo
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
 ./h5ex_g_create
-$H5DUMP h5ex_g_create.h5>h5ex_g_create.test
+dumpout  h5ex_g_create.h5 >h5ex_g_create.test
 rm -f h5ex_g_create.h5
 
-./h5ex_g_iterate>h5ex_g_iterate.test
+exout ./h5ex_g_iterate >h5ex_g_iterate.test
 
-./h5ex_g_traverse>h5ex_g_traverse.test
+exout ./h5ex_g_traverse >h5ex_g_traverse.test

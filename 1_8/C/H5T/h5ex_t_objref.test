@@ -1,7 +1,17 @@
+*******************************
+*  Output of example program  *
+*******************************
+
 DS1[0]:
   ->Group: /G1
 DS1[1]:
   ->Dataset: /DS2
+
+
+**********************
+*  Output of h5dump  *
+**********************
+
 HDF5 "h5ex_t_objref.h5" {
 GROUP "/" {
    DATASET "DS1" {

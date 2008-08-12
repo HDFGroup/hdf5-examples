@@ -1,3 +1,7 @@
+*******************************
+*  Output of example program  *
+*******************************
+
 Dataset before being written to:
  [  99  99  99  99  99  99  99]
  [  99  99  99  99  99  99  99]
@@ -17,6 +21,12 @@ Dataset after extension:
  [   0   2   4   6   8  10  12  99  99  99]
  [  99  99  99  99  99  99  99  99  99  99]
  [  99  99  99  99  99  99  99  99  99  99]
+
+
+**********************
+*  Output of h5dump  *
+**********************
+
 HDF5 "h5ex_d_fillval.h5" {
 GROUP "/" {
    DATASET "DS1" {

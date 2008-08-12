@@ -30,6 +30,33 @@ esac
 ECHO_N="echo $ECHO_N"
 
 
+exout() {
+    echo '*******************************'
+    echo '*  Output of example program  *'
+    echo '*******************************'
+    echo
+    $*
+}
+
+dumpout() {
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+dumpout2() {
+    echo
+    echo
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
 cmpd cmpdatt objref objrefatt regref regrefatt"
@@ -42,8 +69,8 @@ for topic in $topics
 do
     fname=h5ex_t_$topic
     $ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
-    ./$fname>tmp.test
-    $H5DUMP $fname.h5>>tmp.test
+    exout ./$fname >tmp.test
+    dumpout2 $fname.h5 >>tmp.test
     rm -f $fname.h5
     cmp -s tmp.test $srcdir/$fname.test
     status=$?
@@ -61,8 +88,8 @@ done
 
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
-./$fname>tmp.test
-$H5DUMP -n $fname.h5>>tmp.test
+exout ./$fname >tmp.test
+dumpout2 -n $fname.h5 >>tmp.test
 rm -f $fname.h5
 cmp -s tmp.test $srcdir/$fname.test
 status=$?
@@ -77,8 +104,8 @@ return_val=`expr $status + $return_val`
 
 fname=h5ex_t_cpxcmpdatt
 $ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
-./$fname>tmp.test
-$H5DUMP -n $fname.h5>>tmp.test
+exout ./$fname >tmp.test
+dumpout2 -n $fname.h5 >>tmp.test
 rm -f $fname.h5
 cmp -s tmp.test $srcdir/$fname.test
 status=$?
@@ -93,7 +120,7 @@ return_val=`expr $status + $return_val`
 
 fname=h5ex_t_convert
 $ECHO_N "Testing 1_6/C/H5T/$fname...$ECHO_C"
-./$fname>tmp.test
+exout ./$fname >tmp.test
 cmp -s tmp.test $srcdir/$fname.test
 status=$?
 if test $status -ne 0

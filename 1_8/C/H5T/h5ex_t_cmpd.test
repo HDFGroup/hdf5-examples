@@ -1,3 +1,7 @@
+*******************************
+*  Output of example program  *
+*******************************
+
 DS1[0]:
 Serial number   : 1153
 Location        : Exterior (static)
@@ -21,6 +25,12 @@ Serial number   : 1313
 Location        : Exhaust manifold
 Temperature (F) : 1252.890000
 Pressure (inHg) : 84.110000
+
+
+
+**********************
+*  Output of h5dump  *
+**********************
 
 HDF5 "h5ex_t_cmpd.h5" {
 GROUP "/" {

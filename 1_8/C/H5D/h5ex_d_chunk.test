@@ -1,3 +1,7 @@
+*******************************
+*  Output of example program  *
+*******************************
+
 Original Data:
  [   1   1   1   1   1   1   1   1]
  [   1   1   1   1   1   1   1   1]
@@ -23,6 +27,12 @@ Data as read from disk by hyperslab:
  [   0   0   0   0   0   0   0   0]
  [   0   1   0   1   0   0   1   1]
  [   0   0   0   0   0   0   0   0]
+
+
+**********************
+*  Output of h5dump  *
+**********************
+
 HDF5 "h5ex_d_chunk.h5" {
 GROUP "/" {
    DATASET "DS1" {

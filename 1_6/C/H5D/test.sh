@@ -30,6 +30,33 @@ esac
 ECHO_N="echo $ECHO_N"
 
 
+exout() {
+    echo '*******************************'
+    echo '*  Output of example program  *'
+    echo '*******************************'
+    echo
+    $*
+}
+
+dumpout() {
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+dumpout2() {
+    echo
+    echo
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+
 topics="rdwr hyper chunk gzip szip extern compact unlimadd unlimmod unlimgzip \
 checksum shuffle fillval alloc"
 
@@ -41,13 +68,13 @@ for topic in $topics
 do
     fname=h5ex_d_$topic
     $ECHO_N "Testing 1_6/C/H5D/$fname...$ECHO_C"
-    ./$fname>tmp.test
+    exout ./$fname >tmp.test
     status=$?
     if test $status -eq 1
     then
         echo "  Unsupported feature"
     else
-        $H5DUMP $fname.h5>>tmp.test
+        dumpout2 $fname.h5 >>tmp.test
         rm -f $fname.h5
         cmp -s tmp.test $srcdir/$fname.test
         status=$?

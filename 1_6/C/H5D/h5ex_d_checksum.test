@@ -1,5 +1,15 @@
+*******************************
+*  Output of example program  *
+*******************************
+
 Filter type is: H5Z_FILTER_FLETCHER32
 Maximum value in DS1 is: 1890
+
+
+**********************
+*  Output of h5dump  *
+**********************
+
 HDF5 "h5ex_d_checksum.h5" {
 GROUP "/" {
    DATASET "DS1" {

@@ -30,12 +30,39 @@ esac
 ECHO_N="echo $ECHO_N"
 
 
+exout() {
+    echo '*******************************'
+    echo '*  Output of example program  *'
+    echo '*******************************'
+    echo
+    $*
+}
+
+dumpout() {
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+dumpout2() {
+    echo
+    echo
+    echo '**********************'
+    echo '*  Output of h5dump  *'
+    echo '**********************'
+    echo
+    $H5DUMP $*
+}
+
+
 return_val=0
 
 
 $ECHO_N "Testing 1.8/C/H5G/h5ex_g_create...$ECHO_C"
 ./h5ex_g_create
-$H5DUMP h5ex_g_create.h5>tmp.test
+dumpout h5ex_g_create.h5 >tmp.test
 rm -f h5ex_g_create.h5
 cmp -s tmp.test $srcdir/h5ex_g_create.test
 status=$?
@@ -51,10 +78,10 @@ return_val=`expr $status + $return_val`
 $ECHO_N "Testing 1.8/C/H5G/h5ex_g_iterate...$ECHO_C"
 if test -f h5ex_g_iterate.h5
 then
-    ./h5ex_g_iterate>tmp.test
+    exout ./h5ex_g_iterate >tmp.test
 else
     cp $srcdir/h5ex_g_iterate.h5 h5ex_g_iterate.h5
-    ./h5ex_g_iterate>tmp.test
+    exout ./h5ex_g_iterate >tmp.test
     rm  -f h5ex_g_iterate.h5
 fi
 cmp -s tmp.test $srcdir/h5ex_g_iterate.test
@@ -71,10 +98,10 @@ return_val=`expr $status + $return_val`
 $ECHO_N "Testing 1_8/C/H5G/h5ex_g_traverse...$ECHO_C"
 if test -f h5ex_g_traverse.h5
 then
-    ./h5ex_g_traverse>tmp.test
+    exout ./h5ex_g_traverse >tmp.test
 else
     cp $srcdir/h5ex_g_traverse.h5 h5ex_g_traverse.h5
-    ./h5ex_g_traverse>tmp.test
+    exout ./h5ex_g_traverse >tmp.test
     rm  -f h5ex_g_traverse.h5
 fi
 cmp -s tmp.test $srcdir/h5ex_g_traverse.test
@@ -91,10 +118,10 @@ return_val=`expr $status + $return_val`
 $ECHO_N "Testing 1_8/C/H5G/h5ex_g_visit...$ECHO_C"
 if test -f h5ex_g_visit.h5
 then
-    ./h5ex_g_visit>tmp.test
+    exout ./h5ex_g_visit >tmp.test
 else
     cp $srcdir/h5ex_g_visit.h5 h5ex_g_visit.h5
-    ./h5ex_g_visit>tmp.test
+    exout ./h5ex_g_visit >tmp.test
     rm  -f h5ex_g_visit.h5
 fi
 cmp -s tmp.test $srcdir/h5ex_g_visit.test
@@ -109,9 +136,9 @@ return_val=`expr $status + $return_val`
 
 
 $ECHO_N "Testing 1_8/C/H5G/h5ex_g_compact...$ECHO_C"
-./h5ex_g_compact>/dev/null
-h5dump h5ex_g_compact1.h5>tmp.test
-h5dump h5ex_g_compact2.h5>>tmp.test
+./h5ex_g_compact >/dev/null
+dumpout h5ex_g_compact1.h5 >tmp.test
+dumpout2 h5ex_g_compact2.h5 >>tmp.test
 cmp -s tmp.test $srcdir/h5ex_g_compact.test
 status=$?
 if test $status -ne 0
@@ -126,7 +153,7 @@ rm -f h5ex_g_compact2.h5
 
 
 $ECHO_N "Testing 1_8/C/H5G/h5ex_g_phase...$ECHO_C"
-./h5ex_g_phase>tmp.test
+exout ./h5ex_g_phase >tmp.test
 cmp -s tmp.test $srcdir/h5ex_g_phase.test
 status=$?
 if test $status -ne 0
@@ -140,7 +167,7 @@ rm -f h5ex_g_phase.h5
 
 
 $ECHO_N "Testing 1_8/C/H5G/h5ex_g_corder...$ECHO_C"
-./h5ex_g_corder>tmp.test
+exout ./h5ex_g_corder >tmp.test
 cmp -s tmp.test $srcdir/h5ex_g_corder.test
 status=$?
 if test $status -ne 0
@@ -154,7 +181,7 @@ rm -f h5ex_g_corder.h5
 
 
 $ECHO_N "Testing 1_8/C/H5G/h5ex_g_intermediate...$ECHO_C"
-./h5ex_g_intermediate>tmp.test
+exout ./h5ex_g_intermediate >tmp.test
 cmp -s tmp.test $srcdir/h5ex_g_intermediate.test
 status=$?
 if test $status -ne 0
