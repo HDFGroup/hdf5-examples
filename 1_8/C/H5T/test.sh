@@ -59,7 +59,9 @@ dumpout2() {
 
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
-cmpd cmpdatt objref objrefatt regref regrefatt"
+objref objrefatt regref regrefatt"
+#disabled tests
+#cmpd cmpdatt (before objref)
 
 
 return_val=0

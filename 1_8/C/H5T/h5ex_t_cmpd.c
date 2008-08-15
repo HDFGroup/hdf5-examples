@@ -87,12 +87,12 @@ main (void)
      * the corresponding native types, we must manually calculate the
      * offset of each member.
      */
-    filetype = H5Tcreate (H5T_COMPOUND, 8 + sizeof (char *) + 8 + 8);
+    filetype = H5Tcreate (H5T_COMPOUND, 8 + sizeof (hvl_t) + 8 + 8);
     status = H5Tinsert (filetype, "Serial number", 0, H5T_STD_I64BE);
     status = H5Tinsert (filetype, "Location", 8, strtype);
-    status = H5Tinsert (filetype, "Temperature (F)", 8 + sizeof (char *),
+    status = H5Tinsert (filetype, "Temperature (F)", 8 + sizeof (hvl_t),
                 H5T_IEEE_F64BE);
-    status = H5Tinsert (filetype, "Pressure (inHg)", 8 + sizeof (char *) + 8,
+    status = H5Tinsert (filetype, "Pressure (inHg)", 8 + sizeof (hvl_t) + 8,
                 H5T_IEEE_F64BE);
 
     /*
