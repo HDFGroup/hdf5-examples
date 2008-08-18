@@ -18,8 +18,26 @@ AC_PREREQ(2.59)
 AC_INIT(HDF5-examples, 0.1, nfortne2@hdfgroup.org)
 AM_INIT_AUTOMAKE(HDF5-examples, 0.1)
 
+# Argument for static linking
+AC_ARG_ENABLE(shared,
+    [AS_HELP_STRING([--disable-shared],
+        [force static linking])],
+    [if test "$enableval" = "no"; then
+        shared_suffix=""
+        echo lo!
+    else
+        shared_suffix=" -shlib"
+    fi],
+    [shared_suffix=" -shlib"])
+
 # Sets compiler.
 AC_PROG_CC([h5cc])
+
+# Add the suffix to CC for shared linking.  Can't just set as an option
+# because it must be first.
+if test "$shared_suffix" && test ! `echo $CC | grep "$shared_suffix"`; then
+    CC=${CC}${shared_suffix}
+fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST

@@ -807,6 +807,7 @@ if test -n "$ac_init_help"; then
 Optional Features:
   --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --disable-shared        force static linking
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
 
@@ -1705,6 +1706,20 @@ am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
 
 
 
+# Argument for static linking
+# Check whether --enable-shared or --disable-shared was given.
+if test "${enable_shared+set}" = set; then
+  enableval="$enable_shared"
+  if test "$enableval" = "no"; then
+        shared_suffix=""
+        echo lo!
+    else
+        shared_suffix=" -shlib"
+    fi
+else
+  shared_suffix=" -shlib"
+fi;
+
 # Sets compiler.
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -2593,6 +2608,12 @@ else
 fi
 
 
+
+# Add the suffix to CC for shared linking.  Can't just set as an option
+# because it must be first.
+if test "$shared_suffix" && test ! `echo $CC | grep "$shared_suffix"`; then
+    CC=${CC}${shared_suffix}
+fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 

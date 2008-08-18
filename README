@@ -33,3 +33,6 @@ call to configure, e.g. `./configure H5EX_16=1'.  Alternatively you can
 default h5cc is not the correct version, you must set CC to the path to
 the correct h5cc.  Compiling only 1.6 examples with a 1.6 library
 should work, but make check may fail.
+
+- This package links dynamically with the hdf5 library by default.  To link
+statically use the --disable-shared option with configure.
