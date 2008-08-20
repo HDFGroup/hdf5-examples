@@ -18,6 +18,10 @@ AC_PREREQ(2.59)
 AC_INIT(HDF5-examples, 0.1, nfortne2@hdfgroup.org)
 AM_INIT_AUTOMAKE(HDF5-examples, 0.1)
 
+# Turn off automake rebuild rules so make doesn't try to run automake
+# (which probably won't work).
+AM_MAINTAINER_MODE
+
 # Argument for static linking
 AC_ARG_ENABLE(shared,
     [AS_HELP_STRING([--disable-shared],
