@@ -3,7 +3,7 @@
   This example shows how to create intermediate groups with
   a single call to H5Gcreate.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library version 1.8
 
  ************************************************************/
 

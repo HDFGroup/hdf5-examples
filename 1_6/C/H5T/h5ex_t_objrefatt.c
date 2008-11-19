@@ -7,7 +7,7 @@
   Next, it reopens the file, dereferences the references,
   and outputs the names of their targets to the screen.
 
-  This file is intended for use with HDF5 Library verion 1.6
+  This file is intended for use with HDF5 Library version 1.6
 
  ************************************************************/
 

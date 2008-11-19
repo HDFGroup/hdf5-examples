@@ -3,7 +3,7 @@
   This example shows how to iterate over group members using
   H5Literate.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library version 1.8
 
  ************************************************************/
 

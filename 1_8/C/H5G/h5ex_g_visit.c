@@ -7,7 +7,7 @@
   example implements the structure described in the User's
   Guide, chapter 4, figure 26.
 
-  This file is intended for use with HDF5 Library verion 1.8
+  This file is intended for use with HDF5 Library version 1.8
 
  ************************************************************/
 
