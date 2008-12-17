@@ -105,9 +105,7 @@ main (void)
     attr = H5Aopen_name (dset, ATTRIBUTE);
 
     /*
-     * Get dataspace and allocate memory for read buffer.  This is a
-     * two dimensional dataset so the dynamic allocation must be done
-     * in steps.
+     * Get dataspace and allocate memory for read buffer.
      */
     space = H5Aget_space (attr);
     ndims = H5Sget_simple_extent_dims (space, dims, NULL);

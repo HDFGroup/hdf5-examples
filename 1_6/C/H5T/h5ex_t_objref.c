@@ -95,9 +95,7 @@ main (void)
     dset = H5Dopen (file, DATASET);
 
     /*
-     * Get dataspace and allocate memory for read buffer.  This is a
-     * two dimensional dataset so the dynamic allocation must be done
-     * in steps.
+     * Get dataspace and allocate memory for read buffer.
      */
     space = H5Dget_space (dset);
     ndims = H5Sget_simple_extent_dims (space, dims, NULL);
