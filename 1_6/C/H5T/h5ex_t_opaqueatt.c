@@ -111,7 +111,7 @@ main (void)
     /*
      * Get dataspace and allocate memory for read buffer.
      */
-    space = H5Dget_space (dset);
+    space = H5Aget_space (attr);
     ndims = H5Sget_simple_extent_dims (space, dims, NULL);
     rdata = (char *) malloc (dims[0] * len);
 
