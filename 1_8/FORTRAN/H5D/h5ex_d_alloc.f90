@@ -75,6 +75,7 @@ PROGRAM main
   ! 
   ! Retrieve and print space status and storage size for dset1.
   !
+  storage_size = 0
   CALL h5dget_space_status_f(dset1, space_status, hdferr)
   CALL h5dget_storage_size_f(dset1, storage_size, hdferr)
   !

@@ -24,7 +24,7 @@ PROGRAM main
                           !   H5G_STORAGE_TYPE_SYMBOL_TABLE: Symbol tables
   INTEGER :: nlinks       ! Number of links in group
   INTEGER :: max_corder   ! Current maximum creation order value for group 
-  INTEGER(HSIZE_T) :: size  ! Size of name
+  INTEGER(SIZE_T) :: size  ! Size of name
   INTEGER(HSIZE_T) :: i     ! Index
   CHARACTER(LEN=80) :: name ! Output buffer
   !
