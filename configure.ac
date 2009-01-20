@@ -42,9 +42,6 @@ AC_PROG_FC([h5fc])
 if test "$shared_suffix" && test ! `echo $CC | grep "$shared_suffix"`; then
     CC=${CC}${shared_suffix}
 fi
-if test "$shared_suffix" && test ! `echo $FC | grep "$shared_suffix"`; then
-    FC=${FC}${shared_suffix}
-fi
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 

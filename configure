@@ -2887,9 +2887,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 if test "$shared_suffix" && test ! `echo $CC | grep "$shared_suffix"`; then
     CC=${CC}${shared_suffix}
 fi
-if test "$shared_suffix" && test ! `echo $FC | grep "$shared_suffix"`; then
-    FC=${FC}${shared_suffix}
-fi
 # Checks for typedefs, structures, and compiler characteristics.
 
 echo "$as_me:$LINENO: checking for an ANSI C-conforming const" >&5
