@@ -57,7 +57,7 @@ dumpout2() {
 }
 
 
-topics="rdwr hyper chunk gzip  extern compact unlimadd \
+topics="rdwr hyper chunk gzip  extern compact \
 unlimmod  checksum  fillval alloc"
 
 

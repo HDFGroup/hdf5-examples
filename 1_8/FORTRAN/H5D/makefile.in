@@ -201,7 +201,7 @@ h5ex_d_transform_SOURCES = h5ex_d_transform.f90
 EXTRA_DIST = h5ex_d_rdwr.test h5ex_d_hyper.test h5ex_d_chunk.test \
 h5ex_d_gzip.test   \
 h5ex_d_extern.test h5ex_d_compact.test \
-h5ex_d_unlimadd.test h5ex_d_unlimmod.test  \
+h5ex_d_unlimmod.test  \
 h5ex_d_checksum.test  h5ex_d_transform.test \
 h5ex_d_fillval.test h5ex_d_alloc.test test.sh
 
