@@ -36,13 +36,15 @@ AC_ARG_ENABLE(shared,
 
 # Sets compiler.
 AC_PROG_CC([h5cc])
-
+AC_PROG_FC([h5fc])
 # Add the suffix to CC for shared linking.  Can't just set as an option
 # because it must be first.
 if test "$shared_suffix" && test ! `echo $CC | grep "$shared_suffix"`; then
     CC=${CC}${shared_suffix}
 fi
-
+if test "$shared_suffix" && test ! `echo $FC | grep "$shared_suffix"`; then
+    FC=${FC}${shared_suffix}
+fi
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
@@ -69,7 +71,8 @@ AM_CONDITIONAL(H5T, test "$H5EX_T")
 # Set subdirectories
 AC_CONFIG_FILES([makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile \
 1_6/C/H5D/makefile 1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile \
-1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile])
+1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile 1_8/FORTRAN/makefile \
+1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5D/makefile ])
 
 # Configure
 AC_OUTPUT
