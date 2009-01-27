@@ -128,7 +128,7 @@ PROGRAM main
   !
   ! Write the data to the extended dataset.
   !
-  CALL h5dwrite_f(dset, H5T_NATIVE_INTEGER, wdata2, extdims, hdferr, file_space_id=space)
+  CALL h5dwrite_f(dset, H5T_NATIVE_INTEGER, wdata2, extdims, hdferr)
   !
   ! Close and release resources.
   !
