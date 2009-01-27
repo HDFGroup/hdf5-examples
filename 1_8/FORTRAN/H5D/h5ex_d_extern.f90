@@ -22,7 +22,7 @@ PROGRAM main
   CHARACTER(LEN=3) , PARAMETER :: dataset  = "DS1"
   INTEGER          , PARAMETER :: dim0     = 4
   INTEGER          , PARAMETER :: dim1     = 7
-  INTEGER          , PARAMETER :: name_buf_size = 32
+  INTEGER(SIZE_T)  , PARAMETER :: name_buf_size = 32
 
   INTEGER :: hdferr
   INTEGER :: layout

@@ -259,7 +259,7 @@
 1_8/FORTRAN/H5D/h5ex_d_compact.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_compact.test -text
 1_8/FORTRAN/H5D/h5ex_d_extern.f90 -text
-1_8/FORTRAN/H5D/h5ex_d_extern.test -text
+1_8/FORTRAN/H5D/h5ex_d_extern.test -text svneol=unset#application/octet-stream
 1_8/FORTRAN/H5D/h5ex_d_fillval.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_fillval.test -text
 1_8/FORTRAN/H5D/h5ex_d_gzip.f90 -text

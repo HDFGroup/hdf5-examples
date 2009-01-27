@@ -37,7 +37,7 @@ PROGRAM main
   INTEGER :: filter_id
   INTEGER :: filter_info_both
   INTEGER :: max, i, j
-  INTEGER, PARAMETER :: MaxChrLen = 80
+  INTEGER(SIZE_T), PARAMETER :: MaxChrLen = 80
   CHARACTER(LEN=MaxChrLen) :: name  
   !
   ! Initialize FORTRAN interface.

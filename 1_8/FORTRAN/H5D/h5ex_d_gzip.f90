@@ -36,7 +36,7 @@ PROGRAM main
   INTEGER, DIMENSION(1:dim0, 1:dim1) :: wdata, & ! Write buffer 
                                         rdata    ! Read buffer
   INTEGER :: max, i, j
-  INTEGER, PARAMETER :: MaxChrLen = 80
+  INTEGER(SIZE_T), PARAMETER :: MaxChrLen = 80
   CHARACTER(LEN=MaxChrLen) :: name
   !
   ! Initialize FORTRAN interface.
@@ -116,8 +116,7 @@ PROGRAM main
   ! Retrieve and print the filter type.  Here we only retrieve the
   ! first filter because we know that we only added one filter.
   !
-  
-  nelmts = 0
+  nelmts = 1
   CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, MaxChrLen, name, filter_id, hdferr)
   WRITE(*,'("Filter type is: ")', ADVANCE='NO')
   IF(filter_id.EQ.H5Z_FILTER_DEFLATE_F)THEN
