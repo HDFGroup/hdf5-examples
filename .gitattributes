@@ -273,7 +273,6 @@
 1_8/FORTRAN/H5D/h5ex_d_szip.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_transform.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_transform.test -text
-1_8/FORTRAN/H5D/h5ex_d_unlimadd.test -text
 1_8/FORTRAN/H5D/h5ex_d_unlimmod.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_unlimmod.test -text
 1_8/FORTRAN/H5D/makefile.am -text
