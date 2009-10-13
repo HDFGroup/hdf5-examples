@@ -55,8 +55,8 @@ exout ./h5ex_g_traverse >h5ex_g_traverse.test
 
 exout ./h5ex_g_visit >h5ex_g_visit.test
 
-./h5ex_g_compact >/dev/null
-dumpout h5ex_g_compact1.h5 >h5ex_g_compact.test
+exout ./h5ex_g_compact >h5ex_g_compact.test
+dumpout h5ex_g_compact1.h5 >>h5ex_g_compact.test
 dumpout2 h5ex_g_compact2.h5 >>h5ex_g_compact.test
 rm -f h5ex_g_compact1.h5
 rm -f h5ex_g_compact2.h5

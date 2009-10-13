@@ -136,8 +136,8 @@ return_val=`expr $status + $return_val`
 
 
 $ECHO_N "Testing 1_8/C/H5G/h5ex_g_compact...$ECHO_C"
-./h5ex_g_compact >/dev/null
-dumpout h5ex_g_compact1.h5 >tmp.test
+exout ./h5ex_g_compact >tmp.test
+dumpout h5ex_g_compact1.h5 >>tmp.test
 dumpout2 h5ex_g_compact2.h5 >>tmp.test
 cmp -s tmp.test $srcdir/h5ex_g_compact.test
 status=$?

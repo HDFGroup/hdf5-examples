@@ -113,6 +113,7 @@ main (void)
      */
     status = H5Fget_filesize (file, &size);
     printf ("File size for %s is: %d bytes\n", FILE2, size);
+    printf ("\n");
 
     /*
      * Close and release resources.
