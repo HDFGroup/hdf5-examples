@@ -51,13 +51,13 @@ main (void)
      */
     avail = H5Zfilter_avail(H5Z_FILTER_FLETCHER32);
     if (!avail) {
-        printf ("N-Bit filter not available.\n");
+        printf ("Fletcher32 filter not available.\n");
         return 1;
     }
     status = H5Zget_filter_info (H5Z_FILTER_FLETCHER32, &filter_info);
     if ( !(filter_info & H5Z_FILTER_CONFIG_ENCODE_ENABLED) ||
                 !(filter_info & H5Z_FILTER_CONFIG_DECODE_ENABLED) ) {
-        printf ("N-Bit filter not available for encoding and decoding.\n");
+        printf ("Fletcher32 filter not available for encoding and decoding.\n");
         return 1;
     }
 
@@ -80,7 +80,7 @@ main (void)
     space = H5Screate_simple (2, dims, NULL);
 
     /*
-     * Create the dataset creation property list, add the N-Bit filter
+     * Create the dataset creation property list, add the Fletcher32 filter
      * and set the chunk size.
      */
     dcpl = H5Pcreate (H5P_DATASET_CREATE);
