@@ -62,7 +62,7 @@ main (void)
      * Obtain and print the file size.
      */
     status = H5Fget_filesize (file, &size);
-    printf ("File size for %s is: %d bytes\n\n", FILE1, size);
+    printf ("File size for %s is: %d bytes\n\n", FILE1, (int)size);
 
     /*
      * Close FILE1.
@@ -112,7 +112,7 @@ main (void)
      * Obtain and print the file size.
      */
     status = H5Fget_filesize (file, &size);
-    printf ("File size for %s is: %d bytes\n", FILE2, size);
+    printf ("File size for %s is: %d bytes\n", FILE2, (int)size);
     printf ("\n");
 
     /*
