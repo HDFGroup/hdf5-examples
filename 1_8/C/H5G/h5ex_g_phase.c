@@ -59,7 +59,7 @@ main (void)
         /*
          * Define the subgroup name and create the subgroup.
          */
-        name[2] = ((char) i) + '0';     /* G1, G2, G3 etc. */
+        name[1] = ((char) i) + '0';     /* G1, G2, G3 etc. */
         subgroup = H5Gcreate (group, name, H5P_DEFAULT, H5P_DEFAULT,
                     H5P_DEFAULT);
         status = H5Gclose (subgroup);
@@ -96,7 +96,7 @@ main (void)
         /*
          * Define the subgroup name and delete the subgroup.
          */
-        name[2] = ((char) i) + '0';     /* G1, G2, G3 etc. */
+        name[1] = ((char) i) + '0';     /* G1, G2, G3 etc. */
         status = H5Ldelete (group, name, H5P_DEFAULT);
 
         /*
