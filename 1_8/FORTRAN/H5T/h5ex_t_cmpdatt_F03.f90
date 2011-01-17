@@ -6,13 +6,13 @@
 !  DIM0, then closes the file.  Next, it reopens the file,
 !  reads back the data, and outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
 
   USE ISO_C_BINDING
-
   USE HDF5
 
   IMPLICIT NONE
@@ -39,7 +39,6 @@ PROGRAM main
   INTEGER :: hdferr
   INTEGER(HSIZE_T), DIMENSION(1:1)   :: dims = (/dim0/), ndims
   TYPE(C_PTR) :: f_ptr
-  INTEGER(SIZE_T) :: attrlen    ! Length of the attribute string 
   INTEGER :: i
   !
   ! Initialize FORTRAN interface.
@@ -115,7 +114,7 @@ PROGRAM main
 
   CALL h5dcreate_f(file,DATASET, H5T_STD_I32LE, space, dset, hdferr)
 
-  CALL h5sclose_f (space, hdferr)
+  CALL h5sclose_f(space, hdferr)
   !
   ! Create dataspace.  Set the size to be the current size.
   !
@@ -123,18 +122,18 @@ PROGRAM main
   !
   ! Create the attribute and write the compound data to it.
   !
-  CALL h5acreate_f (dset, attribute, filetype, space, attr, hdferr)
+  CALL h5acreate_f(dset, attribute, filetype, space, attr, hdferr)
 
-  f_ptr = C_LOC(wdata)
-  CALL h5awrite_f (attr, memtype, f_ptr, hdferr)
+  f_ptr = C_LOC(wdata(1))
+  CALL h5awrite_f(attr, memtype, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL h5aclose_f (attr, hdferr)
-  CALL h5dclose_f (dset, hdferr)
-  CALL h5sclose_f (space, hdferr)
-  CALL h5tclose_f (filetype, hdferr)
-  CALL h5fclose_f (file, hdferr)
+  CALL h5aclose_f(attr, hdferr)
+  CALL h5dclose_f(dset, hdferr)
+  CALL h5sclose_f(space, hdferr)
+  CALL h5tclose_f(filetype, hdferr)
+  CALL h5fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
@@ -152,7 +151,7 @@ PROGRAM main
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1))
   CALL h5aread_f( attr, memtype, f_ptr, hdferr)
   !
   ! Output the data to the screen.
@@ -167,10 +166,10 @@ PROGRAM main
   !
   ! Close and release resources
   !
-  CALL h5aclose_f (attr, hdferr)
-  CALL h5dclose_f (dset, hdferr)
-  CALL h5sclose_f (space, hdferr)
-  CALL h5tclose_f (strtype, hdferr)
-  CALL h5fclose_f (file, hdferr)
+  CALL h5aclose_f(attr, hdferr)
+  CALL h5dclose_f(dset, hdferr)
+  CALL h5sclose_f(space, hdferr)
+  CALL h5tclose_f(strtype, hdferr)
+  CALL h5fclose_f(file, hdferr)
 
 END PROGRAM main

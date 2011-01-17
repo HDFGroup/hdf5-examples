@@ -7,7 +7,8 @@
 !  reopens the file, dereferences the references, and outputs
 !  the names of their targets to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 ! ************************************************************/
 PROGRAM main
@@ -27,7 +28,6 @@ PROGRAM main
   TYPE(hobj_ref_t_f), DIMENSION(1:dim0), TARGET :: wdata ! Write buffer
   TYPE(hobj_ref_t_f), DIMENSION(:), ALLOCATABLE, TARGET :: rdata ! Read buffer
   INTEGER :: objtype
-  INTEGER(size_t) :: size
   INTEGER(SIZE_T) :: name_size
   CHARACTER(LEN=80) :: name
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
@@ -52,8 +52,8 @@ PROGRAM main
   !
   ! Create a group.
   !
-  CALL h5gcreate_f (file, "G1", obj, hdferr)
-  CALL h5gclose_f (obj, hdferr)
+  CALL h5gcreate_f(file, "G1", obj, hdferr)
+  CALL h5gclose_f(obj, hdferr)
   !
   ! Create references to the previously created objects. note, space_id
   ! is not needed for object references.
@@ -70,7 +70,7 @@ PROGRAM main
   ! Create the dataset and write the object references to it.
   !
   CALL h5dcreate_f(file, dataset, H5T_STD_REF_OBJ, space, dset, hdferr)
-  f_ptr = C_LOC(wdata)
+  f_ptr = C_LOC(wdata(1))
   CALL h5dwrite_f(dset, H5T_STD_REF_OBJ, f_ptr, hdferr)
   !
   ! Close and release resources.
@@ -84,18 +84,18 @@ PROGRAM main
   ! Open file and dataset.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL h5dget_space_f(dset, space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 
   ALLOCATE(rdata(1:maxdims(1)))
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1))
   CALL h5dread_f( dset, H5T_STD_REF_OBJ, f_ptr, hdferr)
   !
   ! Output the data to the screen.

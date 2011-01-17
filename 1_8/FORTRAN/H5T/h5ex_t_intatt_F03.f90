@@ -6,7 +6,8 @@
 !  file.  Next, it reopens the file, reads back the data, and
 !  outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
@@ -48,7 +49,7 @@ PROGRAM main
   !
   ! Create dataspace with a null dataspace.
   !
-  CALL H5Screate_f (H5S_NULL_F, space, hdferr)
+  CALL H5Screate_f(H5S_NULL_F, space, hdferr)
   CALL h5dcreate_f(file, dataset, H5T_STD_I32LE, space, dset, hdferr)
   CALL h5sclose_f(space, hdferr)
   !
@@ -61,29 +62,29 @@ PROGRAM main
   ! regardless of the native integer type.  The HDF5 library
   ! automatically converts between different integer types.
   !
-  CALL H5Acreate_f (dset, attribute, H5T_STD_I64BE, space, attr, hdferr)
+  CALL H5Acreate_f(dset, attribute, H5T_STD_I64BE, space, attr, hdferr)
   f_ptr = C_LOC(wdata)
-  CALL H5Awrite_f (attr, H5T_NATIVE_INTEGER, f_ptr, hdferr)
+  CALL H5Awrite_f(attr, H5T_NATIVE_INTEGER, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL H5Aclose_f (attr, hdferr)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Aclose_f(attr, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
   ! Open file and dataset, and attribute.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
-  CALL h5aopen_f (dset, attribute, attr, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
+  CALL h5aopen_f(dset, attribute, attr, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL h5aget_space_f(attr, space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 
   ALLOCATE(rdata(1:dims(1),1:dims(2)))
   !

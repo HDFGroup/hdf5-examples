@@ -6,7 +6,8 @@
 !  closes the file.  Next, it reopens the file, reads back
 !  the data, and outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
@@ -59,33 +60,33 @@ PROGRAM main
   !
   ! Create the dataset and write the bitfield data to it.
   !
-  CALL H5Dcreate_f (file, dataset, H5T_STD_B8BE, space, dset, hdferr)
+  CALL H5Dcreate_f(file, dataset, H5T_STD_B8BE, space, dset, hdferr)
   f_ptr = C_LOC(wdata)
-  CALL H5Dwrite_f (dset, H5T_NATIVE_B8, f_ptr, hdferr)
+  CALL H5Dwrite_f(dset, H5T_NATIVE_B8, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example. 
   !
   ! Open file, dataset.
   !
-  CALL h5fopen_f (filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
+  CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.
   !
-  CALL H5Dget_space_f (dset, space, hdferr)
-  CALL H5Sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL H5Dget_space_f(dset, space, hdferr)
+  CALL H5Sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
   ALLOCATE(rdata(1:dims(1),1:dims(2)))
   !
   ! Read the data.
   !
   f_ptr = C_LOC(rdata)
-  CALL H5Dread_f (dset,  H5T_NATIVE_B8, f_ptr, hdferr)
+  CALL H5Dread_f(dset,  H5T_NATIVE_B8, f_ptr, hdferr)
   !
   ! Output the data to the screen.
   !
@@ -105,8 +106,8 @@ PROGRAM main
   ! Close and release resources.
   !
   DEALLOCATE(rdata)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Fclose_f(file, hdferr)
 
 END PROGRAM main

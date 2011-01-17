@@ -7,7 +7,8 @@
 !  Next, it reopens the file, dereferences the references,
 !  and outputs the names of their targets to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
@@ -27,7 +28,6 @@ PROGRAM main
   TYPE(hobj_ref_t_f), DIMENSION(1:dim0), TARGET :: wdata ! Write buffer
   TYPE(hobj_ref_t_f), DIMENSION(:), ALLOCATABLE, TARGET :: rdata ! Read buffer
   INTEGER :: objtype
-  INTEGER(size_t) :: size
   INTEGER(SIZE_T) :: name_size
   CHARACTER(LEN=80) :: name
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
@@ -52,8 +52,8 @@ PROGRAM main
   !
   ! Create a group.
   !
-  CALL h5gcreate_f (file, "G1", obj, hdferr)
-  CALL h5gclose_f (obj, hdferr)
+  CALL h5gcreate_f(file, "G1", obj, hdferr)
+  CALL h5gclose_f(obj, hdferr)
   !
   ! Create references to the previously created objects. note, space_id
   ! is not needed for object references.
@@ -76,34 +76,34 @@ PROGRAM main
   !
   ! Create the attribute and write the object references to it.
   !
-  CALL H5Acreate_f (dset, attribute, H5T_STD_REF_OBJ, space, attr, hdferr)
-  f_ptr = C_LOC(wdata)
-  CALL H5Awrite_f (attr, H5T_STD_REF_OBJ, f_ptr, hdferr)
+  CALL H5Acreate_f(dset, attribute, H5T_STD_REF_OBJ, space, attr, hdferr)
+  f_ptr = C_LOC(wdata(1))
+  CALL H5Awrite_f(attr, H5T_STD_REF_OBJ, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL H5Aclose_f (attr, hdferr)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Aclose_f(attr, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
   ! Open file and dataset.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
-  CALL h5aopen_f (dset, attribute, attr, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
+  CALL h5aopen_f(dset, attribute, attr, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL h5aget_space_f(attr, space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
   ALLOCATE(rdata(1:maxdims(1)))
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1))
   CALL h5aread_f( attr, H5T_STD_REF_OBJ, f_ptr, hdferr)
   !
   ! Output the data to the screen.

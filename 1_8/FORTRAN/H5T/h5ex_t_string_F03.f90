@@ -20,7 +20,7 @@ PROGRAM main
   CHARACTER(LEN=16), PARAMETER :: filename  = "h5ex_t_string.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   INTEGER          , PARAMETER :: dim0      = 4
-  INTEGER(SIZE_T)  , PARAMETER :: sdim      = 7
+  INTEGER(SIZE_T)  , PARAMETER :: sdim      = 8
 
   INTEGER(HID_T)  :: file, filetype, memtype, space, dset ! Handles
   INTEGER :: hdferr
@@ -28,8 +28,9 @@ PROGRAM main
   INTEGER(HSIZE_T), DIMENSION(1:1) :: dims = (/dim0/)
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
 
-  CHARACTER(LEN=sdim), DIMENSION(1:dim0) :: wdata = (/"Parting", "is such", "sweet", "sorrow."/)
-  CHARACTER(LEN=sdim), DIMENSION(1:dim0) :: rdata
+  CHARACTER(LEN=sdim), DIMENSION(1:dim0), TARGET :: &
+       wdata = (/"Parting", "is such", "sweet  ", "sorrow."/)
+  CHARACTER(LEN=sdim), DIMENSION(:), ALLOCATABLE, TARGET :: rdata
   INTEGER :: i
   INTEGER(SIZE_T) :: size
   TYPE(C_PTR) :: f_ptr
@@ -73,10 +74,23 @@ PROGRAM main
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
   CALL h5dopen_f(file, dataset, dset, hdferr)
   !
+  ! Get the datatype and its size.
+  !
+  CALL H5Dget_type_f(dset, filetype, hdferr)
+  CALL H5Tget_size_f(filetype, size, hdferr)
+
+  ! Make sure the declared length is large enough
+  IF(size.GT.sdim)THEN
+     PRINT*,'ERROR: Character LEN is to small'
+     STOP
+  ENDIF
+  !
   ! Get dataspace.
   !
   CALL H5Dget_space_f(dset, space, hdferr)
   CALL H5Sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
+
+  ALLOCATE(rdata(1:dims(1)))
   !
   ! Create the memory datatype.
   !
@@ -96,9 +110,11 @@ PROGRAM main
   !
   ! Close and release resources.
   !
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Tclose_f (memtype, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Tclose_f(memtype, hdferr)
+  CALL H5Fclose_f(file, hdferr)
+
+  DEALLOCATE(rdata)
 
 END PROGRAM main

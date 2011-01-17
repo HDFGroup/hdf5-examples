@@ -7,6 +7,7 @@
 !  reads back the data, and outputs it to the screen.
 !
 !  This file is intended for use with HDF5 Library verion 1.8
+!  with --enable-fortran2003 
 !
 !************************************************************
 PROGRAM main
@@ -27,7 +28,7 @@ PROGRAM main
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: adims = (/adim0, adim1/)
   INTEGER(HSIZE_T), DIMENSION(1:3)   :: bdims = (/dim0, adim0, adim1/)
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: maxdims
-  INTEGER, DIMENSION(1:dim0, 1:adim0, 1:adim1) :: wdata ! Write buffer 
+  INTEGER, DIMENSION(1:dim0, 1:adim0, 1:adim1), TARGET :: wdata ! Write buffer 
   INTEGER, DIMENSION(:,:,:), ALLOCATABLE, TARGET :: rdata    ! Read buffer
   INTEGER :: i, j, k
   TYPE(C_PTR) :: f_ptr

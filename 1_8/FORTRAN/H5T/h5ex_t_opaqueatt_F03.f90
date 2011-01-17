@@ -6,7 +6,8 @@
 !  file. Next, it reopens the file, reads back the data, and
 !  outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
@@ -72,25 +73,25 @@ PROGRAM main
   !
   ! Create the attribute and write the opaque data to it.
   !
-  CALL H5Acreate_f (dset, attribute, dtype, space, attr, hdferr)
-  f_ptr = C_LOC(wdata)
-  CALL H5Awrite_f (attr, dtype, f_ptr, hdferr)
+  CALL H5Acreate_f(dset, attribute, dtype, space, attr, hdferr)
+  f_ptr = C_LOC(wdata(1))
+  CALL H5Awrite_f(attr, dtype, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL H5Aclose_f (attr, hdferr)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Tclose_f (dtype, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Aclose_f(attr, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Tclose_f(dtype, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
   ! Open file and dataset, and attribute.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
-  CALL h5aopen_f (dset, attribute, attr, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
+  CALL h5aopen_f(dset, attribute, attr, hdferr)
   !    
   ! Get datatype and properties for the datatype.
   !
@@ -101,12 +102,12 @@ PROGRAM main
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL h5aget_space_f(attr, space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
   ALLOCATE(rdata(1:dims(1)))
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1))
   CALL h5aread_f(attr, dtype, f_ptr, hdferr)
   !
   ! Output the data to the screen.
@@ -120,10 +121,10 @@ PROGRAM main
   ! Close and release resources.
   !
   DEALLOCATE(rdata)
-  CALL H5Aclose_f (attr, hdferr)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Tclose_f (dtype, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Aclose_f(attr, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Tclose_f(dtype, hdferr)
+  CALL H5Fclose_f(file, hdferr)
 
 END PROGRAM main

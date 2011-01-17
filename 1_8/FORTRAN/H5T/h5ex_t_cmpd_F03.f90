@@ -6,13 +6,13 @@
 !  then closes the file.  Next, it reopens the file, reads
 !  back the data, and outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
 
   USE ISO_C_BINDING
-
   USE HDF5
 
   IMPLICIT NONE
@@ -111,17 +111,17 @@ PROGRAM main
   !
   ! Create the dataset and write the compound data to it.
   !
-  CALL h5dcreate_f (file, dataset, filetype, space, dset, hdferr)
+  CALL h5dcreate_f(file, dataset, filetype, space, dset, hdferr)
 
-  f_ptr = C_LOC(wdata)
-  CALL h5dwrite_f (dset, memtype, f_ptr, hdferr)
+  f_ptr = C_LOC(wdata(1))
+  CALL h5dwrite_f(dset, memtype, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL h5dclose_f (dset, hdferr)
-  CALL h5sclose_f (space, hdferr)
-  CALL h5tclose_f (filetype, hdferr)
-  CALL h5fclose_f (file, hdferr)
+  CALL h5dclose_f(dset, hdferr)
+  CALL h5sclose_f(space, hdferr)
+  CALL h5tclose_f(filetype, hdferr)
+  CALL h5fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
@@ -138,7 +138,7 @@ PROGRAM main
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1))
   CALL h5dread_f(dset, memtype, f_ptr, hdferr)
   !
   ! Output the data to the screen.
@@ -153,9 +153,9 @@ PROGRAM main
   !
   ! Close and release resources
   !
-  CALL h5dclose_f (dset, hdferr)
-  CALL h5sclose_f (space, hdferr)
-  CALL h5tclose_f (strtype, hdferr)
-  CALL h5fclose_f (file, hdferr)
+  CALL h5dclose_f(dset, hdferr)
+  CALL h5sclose_f(space, hdferr)
+  CALL h5tclose_f(strtype, hdferr)
+  CALL h5fclose_f(file, hdferr)
 
 END PROGRAM main

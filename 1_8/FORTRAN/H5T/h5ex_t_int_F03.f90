@@ -6,7 +6,8 @@
 !  file.  Next, it reopens the file, reads back the data, and
 !  outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
@@ -68,12 +69,12 @@ PROGRAM main
   ! Open file and dataset.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL h5dget_space_f(dset,space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 
   ALLOCATE(rdata(1:dims(1),1:dims(2)))
   !

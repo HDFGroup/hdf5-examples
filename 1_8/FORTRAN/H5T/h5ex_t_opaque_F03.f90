@@ -6,7 +6,8 @@
 !  Next, it reopens the file, reads back the data, and
 !  outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
+!  with --enable-fortran2003
 !
 !************************************************************
 PROGRAM main
@@ -63,22 +64,22 @@ PROGRAM main
   ! Create the dataset and write the opaque data to it.
   !
   CALL h5dcreate_f(file, dataset, dtype, space, dset, hdferr)
-  f_ptr = C_LOC(wdata)
+  f_ptr = C_LOC(wdata(1))
   CALL h5dwrite_f(dset, dtype, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Tclose_f (dtype, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Tclose_f(dtype, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
   ! Open file and dataset.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
   !
   ! Get datatype and properties for the datatype.
   !
@@ -89,12 +90,12 @@ PROGRAM main
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL h5dget_space_f(dset, space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
   ALLOCATE(rdata(1:dims(1)))
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1))
   CALL h5dread_f(dset, dtype, f_ptr, hdferr)
   !
   ! Output the data to the screen.
@@ -108,9 +109,9 @@ PROGRAM main
   ! Close and release resources.
   !
   DEALLOCATE(rdata)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Tclose_f (dtype, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Tclose_f(dtype, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
 END PROGRAM main
