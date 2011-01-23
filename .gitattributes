@@ -311,6 +311,8 @@
 1_8/FORTRAN/H5T/h5ex_t_bitatt_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_cmpd_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_cmpdatt_F03.f90 -text
+1_8/FORTRAN/H5T/h5ex_t_enum_F03.f90 -text
+1_8/FORTRAN/H5T/h5ex_t_enumatt_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_float_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_floatatt_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_int_F03.f90 -text
