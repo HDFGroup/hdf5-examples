@@ -16,7 +16,7 @@ PROGRAM main
   USE ISO_C_BINDING
 
   IMPLICIT NONE
-  CHARACTER(LEN=14), PARAMETER :: filename  = "h5ex_t_enum.h5"
+  CHARACTER(LEN=19), PARAMETER :: filename  = "h5ex_t_enum_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   INTEGER          , PARAMETER :: dim0      = 4
   INTEGER          , PARAMETER :: dim1      = 7

@@ -22,7 +22,7 @@ PROGRAM main
   
   IMPLICIT NONE
 
-  CHARACTER(LEN=14), PARAMETER :: filename  = "h5ex_t_vlen.h5"
+  CHARACTER(LEN=18), PARAMETER :: filename  = "h5ex_t_vlen_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   INTEGER, PARAMETER :: LEN0 = 3
   INTEGER, PARAMETER :: LEN1 = 12

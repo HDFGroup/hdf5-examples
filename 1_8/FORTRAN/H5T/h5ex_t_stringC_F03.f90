@@ -18,7 +18,7 @@ PROGRAM main
 
   IMPLICIT NONE
 
-  CHARACTER(LEN=17), PARAMETER :: filename  = "h5ex_t_stringC.h5"
+  CHARACTER(LEN=21), PARAMETER :: filename  = "h5ex_t_stringC_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   INTEGER          , PARAMETER :: dim0      = 4
   INTEGER(SIZE_T)  , PARAMETER :: sdim      = 7

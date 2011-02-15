@@ -19,7 +19,7 @@ PROGRAM main
   ! This should map to REAL*8 on most modern processors
   INTEGER, PARAMETER :: real_kind_15 = SELECTED_REAL_KIND(Fortran_REAL_8)
 
-  CHARACTER(LEN=14), PARAMETER :: filename     = "h5ex_t_cmpd.h5"
+  CHARACTER(LEN=18), PARAMETER :: filename     = "h5ex_t_cmpd_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset      = "DS1"
   INTEGER          , PARAMETER :: dim0         = 4
   INTEGER          , PARAMETER :: maxstringlen = 80

@@ -17,7 +17,7 @@ PROGRAM main
   
   IMPLICIT NONE
 
-  CHARACTER(LEN=15), PARAMETER :: filename  = "h5ex_t_array.h5"
+  CHARACTER(LEN=19), PARAMETER :: filename  = "h5ex_t_array_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   INTEGER          , PARAMETER :: dim0      = 4
   INTEGER          , PARAMETER :: adim0     = 3

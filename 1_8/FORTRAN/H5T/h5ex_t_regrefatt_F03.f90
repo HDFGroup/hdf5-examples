@@ -19,7 +19,7 @@ PROGRAM main
 
   IMPLICIT NONE
 
-  CHARACTER(LEN=21), PARAMETER :: filename  = "h5ex_t_regrefatt.h5"
+  CHARACTER(LEN=25), PARAMETER :: filename  = "h5ex_t_regrefatt_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   CHARACTER(LEN=3) , PARAMETER :: dataset2  = "DS2"
   CHARACTER(LEN=3) , PARAMETER :: attribute = "A1"

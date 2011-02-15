@@ -17,7 +17,7 @@ PROGRAM main
   USE ISO_C_BINDING
 
   IMPLICIT NONE
-  CHARACTER(LEN=19), PARAMETER :: filename  = "h5ex_t_objrefatt.h5"
+  CHARACTER(LEN=23), PARAMETER :: filename  = "h5ex_t_objrefatt_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   CHARACTER(LEN=2) , PARAMETER :: attribute = "A1"
   INTEGER          , PARAMETER :: dim0      = 2

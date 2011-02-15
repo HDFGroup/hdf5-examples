@@ -19,7 +19,7 @@ PROGRAM main
   ! This should map to REAL*8 on most modern processors
   INTEGER, PARAMETER :: real_kind_15 = SELECTED_REAL_KIND(Fortran_REAL_8)
 
-  CHARACTER(LEN=18), PARAMETER :: filename  = "h5ex_t_floatatt.h5"
+  CHARACTER(LEN=22), PARAMETER :: filename  = "h5ex_t_floatatt_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   CHARACTER(LEN=2) , PARAMETER :: attribute = "A1"
   INTEGER          , PARAMETER :: dim0      = 4

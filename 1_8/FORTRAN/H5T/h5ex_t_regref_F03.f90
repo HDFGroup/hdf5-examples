@@ -19,7 +19,7 @@ PROGRAM main
 
   IMPLICIT NONE
 
-  CHARACTER(LEN=18), PARAMETER :: filename  = "h5ex_t_regref.h5"
+  CHARACTER(LEN=22), PARAMETER :: filename  = "h5ex_t_regref_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   CHARACTER(LEN=3) , PARAMETER :: dataset2  = "DS2"
   INTEGER          , PARAMETER :: dim0      = 2
