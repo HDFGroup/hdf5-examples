@@ -230,6 +230,7 @@
 1_8/C/H5T/makefile.in -text
 1_8/C/H5T/maketestref.sh -text
 1_8/C/H5T/test.sh -text
+1_8/C/Performance/h5efc.c -text
 1_8/C/Performance/h5slab.h -text
 1_8/C/Performance/h5slabread.c -text
 1_8/C/Performance/h5slabwrite.c -text
