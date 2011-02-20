@@ -60,7 +60,7 @@ dumpout2() {
 topics="arrayatt_F03 array_F03 bitatt_F03 bit_F03 cmpdatt_F03 cmpd_F03 \
 Cstring_F03 enumatt_F03 enum_F03 floatatt_F03 float_F03 \
 intatt_F03 int_F03 objrefatt_F03 objref_F03 opaqueatt_F03 opaque_F03 regrefatt_F03 \
-regref_F03 string_F03 vlstring"
+regref_F03 string_F03 vlen_F03 vlstring"
 
 
 return_val=0

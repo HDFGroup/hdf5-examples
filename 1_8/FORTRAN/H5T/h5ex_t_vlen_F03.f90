@@ -36,7 +36,7 @@ PROGRAM main
   TYPE vl
      INTEGER, DIMENSION(:), POINTER :: data
   END TYPE vl
-  TYPE(vl), DIMENSION(:), POINTER :: ptr
+  TYPE(vl), DIMENSION(:), ALLOCATABLE :: ptr
 
   TYPE hvl_t
      INTEGER(size_t) :: len ! Length of VL data (in base type units)
@@ -92,7 +92,7 @@ PROGRAM main
   ! Create the dataset and write the variable-length data to it.
   !
   CALL H5Dcreate_f(file, dataset, filetype, space, dset, hdferr)
-  
+ 
   f_ptr = C_LOC(wdata(1))
   CALL h5dwrite_f(dset, memtype, f_ptr, hdferr)
   !
@@ -107,10 +107,7 @@ PROGRAM main
   CALL H5Tclose_f(memtype, hdferr)
   CALL h5fclose_f(file , hdferr)
 
-  DEALLOCATE(ptr(1)%data)
-  DEALLOCATE(ptr(2)%data)
   DEALLOCATE(ptr)
-
   !
   ! Now we begin the read section of this example.
 
@@ -138,22 +135,18 @@ PROGRAM main
   !
   f_ptr = C_LOC(rdata(1))
   CALL H5Dread_f(dset, memtype, f_ptr, hdferr)
-
   !
   ! Output the variable-length data to the screen.
   !
   DO i = 1, dims(1)
      WRITE(*,'(A,"(",I0,"):",/,"{")', ADVANCE="no") dataset,i
-
      CALL c_f_pointer(rdata(i)%p, ptr_r, [rdata(i)%len] )
-
      DO j = 1, rdata(i)%len
         WRITE(*,'(1X,I0)', ADVANCE='no') ptr_r(j)
         IF ( j .LT. rdata(i)%len) WRITE(*,'(",")', ADVANCE='no')
      ENDDO
      WRITE(*,'( " }")')
   ENDDO
-
   !
   ! Close and release resources.
   !
