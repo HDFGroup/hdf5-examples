@@ -27,7 +27,7 @@ PROGRAM main
   INTEGER :: hdferr
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: dims = (/dim0, dim1/)
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: maxdims
-  INTEGER(C_SIGNED_CHAR), DIMENSION(1:dim0, 1:dim1) :: wdata              ! Write buffer 
+  INTEGER(C_SIGNED_CHAR), DIMENSION(1:dim0, 1:dim1), TARGET :: wdata              ! Write buffer 
   INTEGER(C_SIGNED_CHAR), DIMENSION(:,:), ALLOCATABLE, TARGET :: rdata    ! Read buffer
   INTEGER :: A, B, C, D
   INTEGER :: i, j
@@ -68,7 +68,7 @@ PROGRAM main
   ! Create the attribute and write the bitfield data to it.
   !
   CALL H5Acreate_f(dset, attribute,  H5T_STD_B8BE, space, attr, hdferr)
-  f_ptr = C_LOC(wdata)
+  f_ptr = C_LOC(wdata(1,1))
   CALL H5Awrite_f(attr, H5T_NATIVE_B8, f_ptr, hdferr)
   !
   ! Close and release resources.

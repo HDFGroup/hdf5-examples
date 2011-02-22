@@ -21,8 +21,8 @@ PROGRAM main
   CHARACTER(LEN=2) , PARAMETER :: attribute = "A1"
   INTEGER          , PARAMETER :: dim0      = 4
   INTEGER          , PARAMETER :: dim1      = 7
-  INTEGER                      :: F_BASET  ! File base type
-  INTEGER                      :: M_BASET  ! Memory base type
+  INTEGER(HID_T)               :: F_BASET  ! File base type
+  INTEGER(HID_T)               :: M_BASET  ! Memory base type
   INTEGER(SIZE_T)  , PARAMETER :: NAME_BUF_SIZE = 16
 
 ! Enumerated type

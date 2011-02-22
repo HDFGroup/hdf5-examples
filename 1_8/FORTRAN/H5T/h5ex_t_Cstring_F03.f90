@@ -28,8 +28,8 @@ PROGRAM main
 
   INTEGER(HSIZE_T), DIMENSION(1:1)   :: dims = (/dim0/)
 
-  CHARACTER(LEN=sdim), DIMENSION(1:dim0) :: wdata = (/"Parting", "is such", "sweet", "sorrow."/)
-  CHARACTER(LEN=sdim), DIMENSION(1:dim0) :: rdata
+  CHARACTER(LEN=sdim), DIMENSION(1:dim0), TARGET :: wdata = (/"Parting", "is such", "sweet  ", "sorrow."/)
+  CHARACTER(LEN=sdim), DIMENSION(1:dim0), TARGET :: rdata
 
   TYPE(c_ptr) :: f_ptr
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims

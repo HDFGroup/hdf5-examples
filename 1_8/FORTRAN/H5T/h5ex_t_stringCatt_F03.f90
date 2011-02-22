@@ -70,7 +70,7 @@ PROGRAM main
   CALL H5Acreate_f(dset, attribute, filetype, space, attr, hdferr)
 
   f_ptr = C_LOC(wdata(1)(1:1))
-  CALL H5Awrite_f(attr, memtype, f_ptr, hdferr);
+  CALL H5Awrite_f(attr, memtype, f_ptr, hdferr)
   !
   ! Close and release resources.
   !

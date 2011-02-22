@@ -59,7 +59,7 @@ topics="arrayatt_F03 array_F03 bitatt_F03 bit_F03 \
 	enum_F03 floatatt_F03 float_F03 intatt_F03 int_F03 \
 	objrefatt_F03 objref_F03 opaqueatt_F03 opaque_F03 \
 	regrefatt_F03 regref_F03 stringCatt_F03 stringC_F03 \
-	string_F03 vlen_F03 vlstring"
+	string_F03 vlenatt_F03 vlen_F03 vlstring"
 
 for topic in $topics
 do

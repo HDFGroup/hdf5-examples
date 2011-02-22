@@ -28,7 +28,7 @@ PROGRAM main
   INTEGER(HSIZE_T), DIMENSION(1:2) :: maxdims
   
   CHARACTER(LEN=sdim), DIMENSION(1:dim0), TARGET :: &
-       wdata = (/"Parting", "is such", "sweet", "sorrow."/) ! Write buffer
+       wdata = (/"Parting", "is such", "sweet  ", "sorrow."/) ! Write buffer
   CHARACTER(LEN=sdim), DIMENSION(:), ALLOCATABLE :: rdata ! Read buffer
   INTEGER(HSIZE_T), DIMENSION(2) :: data_dims = (/sdim,dim0/)
   INTEGER(SIZE_T), DIMENSION(4) :: str_len = (/7,7,5,7/)

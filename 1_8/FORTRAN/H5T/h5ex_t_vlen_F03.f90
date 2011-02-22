@@ -30,7 +30,7 @@ PROGRAM main
   INTEGER(HID_T)  :: file, filetype, memtype, space, dset ! Handles
   INTEGER :: hdferr
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: maxdims
-  INTEGER :: ndims, i, j
+  INTEGER :: i, j
 
   ! vl data
   TYPE vl

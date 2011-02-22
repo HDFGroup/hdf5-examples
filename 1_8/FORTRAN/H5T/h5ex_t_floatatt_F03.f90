@@ -31,7 +31,7 @@ PROGRAM main
   INTEGER(hsize_t),   DIMENSION(1:2) :: dims = (/dim0, dim1/)
   REAL(KIND=real_kind_15), DIMENSION(1:dim0, 1:dim1), TARGET :: wdata ! Write buffer
   REAL(KIND=real_kind_15), DIMENSION(:,:), ALLOCATABLE, TARGET :: rdata ! Read buffer
-  INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
+  INTEGER(HSIZE_T), DIMENSION(1:2) :: maxdims
   INTEGER :: i, j
   TYPE(C_PTR) :: f_ptr
   !
@@ -53,7 +53,7 @@ PROGRAM main
   !
   ! Create dataspace with a null dataspace.
   !
-  CALL H5Screate_f (H5S_NULL_F, space, hdferr)
+  CALL H5Screate_f(H5S_NULL_F, space, hdferr)
   CALL h5dcreate_f(file, dataset, H5T_STD_I32LE, space, dset, hdferr)
   CALL h5sclose_f(space, hdferr)
   !
@@ -67,35 +67,34 @@ PROGRAM main
   ! HDF5 library automatically converts between different floating
   ! point types.
   !
-  CALL H5Acreate_f (dset, attribute, H5T_IEEE_F64LE, space, attr, hdferr)
-  f_ptr = C_LOC(wdata)
-  CALL H5Awrite_f (attr, H5T_NATIVE_DOUBLE, f_ptr, hdferr)
+  CALL H5Acreate_f(dset, attribute, H5T_IEEE_F64LE, space, attr, hdferr)
+  f_ptr = C_LOC(wdata(1,1))
+  CALL H5Awrite_f(attr, H5T_NATIVE_DOUBLE, f_ptr, hdferr)
   !
   ! Close and release resources.
   !
-  CALL H5Aclose_f (attr, hdferr)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Aclose_f(attr, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
   ! Open file and dataset, and attribute.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
-  CALL h5aopen_f (dset, attribute, attr, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
+  CALL h5aopen_f(dset, attribute, attr, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL h5aget_space_f(attr, space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 
   ALLOCATE(rdata(1:dims(1),1:dims(2)))
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1,1))
   CALL h5aread_f( attr, H5T_NATIVE_DOUBLE, f_ptr, hdferr)
   !
   ! Output the data to the screen.

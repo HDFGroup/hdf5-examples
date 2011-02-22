@@ -27,7 +27,7 @@ PROGRAM main
   INTEGER(hsize_t),   DIMENSION(1:2) :: dims = (/dim0, dim1/)
   INTEGER, DIMENSION(1:dim0, 1:dim1), TARGET :: wdata ! Write buffer
   INTEGER, DIMENSION(:,:), ALLOCATABLE, TARGET :: rdata ! Read buffer
-  INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
+  INTEGER(HSIZE_T), DIMENSION(1:2) :: maxdims
   INTEGER :: i, j
   TYPE(C_PTR) :: f_ptr
   !
@@ -57,7 +57,7 @@ PROGRAM main
   ! automatically converts between different integer types.
   !
   CALL h5dcreate_f(file, dataset, H5T_STD_I64BE, space, dset, hdferr)
-  f_ptr = C_LOC(wdata)
+  f_ptr = C_LOC(wdata(1,1))
   CALL h5dwrite_f(dset, H5T_NATIVE_INTEGER, f_ptr, hdferr)
   !
   ! Close and release resources.
@@ -80,7 +80,7 @@ PROGRAM main
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata)
+  f_ptr = C_LOC(rdata(1,1))
   CALL h5dread_f( dset, H5T_NATIVE_INTEGER, f_ptr, hdferr)
   !
   ! Output the data to the screen.
