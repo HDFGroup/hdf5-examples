@@ -351,6 +351,8 @@
 1_8/FORTRAN/H5T/h5ex_t_string_F03.test -text
 1_8/FORTRAN/H5T/h5ex_t_vlen_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_vlen_F03.test -text
+1_8/FORTRAN/H5T/h5ex_t_vlenatt_F03.f90 -text
+1_8/FORTRAN/H5T/h5ex_t_vlenatt_F03.test -text
 1_8/FORTRAN/H5T/h5ex_t_vlstring.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_vlstring.test -text
 1_8/FORTRAN/H5T/makefile.am -text
