@@ -107,6 +107,8 @@
 1_6/C/makefile.in -text
 1_6/makefile.am -text
 1_6/makefile.in -text
+1_8/C/CMakeLists.txt -text
+1_8/C/H5D/CMakeLists.txt -text
 1_8/C/H5D/h5ex_d_alloc.c -text
 1_8/C/H5D/h5ex_d_alloc.test -text
 1_8/C/H5D/h5ex_d_checksum.c -text
@@ -147,6 +149,7 @@
 1_8/C/H5D/makefile.in -text
 1_8/C/H5D/maketestref.sh -text
 1_8/C/H5D/test.sh -text
+1_8/C/H5G/CMakeLists.txt -text
 1_8/C/H5G/h5ex_g_compact.c -text
 1_8/C/H5G/h5ex_g_compact.test -text
 1_8/C/H5G/h5ex_g_corder.c -text
@@ -170,6 +173,7 @@
 1_8/C/H5G/makefile.in -text
 1_8/C/H5G/maketestref.sh -text
 1_8/C/H5G/test.sh -text
+1_8/C/H5T/CMakeLists.txt -text
 1_8/C/H5T/h5ex_t_array.c -text
 1_8/C/H5T/h5ex_t_array.test -text
 1_8/C/H5T/h5ex_t_arrayatt.c -text
@@ -230,6 +234,7 @@
 1_8/C/H5T/makefile.in -text
 1_8/C/H5T/maketestref.sh -text
 1_8/C/H5T/test.sh -text
+1_8/C/Performance/CMakeLists.txt -text
 1_8/C/Performance/h5efc.c -text
 1_8/C/Performance/h5slab.h -text
 1_8/C/Performance/h5slabread.c -text
@@ -237,6 +242,9 @@
 1_8/C/Performance/makefile.am -text
 1_8/C/makefile.am -text
 1_8/C/makefile.in -text
+1_8/CMakeLists.txt -text
+1_8/CTestConfig.cmake -text
+1_8/FORTRAN/CMakeLists.txt -text
 1_8/FORTRAN/H5D/.deps/h5ex_d_alloc.Po -text
 1_8/FORTRAN/H5D/.deps/h5ex_d_checksum.Po -text
 1_8/FORTRAN/H5D/.deps/h5ex_d_chunk.Po -text
@@ -255,6 +263,7 @@
 1_8/FORTRAN/H5D/.deps/h5ex_d_unlimadd.Po -text
 1_8/FORTRAN/H5D/.deps/h5ex_d_unlimgzip.Po -text
 1_8/FORTRAN/H5D/.deps/h5ex_d_unlimmod.Po -text
+1_8/FORTRAN/H5D/CMakeLists.txt -text
 1_8/FORTRAN/H5D/h5ex_d_alloc.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_alloc.test -text
 1_8/FORTRAN/H5D/h5ex_d_checksum.f90 -text
@@ -292,6 +301,7 @@
 1_8/FORTRAN/H5G/.deps/h5ex_g_phase.Po -text
 1_8/FORTRAN/H5G/.deps/h5ex_g_traverse.Po -text
 1_8/FORTRAN/H5G/.deps/h5ex_g_visit.Po -text
+1_8/FORTRAN/H5G/CMakeLists.txt -text
 1_8/FORTRAN/H5G/h5ex_g_compact.f90 -text
 1_8/FORTRAN/H5G/h5ex_g_compact.test -text
 1_8/FORTRAN/H5G/h5ex_g_corder.f90 -text
@@ -305,6 +315,7 @@
 1_8/FORTRAN/H5G/makefile.in -text
 1_8/FORTRAN/H5G/maketestref.sh -text
 1_8/FORTRAN/H5G/test.sh -text
+1_8/FORTRAN/H5T/CMakeLists.txt -text
 1_8/FORTRAN/H5T/h5ex_t_Cstring_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_Cstring_F03.test -text
 1_8/FORTRAN/H5T/h5ex_t_array_F03.f90 -text
@@ -361,6 +372,17 @@
 1_8/FORTRAN/H5T/test.sh -text
 1_8/FORTRAN/makefile.am -text
 1_8/FORTRAN/makefile.in -text
+1_8/config/cmake/CTest.cmake -text
+1_8/config/cmake/CTestCustom.cmake -text
+1_8/config/cmake/FindHDF5.cmake -text
+1_8/config/cmake/FindMPI.cmake -text
+1_8/config/cmake/FindSZIP.cmake -text
+1_8/config/cmake/HDF5Macros.cmake -text
+1_8/config/cmake/HDF5UseFortran.cmake -text
+1_8/config/cmake/HDFMacros.cmake -text
+1_8/config/cmake/grepTest.cmake -text
+1_8/config/cmake/runTest.cmake -text
+1_8/config/cmake/xlatefile.c -text
 1_8/makefile.am -text
 1_8/makefile.in -text
 /COPYING -text
