@@ -89,9 +89,8 @@ IF (BUILD_TESTING)
             -E remove 
             ${testname}.out
             ${testname}.out.err
-            ${testname}.dmp.out
-            ${testname}.dmp.out.err
-            ${testname}.out.tmp
+            ${testname}.ddl.out
+            ${testname}.ddl.out.err
             ${testname}.h5
     )
     ADD_TEST (
@@ -113,9 +112,9 @@ IF (BUILD_TESTING)
               -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-              -D "TEST_OUTPUT=${testname}.dmp.out"
+              -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}.dmp"
+              -D "TEST_REFERENCE=${testname}.ddl"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
@@ -139,7 +138,7 @@ IF (BUILD_TESTING)
             -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
-            -D "TEST_REFERENCE=${testname}.test"
+            -D "TEST_REFERENCE=${testname}.tst"
             -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
     )
     SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
@@ -153,14 +152,14 @@ IF (BUILD_TESTING)
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/${example}.tst ${testdest}.tst -l4
+          ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
       )
       IF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
         ADD_CUSTOM_COMMAND (
             TARGET     f90_${example}
             POST_BUILD
             COMMAND    ${XLATE_UTILITY}
-            ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/${example}.dmp ${testdest}.dmp -l4
+            ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
         )
       ENDIF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example} -n)
@@ -169,7 +168,7 @@ IF (BUILD_TESTING)
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/${example}.test ${PROJECT_BINARY_DIR}/${example}.test -l4
+          ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst -l4
       )
       ADD_H5_CMP_TEST (${example})
     ELSE (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
@@ -179,14 +178,14 @@ IF (BUILD_TESTING)
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/${example}.tst ${testdest}.tst -l4
+          ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
       )
       IF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
         ADD_CUSTOM_COMMAND (
             TARGET     f90_${example}
             POST_BUILD
             COMMAND    ${XLATE_UTILITY}
-            ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/${example}.dmp ${testdest}.dmp -l4
+            ARGS       ${HDF5_FORTRAN_H5T_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
         )
       ENDIF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example})

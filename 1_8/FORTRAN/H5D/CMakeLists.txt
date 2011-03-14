@@ -63,8 +63,8 @@ IF (BUILD_TESTING)
             -E remove 
             ${testname}.out
             ${testname}.out.err
-            ${testname}.dmp.out
-            ${testname}.dmp.out.err
+            ${testname}.ddl.out
+            ${testname}.ddl.out.err
             ${testname}.h5
     )
     ADD_TEST (
@@ -86,9 +86,9 @@ IF (BUILD_TESTING)
               -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-              -D "TEST_OUTPUT=${testname}.dmp.out"
+              -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}.dmp"
+              -D "TEST_REFERENCE=${testname}.ddl"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
@@ -102,14 +102,14 @@ IF (BUILD_TESTING)
         TARGET     f90_${example}
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/${example}.tst ${testdest}.tst -l4
+        ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
     )
     IF (HDF5_BUILD_TOOLS)
       ADD_CUSTOM_COMMAND (
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/${example}.dmp ${testdest}.dmp -l4
+          ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
       )
     ENDIF (HDF5_BUILD_TOOLS)
     

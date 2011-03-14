@@ -53,7 +53,7 @@ IF (BUILD_TESTING)
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}.test"
+              -D "TEST_REFERENCE=${testname}.tst"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
@@ -67,8 +67,8 @@ IF (BUILD_TESTING)
             -E remove 
             ${testname}.out
             ${testname}.out.err
-            ${testname}.dmp.out
-            ${testname}.dmp.out.err
+            ${testname}.ddl.out
+            ${testname}.ddl.out.err
     )
     ADD_TEST (
         NAME f90_${testname}
@@ -89,9 +89,9 @@ IF (BUILD_TESTING)
               -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-              -D "TEST_OUTPUT=${testname}.dmp.out"
+              -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}.dmp"
+              -D "TEST_REFERENCE=${testname}.ddl"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
@@ -105,11 +105,11 @@ IF (BUILD_TESTING)
             -E remove 
             ${testname}.out
             ${testname}.out.err
-            ${testname}1.dmp.out
-            ${testname}1.dmp.out.err
+            ${testname}1.ddl.out
+            ${testname}1.ddl.out.err
             ${testname}1.h5
-            ${testname}2.dmp.out
-            ${testname}2.dmp.out.err
+            ${testname}2.ddl.out
+            ${testname}2.ddl.out.err
             ${testname}2.h5
     )
     IF (${ARGN} STREQUAL "NULL")
@@ -135,9 +135,9 @@ IF (BUILD_TESTING)
               -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
               -D "TEST_ARGS:STRING=${testname}1.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-              -D "TEST_OUTPUT=${testname}1.dmp.out"
+              -D "TEST_OUTPUT=${testname}1.ddl.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}1.dmp"
+              -D "TEST_REFERENCE=${testname}1.ddl"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname}1 PROPERTIES DEPENDS f90_${testname})
@@ -147,9 +147,9 @@ IF (BUILD_TESTING)
               -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
               -D "TEST_ARGS:STRING=${testname}2.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-              -D "TEST_OUTPUT=${testname}2.dmp.out"
+              -D "TEST_OUTPUT=${testname}2.ddl.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}2.dmp"
+              -D "TEST_REFERENCE=${testname}2.ddl"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname}2 PROPERTIES DEPENDS f90_${testname}1)
@@ -172,7 +172,7 @@ IF (BUILD_TESTING)
             -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
-            -D "TEST_REFERENCE=${testname}.test"
+            -D "TEST_REFERENCE=${testname}.tst"
             -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
     )
     SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
@@ -183,7 +183,7 @@ IF (BUILD_TESTING)
       TARGET     f90_h5ex_g_compact
       POST_BUILD
       COMMAND    ${XLATE_UTILITY}
-      ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/h5ex_g_compact.tst ${PROJECT_BINARY_DIR}/h5ex_g_compact.tst -l4
+      ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/h5ex_g_compact.tst ${PROJECT_BINARY_DIR}/h5ex_g_compact.tst -l4
   )
     
   IF (HDF5_BUILD_TOOLS)
@@ -191,13 +191,13 @@ IF (BUILD_TESTING)
         TARGET     f90_h5ex_g_compact
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/h5ex_g_compact1.dmp ${PROJECT_BINARY_DIR}/h5ex_g_compact1.dmp -l4
+        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl -l4
     )
     ADD_CUSTOM_COMMAND (
         TARGET     f90_h5ex_g_compact
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/h5ex_g_compact2.dmp ${PROJECT_BINARY_DIR}/h5ex_g_compact2.dmp -l4
+        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl -l4
     )
     SET (exrefs
         h5ex_g_corder
@@ -213,7 +213,7 @@ IF (BUILD_TESTING)
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/${example}.test ${PROJECT_BINARY_DIR}/${example}.test -l4
+          ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst -l4
       )
     ENDFOREACH (example ${exrefs})
       
@@ -227,7 +227,7 @@ IF (BUILD_TESTING)
 #          TARGET     f90_${example}
 #          POST_BUILD
 #          COMMAND    ${CMAKE_COMMAND}
-#          ARGS       -E copy_if_different ${HDF5_FORTRAN_H5G_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
+#          ARGS       -E copy_if_different ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
 #      )
 #    ENDFOREACH (example ${exfiles})
 
