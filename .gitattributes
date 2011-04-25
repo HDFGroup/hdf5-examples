@@ -551,6 +551,7 @@
 1_8/FORTRAN/H5T/testfiles/h5ex_t_vlstring.tst -text
 1_8/FORTRAN/makefile.am -text
 1_8/FORTRAN/makefile.in -text
+1_8/Using_CMake.txt -text
 1_8/config/cmake/CTest.cmake -text
 1_8/config/cmake/CTestCustom.cmake -text
 1_8/config/cmake/FindHDF5.cmake -text
