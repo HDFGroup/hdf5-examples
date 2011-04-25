@@ -59,7 +59,7 @@ Notes: This short instruction is written for users who want to quickly build
       
       OPTIONAL:
         Users can perform the configuration step without using the visual cmake-gui
-        program. Example configuration step:
+        program. Example configuration step executed within the build directory:
         
         cmake -G "<generator>"  [-D<options>]  <sourcepath>
         
