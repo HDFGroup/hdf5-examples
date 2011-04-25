@@ -118,7 +118,8 @@ Notes: This short instruction is written for users who want to quickly build
               cmake --build . --config {Debug | Release}     
               
       NOTE: "--config {Debug | Release}" may be optional on your platform. We
-            recommend choosing either Debug or Release on Windows.                                                                                      
+            recommend choosing either Debug or Release on Windows. If you are
+            using the pre-built binaries from HDF, use Release.                                                                                     
              
       3.1  If you wish to use the Visual Studio environment, open the solution 
            file in your build directory. Be sure to select either Debug or 
