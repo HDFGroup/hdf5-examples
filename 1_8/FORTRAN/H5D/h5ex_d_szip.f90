@@ -27,7 +27,7 @@ PROGRAM main
   INTEGER :: hdferr
   LOGICAL         :: avail
   INTEGER(HID_T)  :: file, space, dset, dcpl ! Handles
-  INTEGER, DIMENSION(1:1) :: cd_values
+  INTEGER, DIMENSION(1:4) :: cd_values
   INTEGER :: filter_id
   INTEGER :: filter_info_both
   INTEGER(HSIZE_T), DIMENSION(1:2) :: dims = (/dim0, dim1/), chunk =(/chunk0,chunk1/)
@@ -128,10 +128,11 @@ PROGRAM main
      WRITE(*,'(T2,"H5Z_FILTER_FLETCHER32_F")')
   ELSE IF(filter_id.EQ.H5Z_FILTER_SZIP_F)THEN
      WRITE(*,'(T2,"H5Z_FILTER_SZIP_F")')
-  ELSE IF(filter_id.EQ.H5Z_FILTER_NBIT_F)THEN
-     WRITE(*,'(T2,"H5Z_FILTER_NBIT_F")')
-  ELSE IF(filter_id.EQ.H5Z_FILTER_SCALEOFFSET_F)THEN
-     WRITE(*,'(T2,"H5Z_FILTER_SCALEOFFSET_F")')
+! DEFINED ONLY IN F2003 hdf5 branch
+!  ELSE IF(filter_id.EQ.H5Z_FILTER_NBIT_F)THEN
+!     WRITE(*,'(T2,"H5Z_FILTER_NBIT_F")')
+!  ELSE IF(filter_id.EQ.H5Z_FILTER_SCALEOFFSET_F)THEN
+!     WRITE(*,'(T2,"H5Z_FILTER_SCALEOFFSET_F")')
   ENDIF
   !
   ! Read the data using the default properties.
