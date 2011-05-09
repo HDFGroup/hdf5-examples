@@ -40,7 +40,11 @@ Notes: This short instruction is written for users who want to quickly build
    2. You have installed the HDF5 library built with CMake. If you are
       using a Windows platform, you can obtain a pre-built Windows binary
       from The HDF Group's website at www.hdfgroup.org.
-                                    
+
+   3. On Windows with Visual Studio, if you have installed the static HDF5
+      library, you will need to add the HDF5\lib folder to the library
+      search list. See the "Using Static Libraries with Visual Studio" section.
+                         
                                                                          
 ========================================================================
           Building HDF5 Examples with CMake
@@ -143,6 +147,30 @@ Notes: This short instruction is written for users who want to quickly build
 
    7. More information about using CMake can be found at the KitWare site, 
       www.cmake.org.
+                         
+                                                                         
+========================================================================
+          Using Static Libraries with Visual Studio
+========================================================================
+
+   8. Set up path for external libraries and headers
+
+      Invoke Microsoft Visual Studio and go to "Tools" and select "Options", 
+      find "Projects", and then "VC++ Directories".
+      
+      8.1 If you are building on 64-bit Windows, find the "Platform" dropdown
+          and select "x64".
+
+      8.2 Find the box "Show directories for", choose "Include files", add the 
+          header path (i.e. c:\Program Files\HDF Group\HDF5\hdf5-1.8.7\include)
+          to the included directories.
+
+      8.3 Find the box "Show directories for", choose "Library files", add the
+          library path (i.e. c:\Program Files\HDF Group\HDF5\hdf5-1.8.7\lib)
+          to the library directories.
+          
+      8.4 If using Fortran libraries, you will also need to setup the path
+          for the Intel Fortran compiler.
 
 
 ************************************************************************
