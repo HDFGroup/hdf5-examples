@@ -44,7 +44,9 @@ Notes: This short instruction is written for users who want to quickly build
    3. On Windows with Visual Studio, if you have installed the static HDF5
       library, you will need to add the HDF5\lib folder to the library
       search list. See the "Using Static Libraries with Visual Studio" section.
-                         
+ 
+   4. Set the environment variable HDF5_ROOT to the installed location of HDF5.
+      On Windows HDF5_ROOT=C:\Program Files\HDF Group\HDF5\hdf5-1.8.7
                                                                          
 ========================================================================
           Building HDF5 Examples with CMake
@@ -150,7 +152,7 @@ Notes: This short instruction is written for users who want to quickly build
                          
                                                                          
 ========================================================================
-          Using Static Libraries with Visual Studio
+          Using HDF5 Libraries with Visual Studio 2008
 ========================================================================
 
    8. Set up path for external libraries and headers
