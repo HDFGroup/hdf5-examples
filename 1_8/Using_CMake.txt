@@ -47,6 +47,7 @@ Notes: This short instruction is written for users who want to quickly build
  
    4. Set the environment variable HDF5_ROOT to the installed location of HDF5.
       On Windows HDF5_ROOT=C:\Program Files\HDF Group\HDF5\hdf5-1.8.7
+      (Note that there are no quote characters on Windows)
                                                                          
 ========================================================================
           Building HDF5 Examples with CMake
