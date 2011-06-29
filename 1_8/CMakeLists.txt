@@ -13,13 +13,6 @@ ELSE (USE_SHARED_LIBS)
 ENDIF (USE_SHARED_LIBS)
 
 #-----------------------------------------------------------------------------
-# Set the target names of all the libraries (from FindHDF5.cmake)
-#-----------------------------------------------------------------------------
-SET (HDF5_LIB_TARGET              "hdf5")
-SET (HDF5_F90_LIB_TARGET          "hdf5_fortran")
-SET (HDF5_F90_C_LIB_TARGET        "hdf5_f90cstub")
-
-#-----------------------------------------------------------------------------
 # Define some CMake variables for use later in the project
 #-----------------------------------------------------------------------------
 SET (HDF5_RESOURCES_DIR      ${HDF5_SOURCE_DIR}/config/cmake)

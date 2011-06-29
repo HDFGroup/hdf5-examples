@@ -13,7 +13,7 @@ SET (examples
 FOREACH (example ${examples})
   ADD_EXECUTABLE (${example} ${HDF5_C_PERFORM_SOURCE_DIR}/${example}.c)
   TARGET_NAMING (${example} ${LIB_TYPE})
-  TARGET_LINK_LIBRARIES (${example} ${HDF5_LIB_TARGET})
+  TARGET_LINK_LIBRARIES (${example} ${LINK_LIBS})
 ENDFOREACH (example ${examples})
 
 IF (BUILD_TESTING)

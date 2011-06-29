@@ -48,10 +48,7 @@ FOREACH (example ${examples})
           HDF5F90_WINDOWS
     )
   ENDIF (WIN32 AND NOT CYGWIN)
-  TARGET_LINK_LIBRARIES (f90_${example}
-      ${HDF5_F90_LIB_TARGET}
-      ${HDF5_LIB_TARGET}
-  )
+  TARGET_LINK_LIBRARIES (f90_${example} ${LINK_LIBS})
   SET_TARGET_PROPERTIES (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
 ENDFOREACH (example ${examples})
 
