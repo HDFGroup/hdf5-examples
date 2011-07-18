@@ -20,7 +20,7 @@ PROGRAM main
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   CHARACTER(LEN=2) , PARAMETER :: attribute = "A1"
   INTEGER          , PARAMETER :: dim0      = 4
-  INTEGER          , PARAMETER :: size      = 7
+  INTEGER(SIZE_T)  , PARAMETER :: size      = 7
   
 
   INTEGER(HID_T)  :: file, space, dtype, dset, attr ! Handles

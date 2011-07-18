@@ -19,7 +19,7 @@ PROGRAM main
   CHARACTER(LEN=20), PARAMETER :: filename  = "h5ex_t_opaque_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   INTEGER          , PARAMETER :: dim0      = 4
-  INTEGER          , PARAMETER :: size      = 7
+  INTEGER(SIZE_T)  , PARAMETER :: size      = 7
   INTEGER(HID_T)  :: file, space, dtype, dset ! Handles
   INTEGER :: hdferr
   INTEGER(size_t) :: len
