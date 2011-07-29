@@ -33,5 +33,6 @@ h5ex_t_cpxcmpdatt.test h5ex_t_objref.test h5ex_t_objrefatt.test \
 h5ex_t_regref.test h5ex_t_regrefatt.test h5ex_t_commit.test \
 h5ex_t_convert.test test.sh
 
+AM_CPPFLAGS = '-D H5_USE_18_API'
 TESTS_ENVIRONMENT = sh
 TESTS = test.sh

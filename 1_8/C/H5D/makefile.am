@@ -28,5 +28,6 @@ h5ex_d_unlimadd.test h5ex_d_unlimmod.test h5ex_d_unlimgzip.test \
 h5ex_d_checksum.test h5ex_d_shuffle.test h5ex_d_transform.test \
 h5ex_d_fillval.test h5ex_d_alloc.test test.sh
 
+AM_CPPFLAGS = '-D H5_USE_18_API'
 TESTS_ENVIRONMENT = sh
 TESTS = test.sh

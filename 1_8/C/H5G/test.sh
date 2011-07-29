@@ -60,7 +60,7 @@ dumpout2() {
 return_val=0
 
 
-$ECHO_N "Testing 1.8/C/H5G/h5ex_g_create...$ECHO_C"
+$ECHO_N "Testing 1_8/C/H5G/h5ex_g_create...$ECHO_C"
 ./h5ex_g_create
 dumpout h5ex_g_create.h5 >tmp.test
 rm -f h5ex_g_create.h5
@@ -75,7 +75,7 @@ fi
 return_val=`expr $status + $return_val`
 
 
-$ECHO_N "Testing 1.8/C/H5G/h5ex_g_iterate...$ECHO_C"
+$ECHO_N "Testing 1_8/C/H5G/h5ex_g_iterate...$ECHO_C"
 if test -f h5ex_g_iterate.h5
 then
     exout ./h5ex_g_iterate >tmp.test

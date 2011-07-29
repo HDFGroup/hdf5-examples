@@ -24,4 +24,8 @@ if V18
 DO_18=1_8
 endif
 
-SUBDIRS = $(DO_16) $(DO_18)
+if V110
+DO_110=1_10
+endif
+
+SUBDIRS = $(DO_16) $(DO_18) $(DO_110)

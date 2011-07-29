@@ -47,13 +47,15 @@ AC_C_CONST
 
 # Check which versions to build, if no environmental variables are set, build
 # all.
-if test ! "$H5EX_16" && test ! "$H5EX_18"
+if test ! "$H5EX_16" && test ! "$H5EX_18" && test ! "$H5EX_110"
 then
 	H5EX_16=1
 	H5EX_18=1
+	H5EX_110=1
 fi
 AM_CONDITIONAL(V16, test "$H5EX_16")
 AM_CONDITIONAL(V18, test "$H5EX_18")
+AM_CONDITIONAL(V110, test "$H5EX_110")
 
 if test ! "$H5EX_G" && test ! "$H5EX_D" && test ! "$H5EX_T"
 then
@@ -69,7 +71,9 @@ AM_CONDITIONAL(H5T, test "$H5EX_T")
 AC_CONFIG_FILES([makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile \
 1_6/C/H5D/makefile 1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile \
 1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile 1_8/FORTRAN/makefile \
-1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5D/makefile ])
+1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5D/makefile 1_10/makefile \
+1_10/C/makefile 1_10/C/H5G/makefile 1_10/C/H5D/makefile 1_10/C/H5T/makefile \
+1_10/FORTRAN/makefile 1_10/FORTRAN/H5G/makefile 1_10/FORTRAN/H5D/makefile ])
 
 # Configure
 AC_OUTPUT

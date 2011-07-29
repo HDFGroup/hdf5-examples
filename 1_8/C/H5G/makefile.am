@@ -24,5 +24,6 @@ h5ex_g_traverse.h5 h5ex_g_traverse.txt h5ex_g_compact.txt h5ex_g_corder.txt \
 h5ex_g_intermediate.txt h5ex_g_phase.txt h5ex_g_visit.h5 h5ex_g_visit.txt \
 test.sh
 
+AM_CPPFLAGS = '-D H5_USE_18_API'
 TESTS_ENVIRONMENT = sh
 TESTS = test.sh

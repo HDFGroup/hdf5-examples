@@ -60,7 +60,7 @@ dumpout2() {
 return_val=0
 
 
-$ECHO_N "Testing 1.8/FORTRAN/H5G/h5ex_g_create...$ECHO_C"
+$ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_create...$ECHO_C"
 ./h5ex_g_create
 dumpout h5ex_g_create.h5 >tmp.test
 rm -f h5ex_g_create.h5
