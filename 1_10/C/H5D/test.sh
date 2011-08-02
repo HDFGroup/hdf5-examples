@@ -46,16 +46,6 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
 
 topics="rdwr hyper chunk gzip szip nbit soint sofloat extern compact unlimadd \
 unlimmod unlimgzip checksum shuffle fillval alloc"
@@ -74,15 +64,22 @@ do
     then
         echo "  Unsupported feature"
     else
-        dumpout2 $fname.h5 >>tmp.test
-        rm -f $fname.h5
-        cmp -s tmp.test $srcdir/$fname.test
+        cmp -s tmp.test $srcdir/testfiles/$fname.tst
         status=$?
         if test $status -ne 0
         then
             echo "  FAILED!"
         else
-            echo "  Passed"
+          dumpout $fname.h5 >tmp.test
+          rm -f $fname.h5
+          cmp -s tmp.test $srcdir/testfiles/$fname.ddl
+          status=$?
+          if test $status -ne 0
+          then
+              echo "  FAILED!"
+          else
+              echo "  Passed"
+          fi
         fi
         return_val=`expr $status + $return_val`
     fi
@@ -104,15 +101,23 @@ if test $status -eq 1
 then
     echo "  Unsupported feature"
 else
-    dumpout2 -n $fname.h5 >>tmp.test
-    rm -f $fname.h5
-    cmp -s tmp.test $srcdir/$fname.test
+    cmp -s tmp.test $srcdir/testfiles/$fname.tst
     status=$?
     if test $status -ne 0
     then
         echo "  FAILED!"
     else
-        echo "  Passed"
+        dumpout -n $fname.h5 >tmp.test
+        rm -f $fname.h5
+        cmp -s tmp.test $srcdir/testfiles/$fname.ddl
+        status=$?
+        if test $status -ne 0
+        then
+            echo "  FAILED!"
+        else
+            echo "  Passed"
+        fi
+        return_val=`expr $status + $return_val`
     fi
     return_val=`expr $status + $return_val`
 fi

@@ -16,7 +16,10 @@
 
 AC_PREREQ(2.59)
 AC_INIT(HDF5-examples, 0.1, nfortne2@hdfgroup.org)
-AM_INIT_AUTOMAKE(HDF5-examples, 0.1)
+dnl AM_INIT_AUTOMAKE takes a list of options that should be applied to
+dnl every Makefile.am when automake is run.
+AM_INIT_AUTOMAKE([foreign])
+AM_CONFIG_HEADER(config.h)
 
 # Turn off automake rebuild rules so make doesn't try to run automake
 # (which probably won't work).
@@ -49,9 +52,9 @@ AC_C_CONST
 # all.
 if test ! "$H5EX_16" && test ! "$H5EX_18" && test ! "$H5EX_110"
 then
-	H5EX_16=1
-	H5EX_18=1
-	H5EX_110=1
+  H5EX_16=1
+  H5EX_18=1
+  H5EX_110=1
 fi
 AM_CONDITIONAL(V16, test "$H5EX_16")
 AM_CONDITIONAL(V18, test "$H5EX_18")
@@ -59,9 +62,9 @@ AM_CONDITIONAL(V110, test "$H5EX_110")
 
 if test ! "$H5EX_G" && test ! "$H5EX_D" && test ! "$H5EX_T"
 then
-	H5EX_G=1
-	H5EX_D=1
-	H5EX_T=1
+  H5EX_G=1
+  H5EX_D=1
+  H5EX_T=1
 fi
 AM_CONDITIONAL(H5G, test "$H5EX_G")
 AM_CONDITIONAL(H5D, test "$H5EX_D")

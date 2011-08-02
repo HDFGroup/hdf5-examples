@@ -46,15 +46,6 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
 
 
 return_val=0
@@ -64,7 +55,7 @@ $ECHO_N "Testing 1_10/FORTRAN/H5G/h5ex_g_create...$ECHO_C"
 ./h5ex_g_create
 dumpout h5ex_g_create.h5 >tmp.test
 rm -f h5ex_g_create.h5
-cmp -s tmp.test $srcdir/h5ex_g_create.test
+cmp -s tmp.test $srcdir/testfiles/h5ex_g_create.ddl
 status=$?
 if test $status -ne 0
 then
@@ -78,14 +69,21 @@ return_val=`expr $status + $return_val`
 $ECHO_N "Testing 1_10/FORTRAN/H5G/h5ex_g_compact...$ECHO_C"
 ./h5ex_g_compact >/dev/null
 dumpout h5ex_g_compact1.h5 >tmp.test
-dumpout2 h5ex_g_compact2.h5 >>tmp.test
-cmp -s tmp.test $srcdir/h5ex_g_compact.test
+cmp -s tmp.test $srcdir/testfiles/h5ex_g_compact1.ddl
+status=$?
+if test $status -ne 0
+then
+    echo "  FAILED!"
+else
+  dumpout h5ex_g_compact2.h5 >tmp.test
+  cmp -s tmp.test $srcdir/testfiles/h5ex_g_compact2.ddl
 status=$?
 if test $status -ne 0
 then
     echo "  FAILED!"
 else
     echo "  Passed"
+fi
 fi
 return_val=`expr $status + $return_val`
 rm -f h5ex_g_compact1.h5
@@ -94,7 +92,7 @@ rm -f h5ex_g_compact2.h5
 
 $ECHO_N "Testing 1_10/FORTRAN/H5G/h5ex_g_phase...$ECHO_C"
 exout ./h5ex_g_phase >tmp.test
-cmp -s tmp.test $srcdir/h5ex_g_phase.test
+cmp -s tmp.test $srcdir/testfiles/h5ex_g_phase.tst
 status=$?
 if test $status -ne 0
 then
@@ -108,7 +106,7 @@ rm -f h5ex_g_phase.h5
 
 $ECHO_N "Testing 1_10/FORTRAN/H5G/h5ex_g_corder...$ECHO_C"
 exout ./h5ex_g_corder >tmp.test
-cmp -s tmp.test $srcdir/h5ex_g_corder.test
+cmp -s tmp.test $srcdir/testfiles/h5ex_g_corder.tst
 status=$?
 if test $status -ne 0
 then

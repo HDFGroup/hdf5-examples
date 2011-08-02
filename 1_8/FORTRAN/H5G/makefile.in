@@ -41,6 +41,7 @@ am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
@@ -56,7 +57,7 @@ h5ex_g_create_LDADD = $(LDADD)
 am_h5ex_g_phase_OBJECTS = h5ex_g_phase.$(OBJEXT)
 h5ex_g_phase_OBJECTS = $(am_h5ex_g_phase_OBJECTS)
 h5ex_g_phase_LDADD = $(LDADD)
-DEFAULT_INCLUDES = -I.@am__isrc@
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 FCCOMPILE = $(FC) $(AM_FCFLAGS) $(FCFLAGS)
 FCLD = $(FC)
 FCLINK = $(FCLD) $(AM_FCFLAGS) $(FCFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o \
@@ -161,9 +162,10 @@ h5ex_g_compact_SOURCES = h5ex_g_compact.f90
 h5ex_g_create_SOURCES = h5ex_g_create.f90
 h5ex_g_corder_SOURCES = h5ex_g_corder.f90
 h5ex_g_phase_SOURCES = h5ex_g_phase.f90
-EXTRA_DIST = h5ex_g_create.txt  \
- h5ex_g_compact.txt h5ex_g_corder.txt \
-h5ex_g_phase.txt test.sh
+EXTRA_DIST = testfiles/h5ex_g_create.ddl \
+testfiles/h5ex_g_compact1.ddl testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
+testfiles/h5ex_g_phase.tst \
+test.sh
 
 TESTS_ENVIRONMENT = sh
 TESTS = test.sh

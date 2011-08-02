@@ -57,6 +57,7 @@ am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
+CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
@@ -84,7 +85,7 @@ h5ex_g_traverse_LDADD = $(LDADD)
 h5ex_g_visit_SOURCES = h5ex_g_visit.c
 h5ex_g_visit_OBJECTS = h5ex_g_visit.$(OBJEXT)
 h5ex_g_visit_LDADD = $(LDADD)
-DEFAULT_INCLUDES = -I.@am__isrc@
+DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
@@ -190,9 +191,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = h5ex_g_create.txt h5ex_g_iterate.h5 h5ex_g_iterate.txt \
-h5ex_g_traverse.h5 h5ex_g_traverse.txt h5ex_g_compact.txt h5ex_g_corder.txt \
-h5ex_g_intermediate.txt h5ex_g_phase.txt h5ex_g_visit.h5 h5ex_g_visit.txt \
+EXTRA_DIST = testfiles/h5ex_g_create.ddl testfiles/h5ex_g_iterate.tst testfiles/h5ex_g_traverse.tst \
+testfiles/h5ex_g_compact1.ddl testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
+testfiles/h5ex_g_intermediate.tst testfiles/h5ex_g_phase.tst testfiles/h5ex_g_visit.tst \
+h5ex_g_iterate.h5 h5ex_g_traverse.h5 h5ex_g_visit.h5 \
 test.sh
 
 TESTS_ENVIRONMENT = sh

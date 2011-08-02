@@ -35,37 +35,27 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
 ./h5ex_g_create
-dumpout h5ex_g_create.h5 >h5ex_g_create.test
+dumpout h5ex_g_create.h5 >testfiles/h5ex_g_create.ddl
 rm -f h5ex_g_create.h5
 
-exout ./h5ex_g_iterate >h5ex_g_iterate.test
+exout ./h5ex_g_iterate >testfiles/h5ex_g_iterate.tst
 
-exout ./h5ex_g_traverse >h5ex_g_traverse.test
+exout ./h5ex_g_traverse >testfiles/h5ex_g_traverse.tst
 
-exout ./h5ex_g_visit >h5ex_g_visit.test
+exout ./h5ex_g_visit >testfiles/h5ex_g_visit.tst
 
-exout ./h5ex_g_compact >h5ex_g_compact.test
-dumpout h5ex_g_compact1.h5 >>h5ex_g_compact.test
-dumpout2 h5ex_g_compact2.h5 >>h5ex_g_compact.test
+exout ./h5ex_g_compact >testfiles/h5ex_g_compact.tst
+dumpout h5ex_g_compact1.h5 >testfiles/h5ex_g_compact1.ddl
+dumpout h5ex_g_compact2.h5 >testfiles/h5ex_g_compact2.ddl
 rm -f h5ex_g_compact1.h5
 rm -f h5ex_g_compact2.h5
 
-exout ./h5ex_g_phase >h5ex_g_phase.test
+exout ./h5ex_g_phase >testfiles/h5ex_g_phase.tst
 rm -f h5ex_g_phase.h5
 
-exout ./h5ex_g_corder >h5ex_g_corder.test
+exout ./h5ex_g_corder >testfiles/h5ex_g_corder.tst
 rm -f h5ex_g_corder.h5
 
-exout ./h5ex_g_intermediate >h5ex_g_intermediate.test
+exout ./h5ex_g_intermediate >testfiles/h5ex_g_intermediate.tst
 rm -f h5ex_g_intermediate.h5

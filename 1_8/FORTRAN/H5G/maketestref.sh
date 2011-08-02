@@ -35,30 +35,20 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
 ./h5ex_g_create
-dumpout h5ex_g_create.h5 >h5ex_g_create.test
+dumpout h5ex_g_create.h5 >testfiles/h5ex_g_create.ddl
 rm -f h5ex_g_create.h5
 
 
 ./h5ex_g_compact >/dev/null
-dumpout h5ex_g_compact1.h5 >h5ex_g_compact.test
-dumpout2 h5ex_g_compact2.h5 >>h5ex_g_compact.test
+dumpout h5ex_g_compact1.h5 >testfiles/h5ex_g_compact1.ddl
+dumpout h5ex_g_compact2.h5 >testfiles/h5ex_g_compact2.ddl
 rm -f h5ex_g_compact1.h5
 rm -f h5ex_g_compact2.h5
 
-exout ./h5ex_g_phase >h5ex_g_phase.test
+exout ./h5ex_g_phase >testfiles/h5ex_g_phase.tst
 rm -f h5ex_g_phase.h5
 
-exout ./h5ex_g_corder >h5ex_g_corder.test
+exout ./h5ex_g_corder >testfiles/h5ex_g_corder.tst
 rm -f h5ex_g_corder.h5
 

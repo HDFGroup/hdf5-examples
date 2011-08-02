@@ -43,30 +43,20 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
 
 topics="arrayatt_F03 array_F03 bitatt_F03 bit_F03 \
-	cmpdatt_F03 cmpd_F03 Cstring_F03 enumatt_F03 \
-	enum_F03 floatatt_F03 float_F03 intatt_F03 int_F03 \
-	objrefatt_F03 objref_F03 opaqueatt_F03 opaque_F03 \
-	regrefatt_F03 regref_F03 stringCatt_F03 stringC_F03 \
-	string_F03 vlenatt_F03 vlen_F03 vlstring"
+  cmpdatt_F03 cmpd_F03 Cstring_F03 enumatt_F03 \
+  enum_F03 floatatt_F03 float_F03 intatt_F03 int_F03 \
+  objrefatt_F03 objref_F03 opaqueatt_F03 opaque_F03 \
+  regrefatt_F03 regref_F03 stringCatt_F03 stringC_F03 \
+  string_F03 vlenatt_F03 vlen_F03 vlstring"
 
 for topic in $topics
 do
     fname=h5ex_t_$topic
     $ECHO_N "Creating test reference file for 1.8/FORTRAN/H5T/$fname...$ECHO_C"
-    exout ./$fname >$fname.test
-    dumpout2 $fname.h5 >>$fname.test
+    exout ./$fname >testfiles/$fname.tst
+    dumpout $fname.h5 >testfiles/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -75,15 +65,15 @@ done
 
 #fname=h5ex_t_cpxcmpd
 #$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-#exout ./$fname >$fname.test
-#dumpout2 -n $fname.h5 >>$fname.test
+#exout ./$fname >testfiles/$fname.tst
+#dumpout -n $fname.h5 >testfiles/$fname.ddl
 #rm -f $fname.h5
 #echo "  Done."
 #
 #fname=h5ex_t_cpxcmpdatt
 #$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-#exout ./$fname >$fname.test
-#dumpout2 -n $fname.h5 >>$fname.test
+#exout ./$fname >testfiles/$fname.tst
+#dumpout -n $fname.h5 >testfiles/$fname.ddl
 #rm -f $fname.h5
 #echo "  Done."
 

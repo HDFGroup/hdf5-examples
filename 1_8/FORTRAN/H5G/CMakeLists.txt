@@ -50,7 +50,7 @@ IF (BUILD_TESTING)
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}.tst"
+              -D "TEST_REFERENCE=${testname}.ddl"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})

@@ -43,16 +43,6 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
 cmpd cmpdatt objref objrefatt regref regrefatt commit"
@@ -61,8 +51,8 @@ for topic in $topics
 do
     fname=h5ex_t_$topic
     $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-    exout ./$fname >$fname.test
-    dumpout2 $fname.h5 >>$fname.test
+    exout ./$fname >testfiles/$fname.tst
+    dumpout $fname.h5 >testfiles/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -71,19 +61,19 @@ done
 
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >$fname.test
-dumpout2 -n $fname.h5 >>$fname.test
+exout ./$fname >testfiles/$fname.tst
+dumpout -n $fname.h5 >testfiles/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_cpxcmpdatt
 $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >$fname.test
-dumpout2 -n $fname.h5 >>$fname.test
+exout ./$fname >testfiles/$fname.tst
+dumpout -n $fname.h5 >testfiles/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_convert
 $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >$fname.test
+exout ./$fname >testfiles/$fname.tst
 echo "  Done."

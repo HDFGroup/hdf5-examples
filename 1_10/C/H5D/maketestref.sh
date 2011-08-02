@@ -43,16 +43,6 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
 topics="rdwr hyper chunk gzip szip nbit soint sofloat extern compact unlimadd \
 unlimmod unlimgzip checksum shuffle fillval alloc"
 
@@ -60,8 +50,8 @@ for topic in $topics
 do
     fname=h5ex_d_$topic
     $ECHO_N "Creating test reference file for 1.8/C/H5D/$fname...$ECHO_C"
-    exout ./$fname >$fname.test
-    dumpout2 $fname.h5 >>$fname.test
+    exout ./$fname >testfiles/$fname.tst
+    dumpout $fname.h5 >testfiles/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -73,7 +63,7 @@ rm -f h5ex_d_extern.data
 
 fname=h5ex_d_transform
 $ECHO_N "Creating test reference file for 1.8/C/H5D/$fname...$ECHO_C"
-exout ./$fname >$fname.test
-dumpout2 -n $fname.h5 >>$fname.test
+exout ./$fname >testfiles/$fname.tst
+dumpout -n $fname.h5 >testfiles/$fname.ddl
 rm -f $fname.h5
 echo "  Done."

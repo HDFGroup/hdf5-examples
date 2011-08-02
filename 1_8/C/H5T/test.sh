@@ -46,16 +46,6 @@ dumpout() {
     $H5DUMP $*
 }
 
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
 
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
@@ -70,15 +60,22 @@ do
     fname=h5ex_t_$topic
     $ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
-    dumpout2 $fname.h5 >>tmp.test
-    rm -f $fname.h5
-    cmp -s tmp.test $srcdir/$fname.test
+    cmp -s tmp.test $srcdir/testfiles/$fname.tst
     status=$?
     if test $status -ne 0
     then
         echo "  FAILED!"
     else
-        echo "  Passed"
+        dumpout $fname.h5 >tmp.test
+      rm -f $fname.h5
+      cmp -s tmp.test $srcdir/testfiles/$fname.ddl
+      status=$?
+      if test $status -ne 0
+      then
+          echo "  FAILED!"
+      else
+          echo "  Passed"
+      fi
     fi
     return_val=`expr $status + $return_val`
 done
@@ -89,15 +86,22 @@ done
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-dumpout2 -n $fname.h5 >>tmp.test
-rm -f $fname.h5
-cmp -s tmp.test $srcdir/$fname.test
+cmp -s tmp.test $srcdir/testfiles/$fname.tst
 status=$?
 if test $status -ne 0
 then
     echo "  FAILED!"
 else
-    echo "  Passed"
+  dumpout -n $fname.h5 >tmp.test
+  rm -f $fname.h5
+  cmp -s tmp.test $srcdir/testfiles/$fname.ddl
+  status=$?
+  if test $status -ne 0
+  then
+      echo "  FAILED!"
+  else
+      echo "  Passed"
+  fi
 fi
 return_val=`expr $status + $return_val`
 
@@ -105,15 +109,22 @@ return_val=`expr $status + $return_val`
 fname=h5ex_t_cpxcmpdatt
 $ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-dumpout2 -n $fname.h5 >>tmp.test
-rm -f $fname.h5
-cmp -s tmp.test $srcdir/$fname.test
+cmp -s tmp.test $srcdir/testfiles/$fname.tst
 status=$?
 if test $status -ne 0
 then
     echo "  FAILED!"
 else
-    echo "  Passed"
+  dumpout -n $fname.h5 >tmp.test
+  rm -f $fname.h5
+  cmp -s tmp.test $srcdir/testfiles/$fname.ddl
+  status=$?
+  if test $status -ne 0
+  then
+      echo "  FAILED!"
+  else
+      echo "  Passed"
+  fi
 fi
 return_val=`expr $status + $return_val`
 
@@ -121,7 +132,7 @@ return_val=`expr $status + $return_val`
 fname=h5ex_t_convert
 $ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-cmp -s tmp.test $srcdir/$fname.test
+cmp -s tmp.test $srcdir/testfiles/$fname.tst
 status=$?
 if test $status -ne 0
 then
