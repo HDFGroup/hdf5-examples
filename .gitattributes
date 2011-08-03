@@ -838,6 +838,7 @@
 /README -text
 /aclocal.m4 -text
 bin/reconfigure -text
+/config.h.in -text
 /configure -text
 /configure.ac -text
 /depcomp -text
