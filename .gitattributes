@@ -727,6 +727,7 @@
 1_8/FORTRAN/H5G/h5ex_g_compact.f90 -text
 1_8/FORTRAN/H5G/h5ex_g_corder.f90 -text
 1_8/FORTRAN/H5G/h5ex_g_create.f90 -text
+1_8/FORTRAN/H5G/h5ex_g_iterate.h5 -text
 1_8/FORTRAN/H5G/h5ex_g_iterate_F03.f90 -text
 1_8/FORTRAN/H5G/h5ex_g_phase.f90 -text
 1_8/FORTRAN/H5G/makefile.am -text
