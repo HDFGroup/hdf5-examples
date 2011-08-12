@@ -685,6 +685,7 @@
 1_8/FORTRAN/H5D/h5ex_d_hyper.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_nbit.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_rdwr.f90 -text
+1_8/FORTRAN/H5D/h5ex_d_rdwr_kind_F03.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_soint.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_szip.f90 -text
 1_8/FORTRAN/H5D/h5ex_d_transform.f90 -text
