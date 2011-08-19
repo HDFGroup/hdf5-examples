@@ -1,7 +1,7 @@
 !************************************************************
 !
 !  This example shows how to read and write REAL datatypes
-!  (using SELECTED_REAL_KIND) tp a dataset.  The program first 
+!  (using SELECTED_REAL_KIND) to a dataset.  The program first 
 !  writes REAL datatypes to a dataset with a dataspace of 
 !  DIM0xDIM1, then closes the file.  Next, it reopens the file, 
 !  reads back the REAL data, and outputs it to the screen.
