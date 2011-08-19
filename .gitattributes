@@ -772,8 +772,6 @@
 1_8/FORTRAN/H5T/makefile.in -text
 1_8/FORTRAN/H5T/maketestref.sh -text
 1_8/FORTRAN/H5T/test.sh -text
-1_8/FORTRAN/H5T/testfiles/h5ex_t_Cstring_F03.ddl -text
-1_8/FORTRAN/H5T/testfiles/h5ex_t_Cstring_F03.tst -text
 1_8/FORTRAN/H5T/testfiles/h5ex_t_array_F03.ddl -text
 1_8/FORTRAN/H5T/testfiles/h5ex_t_array_F03.tst -text
 1_8/FORTRAN/H5T/testfiles/h5ex_t_arrayatt_F03.ddl -text
