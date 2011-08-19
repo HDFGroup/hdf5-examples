@@ -11,7 +11,6 @@ SET (f03examples
     h5ex_t_bitatt
     h5ex_t_cmpd
     h5ex_t_cmpdatt
-    h5ex_t_Cstring
     h5ex_t_enum
     h5ex_t_enumatt
     h5ex_t_float
