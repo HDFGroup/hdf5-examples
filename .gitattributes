@@ -744,7 +744,6 @@
 1_8/FORTRAN/H5G/testfiles/h5ex_g_iterate.tst -text
 1_8/FORTRAN/H5G/testfiles/h5ex_g_phase.tst -text
 1_8/FORTRAN/H5T/CMakeLists.txt -text
-1_8/FORTRAN/H5T/h5ex_t_Cstring_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_array_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_arrayatt_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_bit_F03.f90 -text
