@@ -38,10 +38,6 @@ PROGRAM main
   END TYPE vl
   TYPE(vl), DIMENSION(:), ALLOCATABLE :: ptr
 
-  TYPE hvl_t
-     INTEGER(size_t) :: len ! Length of VL data (in base type units)
-     TYPE(C_PTR) :: p       ! Pointer to VL data
-  END TYPE hvl_t
   TYPE(hvl_t), DIMENSION(1:2), TARGET :: wdata ! Array of vlen structures
   TYPE(hvl_t), DIMENSION(1:2), TARGET :: rdata ! Pointer to vlen structures
 
@@ -82,8 +78,8 @@ PROGRAM main
   !
   ! Create variable-length datatype for file and memory.
   !
-  CALL H5Tvlen_create_f(H5T_STD_I32LE, filetype, hdferr)
-  CALL H5Tvlen_create_f(H5T_NATIVE_INTEGER, memtype, hdferr)
+  CALL h5tvlen_create_f(H5T_STD_I32LE, filetype, hdferr)
+  CALL h5tvlen_create_f(H5T_NATIVE_INTEGER, memtype, hdferr)
   !
   ! Create dataspace.
   !
@@ -91,7 +87,7 @@ PROGRAM main
   !
   ! Create the dataset and write the variable-length data to it.
   !
-  CALL H5Dcreate_f(file, dataset, filetype, space, dset, hdferr)
+  CALL h5dcreate_f(file, dataset, filetype, space, dset, hdferr)
  
   f_ptr = C_LOC(wdata(1))
   CALL h5dwrite_f(dset, memtype, f_ptr, hdferr)
@@ -103,8 +99,8 @@ PROGRAM main
   CALL h5dvlen_reclaim_f(memtype, space, H5P_DEFAULT_F, f_ptr, hdferr) !g95 segfaults
   CALL h5dclose_f(dset , hdferr)
   CALL h5sclose_f(space, hdferr)
-  CALL H5Tclose_f(filetype, hdferr)
-  CALL H5Tclose_f(memtype, hdferr)
+  CALL h5tclose_f(filetype, hdferr)
+  CALL h5tclose_f(memtype, hdferr)
   CALL h5fclose_f(file , hdferr)
 
   DEALLOCATE(ptr)
@@ -122,19 +118,19 @@ PROGRAM main
   ! This does not actually allocate memory for the vlen data, that
   ! will be done by the library.
   !
-  CALL H5Dget_space_f(dset, space, hdferr)
-  CALL H5Sget_simple_extent_dims_f(space, dims, maxdims, hdferr) 
+  CALL h5dget_space_f(dset, space, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr) 
 
   !
   ! Create the memory datatype.
   !
-  CALL H5Tvlen_create_f(H5T_NATIVE_INTEGER, memtype, hdferr)
+  CALL h5tvlen_create_f(H5T_NATIVE_INTEGER, memtype, hdferr)
 
   !
   ! Read the data.
   !
   f_ptr = C_LOC(rdata(1))
-  CALL H5Dread_f(dset, memtype, f_ptr, hdferr)
+  CALL h5dread_f(dset, memtype, f_ptr, hdferr)
   !
   ! Output the variable-length data to the screen.
   !
@@ -153,7 +149,7 @@ PROGRAM main
   CALL h5dvlen_reclaim_f(memtype, space, H5P_DEFAULT_F, f_ptr, hdferr)
   CALL h5dclose_f(dset , hdferr)
   CALL h5sclose_f(space, hdferr)
-  CALL H5Tclose_f(memtype, hdferr)
+  CALL h5tclose_f(memtype, hdferr)
   CALL h5fclose_f(file , hdferr)
 
 END PROGRAM main
