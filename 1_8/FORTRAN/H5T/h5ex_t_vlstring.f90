@@ -20,7 +20,7 @@ PROGRAM main
   CHARACTER(LEN=18), PARAMETER :: filename  = "h5ex_t_vlstring.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
 
-  INTEGER          , PARAMETER :: dim0      = 4
+  INTEGER(HSIZE_T) , PARAMETER :: dim0      = 4
   INTEGER(SIZE_T)  , PARAMETER :: sdim      = 7
   INTEGER(HID_T)  :: file, filetype, space, dset ! Handles
   INTEGER :: hdferr
