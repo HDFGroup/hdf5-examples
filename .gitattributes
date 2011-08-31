@@ -359,6 +359,7 @@
 1_10/config/cmake/HDF5Macros.cmake -text
 1_10/config/cmake/HDF5UseFortran.cmake -text
 1_10/config/cmake/HDFMacros.cmake -text
+1_10/config/cmake/cacheinit.cmake -text
 1_10/config/cmake/grepTest.cmake -text
 1_10/config/cmake/runTest.cmake -text
 1_10/config/cmake/xlatefile.c -text
@@ -833,6 +834,7 @@
 1_8/config/cmake/HDF5Macros.cmake -text
 1_8/config/cmake/HDF5UseFortran.cmake -text
 1_8/config/cmake/HDFMacros.cmake -text
+1_8/config/cmake/cacheinit.cmake -text
 1_8/config/cmake/grepTest.cmake -text
 1_8/config/cmake/runTest.cmake -text
 1_8/config/cmake/xlatefile.c -text
