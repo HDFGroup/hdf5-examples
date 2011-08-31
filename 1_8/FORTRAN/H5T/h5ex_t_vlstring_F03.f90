@@ -20,7 +20,7 @@ PROGRAM main
   
   IMPLICIT NONE
 
-  CHARACTER(LEN=18), PARAMETER :: filename = "h5ex_vlstring_F03.h5"
+  CHARACTER(LEN=20), PARAMETER :: filename = "h5ex_vlstring_F03.h5"
   CHARACTER(LEN=3) , PARAMETER :: dataset  = "DS1"
 
   INTEGER(HSIZE_T), PARAMETER :: dim0 = 4
