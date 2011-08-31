@@ -768,6 +768,7 @@
 1_8/FORTRAN/H5T/h5ex_t_vlen_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_vlenatt_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_vlstring.f90 -text
+1_8/FORTRAN/H5T/h5ex_t_vlstring_F03.f90 -text
 1_8/FORTRAN/H5T/makefile.am -text
 1_8/FORTRAN/H5T/makefile.in -text
 1_8/FORTRAN/H5T/maketestref.sh -text
