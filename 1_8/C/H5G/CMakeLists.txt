@@ -185,9 +185,14 @@ IF (BUILD_TESTING)
         COMMAND    ${XLATE_UTILITY}
         ARGS       ${HDF5_C_H5G_SOURCE_DIR}/testfiles/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl -l4
     )
+    ADD_CUSTOM_COMMAND (
+        TARGET     h5ex_g_create
+        POST_BUILD
+        COMMAND    ${XLATE_UTILITY}
+        ARGS       ${HDF5_C_H5G_SOURCE_DIR}/testfiles/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl -l4
+    )
     SET (exrefs
         h5ex_g_corder
-        h5ex_g_create
         h5ex_g_phase
         h5ex_g_iterate
         h5ex_g_traverse
