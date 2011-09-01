@@ -29,7 +29,7 @@ SET (f03examples
     h5ex_t_stringCatt
     h5ex_t_vlen
     h5ex_t_vlenatt
-#    h5ex_t_vlstring
+    h5ex_t_vlstring
 #    h5ex_t_vlstringatt
 #    h5ex_t_cpxcmpd
 #    h5ex_t_cpxcmpdatt

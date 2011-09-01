@@ -4,7 +4,7 @@
 # EXTERNAL cache entries
 ########################
 
-SET (BUILD_SHARED_LIBS ON CACHE BOOL "Build Shared Libraries" FORCE)
+SET (USE_SHARED_LIBS ON CACHE BOOL "Build Shared Libraries" FORCE)
 
 SET (BUILD_TESTING ON CACHE BOOL "Build HDF5 Unit Testing" FORCE)
 
