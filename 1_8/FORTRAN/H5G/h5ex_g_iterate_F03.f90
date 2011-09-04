@@ -14,25 +14,6 @@ MODULE liter_cb_mod
   USE ISO_C_BINDING
   IMPLICIT NONE
 
-  ! Custom group iteration callback data
-  TYPE, bind(c) ::  iter_info
-     CHARACTER(LEN=1), DIMENSION(1:10) :: name ! The name of the object
-     INTEGER(c_int) :: type    ! The type of the object
-     INTEGER(c_int) :: command ! The type of return value
-  END TYPE iter_info
-
-  TYPE, bind(c) :: union_t
-     INTEGER(haddr_t) :: address
-     INTEGER(size_t) :: val_size
-  END TYPE union_t
-
-  TYPE, bind(c) :: H5L_info_t
-     INTEGER(c_int) :: type
-     INTEGER(c_int64_t) :: corder
-     INTEGER(c_int) :: cset
-     TYPE(union_t) :: u
-  END TYPE H5L_info_t
-
 CONTAINS
 
 !************************************************************
@@ -50,10 +31,10 @@ CONTAINS
     
     INTEGER(HID_T), VALUE :: loc_id
     CHARACTER(LEN=1), DIMENSION(1:10) :: name ! must have LEN=1 for bind(C) strings
-    TYPE (H5L_info_t) :: info
-    TYPE(iter_info) :: operator_data
+    TYPE(C_PTR) :: info
+    TYPE(C_PTR) :: operator_data
     
-    INTEGER   :: status, i
+    INTEGER   :: status, i, len
 
     TYPE(H5O_info_t), TARGET :: infobuf 
     TYPE(C_PTR) :: ptr
@@ -72,14 +53,21 @@ CONTAINS
 
     CALL H5Oget_info_by_name_f(loc_id, name_string, ptr, status)
 
+    ! Include the string up to the C NULL CHARACTER
+    len = 0
+    DO
+       IF(name_string(len+1:len+1).EQ.C_NULL_CHAR.OR.len.GE.10) EXIT
+       len = len + 1
+    ENDDO
+
     IF(infobuf%type.EQ.H5O_TYPE_GROUP_F)THEN
-       WRITE(*,*) "Group: ", name_string
+       WRITE(*,*) "Group: ", name_string(1:len)
     ELSE IF(infobuf%type.EQ.H5O_TYPE_DATASET_F)THEN
-       WRITE(*,*) "Dataset: ", name_string
+       WRITE(*,*) "Dataset: ", name_string(1:len)
     ELSE IF(infobuf%type.EQ.H5O_TYPE_NAMED_DATATYPE_F)THEN
-       WRITE(*,*) "Datatype: ", name_string
+       WRITE(*,*) "Datatype: ", name_string(1:len)
     ELSE
-       WRITE(*,*) "Unknown: ", name_string
+       WRITE(*,*) "Unknown: ", name_string(1:len)
     ENDIF
 
     op_func = 0 ! return successful
@@ -102,8 +90,7 @@ PROGRAM main
   INTEGER :: status
   TYPE(C_FUNPTR) :: funptr
   TYPE(C_PTR) :: ptr
-  INTEGER(hsize_t) idx
-  TYPE(iter_info), TARGET :: info
+  INTEGER(hsize_t) :: idx
   INTEGER :: ret_value
 
   !
@@ -117,8 +104,8 @@ PROGRAM main
   WRITE(*,'(A)') "Objects in root group:"
 
   idx = 0
-  funptr = C_FUNLOC(op_func)
-  ptr = C_LOC(info)
+  funptr = C_FUNLOC(op_func) ! call back function
+  ptr    = C_NULL_PTR
 
   CALL H5Literate_f(file, H5_INDEX_NAME_F, H5_ITER_NATIVE_F, idx, funptr, ptr, ret_value, status)
 

@@ -70,13 +70,24 @@ AM_CONDITIONAL(H5G, test "$H5EX_G")
 AM_CONDITIONAL(H5D, test "$H5EX_D")
 AM_CONDITIONAL(H5T, test "$H5EX_T")
 
+# check if a Fortran 2003 compiler was used for h5fc
+HAVE_FORTRAN_2003="no"
+
+AC_MSG_CHECKING([if h5fc was compiled with Fortran 2003 enabled])
+if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+  HAVE_FORTRAN_2003="yes"	
+fi
+echo $HAVE_FORTRAN_2003 
+
+AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
+
 # Set subdirectories
 AC_CONFIG_FILES([makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile \
 1_6/C/H5D/makefile 1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile \
 1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile 1_8/FORTRAN/makefile \
-1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5D/makefile 1_10/makefile \
+1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5D/makefile 1_8/FORTRAN/H5T/makefile 1_10/makefile \
 1_10/C/makefile 1_10/C/H5G/makefile 1_10/C/H5D/makefile 1_10/C/H5T/makefile \
-1_10/FORTRAN/makefile 1_10/FORTRAN/H5G/makefile 1_10/FORTRAN/H5D/makefile ])
+1_10/FORTRAN/makefile 1_10/FORTRAN/H5G/makefile 1_10/FORTRAN/H5D/makefile 1_10/FORTRAN/H5T/makefile ])
 
 # Configure
 AC_OUTPUT

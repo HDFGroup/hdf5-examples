@@ -78,7 +78,7 @@ PROGRAM main
   
   IMPLICIT NONE
 
-  CHARACTER(LEN=17), PARAMETER :: filename  = "h5ex_g_visit.h5"
+  CHARACTER(LEN=15), PARAMETER :: filename  = "h5ex_g_visit.h5"
   INTEGER(HID_T) :: file ! Handle
   INTEGER :: status
   TYPE(C_FUNPTR) :: funptr

@@ -50,6 +50,9 @@ dumpout() {
 topics="rdwr hyper chunk gzip  extern compact \
 unlimmod  checksum  fillval alloc"
 
+if ($FC -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+  topics="$topics rdwr_kind_F03"
+fi
 
 return_val=0
 

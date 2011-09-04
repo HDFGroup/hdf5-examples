@@ -31,7 +31,7 @@ PROGRAM main
   CHARACTER(LEN=sdim), DIMENSION(1:dim0), TARGET :: &
        wdata = (/"Parting", "is such", "sweet  ", "sorrow."/)
   CHARACTER(LEN=sdim), DIMENSION(:), ALLOCATABLE, TARGET :: rdata
-  INTEGER :: i
+  INTEGER :: i, len
   INTEGER(SIZE_T) :: size
   TYPE(C_PTR) :: f_ptr
   !
@@ -105,7 +105,7 @@ PROGRAM main
   ! Output the data to the screen.
   !
   DO i = 1, dims(1)
-     WRITE(*,'(A,"(",I0,"): ", A)') DATASET, i, rdata(i)
+     WRITE(*,'(A,"(",I0,"): ", A)') DATASET, i, TRIM(rdata(i))
   END DO
   !
   ! Close and release resources.

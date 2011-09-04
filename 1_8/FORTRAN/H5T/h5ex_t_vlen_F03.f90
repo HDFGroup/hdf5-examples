@@ -91,19 +91,14 @@ PROGRAM main
  
   f_ptr = C_LOC(wdata(1))
   CALL h5dwrite_f(dset, memtype, f_ptr, hdferr)
-  !
-  ! Close and release resources.  Note the use of H5Dvlen_reclaim
-  ! removes the need to manually deallocate the previously allocated
-  ! data.
-  !
-  CALL h5dvlen_reclaim_f(memtype, space, H5P_DEFAULT_F, f_ptr, hdferr) !g95 segfaults
+
   CALL h5dclose_f(dset , hdferr)
   CALL h5sclose_f(space, hdferr)
   CALL h5tclose_f(filetype, hdferr)
   CALL h5tclose_f(memtype, hdferr)
   CALL h5fclose_f(file , hdferr)
-
   DEALLOCATE(ptr)
+
   !
   ! Now we begin the read section of this example.
 
@@ -143,8 +138,11 @@ PROGRAM main
      ENDDO
      WRITE(*,'( " }")')
   ENDDO
+
   !
-  ! Close and release resources.
+  ! Close and release resources.  Note the use of H5Dvlen_reclaim
+  ! removes the need to manually deallocate the previously allocated
+  ! data.
   !
   CALL h5dvlen_reclaim_f(memtype, space, H5P_DEFAULT_F, f_ptr, hdferr)
   CALL h5dclose_f(dset , hdferr)

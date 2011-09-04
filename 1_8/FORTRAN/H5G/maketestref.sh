@@ -52,3 +52,11 @@ rm -f h5ex_g_phase.h5
 exout ./h5ex_g_corder >testfiles/h5ex_g_corder.tst
 rm -f h5ex_g_corder.h5
 
+if ($FC -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+
+exout ./h5ex_g_iterate_F03 > testfiles/h5ex_g_iterate_F03.tst
+
+exout ./h5ex_g_visit_F03 > testfiles/h5ex_g_visit_F03.tst
+
+fi
+

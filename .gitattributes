@@ -714,6 +714,8 @@
 1_8/FORTRAN/H5D/testfiles/h5ex_d_hyper.tst -text
 1_8/FORTRAN/H5D/testfiles/h5ex_d_rdwr.ddl -text
 1_8/FORTRAN/H5D/testfiles/h5ex_d_rdwr.tst -text
+1_8/FORTRAN/H5D/testfiles/h5ex_d_rdwr_kind_F03.ddl -text
+1_8/FORTRAN/H5D/testfiles/h5ex_d_rdwr_kind_F03.tst -text
 1_8/FORTRAN/H5D/testfiles/h5ex_d_transform.ddl -text
 1_8/FORTRAN/H5D/testfiles/h5ex_d_transform.tst -text
 1_8/FORTRAN/H5D/testfiles/h5ex_d_unlimmod.ddl -text
@@ -743,8 +745,9 @@
 1_8/FORTRAN/H5G/testfiles/h5ex_g_compact2.ddl -text
 1_8/FORTRAN/H5G/testfiles/h5ex_g_corder.tst -text
 1_8/FORTRAN/H5G/testfiles/h5ex_g_create.ddl -text
-1_8/FORTRAN/H5G/testfiles/h5ex_g_iterate.tst -text
+1_8/FORTRAN/H5G/testfiles/h5ex_g_iterate_F03.tst -text svneol=unset#application/octet-stream
 1_8/FORTRAN/H5G/testfiles/h5ex_g_phase.tst -text
+1_8/FORTRAN/H5G/testfiles/h5ex_g_visit_F03.tst -text
 1_8/FORTRAN/H5T/CMakeLists.txt -text
 1_8/FORTRAN/H5T/h5ex_t_array_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_arrayatt_F03.f90 -text

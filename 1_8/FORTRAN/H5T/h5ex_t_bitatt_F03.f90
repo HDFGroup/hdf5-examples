@@ -107,7 +107,7 @@ PROGRAM main
         B = IAND(ISHFT(rdata(i,j),-2), hex) ! Retrieve field "B"
         C = IAND(ISHFT(rdata(i,j),-4), hex) ! Retrieve field "C"
         D = IAND(ISHFT(rdata(i,j),-6), hex) ! Retrieve field "D"
-        WRITE(*,'(A,4I2,A,X)', ADVANCE='NO') "{",A, B, C, D,"}"
+        WRITE(*,'(A,4I2,A,1X)', ADVANCE='NO') "{",A, B, C, D,"}"
      ENDDO
      WRITE(*,'(A)') " ]"
   ENDDO

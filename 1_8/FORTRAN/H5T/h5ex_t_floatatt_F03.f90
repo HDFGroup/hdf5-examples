@@ -102,7 +102,7 @@ PROGRAM main
   WRITE(*, '(A,":")') attribute
   DO i=1, dims(1)
      WRITE(*,'(" [")', ADVANCE='NO')
-     WRITE(*,'(80(x,f6.4))', ADVANCE='NO') rdata(i,1:dims(2))
+     WRITE(*,'(80(x,f9.4))', ADVANCE='NO') rdata(i,1:dims(2))
      WRITE(*,'(" ]")')
   ENDDO
   !

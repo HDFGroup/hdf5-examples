@@ -116,6 +116,33 @@ fi
 return_val=`expr $status + $return_val`
 rm -f h5ex_g_corder.h5
 
+if ($FC -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+
+$ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_iterate_F03...$ECHO_C"
+exout ./h5ex_g_iterate_F03 >tmp.test
+cmp -s tmp.test $srcdir/testfiles/h5ex_g_iterate_F03.tst
+status=$?
+if test $status -ne 0
+then
+    echo "  FAILED!"
+else
+    echo "  Passed"
+fi
+return_val=`expr $status + $return_val`
+
+$ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_visit_F03...$ECHO_C"
+exout ./h5ex_g_visit_F03 >tmp.test
+cmp -s tmp.test $srcdir/testfiles/h5ex_g_visit_F03.tst
+status=$?
+if test $status -ne 0
+then
+    echo "  FAILED!"
+else
+    echo "  Passed"
+fi
+return_val=`expr $status + $return_val`
+
+fi
 
 rm -f tmp.test
 echo "$return_val tests failed in 1_8/FORTRAN/H5G/"

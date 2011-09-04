@@ -31,8 +31,8 @@ PROGRAM main
   ! Find the INTEGER KIND that can represent values from 10   to 10
   !
   INTEGER, PARAMETER :: ip = SELECTED_INT_KIND(10)
-  !
-  CHARACTER(LEN=19), PARAMETER :: filename = "h5ex_d_rdwr_kind.h5"
+  !                                           
+  CHARACTER(LEN=23), PARAMETER :: filename = "h5ex_d_rdwr_kind_F03.h5"
   CHARACTER(LEN=4) , PARAMETER :: dataset_r = "DS_R"
   CHARACTER(LEN=4) , PARAMETER :: dataset_i = "DS_I"
   INTEGER          , PARAMETER :: dim0     = 4

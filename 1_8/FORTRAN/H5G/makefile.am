@@ -18,15 +18,30 @@
 noinst_PROGRAMS = h5ex_g_compact h5ex_g_create  \
   h5ex_g_corder  h5ex_g_phase
 
+if FORTRAN_2003_CONDITIONAL_F
+  noinst_PROGRAMS += h5ex_g_iterate_F03 h5ex_g_visit_F03
+endif
+
 h5ex_g_compact_SOURCES       = h5ex_g_compact.f90
 h5ex_g_create_SOURCES        = h5ex_g_create.f90
 h5ex_g_corder_SOURCES        = h5ex_g_corder.f90
 h5ex_g_phase_SOURCES         = h5ex_g_phase.f90
 
+if FORTRAN_2003_CONDITIONAL_F
+  h5ex_g_iterate_F03_SOURCES = h5ex_g_iterate_F03.f90
+  h5ex_g_visit_F03_SOURCES   = h5ex_g_visit_F03.f90
+endif
+
+
 EXTRA_DIST = testfiles/h5ex_g_create.ddl \
 testfiles/h5ex_g_compact1.ddl testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
 testfiles/h5ex_g_phase.tst \
 test.sh
+
+if FORTRAN_2003_CONDITIONAL_F
+  EXTRA_DIST += testfiles/h5ex_g_iterate_F03.tst testfiles/h5ex_g_iterate_F03.dll \
+  testfiles/h5ex_d_rdwr_kind_F03.tst testfiles/h5ex_d_rdwr_kind_F03.dll
+endif
 
 TESTS_ENVIRONMENT = sh
 TESTS = test.sh

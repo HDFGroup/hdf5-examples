@@ -5,7 +5,7 @@
 HDF5 "h5ex_t_regref_F03.h5" {
 GROUP "/" {
    DATASET "DS1" {
-      DATATYPE  H5T_REFERENCE
+      DATATYPE  H5T_REFERENCE { H5T_STD_REF_DSETREG }
       DATASPACE  SIMPLE { ( 2 ) / ( 2 ) }
       DATA {
          DATASET /DS2 {(0,1), (2,11), (1,0), (2,4)},
