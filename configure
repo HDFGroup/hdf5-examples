@@ -3080,9 +3080,9 @@ HAVE_FORTRAN_2003="no"
 
 echo "$as_me:$LINENO: checking if h5fc was compiled with Fortran 2003 enabled" >&5
 echo $ECHO_N "checking if h5fc was compiled with Fortran 2003 enabled... $ECHO_C" >&6
-if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
-  HAVE_FORTRAN_2003="yes"
-fi
+#if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+#  HAVE_FORTRAN_2003="yes"
+#fi
 echo $HAVE_FORTRAN_2003
 
 

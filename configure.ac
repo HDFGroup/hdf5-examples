@@ -74,9 +74,9 @@ AM_CONDITIONAL(H5T, test "$H5EX_T")
 HAVE_FORTRAN_2003="no"
 
 AC_MSG_CHECKING([if h5fc was compiled with Fortran 2003 enabled])
-if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
-  HAVE_FORTRAN_2003="yes"	
-fi
+#if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+#  HAVE_FORTRAN_2003="yes"	
+#fi
 echo $HAVE_FORTRAN_2003 
 
 AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
