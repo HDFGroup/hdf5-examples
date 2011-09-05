@@ -40,7 +40,8 @@ test.sh
 
 if FORTRAN_2003_CONDITIONAL_F
   EXTRA_DIST += testfiles/h5ex_g_iterate_F03.tst testfiles/h5ex_g_iterate_F03.dll \
-  testfiles/h5ex_d_rdwr_kind_F03.tst testfiles/h5ex_d_rdwr_kind_F03.dll
+  testfiles/h5ex_d_rdwr_kind_F03.tst testfiles/h5ex_d_rdwr_kind_F03.dll \
+  h5ex_g_iterate.h5 h5ex_g_visit.h5
 endif
 
 TESTS_ENVIRONMENT = sh

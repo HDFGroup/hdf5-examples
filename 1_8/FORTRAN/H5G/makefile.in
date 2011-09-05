@@ -38,7 +38,8 @@ noinst_PROGRAMS = h5ex_g_compact$(EXEEXT) h5ex_g_create$(EXEEXT) \
 	h5ex_g_corder$(EXEEXT) h5ex_g_phase$(EXEEXT) $(am__EXEEXT_1)
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am__append_1 = h5ex_g_iterate_F03 h5ex_g_visit_F03
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am__append_2 = testfiles/h5ex_g_iterate_F03.tst testfiles/h5ex_g_iterate_F03.dll \
-@FORTRAN_2003_CONDITIONAL_F_TRUE@  testfiles/h5ex_d_rdwr_kind_F03.tst testfiles/h5ex_d_rdwr_kind_F03.dll
+@FORTRAN_2003_CONDITIONAL_F_TRUE@  testfiles/h5ex_d_rdwr_kind_F03.tst testfiles/h5ex_d_rdwr_kind_F03.dll \
+@FORTRAN_2003_CONDITIONAL_F_TRUE@  h5ex_g_iterate.h5 h5ex_g_visit.h5
 
 subdir = 1_8/FORTRAN/H5G
 DIST_COMMON = $(srcdir)/makefile.am $(srcdir)/makefile.in
