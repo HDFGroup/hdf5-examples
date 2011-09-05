@@ -4,6 +4,6 @@
 
 Objects in root group:
  Dataset: DS1
- Dataset: DT1
- Dataset: G1
- Datatype: L1
+ Datatype: DT1
+ Group: G1
+ Dataset: L1
