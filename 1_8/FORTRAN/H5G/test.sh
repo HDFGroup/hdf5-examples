@@ -146,7 +146,6 @@ else
     exout ./h5ex_g_visit_F03 >tmp.test
     rm  -f h5ex_g_visit.h5
 fi
-exout ./h5ex_g_visit_F03 >tmp.test
 cmp -s tmp.test $srcdir/testfiles/h5ex_g_visit_F03.tst
 status=$?
 if test $status -ne 0
