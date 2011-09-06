@@ -119,7 +119,14 @@ rm -f h5ex_g_corder.h5
 if ($FC -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
 
 $ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_iterate_F03...$ECHO_C"
-exout ./h5ex_g_iterate_F03 >tmp.test
+if test -f h5ex_g_iterate.h5
+then
+    exout ./h5ex_g_iterate_F03 >tmp.test
+else
+    cp $srcdir/h5ex_g_iterate.h5 h5ex_g_iterate.h5
+    exout ./h5ex_g_iterate_F03 >tmp.test
+    rm  -f h5ex_g_iterate.h5
+fi
 cmp -s tmp.test $srcdir/testfiles/h5ex_g_iterate_F03.tst
 status=$?
 if test $status -ne 0
@@ -131,6 +138,14 @@ fi
 return_val=`expr $status + $return_val`
 
 $ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_visit_F03...$ECHO_C"
+if test -f h5ex_g_visit.h5
+then
+    exout ./h5ex_g_visit_F03 >tmp.test
+else
+    cp $srcdir/h5ex_g_visit.h5 h5ex_g_visit.h5
+    exout ./h5ex_g_visit_F03 >tmp.test
+    rm  -f h5ex_g_visit.h5
+fi
 exout ./h5ex_g_visit_F03 >tmp.test
 cmp -s tmp.test $srcdir/testfiles/h5ex_g_visit_F03.tst
 status=$?
