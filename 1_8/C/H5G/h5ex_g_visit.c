@@ -3,9 +3,7 @@
   This example shows how to recursively traverse a file
   using H5Ovisit and H5Lvisit.  The program prints all of
   the objects in the file specified in FILE, then prints all
-  of the links in that file.  The default file used by this
-  example implements the structure described in the User's
-  Guide, chapter 4, figure 26.
+  of the links in that file.  
 
   This file is intended for use with HDF5 Library version 1.8
 

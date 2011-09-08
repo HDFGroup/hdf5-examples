@@ -5,9 +5,7 @@
   the recursion will not enter an infinite loop, but does
   not prevent objects from being visited more than once.
   The program prints the directory structure of the file
-  specified in FILE.  The default file used by this example
-  implements the structure described in the User's Guide,
-  chapter 4, figure 26.
+  specified in FILE.  
 
   This file is intended for use with HDF5 Library version 1.8
 
