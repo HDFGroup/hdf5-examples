@@ -17,6 +17,10 @@ LINK_DIRECTORIES (
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
+SET (f03examples
+    h5ex_d_rdwr_kind_F03
+)
+
 SET (examples
     h5ex_d_alloc
     h5ex_d_checksum
@@ -37,6 +41,22 @@ SET (examples
 #    h5ex_d_unlimadd
 #    h5ex_d_unlimgzip
 )
+
+IF (HDF_ENABLE_F2003)
+  FOREACH (example ${f03examples})
+    ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5D_SOURCE_DIR}/${example}.f90)
+    TARGET_NAMING (f90_${example} ${LIB_TYPE})
+    TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
+    IF (WIN32 AND NOT CYGWIN)
+      SET_PROPERTY (TARGET f90_${example} 
+          APPEND PROPERTY COMPILE_DEFINITIONS 
+            HDF5F90_WINDOWS
+      )
+    ENDIF (WIN32 AND NOT CYGWIN)
+    TARGET_LINK_LIBRARIES (f90_${example} ${LINK_LIBS})
+    SET_TARGET_PROPERTIES (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
+  ENDFOREACH (example ${f03examples})
+ENDIF (HDF_ENABLE_F2003)
 
 FOREACH (example ${examples})
   ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5D_SOURCE_DIR}/${example}.f90)
@@ -116,5 +136,28 @@ IF (BUILD_TESTING)
       ADD_H5_TEST (${example})
     ENDIF (${example} STREQUAL "h5ex_d_transform")  
   ENDFOREACH (example ${examples})
+  
+  IF (HDF_ENABLE_F2003)
+    FOREACH (example ${f03examples})
+      SET (testdest "${PROJECT_BINARY_DIR}/${example}")
+      #MESSAGE (STATUS " Copying ${example}.test")
+      ADD_CUSTOM_COMMAND (
+          TARGET     f90_${example}
+          POST_BUILD
+          COMMAND    ${XLATE_UTILITY}
+          ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
+      )
+      IF (HDF5_BUILD_TOOLS)
+        ADD_CUSTOM_COMMAND (
+            TARGET     f90_${example}
+            POST_BUILD
+            COMMAND    ${XLATE_UTILITY}
+            ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
+        )
+      ENDIF (HDF5_BUILD_TOOLS)
+      ADD_H5_TEST (${example})
+    ENDFOREACH (example ${f03examples})
+  ENDIF (HDF_ENABLE_F2003)
+  
 ENDIF (BUILD_TESTING)
   

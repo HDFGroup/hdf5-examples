@@ -45,7 +45,7 @@ SET (examples
 #    h5ex_t_convert
 )
 
-IF (HDF5_ENABLE_F2003)
+IF (HDF_ENABLE_F2003)
   FOREACH (example ${f03examples})
     ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5T_SOURCE_DIR}/${example}_F03.f90)
     TARGET_NAMING (f90_${example} ${LIB_TYPE})
@@ -59,7 +59,7 @@ IF (HDF5_ENABLE_F2003)
     TARGET_LINK_LIBRARIES (f90_${example} ${LINK_LIBS})
     SET_TARGET_PROPERTIES (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
   ENDFOREACH (example ${f03examples})
-ENDIF (HDF5_ENABLE_F2003)
+ENDIF (HDF_ENABLE_F2003)
 
 FOREACH (example ${examples})
   ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5T_SOURCE_DIR}/${example}.f90)
@@ -186,11 +186,11 @@ IF (BUILD_TESTING)
     ENDIF (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
   ENDMACRO (TEST_EXAMPLE)
 
-  IF (HDF5_ENABLE_F2003)
+  IF (HDF_ENABLE_F2003)
     FOREACH (example ${f03examples})
       TEST_EXAMPLE (${example)
     ENDFOREACH (example ${f03examples})
-  ENDIF (HDF5_ENABLE_F2003)
+  ENDIF (HDF_ENABLE_F2003)
   
   FOREACH (example ${examples})
     TEST_EXAMPLE (${example)

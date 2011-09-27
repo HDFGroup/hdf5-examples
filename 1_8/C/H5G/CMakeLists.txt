@@ -137,7 +137,7 @@ IF (BUILD_TESTING)
               -D "TEST_REFERENCE=${testname}2.ddl"
               -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
       )
-      SET_TESTS_PROPERTIES(H5DUMP-${testname}2 PROPERTIES DEPENDS ${testname}1)
+      SET_TESTS_PROPERTIES(H5DUMP-${testname}2 PROPERTIES DEPENDS H5DUMP-${testname}1)
     ENDIF (HDF5_BUILD_TOOLS)
   ENDMACRO (ADD_H5_DUMP2_TEST)
   
