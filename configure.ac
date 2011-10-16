@@ -70,7 +70,7 @@ AM_CONDITIONAL(H5G, test "$H5EX_G")
 AM_CONDITIONAL(H5D, test "$H5EX_D")
 AM_CONDITIONAL(H5T, test "$H5EX_T")
 
-# check if a Fortran 2003 compiler was used for h5fc
+# Check if a Fortran 2003 compiler was used for h5fc
 HAVE_FORTRAN_2003="no"
 
 AC_MSG_CHECKING([if h5fc was compiled with Fortran 2003 enabled])
@@ -79,7 +79,25 @@ if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; the
 fi
 echo $HAVE_FORTRAN_2003 
 
+# Check if we have Fortran 2003 and Intel compiler; Intel doesn't work with RECURSIVE used by h5ex_g_traverse.f90
+# The example will not be built when Intel compiler is used (EIP 2011/10/14)
+
+if test "X$HAVE_FORTRAN_2003" = "Xyes"; then
+  HAVE_FORTRAN_2003_NOTINTEL="yes"
+  AC_MSG_CHECKING([if h5fc is an Intel Fortran compiler])
+  if (${FC} -showconfig 2>&1 | grep 'Intel(R) Fortran ') > /dev/null; then
+    HAVE_FORTRAN_2003_NOTINTEL="no"
+  fi
+  if test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"; then
+    echo "no"
+  else
+    echo "yes"
+  fi 
+fi
+# End check if we have Fortran 2003 and Intel compiler.
+
 AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
+AM_CONDITIONAL([FORTRAN_2003_NOTINTEL_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"])
 
 # Set subdirectories
 AC_CONFIG_FILES([makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile \
