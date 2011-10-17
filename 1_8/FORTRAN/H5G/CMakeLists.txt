@@ -6,6 +6,7 @@ PROJECT (HDF5_FORTRAN_H5G C CXX Fortran)
 #-----------------------------------------------------------------------------
 SET (f03examples
     h5ex_g_iterate_F03
+#    h5ex_g_traverse
     h5ex_g_visit_F03
 )
 
@@ -14,10 +15,6 @@ SET (examples
     h5ex_g_corder
     h5ex_g_create
     h5ex_g_phase
-#    h5ex_g_iterate
-#    h5ex_g_traverse
-#    h5ex_g_intermediate
-#    h5ex_g_visit
 )
 
 IF (HDF_ENABLE_F2003)
@@ -221,9 +218,6 @@ IF (BUILD_TESTING)
   SET (exrefs
       h5ex_g_corder
       h5ex_g_phase
-#      h5ex_g_traverse
-#      h5ex_g_intermediate
-#      h5ex_g_visit
   )
   FOREACH (example ${exrefs})
     ADD_CUSTOM_COMMAND (
@@ -263,7 +257,6 @@ IF (BUILD_TESTING)
   IF (HDF_ENABLE_F2003)
     ADD_H5_CMP_TEST (h5ex_g_iterate_F03)
 #    ADD_H5_CMP_TEST (h5ex_g_traverse)
-#    ADD_H5_CMP_TEST (h5ex_g_intermediate)
     ADD_H5_CMP_TEST (h5ex_g_visit_F03)
   ENDIF (HDF_ENABLE_F2003)
 
