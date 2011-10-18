@@ -74,11 +74,13 @@ CONTAINS
     TYPE(C_PTR) :: ptr2
     TYPE(C_FUNPTR) :: funptr
 
-    CHARACTER(LEN=80) :: space
+    CHARACTER(LEN=10) :: space
     INTEGER :: spaces ! Number of whitespaces to prepend to output
     INTEGER :: len
+
+    ret_val = 0
     
-    name_string = " "
+    name_string(1:10) = " "
     len = 0
     DO
        len = len + 1
@@ -87,7 +89,7 @@ CONTAINS
     ENDDO
     len = len - 1 ! subtract NULL character
 
-    space(1:80) = " "
+    space(1:10) = " "
 
     CALL C_F_POINTER(operator_data, od)
     !
@@ -102,9 +104,11 @@ CONTAINS
 
     WRITE(*,'(A)', ADVANCE='NO') space(1:spaces) !  Format output
 
+
     IF(infobuf%type.EQ.H5O_TYPE_GROUP_F)THEN
 
        WRITE(*,'("Group: ",A," {")') name_string(1:len)
+
 !            
 !              Check group address against linked list of operator
 !              data structures.  We will always run the check, as the
@@ -131,6 +135,7 @@ CONTAINS
           funptr = C_FUNLOC(op_func)
           CALL h5literate_by_name_f(loc_id, name_string, H5_INDEX_NAME_F, H5_ITER_NATIVE_F, idx, &
                funptr, ptr2, ret_val, status)
+
        ENDIF
        WRITE(*,'(A)') space(1:spaces)//"}"
        RETURN
@@ -141,8 +146,6 @@ CONTAINS
     ELSE
        WRITE(*,'("Unknown: ",A)') name_string(1:len)
     ENDIF
-
-    ret_val = 0
 
 END FUNCTION op_func
 
