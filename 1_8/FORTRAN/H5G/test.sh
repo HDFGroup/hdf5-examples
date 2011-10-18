@@ -137,24 +137,28 @@ else
 fi
 return_val=`expr $status + $return_val`
 
-$ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_traverse_F03...$ECHO_C"
-if test -f h5ex_g_traverse.h5
+if test -f ./h5ex_g_traverse_F03
 then
-    exout ./h5ex_g_traverse_F03 >tmp.test
-else
-    cp $srcdir/h5ex_g_traverse.h5 h5ex_g_traverse.h5
-    exout ./h5ex_g_traverse_F03 >tmp.test
-    rm  -f h5ex_g_traverse.h5
+
+  $ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_traverse_F03...$ECHO_C"
+  if test -f h5ex_g_traverse.h5
+  then
+      exout ./h5ex_g_traverse_F03 >tmp.test
+  else
+      cp $srcdir/h5ex_g_traverse.h5 h5ex_g_traverse.h5
+      exout ./h5ex_g_traverse_F03 >tmp.test
+      rm  -f h5ex_g_traverse.h5
+  fi
+  cmp -s tmp.test $srcdir/testfiles/h5ex_g_traverse_F03.tst
+  status=$?
+  if test $status -ne 0
+  then
+      echo "  FAILED!"
+  else
+      echo "  Passed"
+  fi
+  return_val=`expr $status + $return_val`
 fi
-cmp -s tmp.test $srcdir/testfiles/h5ex_g_traverse_F03.tst
-status=$?
-if test $status -ne 0
-then
-    echo "  FAILED!"
-else
-    echo "  Passed"
-fi
-return_val=`expr $status + $return_val`
 
 $ECHO_N "Testing 1_8/FORTRAN/H5G/h5ex_g_visit_F03...$ECHO_C"
 if test -f h5ex_g_visit.h5
