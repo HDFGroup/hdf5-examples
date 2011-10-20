@@ -63,7 +63,7 @@ CONTAINS
     TYPE(C_PTR), VALUE :: operator_data
 
     INTEGER :: status, return_val
-    TYPE(H5O_info_t), TARGET :: infobuf 
+    TYPE(h5o_info_t), TARGET :: infobuf 
     TYPE(C_PTR) :: ptr
     CHARACTER(LEN=10) :: name_string
     INTEGER :: i
@@ -97,8 +97,7 @@ CONTAINS
     ! The name of the object is passed to this function by
     ! the Library.
     !
-    ptr = C_LOC(infobuf)
-    CALL H5Oget_info_by_name_f(loc_id, name_string, ptr, status)
+    CALL H5Oget_info_by_name_f(loc_id, name_string, infobuf, status)
 
     spaces = 2*(od%recurs+1)
 
@@ -187,7 +186,7 @@ PROGRAM main
 
   INTEGER(hid_t) :: file ! Handle
   INTEGER :: status
-  TYPE(H5O_info_t), TARGET :: infobuf
+  TYPE(h5o_info_t) :: infobuf
   TYPE(opdata), TARGET :: od
   TYPE(C_PTR) :: ptr
   INTEGER(hsize_t) :: idx
@@ -198,8 +197,7 @@ PROGRAM main
   !
   CALL H5Fopen_f(filename, H5F_ACC_RDONLY_F, file, status)
 
-  ptr = C_LOC(infobuf)
-  CALL h5oget_info_by_name_f(file, "/", ptr, status)
+  CALL h5oget_info_by_name_f(file, "/", infobuf, status)
 
   od%recurs = 0
   od%prev => NULL()
