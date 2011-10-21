@@ -49,9 +49,8 @@ CONTAINS
     DO i = 1, 10
        name_string(i:i) = name(i)(1:1)
     ENDDO
-    ptr = C_LOC(infobuf)
 
-    CALL H5Oget_info_by_name_f(loc_id, name_string, ptr, status)
+    CALL H5Oget_info_by_name_f(loc_id, name_string, infobuf, status)
 
     ! Include the string up to the C NULL CHARACTER
     len = 0
