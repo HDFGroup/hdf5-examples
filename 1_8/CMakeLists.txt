@@ -6,11 +6,6 @@ PROJECT (HDF5 C CXX)
 #
 # For standard build of HDF5 examples.
 #-----------------------------------------------------------------------------
-IF (USE_SHARED_LIBS)
-  SET (BUILD_NAME_EXT "SHARED")
-ELSE (USE_SHARED_LIBS)
-  SET (BUILD_NAME_EXT "STATIC")
-ENDIF (USE_SHARED_LIBS)
 
 #-----------------------------------------------------------------------------
 # Allow Visual Studio solution directories

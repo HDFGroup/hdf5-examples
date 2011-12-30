@@ -351,7 +351,6 @@
 1_10/FORTRAN/makefile.am -text
 1_10/FORTRAN/makefile.in -text
 1_10/Using_CMake.txt -text
-1_10/config/cmake/CTest.cmake -text
 1_10/config/cmake/CTestCustom.cmake -text
 1_10/config/cmake/FindHDF5.cmake -text
 1_10/config/cmake/FindMPI.cmake -text
@@ -832,7 +831,6 @@
 1_8/FORTRAN/makefile.am -text
 1_8/FORTRAN/makefile.in -text
 1_8/Using_CMake.txt -text
-1_8/config/cmake/CTest.cmake -text
 1_8/config/cmake/CTestCustom.cmake -text
 1_8/config/cmake/FindHDF5.cmake -text
 1_8/config/cmake/FindMPI.cmake -text
