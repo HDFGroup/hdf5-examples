@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.6)
-PROJECT (HDF5_FORTRAN_H5G C CXX Fortran)
+PROJECT (HDF5Examples_FORTRAN_H5G C CXX Fortran)
 
 #-----------------------------------------------------------------------------
 # Define Sources
@@ -19,7 +19,7 @@ SET (examples
 
 IF (HDF_ENABLE_F2003)
   FOREACH (example ${f03examples})
-    ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5G_SOURCE_DIR}/${example}.f90)
+    ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
     TARGET_NAMING (f90_${example} ${LIB_TYPE})
     TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
     IF (WIN32 AND NOT CYGWIN)
@@ -34,7 +34,7 @@ IF (HDF_ENABLE_F2003)
 ENDIF (HDF_ENABLE_F2003)
 
 FOREACH (example ${examples})
-  ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5G_SOURCE_DIR}/${example}.f90)
+  ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
   TARGET_NAMING (f90_${example} ${LIB_TYPE})
   TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
   IF (WIN32 AND NOT CYGWIN)
@@ -69,7 +69,7 @@ IF (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
-              -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     ENDIF (HDF5_BUILD_TOOLS)
@@ -94,7 +94,7 @@ IF (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
-            -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+            -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     IF (HDF5_BUILD_TOOLS)
@@ -107,7 +107,7 @@ IF (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
-              -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     ENDIF (HDF5_BUILD_TOOLS)
@@ -139,7 +139,7 @@ IF (BUILD_TESTING)
               -D "TEST_EXPECT=0"
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_REFERENCE=${testname}.tst"
-              -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
     ENDIF (${ARGN} STREQUAL "NULL")
     SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
@@ -153,7 +153,7 @@ IF (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}1.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}1.ddl"
-              -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname}1 PROPERTIES DEPENDS f90_${testname})
       ADD_TEST (
@@ -165,7 +165,7 @@ IF (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}2.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}2.ddl"
-              -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname}2 PROPERTIES DEPENDS H5DUMP-f90_${testname}1)
     ENDIF (HDF5_BUILD_TOOLS)
@@ -188,7 +188,7 @@ IF (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
-            -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+            -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
   ENDMACRO (ADD_H5_CMP_TEST testname)
@@ -198,19 +198,19 @@ IF (BUILD_TESTING)
         TARGET     f90_h5ex_g_compact
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl -l4
+        ARGS       ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl -l4
     )
     ADD_CUSTOM_COMMAND (
         TARGET     f90_h5ex_g_compact
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl -l4
+        ARGS       ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl -l4
     )
     ADD_CUSTOM_COMMAND (
         TARGET     f90_h5ex_g_create
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl -l4
+        ARGS       ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl -l4
     )
 
   ENDIF (HDF5_BUILD_TOOLS)
@@ -224,7 +224,7 @@ IF (BUILD_TESTING)
         TARGET     f90_${example}
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst -l4
+        ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst -l4
     )
   ENDFOREACH (example ${exrefs})
       
@@ -239,13 +239,13 @@ IF (BUILD_TESTING)
           TARGET     f90_${example}_F03
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5G_SOURCE_DIR}/testfiles/${example}_F03.tst ${PROJECT_BINARY_DIR}/${example}_F03.tst -l4
+          ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}_F03.tst ${PROJECT_BINARY_DIR}/${example}_F03.tst -l4
       )
       ADD_CUSTOM_COMMAND (
           TARGET     f90_${example}_F03
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${HDF5_FORTRAN_H5G_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
       )
     ENDFOREACH (example ${exfiles})
   ENDIF (HDF_ENABLE_F2003)

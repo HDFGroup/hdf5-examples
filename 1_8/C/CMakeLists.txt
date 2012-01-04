@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.6)
-PROJECT (HDF5_C)
+PROJECT (HDF5Examples_C)
 
 #-----------------------------------------------------------------------------
 # Shared/Static Libs
@@ -13,7 +13,7 @@ ENDIF (USE_SHARED_LIBS)
 #-----------------------------------------------------------------------------
 # Build the C Examples
 #-----------------------------------------------------------------------------
-ADD_SUBDIRECTORY (${HDF5_C_SOURCE_DIR}/H5D ${HDF5_C_BINARY_DIR}/H5D)
-ADD_SUBDIRECTORY (${HDF5_C_SOURCE_DIR}/H5G ${HDF5_C_BINARY_DIR}/H5G)
-ADD_SUBDIRECTORY (${HDF5_C_SOURCE_DIR}/H5T ${HDF5_C_BINARY_DIR}/H5T)
-#ADD_SUBDIRECTORY (${HDF5_C_SOURCE_DIR}/Performance ${HDF5_C_BINARY_DIR}/Performance)
+ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/H5D ${PROJECT_BINARY_DIR}/H5D)
+ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/H5G ${PROJECT_BINARY_DIR}/H5G)
+ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/H5T ${PROJECT_BINARY_DIR}/H5T)
+#ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/Performance ${PROJECT_BINARY_DIR}/Performance)

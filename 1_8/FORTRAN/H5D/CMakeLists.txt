@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8.6)
-PROJECT (HDF5_FORTRAN_H5D C CXX Fortran)
+PROJECT (HDF5Examples_FORTRAN_H5D C CXX Fortran)
 # --------------------------------------------------------------------
 # Notes: When creating examples they should be prefixed
 # with "f90_". This allows for easier filtering of the examples.
@@ -10,7 +10,7 @@ PROJECT (HDF5_FORTRAN_H5D C CXX Fortran)
 #-----------------------------------------------------------------------------
 LINK_DIRECTORIES (
     ${CMAKE_Fortran_MODULE_DIRECTORY}
-    ${HDF5_F90_BINARY_DIR}
+    ${HDF5EX_F90_BINARY_DIR}
     ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 )
 
@@ -44,7 +44,7 @@ SET (examples
 
 IF (HDF_ENABLE_F2003)
   FOREACH (example ${f03examples})
-    ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5D_SOURCE_DIR}/${example}.f90)
+    ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
     TARGET_NAMING (f90_${example} ${LIB_TYPE})
     TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
     IF (WIN32 AND NOT CYGWIN)
@@ -59,7 +59,7 @@ IF (HDF_ENABLE_F2003)
 ENDIF (HDF_ENABLE_F2003)
 
 FOREACH (example ${examples})
-  ADD_EXECUTABLE (f90_${example} ${HDF5_FORTRAN_H5D_SOURCE_DIR}/${example}.f90)
+  ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
   TARGET_NAMING (f90_${example} ${LIB_TYPE})
   TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
   IF (WIN32 AND NOT CYGWIN)
@@ -93,7 +93,7 @@ IF (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
-            -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+            -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     IF (HDF5_BUILD_TOOLS)
@@ -106,7 +106,7 @@ IF (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
-              -P "${HDF5_RESOURCES_DIR}/runTest.cmake"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     ENDIF (HDF5_BUILD_TOOLS)
@@ -119,14 +119,14 @@ IF (BUILD_TESTING)
         TARGET     f90_${example}
         POST_BUILD
         COMMAND    ${XLATE_UTILITY}
-        ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
+        ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
     )
     IF (HDF5_BUILD_TOOLS)
       ADD_CUSTOM_COMMAND (
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
+          ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
       )
     ENDIF (HDF5_BUILD_TOOLS)
     
@@ -145,14 +145,14 @@ IF (BUILD_TESTING)
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${XLATE_UTILITY}
-          ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
+          ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
       )
       IF (HDF5_BUILD_TOOLS)
         ADD_CUSTOM_COMMAND (
             TARGET     f90_${example}
             POST_BUILD
             COMMAND    ${XLATE_UTILITY}
-            ARGS       ${HDF5_FORTRAN_H5D_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
+            ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
         )
       ENDIF (HDF5_BUILD_TOOLS)
       ADD_H5_TEST (${example})
