@@ -8,7 +8,7 @@
 !
 !
 !************************************************************
-MODULE liter_cb_mod
+MODULE g_iterate
   
   USE HDF5
   USE ISO_C_BINDING
@@ -73,14 +73,14 @@ CONTAINS
 
   END FUNCTION op_func
 
-END MODULE liter_cb_mod
+END MODULE g_iterate
 
 
 PROGRAM main
 
   USE HDF5
   USE ISO_C_BINDING
-  USE liter_cb_mod
+  USE g_iterate
   
   IMPLICIT NONE
 
