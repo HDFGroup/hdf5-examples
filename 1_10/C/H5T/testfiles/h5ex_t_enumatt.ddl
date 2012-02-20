@@ -11,12 +11,12 @@ GROUP "/" {
       }
       ATTRIBUTE "A1" {
          DATATYPE  H5T_ENUM {
-               H5T_STD_I16BE;
-               "SOLID"            0;
-               "LIQUID"           1;
-               "GAS"              2;
-               "PLASMA"           3;
-            }
+            H5T_STD_I16BE;
+            "SOLID"            0;
+            "LIQUID"           1;
+            "GAS"              2;
+            "PLASMA"           3;
+         }
          DATASPACE  SIMPLE { ( 4, 7 ) / ( 4, 7 ) }
          DATA {
          (0,0): SOLID, SOLID, SOLID, SOLID, SOLID, SOLID, SOLID,
