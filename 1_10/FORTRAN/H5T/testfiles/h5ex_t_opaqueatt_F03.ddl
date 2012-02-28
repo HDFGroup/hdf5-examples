@@ -10,10 +10,9 @@ GROUP "/" {
       DATA {
       }
       ATTRIBUTE "A1" {
-         DATATYPE  
-            H5T_OPAQUE;
+         DATATYPE  H5T_OPAQUE {
             OPAQUE_TAG "Character array";
-         
+         }
          DATASPACE  SIMPLE { ( 4 ) / ( 4 ) }
          DATA {
          (0): 4f:50:41:51:55:45:30, 4f:50:41:51:55:45:31,

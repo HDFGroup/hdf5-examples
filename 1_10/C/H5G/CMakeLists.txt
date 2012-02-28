@@ -137,7 +137,7 @@ IF (BUILD_TESTING)
               -D "TEST_REFERENCE=${testname}2.ddl"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
-      SET_TESTS_PROPERTIES(H5DUMP-${testname}2 PROPERTIES DEPENDS ${testname}1)
+      SET_TESTS_PROPERTIES(H5DUMP-${testname}2 PROPERTIES DEPENDS H5DUMP-${testname}1)
     ENDIF (HDF5_BUILD_TOOLS)
   ENDMACRO (ADD_H5_DUMP2_TEST)
   
@@ -185,9 +185,14 @@ IF (BUILD_TESTING)
         COMMAND    ${XLATE_UTILITY}
         ARGS       ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl -l4
     )
+    ADD_CUSTOM_COMMAND (
+        TARGET     h5ex_g_create
+        POST_BUILD
+        COMMAND    ${XLATE_UTILITY}
+        ARGS       ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl -l4
+    )
     SET (exrefs
         h5ex_g_corder
-        h5ex_g_create
         h5ex_g_phase
         h5ex_g_iterate
         h5ex_g_traverse

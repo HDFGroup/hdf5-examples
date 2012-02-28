@@ -5,36 +5,35 @@ PROJECT (HDF5Examples_FORTRAN_H5T C CXX Fortran)
 # Define Sources
 #-----------------------------------------------------------------------------
 SET (f03examples
-    h5ex_t_array
-    h5ex_t_arrayatt
-    h5ex_t_bit
-    h5ex_t_bitatt
-    h5ex_t_cmpd
-    h5ex_t_cmpdatt
-    h5ex_t_Cstring
-    h5ex_t_enum
-    h5ex_t_enumatt
-    h5ex_t_float
-    h5ex_t_floatatt
-    h5ex_t_int
-    h5ex_t_intatt
-    h5ex_t_objref
-    h5ex_t_objrefatt
-    h5ex_t_opaque
-    h5ex_t_opaqueatt
-    h5ex_t_regref
-    h5ex_t_regrefatt
-    h5ex_t_string
-    h5ex_t_stringC
-    h5ex_t_stringCatt
-    h5ex_t_vlen
-    h5ex_t_vlenatt
-    h5ex_t_vlstring
-#    h5ex_t_vlstringatt
-#    h5ex_t_cpxcmpd
-#    h5ex_t_cpxcmpdatt
-#    h5ex_t_commit
-#    h5ex_t_convert
+    h5ex_t_array_F03
+    h5ex_t_arrayatt_F03
+    h5ex_t_bit_F03
+    h5ex_t_bitatt_F03
+    h5ex_t_cmpd_F03
+    h5ex_t_cmpdatt_F03
+    h5ex_t_enum_F03
+    h5ex_t_enumatt_F03
+    h5ex_t_float_F03
+    h5ex_t_floatatt_F03
+    h5ex_t_int_F03
+    h5ex_t_intatt_F03
+    h5ex_t_objref_F03
+    h5ex_t_objrefatt_F03
+    h5ex_t_opaque_F03
+    h5ex_t_opaqueatt_F03
+    h5ex_t_regref_F03
+    h5ex_t_regrefatt_F03
+    h5ex_t_string_F03
+    h5ex_t_stringC_F03
+    h5ex_t_stringCatt_F03
+    h5ex_t_vlen_F03
+    h5ex_t_vlenatt_F03
+#    h5ex_t_vlstring_F03
+#    h5ex_t_vlstringatt_F03
+#    h5ex_t_cpxcmpd_F03
+#    h5ex_t_cpxcmpdatt_F03
+#    h5ex_t_commit_F03
+#    h5ex_t_convert_F03
 )
 SET (examples
     h5ex_t_vlstring
@@ -47,7 +46,7 @@ SET (examples
 
 IF (HDF_ENABLE_F2003)
   FOREACH (example ${f03examples})
-    ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}_F03.f90)
+    ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
     TARGET_NAMING (f90_${example} ${LIB_TYPE})
     TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
     IF (WIN32 AND NOT CYGWIN)
@@ -188,12 +187,12 @@ IF (BUILD_TESTING)
 
   IF (HDF_ENABLE_F2003)
     FOREACH (example ${f03examples})
-      TEST_EXAMPLE (${example)
+      TEST_EXAMPLE (${example})
     ENDFOREACH (example ${f03examples})
   ENDIF (HDF_ENABLE_F2003)
   
   FOREACH (example ${examples})
-    TEST_EXAMPLE (${example)
+    TEST_EXAMPLE (${example})
   ENDFOREACH (example ${examples})
   
 ENDIF (BUILD_TESTING)
