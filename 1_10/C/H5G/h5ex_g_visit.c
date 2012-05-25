@@ -69,8 +69,6 @@ main (void)
 herr_t op_func (hid_t loc_id, const char *name, const H5O_info_t *info,
             void *operator_data)
 {
-    herr_t          status;
-
     printf ("/");               /* Print root group in object path */
 
     /*

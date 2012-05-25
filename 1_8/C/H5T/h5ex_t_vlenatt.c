@@ -40,7 +40,7 @@ main (void)
     wdata[0].len = LEN0;
     ptr = (int *) malloc (wdata[0].len * sizeof (int));
     for (i=0; i<wdata[0].len; i++)
-        ptr[i] = wdata[0].len - i;       /* 3 2 1 */
+        ptr[i] = wdata[0].len - (size_t)i;       /* 3 2 1 */
     wdata[0].p = (void *) ptr;
 
     wdata[1].len = LEN1;

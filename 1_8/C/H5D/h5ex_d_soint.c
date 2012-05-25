@@ -26,7 +26,7 @@
 int
 main (void)
 {
-    hid_t           file, space, dset, dtype, dcpl;
+    hid_t           file, space, dset, dcpl;
                                                 /* Handles */
     herr_t          status;
     htri_t          avail;
