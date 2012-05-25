@@ -11,6 +11,7 @@ SET (CTEST_CUSTOM_WARNING_EXCEPTION
     "SZIP.src.*:[ \t]*warning"
     "POSIX name for this item is deprecated"
     "disabling jobserver mode"
+    "config.cmake.xlatefile.c"
 )
  
 SET (CTEST_CUSTOM_MEMCHECK_IGNORE
