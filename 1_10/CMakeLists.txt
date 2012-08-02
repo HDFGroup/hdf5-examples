@@ -8,6 +8,19 @@ PROJECT (HDF5Examples C CXX)
 #-----------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------
+# Allow Visual Studio solution directories
+#-----------------------------------------------------------------------------
+# Provide a way for Visual Studio Express users to turn OFF the new FOLDER
+# organization feature. Default to ON for non-Express users. Express users must
+# explicitly turn off this option to build HDF5 in the Express IDE...
+#
+OPTION (HDF5_USE_FOLDERS "Enable folder grouping of projects in IDEs." ON)
+MARK_AS_ADVANCED (HDF5_USE_FOLDERS)
+IF (HDF5_USE_FOLDERS)
+  SET_PROPERTY (GLOBAL PROPERTY USE_FOLDERS ON)
+ENDIF (HDF5_USE_FOLDERS)
+
+#-----------------------------------------------------------------------------
 # Define some CMake variables for use later in the project
 #-----------------------------------------------------------------------------
 SET (HDF5EX_RESOURCES_DIR      ${PROJECT_SOURCE_DIR}/config/cmake)
@@ -59,6 +72,7 @@ IF (WIN32)
   IF (NOT CYGWIN)
     ADD_DEFINITIONS (-DBIND_TO_CURRENT_VCLIBS_VERSION=1)
     ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
+    ADD_DEFINITIONS (-D_CONSOLE)
   ENDIF (NOT CYGWIN)
 ENDIF (WIN32)
 
@@ -82,6 +96,9 @@ ENDIF (MAKE_SYSTEM)
 IF (CMAKE_COMPILER_IS_GNUCC)
   SET (CMAKE_C_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_C_FLAGS} -std=c99 -fomit-frame-pointer -finline-functions -fno-common")
 ENDIF (CMAKE_COMPILER_IS_GNUCC)
+IF (CMAKE_COMPILER_IS_GNUCXX)
+  SET (CMAKE_CXX_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_CXX_FLAGS} -fomit-frame-pointer -finline-functions -fno-common")
+ENDIF (CMAKE_COMPILER_IS_GNUCXX)
 
 #-----------------------------------------------------------------------------
 # HDF5 support
@@ -93,13 +110,13 @@ IF (NOT USE_SHARED_LIBS)
 ENDIF (NOT USE_SHARED_LIBS)
 
 IF (NOT HDF5_HDF5_HEADER)
-  FIND_PACKAGE (HDF5)
+  FIND_PACKAGE (HDF5 NAMES ${HDF5_PACKAGE_NAME})
   IF (HDF5_FOUND)
     SET (HDF5_HAVE_H5PUBCONF_H 1)
     SET (HDF5_HAVE_HDF5 1)
     SET (HDF5_HDF5_HEADER "h5pubconf.h")
     SET (HDF5_INCLUDE_DIR_GEN ${HDF5_INCLUDE_DIR})
-    MESSAGE (STATUS "HDF5 found")
+    MESSAGE (STATUS "HDF5 found: INC=${HDF5_INCLUDE_DIR} TOOLS=${HDF5_TOOLS_DIR}")
     IF ((NOT USE_SHARED_LIBS AND HDF5_BUILD_SHARED_LIBS) OR (USE_SHARED_LIBS AND NOT HDF5_BUILD_SHARED_LIBS))
       MESSAGE (STATUS "HDF5 build type does match requested type")
     ENDIF ((NOT USE_SHARED_LIBS AND HDF5_BUILD_SHARED_LIBS) OR (USE_SHARED_LIBS AND NOT HDF5_BUILD_SHARED_LIBS))
@@ -111,9 +128,6 @@ ELSE (NOT HDF5_HDF5_HEADER)
   SET (HDF5_HAVE_H5PUBCONF_H 1)
   SET (HDF5_HAVE_HDF5 1)
 ENDIF (NOT HDF5_HDF5_HEADER)
-IF (NOT HDF5_LIBRARY)
-  SET (HDF5_LIBRARY ${HDF5_LIBRARIES})
-ENDIF (NOT HDF5_LIBRARY)
 ADD_EXECUTABLE (h5dump IMPORTED)
 IF (USE_SHARED_LIBS AND WIN32)
   SET_PROPERTY (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dumpdll")
@@ -122,7 +136,7 @@ ELSE (USE_SHARED_LIBS AND WIN32)
 ENDIF (USE_SHARED_LIBS AND WIN32)
 SET (HDF5_DUMP_EXECUTABLE $<TARGET_FILE:h5dump>)
 SET (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
-INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR})
 IF (HDF_BUILD_FORTRAN)
   INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR_FORTRAN})
 ENDIF (HDF_BUILD_FORTRAN)
@@ -133,17 +147,12 @@ ENDIF (HDF_BUILD_FORTRAN)
 SET (LIB_TYPE STATIC)
 IF (BUILD_SHARED_LIBS)
   SET (LIB_TYPE SHARED)
-  SET (H5_BUILT_AS_DYNAMIC_LIB 1)
 ELSE (BUILD_SHARED_LIBS)
   IF (NOT WIN32)
     # should this be a user setting : Everyone uses it anyway ?
     ADD_DEFINITIONS (-DPIC)
   ENDIF (NOT WIN32)
 ENDIF (BUILD_SHARED_LIBS)
-
-IF (MSVC)
-  SET (CMAKE_MFC_FLAG 0)
-ENDIF (MSVC)
 
 #-----------------------------------------------------------------------------
 # Option to allow the user to disable compiler warnings
@@ -154,9 +163,10 @@ IF (HDF_DISABLE_COMPILER_WARNINGS)
   # warning level is given, so remove it.
   IF (MSVC)
     SET (HDF_WARNINGS_BLOCKED 1)
-    STRING (REGEX REPLACE "(^| )([/-])W[0-9]( |$)" " "
-        CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+    STRING (REGEX REPLACE "(^| )([/-])W[0-9]( |$)" " " CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
     SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /w")
+    STRING (REGEX REPLACE "(^| )([/-])W[0-9]( |$)" " " CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w")
   ENDIF (MSVC)
   IF (WIN32 AND NOT CYGWIN)
     ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
@@ -170,6 +180,7 @@ IF (HDF_DISABLE_COMPILER_WARNINGS)
   # Most compilers use -w to suppress warnings.
   IF (NOT HDF_WARNINGS_BLOCKED)
     SET (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
+    SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
   ENDIF (NOT HDF_WARNINGS_BLOCKED)
 ENDIF (HDF_DISABLE_COMPILER_WARNINGS)
 
