@@ -4,7 +4,7 @@
 # EXTERNAL cache entries
 ########################
 
-SET (USE_SHARED_LIBS OFF CACHE BOOL "Use Shared Libraries" FORCE)
+SET (USE_SHARED_LIBS ON CACHE BOOL "Use Shared Libraries" FORCE)
 
 SET (HDF_BUILD_FORTRAN ON CACHE BOOL "Build FORTRAN support" FORCE)
 
@@ -15,3 +15,5 @@ SET (HDF_ENABLE_PARALLEL OFF CACHE BOOL "Enable parallel build (requires MPI)" F
 SET (HDF_ENABLE_F2003 OFF CACHE BOOL "Enable FORTRAN 2003 Standard" FORCE)
 
 SET (HDF_ENABLE_THREADSAFE OFF CACHE BOOL "(WINDOWS)Enable Threadsafety" FORCE)
+
+SET (HDF5_PACKAGE_NAME "hdf5" CACHE STRING "Name of HDF5 package" FORCE)
