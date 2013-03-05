@@ -35,7 +35,7 @@ PROGRAM main
   CHARACTER(LEN=name_buf_size) :: name
   INTEGER :: i, j
   INTEGER(OFF_T) :: offset ! Offset, in bytes, from thebeginning of the file to the 
-                    ! location in the file where the data starts.
+                           ! location in the file where the data starts.
   INTEGER(HSIZE_T) :: bytes ! Number of bytes reserved in the file for the data
   INTEGER(SIZE_T) :: int_size ! size of integer
   !
@@ -65,11 +65,11 @@ PROGRAM main
   !
   CALL h5pcreate_f(H5P_DATASET_CREATE_F, dcpl, hdferr)
   ! for HDF5 versions <= 1.8.2 use:
-      CALL h5tget_size_f(H5T_NATIVE_INTEGER, int_size, hdferr)
-      bytes = int_size*dim0*dim1
+  CALL h5tget_size_f(H5T_NATIVE_INTEGER, int_size, hdferr)
+  bytes = int_size*dim0*dim1
   ! else use:
   !   bytes = INT(H5F_UNLIMITED_F,HSIZE_T)
-  CALL h5pset_external_f(dcpl, externalname, 0, bytes, hdferr)
+  CALL h5pset_external_f(dcpl, externalname, INT(0,OFF_T), bytes, hdferr)
   !
   ! Create the external dataset.
   !
