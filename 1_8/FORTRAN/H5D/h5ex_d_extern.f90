@@ -34,7 +34,7 @@ PROGRAM main
                                         rdata    ! Read buffer
   CHARACTER(LEN=name_buf_size) :: name
   INTEGER :: i, j
-  INTEGER :: offset ! Offset, in bytes, from thebeginning of the file to the 
+  INTEGER(OFF_T) :: offset ! Offset, in bytes, from thebeginning of the file to the 
                     ! location in the file where the data starts.
   INTEGER(HSIZE_T) :: bytes ! Number of bytes reserved in the file for the data
   INTEGER(SIZE_T) :: int_size ! size of integer
