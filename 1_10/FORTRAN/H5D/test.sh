@@ -72,17 +72,31 @@ do
             echo "  FAILED!"
         else
           dumpout $fname.h5 >tmp.test
-        rm -f $fname.h5
+          rm -f $fname.h5
           cmp -s tmp.test $srcdir/testfiles/$fname.ddl
-        status=$?
-        if test $status -ne 0
-        then
-            echo "  FAILED!"
-        else
-            echo "  Passed"
+          status=$?
+          if test $status -ne 0
+             then 
+	     # test to see if the only difference is because of big-endian and little-endian
+	     \diff tmp.test $srcdir/testfiles/$fname.ddl > tmp.diff
+             echo " "
+             NumOfFinds=`grep -c "DATATYPE" tmp.diff`
+             NumOfFinds=`expr $NumOfFinds \* 2`
+             NumOfLines=`wc -l <tmp.diff`
+             rm -f tmp.diff
+             if test $NumOfLines -gt $NumOfFinds 
+             then
+                echo "  FAILED!"
+	        return_val=`expr $status + $return_val`
+             else
+                echo "  *Inconsequential differance* ... Passed"
+		return_val=`expr $return_val`
+             fi
+          else
+              echo "  Passed"
+	      return_val=`expr $status + $return_val`
+          fi
         fi
-        fi
-        return_val=`expr $status + $return_val`
     fi
 done
 
