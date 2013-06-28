@@ -295,3 +295,12 @@ IF (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DI
     ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/FORTRAN ${PROJECT_BINARY_DIR}/FORTRAN)
   ENDIF (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
 ENDIF (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
+
+#-----------------------------------------------------------------------------
+# Source Packaging Option
+#-----------------------------------------------------------------------------
+OPTION (PACK_EXAMPLE_SOURCE "Package HDF5 Example Source File" OFF)
+IF (PACK_EXAMPLE_SOURCE)
+  set(CPACK_SOURCE_IGNORE_FILES "${PROJECT_BINARY_DIR}" "/\\.svn/" )
+  INCLUDE(CPack)
+ENDIF (PACK_EXAMPLE_SOURCE)
