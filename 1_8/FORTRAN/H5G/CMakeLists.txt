@@ -6,9 +6,11 @@ PROJECT (HDF5Examples_FORTRAN_H5G C CXX Fortran)
 #-----------------------------------------------------------------------------
 SET (f03examples
     h5ex_g_iterate_F03
-    h5ex_g_traverse_F03
     h5ex_g_visit_F03
 )
+IF (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
+  SET (f03examples ${f03examples} h5ex_g_traverse_F03)
+ENDIF (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
 
 SET (examples
     h5ex_g_compact
@@ -256,7 +258,9 @@ IF (BUILD_TESTING)
   ADD_H5_CMP_TEST (h5ex_g_phase)
   IF (HDF_ENABLE_F2003)
     ADD_H5_CMP_TEST (h5ex_g_iterate_F03)
-    ADD_H5_CMP_TEST (h5ex_g_traverse_F03)
+    IF (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
+      ADD_H5_CMP_TEST (h5ex_g_traverse_F03)
+    ENDIF (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
     ADD_H5_CMP_TEST (h5ex_g_visit_F03)
   ENDIF (HDF_ENABLE_F2003)
 
