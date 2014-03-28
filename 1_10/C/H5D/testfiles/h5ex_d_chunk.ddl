@@ -1,7 +1,3 @@
-**********************
-*  Output of h5dump  *
-**********************
-
 HDF5 "h5ex_d_chunk.h5" {
 GROUP "/" {
    DATASET "DS1" {

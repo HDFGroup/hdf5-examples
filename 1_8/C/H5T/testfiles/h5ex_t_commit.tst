@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 Named datatype: Sensor_Type:
    Class: H5T_COMPOUND
    Serial number

@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 DS1 is stored in file: h5ex_d_extern.data
 DS1:
  [  0 -1 -2 -3 -4 -5 -6 ]

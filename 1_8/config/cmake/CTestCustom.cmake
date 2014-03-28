@@ -1,6 +1,6 @@
-SET (CTEST_CUSTOM_MAXIMUM_NUMBER_OF_WARNINGS 1500)
+set (CTEST_CUSTOM_MAXIMUM_NUMBER_OF_WARNINGS 1500)
  
-SET (CTEST_CUSTOM_WARNING_EXCEPTION
+set (CTEST_CUSTOM_WARNING_EXCEPTION
     ${CTEST_CUSTOM_WARNING_EXCEPTION}
     "H5detect.c.[0-9]+.[ \t]*:[ \t]*warning C4090"
     "H5detect.c.[0-9]+.[ \t]*:[ \t]*warning:[ \t]*passing argument"
@@ -14,7 +14,7 @@ SET (CTEST_CUSTOM_WARNING_EXCEPTION
     "config.cmake.xlatefile.c"
 )
  
-SET (CTEST_CUSTOM_MEMCHECK_IGNORE
+set (CTEST_CUSTOM_MEMCHECK_IGNORE
     ${CTEST_CUSTOM_MEMCHECK_IGNORE}
     flush1           #designed to fail
     flush2           #designed to need flush1

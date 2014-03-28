@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 
 Creating datasets...
 

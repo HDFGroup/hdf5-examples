@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 
 Storage layout for DS1 is: H5D_COMPACT_F
 

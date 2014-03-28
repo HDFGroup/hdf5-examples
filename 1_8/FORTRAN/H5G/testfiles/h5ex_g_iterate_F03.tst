@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 Objects in root group:
  Dataset: DS1
  Datatype: DT1

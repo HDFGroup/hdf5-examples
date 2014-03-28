@@ -361,7 +361,6 @@
 1_10/config/cmake/cacheinit.cmake -text
 1_10/config/cmake/grepTest.cmake -text
 1_10/config/cmake/runTest.cmake -text
-1_10/config/cmake/xlatefile.c -text
 1_10/makefile.am -text
 1_10/makefile.in -text
 1_6/C/H5D/h5ex_d_alloc.c -text
@@ -841,7 +840,6 @@
 1_8/config/cmake/cacheinit.cmake -text
 1_8/config/cmake/grepTest.cmake -text
 1_8/config/cmake/runTest.cmake -text
-1_8/config/cmake/xlatefile.c -text
 1_8/makefile.am -text
 1_8/makefile.in -text
 /COPYING -text

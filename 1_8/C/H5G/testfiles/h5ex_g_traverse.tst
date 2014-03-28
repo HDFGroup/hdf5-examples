@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 / {
   Group: group1 {
     Dataset: dset1

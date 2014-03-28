@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 Datatype tag for DS1 is: "Character array"
 DS1[0]: OPAQUE0
 DS1[1]: OPAQUE1

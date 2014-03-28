@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 A1[0]:
    Vehicle name :
       Airplane

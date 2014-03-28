@@ -1,7 +1,3 @@
-**********************
-*  Output of h5dump  *
-**********************
-
 HDF5 "h5ex_d_rdwr_kind_F03.h5" {
 GROUP "/" {
    DATASET "DS_I" {

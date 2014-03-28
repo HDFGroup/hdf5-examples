@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 DS1:
  [ SOLID  SOLID  SOLID  SOLID  SOLID  SOLID  SOLID ]
  [ SOLID  LIQUID GAS    PLASMA SOLID  LIQUID GAS   ]

@@ -1,7 +1,3 @@
-**********************
-*  Output of h5dump  *
-**********************
-
 HDF5 "h5ex_t_opaqueatt_F03.h5" {
 GROUP "/" {
    DATASET "DS1" {

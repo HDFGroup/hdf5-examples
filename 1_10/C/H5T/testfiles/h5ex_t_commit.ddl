@@ -1,7 +1,3 @@
-**********************
-*  Output of h5dump  *
-**********************
-
 HDF5 "h5ex_t_commit.h5" {
 GROUP "/" {
    DATATYPE "Sensor_Type" H5T_COMPOUND {

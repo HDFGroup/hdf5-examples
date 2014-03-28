@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 1 Group : Storage type is H5G_STORAGE_TYPE_COMPACT
 2 Groups: Storage type is H5G_STORAGE_TYPE_COMPACT
 3 Groups: Storage type is H5G_STORAGE_TYPE_COMPACT

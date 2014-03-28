@@ -4,7 +4,7 @@ PROJECT (HDF5Examples_FORTRAN_H5T C CXX Fortran)
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
-SET (f03examples
+set (f03examples
     h5ex_t_array_F03
     h5ex_t_arrayatt_F03
     h5ex_t_bit_F03
@@ -35,7 +35,7 @@ SET (f03examples
 #    h5ex_t_commit_F03
 #    h5ex_t_convert_F03
 )
-SET (examples
+set (examples
     h5ex_t_vlstring
 #    h5ex_t_vlstringatt
 #    h5ex_t_cpxcmpd
@@ -44,38 +44,38 @@ SET (examples
 #    h5ex_t_convert
 )
 
-IF (HDF_ENABLE_F2003)
-  FOREACH (example ${f03examples})
-    ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
+if (HDF_ENABLE_F2003)
+  foreach (example ${f03examples})
+    add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
     TARGET_NAMING (f90_${example} ${LIB_TYPE})
     TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
-    IF (WIN32 AND NOT CYGWIN)
-      SET_PROPERTY (TARGET f90_${example} 
+    if (WIN32 AND NOT CYGWIN)
+      set_property (TARGET f90_${example} 
           APPEND PROPERTY COMPILE_DEFINITIONS 
             HDF5F90_WINDOWS
       )
-    ENDIF (WIN32 AND NOT CYGWIN)
-    TARGET_LINK_LIBRARIES (f90_${example} ${LINK_LIBS})
-    SET_TARGET_PROPERTIES (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
-  ENDFOREACH (example ${f03examples})
-ENDIF (HDF_ENABLE_F2003)
+    endif (WIN32 AND NOT CYGWIN)
+    target_link_libraries (f90_${example} ${LINK_LIBS})
+    set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
+  endforeach (example ${f03examples})
+endif (HDF_ENABLE_F2003)
 
-FOREACH (example ${examples})
-  ADD_EXECUTABLE (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
+foreach (example ${examples})
+  add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
   TARGET_NAMING (f90_${example} ${LIB_TYPE})
   TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
-  IF (WIN32 AND NOT CYGWIN)
-    SET_PROPERTY (TARGET f90_${example} 
+  if (WIN32 AND NOT CYGWIN)
+    set_property (TARGET f90_${example} 
         APPEND PROPERTY COMPILE_DEFINITIONS 
           HDF5F90_WINDOWS
     )
-  ENDIF (WIN32 AND NOT CYGWIN)
-  TARGET_LINK_LIBRARIES (f90_${example} ${LINK_LIBS})
-  SET_TARGET_PROPERTIES (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
-ENDFOREACH (example ${examples})
+  endif (WIN32 AND NOT CYGWIN)
+  target_link_libraries (f90_${example} ${LINK_LIBS})
+  set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
+endforeach (example ${examples})
 
-IF (BUILD_TESTING)
-  MACRO (ADD_H5_TEST testname)
+if (BUILD_TESTING)
+  macro (ADD_H5_TEST testname)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
@@ -97,8 +97,8 @@ IF (BUILD_TESTING)
             -D "TEST_REFERENCE=${testname}.tst"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
-    SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
-    IF (HDF5_BUILD_TOOLS)
+    set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
+    if (HDF5_BUILD_TOOLS)
       ADD_TEST (
           NAME H5DUMP-f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
@@ -110,11 +110,11 @@ IF (BUILD_TESTING)
               -D "TEST_REFERENCE=${testname}.ddl"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
-      SET_TESTS_PROPERTIES(H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
-    ENDIF (HDF5_BUILD_TOOLS)
-  ENDMACRO (ADD_H5_TEST)
+      set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
+    endif (HDF5_BUILD_TOOLS)
+  endmacro (ADD_H5_TEST)
   
-  MACRO (ADD_H5_CMP_TEST testname)
+  macro (ADD_H5_CMP_TEST testname)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
@@ -134,66 +134,66 @@ IF (BUILD_TESTING)
             -D "TEST_REFERENCE=${testname}.tst"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
-    SET_TESTS_PROPERTIES(f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
-  ENDMACRO (ADD_H5_CMP_TEST)
+    set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
+  endmacro (ADD_H5_CMP_TEST)
 
-  MACRO (TEST_EXAMPLE example)
-    IF (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
-      SET (testdest "${PROJECT_BINARY_DIR}/${example}")
-      #MESSAGE (STATUS " Copying ${example}.test")
-      ADD_CUSTOM_COMMAND (
+  macro (TEST_EXAMPLE example)
+    if (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
+      set (testdest "${PROJECT_BINARY_DIR}/${example}")
+      #message (STATUS " Copying ${example}.test")
+      add_custom_command (
           TARGET     f90_${example}
           POST_BUILD
-          COMMAND    ${XLATE_UTILITY}
-          ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst
       )
-      IF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
-        ADD_CUSTOM_COMMAND (
+      if (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
+        add_custom_command (
             TARGET     f90_${example}
             POST_BUILD
-            COMMAND    ${XLATE_UTILITY}
-            ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
+            COMMAND    ${CMAKE_COMMAND}
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
         )
-      ENDIF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
+      endif (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example} -n)
-    ELSEIF (${example} STREQUAL "h5ex_t_convert")  
-      ADD_CUSTOM_COMMAND (
+    elseif (${example} STREQUAL "h5ex_t_convert")  
+      add_custom_command (
           TARGET     f90_${example}
           POST_BUILD
-          COMMAND    ${XLATE_UTILITY}
-          ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst -l4
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
       )
       ADD_H5_CMP_TEST (${example})
-    ELSE (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
-      SET (testdest "${PROJECT_BINARY_DIR}/${example}")
-      #MESSAGE (STATUS " Copying ${example}.test")
-      ADD_CUSTOM_COMMAND (
+    else (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
+      set (testdest "${PROJECT_BINARY_DIR}/${example}")
+      #message (STATUS " Copying ${example}.test")
+      add_custom_command (
           TARGET     f90_${example}
           POST_BUILD
-          COMMAND    ${XLATE_UTILITY}
-          ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst -l4
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst
       )
-      IF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
-        ADD_CUSTOM_COMMAND (
+      if (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
+        add_custom_command (
             TARGET     f90_${example}
             POST_BUILD
-            COMMAND    ${XLATE_UTILITY}
-            ARGS       ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl -l4
+            COMMAND    ${CMAKE_COMMAND}
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
         )
-      ENDIF (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
+      endif (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example})
-    ENDIF (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
-  ENDMACRO (TEST_EXAMPLE)
+    endif (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
+  endmacro (TEST_EXAMPLE)
 
-  IF (HDF_ENABLE_F2003)
-    FOREACH (example ${f03examples})
+  if (HDF_ENABLE_F2003)
+    foreach (example ${f03examples})
       TEST_EXAMPLE (${example})
-    ENDFOREACH (example ${f03examples})
-  ENDIF (HDF_ENABLE_F2003)
+    endforeach (example ${f03examples})
+  endif (HDF_ENABLE_F2003)
   
-  FOREACH (example ${examples})
+  foreach (example ${examples})
     TEST_EXAMPLE (${example})
-  ENDFOREACH (example ${examples})
+  endforeach (example ${examples})
   
-ENDIF (BUILD_TESTING)
+endif (BUILD_TESTING)
   

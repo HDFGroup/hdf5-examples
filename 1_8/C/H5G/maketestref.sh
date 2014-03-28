@@ -20,18 +20,10 @@ case $CC in
 esac
 
 exout() {
-    echo '*******************************'
-    echo '*  Output of example program  *'
-    echo '*******************************'
-    echo
     $*
 }
 
 dumpout() {
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
     $H5DUMP $*
 }
 

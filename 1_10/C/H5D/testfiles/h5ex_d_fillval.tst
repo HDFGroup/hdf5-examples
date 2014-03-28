@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 Dataset before being written to:
  [  99  99  99  99  99  99  99]
  [  99  99  99  99  99  99  99]

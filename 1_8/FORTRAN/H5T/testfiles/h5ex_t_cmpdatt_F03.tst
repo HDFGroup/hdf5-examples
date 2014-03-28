@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 A11:
 Serial number   :   1153
 Location        : Exterior (static)

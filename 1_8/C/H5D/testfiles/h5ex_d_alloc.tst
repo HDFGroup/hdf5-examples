@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 Creating datasets...
 DS1 has allocation time H5D_ALLOC_TIME_LATE
 DS2 has allocation time H5D_ALLOC_TIME_EARLY

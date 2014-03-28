@@ -4,16 +4,16 @@ PROJECT (HDF5Examples_C)
 #-----------------------------------------------------------------------------
 # Shared/Static Libs
 #-----------------------------------------------------------------------------
-IF (USE_SHARED_LIBS)
-  SET (C_BUILT_AS_DYNAMIC_LIB 1)
-ELSE (USE_SHARED_LIBS)
-  SET (C_BUILT_AS_STATIC_LIB 1)
-ENDIF (USE_SHARED_LIBS)
+if (USE_SHARED_LIBS)
+  set (C_BUILT_AS_DYNAMIC_LIB 1)
+else (USE_SHARED_LIBS)
+  set (C_BUILT_AS_STATIC_LIB 1)
+endif (USE_SHARED_LIBS)
 
 #-----------------------------------------------------------------------------
 # Build the C Examples
 #-----------------------------------------------------------------------------
-ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/H5D ${PROJECT_BINARY_DIR}/H5D)
-ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/H5G ${PROJECT_BINARY_DIR}/H5G)
-ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/H5T ${PROJECT_BINARY_DIR}/H5T)
-#ADD_SUBDIRECTORY (${PROJECT_SOURCE_DIR}/Performance ${PROJECT_BINARY_DIR}/Performance)
+add_subdirectory (${PROJECT_SOURCE_DIR}/H5D ${PROJECT_BINARY_DIR}/H5D)
+add_subdirectory (${PROJECT_SOURCE_DIR}/H5G ${PROJECT_BINARY_DIR}/H5G)
+add_subdirectory (${PROJECT_SOURCE_DIR}/H5T ${PROJECT_BINARY_DIR}/H5T)
+#add_subdirectory (${PROJECT_SOURCE_DIR}/Performance ${PROJECT_BINARY_DIR}/Performance)

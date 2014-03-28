@@ -74,13 +74,13 @@ main (void)
      */
     memtype = H5Tcreate (H5T_COMPOUND, sizeof (sensor_t));
     status = H5Tinsert (memtype, "Serial number",
-                HOFFSET (sensor_t, serial_no), H5T_NATIVE_INT);
-    status = H5Tinsert (memtype, "Location", HOFFSET (sensor_t, location),
+                HOFFset (sensor_t, serial_no), H5T_NATIVE_INT);
+    status = H5Tinsert (memtype, "Location", HOFFset (sensor_t, location),
                 strtype);
     status = H5Tinsert (memtype, "Temperature (F)",
-                HOFFSET (sensor_t, temperature), H5T_NATIVE_DOUBLE);
+                HOFFset (sensor_t, temperature), H5T_NATIVE_DOUBLE);
     status = H5Tinsert (memtype, "Pressure (inHg)",
-                HOFFSET (sensor_t, pressure), H5T_NATIVE_DOUBLE);
+                HOFFset (sensor_t, pressure), H5T_NATIVE_DOUBLE);
 
     /*
      * Create the compound datatype for the file.  Because the standard

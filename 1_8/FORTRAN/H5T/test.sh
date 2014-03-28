@@ -31,18 +31,10 @@ ECHO_N="echo $ECHO_N"
 
 
 exout() {
-    echo '*******************************'
-    echo '*  Output of example program  *'
-    echo '*******************************'
-    echo
     $*
 }
 
 dumpout() {
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
     $H5DUMP $*
 }
 

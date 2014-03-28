@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 Objects in the file:
 /  (Group)
 /G1  (Group)

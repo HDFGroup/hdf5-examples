@@ -1,7 +1,3 @@
-*******************************
-*  Output of example program  *
-*******************************
-
 Traversing group using alphabetical indices:
 
 Index 0: 5

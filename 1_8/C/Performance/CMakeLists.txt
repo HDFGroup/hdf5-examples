@@ -4,20 +4,20 @@ PROJECT (HDF5Examples_C_PERFORM)
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
-SET (examples
+set (examples
     h5slabread
     h5slabwrite
     h5efc
 )
 
-FOREACH (example ${examples})
-  ADD_EXECUTABLE (${example} ${PROJECT_SOURCE_DIR}/${example}.c)
+foreach (example ${examples})
+  add_executable (${example} ${PROJECT_SOURCE_DIR}/${example}.c)
   TARGET_NAMING (${example} ${LIB_TYPE})
-  TARGET_LINK_LIBRARIES (${example} ${LINK_LIBS})
-ENDFOREACH (example ${examples})
+  target_link_libraries (${example} ${LINK_LIBS})
+endforeach (example ${examples})
 
-IF (BUILD_TESTING)
-  MACRO (ADD_H5_TEST testname)
+if (BUILD_TESTING)
+  macro (ADD_H5_TEST testname)
     ADD_TEST (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
@@ -39,8 +39,8 @@ IF (BUILD_TESTING)
             -D "TEST_REFERENCE=${testname}.tst"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
-    SET_TESTS_PROPERTIES(${testname} PROPERTIES DEPENDS ${testname}-clearall)
-    IF (HDF5_BUILD_TOOLS)
+    set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
+    if (HDF5_BUILD_TOOLS)
       ADD_TEST (
           NAME H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
@@ -52,20 +52,20 @@ IF (BUILD_TESTING)
               -D "TEST_REFERENCE=${testname}.dmp"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
-      SET_TESTS_PROPERTIES(H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
-    ENDIF (HDF5_BUILD_TOOLS)
-  ENDMACRO (ADD_H5_TEST)
+      set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
+    endif (HDF5_BUILD_TOOLS)
+  endmacro (ADD_H5_TEST)
 
-  FOREACH (example ${examples})
-    SET (testdest "${PROJECT_BINARY_DIR}/${example}.test")
-    #MESSAGE (STATUS " Copying ${example}.test")
-    ADD_CUSTOM_COMMAND (
+  foreach (example ${examples})
+    set (testdest "${PROJECT_BINARY_DIR}/${example}.test")
+    #message (STATUS " Copying ${example}.test")
+    add_custom_command (
         TARGET     ${example}
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.test ${testdest}
     )
     ADD_H5_TEST (${example})
-  ENDFOREACH (example ${examples})
-ENDIF (BUILD_TESTING)
+  endforeach (example ${examples})
+endif (BUILD_TESTING)
   
