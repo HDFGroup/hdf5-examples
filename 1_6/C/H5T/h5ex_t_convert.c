@@ -97,19 +97,19 @@ main (void)
      */
     sourcetype = H5Tcreate (H5T_COMPOUND, sizeof (reading_t));
     status = H5Tinsert (sourcetype, "Temperature (F)",
-                HOFFset (reading_t, temperature), H5T_NATIVE_DOUBLE);
+                HOFFSET (reading_t, temperature), H5T_NATIVE_DOUBLE);
     status = H5Tinsert (sourcetype, "Pressure (inHg)",
-                HOFFset (reading_t, pressure), H5T_NATIVE_DOUBLE);
+                HOFFSET (reading_t, pressure), H5T_NATIVE_DOUBLE);
 
     desttype = H5Tcreate (H5T_COMPOUND, sizeof (sensor_t));
     status = H5Tinsert (desttype, "Serial number",
-                HOFFset (sensor_t, serial_no), H5T_NATIVE_INT);
-    status = H5Tinsert (desttype, "Location", HOFFset (sensor_t, location),
+                HOFFSET (sensor_t, serial_no), H5T_NATIVE_INT);
+    status = H5Tinsert (desttype, "Location", HOFFSET (sensor_t, location),
                 strtype);
     status = H5Tinsert (desttype, "Temperature (F)",
-                HOFFset (sensor_t, temperature), H5T_NATIVE_DOUBLE);
+                HOFFSET (sensor_t, temperature), H5T_NATIVE_DOUBLE);
     status = H5Tinsert (desttype, "Pressure (inHg)",
-                HOFFset (sensor_t, pressure), H5T_NATIVE_DOUBLE);
+                HOFFSET (sensor_t, pressure), H5T_NATIVE_DOUBLE);
 
     /*
      * Create dataspace.  Setting maximum size to NULL sets the maximum

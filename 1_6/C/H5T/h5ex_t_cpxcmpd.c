@@ -184,13 +184,13 @@ main (void)
      */
     sensortype = H5Tcreate (H5T_COMPOUND, sizeof (sensor_t));
     status = H5Tinsert (sensortype, "Serial number",
-                HOFFset (sensor_t, serial_no), H5T_NATIVE_INT);
-    status = H5Tinsert (sensortype, "Location", HOFFset (sensor_t, location),
+                HOFFSET (sensor_t, serial_no), H5T_NATIVE_INT);
+    status = H5Tinsert (sensortype, "Location", HOFFSET (sensor_t, location),
                 strtype);
     status = H5Tinsert (sensortype, "Temperature (F)",
-                HOFFset (sensor_t, temperature), H5T_NATIVE_DOUBLE);
+                HOFFSET (sensor_t, temperature), H5T_NATIVE_DOUBLE);
     status = H5Tinsert (sensortype, "Pressure (inHg)",
-                HOFFset (sensor_t, pressure), H5T_NATIVE_DOUBLE);
+                HOFFSET (sensor_t, pressure), H5T_NATIVE_DOUBLE);
 
     /*
      * Create the variable-length datatype.
@@ -217,18 +217,18 @@ main (void)
      * Create the main compound datatype.
      */
     vehicletype = H5Tcreate (H5T_COMPOUND, sizeof (vehicle_t));
-    status = H5Tinsert (vehicletype, "Sensors", HOFFset (vehicle_t, sensors),
+    status = H5Tinsert (vehicletype, "Sensors", HOFFSET (vehicle_t, sensors),
                 sensorstype);
-    status = H5Tinsert (vehicletype, "Name", HOFFset (vehicle_t, name),
+    status = H5Tinsert (vehicletype, "Name", HOFFSET (vehicle_t, name),
                 strtype);
-    status = H5Tinsert (vehicletype, "Color", HOFFset (vehicle_t, color),
+    status = H5Tinsert (vehicletype, "Color", HOFFSET (vehicle_t, color),
                 colortype);
-    status = H5Tinsert (vehicletype, "Location", HOFFset (vehicle_t, location),
+    status = H5Tinsert (vehicletype, "Location", HOFFSET (vehicle_t, location),
                 loctype);
-    status = H5Tinsert (vehicletype, "Group", HOFFset (vehicle_t, group),
+    status = H5Tinsert (vehicletype, "Group", HOFFSET (vehicle_t, group),
                 H5T_STD_REF_OBJ);
     status = H5Tinsert (vehicletype, "Surveyed areas",
-                HOFFset (vehicle_t, surveyed_areas), H5T_STD_REF_DSETREG);
+                HOFFSET (vehicle_t, surveyed_areas), H5T_STD_REF_DSETREG);
 
     /*
      * Create dataspace.  Setting maximum size to NULL sets the maximum
@@ -301,9 +301,9 @@ main (void)
      * Create the main compound datatype for reading.
      */
     rvehicletype = H5Tcreate (H5T_COMPOUND, sizeof (rvehicle_t));
-    status = H5Tinsert (rvehicletype, "Sensors", HOFFset (rvehicle_t, sensors),
+    status = H5Tinsert (rvehicletype, "Sensors", HOFFSET (rvehicle_t, sensors),
                 rsensorstype);
-    status = H5Tinsert (rvehicletype, "Name", HOFFset (rvehicle_t, name),
+    status = H5Tinsert (rvehicletype, "Name", HOFFSET (rvehicle_t, name),
                 strtype);
 
     /*
