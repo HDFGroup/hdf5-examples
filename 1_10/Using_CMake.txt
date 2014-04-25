@@ -105,6 +105,7 @@ These steps are described in more detail below.
         <options> is:
             * BUILD_TESTING:BOOL=ON
             * USE_SHARED_LIBS:BOOL=[ON | OFF]
+            * HDF_BUILD_FORTRAN:BOOL=[ON | OFF]
 
    2. Configure the cache settings
 
