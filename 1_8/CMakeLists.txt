@@ -295,6 +295,7 @@ endif (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE
 #-----------------------------------------------------------------------------
 option (PACK_EXAMPLE_SOURCE "Package HDF5 Example Source File" OFF)
 if (PACK_EXAMPLE_SOURCE)
-  set(CPACK_SOURCE_IGNORE_FILES "${PROJECT_BINARY_DIR}" "/\\.svn/" )
+#  set (CPACK_SOURCE_INSTALLED_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}") 
+  set (CPACK_SOURCE_IGNORE_FILES "${PROJECT_BINARY_DIR}" "/\\.svn/" )
   INCLUDE(CPack)
 endif (PACK_EXAMPLE_SOURCE)
