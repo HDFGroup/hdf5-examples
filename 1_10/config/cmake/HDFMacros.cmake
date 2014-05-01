@@ -18,7 +18,7 @@ endmacro (IDE_GENERATED_PROPERTIES)
 
 #-------------------------------------------------------------------------------
 macro (IDE_SOURCE_PROPERTIES SOURCE_PATH HEADERS SOURCES)
-  #  INSTALL (FILES ${HEADERS}
+  #  install (FILES ${HEADERS}
   #       DESTINATION include/R3D/${NAME}
   #       COMPONENT Headers       
   #  )
@@ -34,45 +34,61 @@ macro (IDE_SOURCE_PROPERTIES SOURCE_PATH HEADERS SOURCES)
 endmacro (IDE_SOURCE_PROPERTIES)
 
 #-------------------------------------------------------------------------------
-macro (TARGET_NAMING target libtype)
-  if (WIN32 AND NOT MINGW)
+macro (TARGET_NAMING libtarget libtype)
+  if (WIN32)
     if (${libtype} MATCHES "SHARED")
-      if (HDF_LEGACY_NAMING)
-        set_target_properties (${target} PROPERTIES OUTPUT_NAME "dll")
-        set_target_properties (${target} PROPERTIES PREFIX "${target}")
-      else (HDF_LEGACY_NAMING)
-        set_target_properties (${target} PROPERTIES OUTPUT_NAME "${target}dll")
-      endif (HDF_LEGACY_NAMING)
+      set_target_properties (${libtarget} PROPERTIES OUTPUT_NAME "${libtarget}dll")
     endif (${libtype} MATCHES "SHARED")
-  endif (WIN32 AND NOT MINGW)
+  endif (WIN32)
 endmacro (TARGET_NAMING)
 
 #-------------------------------------------------------------------------------
-macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
+MACRO (INSTALL_TARGET_PDB libtarget targetdestination targetcomponent)
+  if (WIN32 AND MSVC)
+    get_target_property (target_name ${libtarget} RELWITHDEBINFO_OUTPUT_NAME)
+    install (
+      FILES
+          ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/${CMAKE_IMPORT_LIBRARY_PREFIX}${target_name}.pdb
+      DESTINATION
+          ${targetdestination}
+      CONFIGURATIONS RelWithDebInfo
+      COMPONENT ${targetcomponent}
+  )
+  endif (WIN32 AND MSVC)
+ENDMACRO (INSTALL_TARGET_PDB)
+
+#-------------------------------------------------------------------------------
+MACRO (INSTALL_PROGRAM_PDB progtarget targetdestination targetcomponent)
+  if (WIN32 AND MSVC)
+    get_target_property (target_name ${progtarget} RELWITHDEBINFO_OUTPUT_NAME)
+    get_target_property (target_prefix ${progtarget} PREFIX)
+    install (
+      FILES
+          ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/${target_prefix}${target_name}.pdb
+      DESTINATION
+          ${targetdestination}
+      CONFIGURATIONS RelWithDebInfo
+      COMPONENT ${targetcomponent}
+  )
+  endif (WIN32 AND MSVC)
+ENDMACRO (INSTALL_PROGRAM_PDB)
+
+#-------------------------------------------------------------------------------
+MACRO (HDF_SET_LIB_OPTIONS libtarget libname libtype)
   # message (STATUS "${libname} libtype: ${libtype}")
   if (${libtype} MATCHES "SHARED")
-    if (WIN32 AND NOT MINGW)
-      if (HDF_LEGACY_NAMING)
-        set (LIB_RELEASE_NAME "${libname}dll")
-        set (LIB_DEBUG_NAME "${libname}ddll")
-      else (HDF_LEGACY_NAMING)
-        set (LIB_RELEASE_NAME "${libname}")
-        set (LIB_DEBUG_NAME "${libname}_D")
-      endif (HDF_LEGACY_NAMING)
-    else (WIN32 AND NOT MINGW)
+    if (WIN32)
+      set (LIB_RELEASE_NAME "${libname}")
+      set (LIB_DEBUG_NAME "${libname}_D")
+    else (WIN32)
       set (LIB_RELEASE_NAME "${libname}")
       set (LIB_DEBUG_NAME "${libname}_debug")
-    endif (WIN32 AND NOT MINGW)
+    endif (WIN32)
   else (${libtype} MATCHES "SHARED")
-    if (WIN32 AND NOT MINGW)
-      if (HDF_LEGACY_NAMING)
-        set (LIB_RELEASE_NAME "${libname}")
-        set (LIB_DEBUG_NAME "${libname}d")
-      else (HDF_LEGACY_NAMING)
-        set (LIB_RELEASE_NAME "lib${libname}")
-        set (LIB_DEBUG_NAME "lib${libname}_D")
-      endif (HDF_LEGACY_NAMING)
-    else (WIN32 AND NOT MINGW)
+    if (WIN32)
+      set (LIB_RELEASE_NAME "lib${libname}")
+      set (LIB_DEBUG_NAME "lib${libname}_D")
+    else (WIN32)
       # if the generator supports configuration types or if the CMAKE_BUILD_TYPE has a value
       if (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
         set (LIB_RELEASE_NAME "${libname}")
@@ -81,7 +97,7 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
         set (LIB_RELEASE_NAME "lib${libname}")
         set (LIB_DEBUG_NAME "lib${libname}_debug")
       endif (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
-    endif (WIN32 AND NOT MINGW)
+    endif (WIN32)
   endif (${libtype} MATCHES "SHARED")
   
   set_target_properties (${libtarget}
@@ -102,23 +118,70 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
     )
   endif (MINGW AND ${libtype} MATCHES "SHARED")
 
-endmacro (HDF_SET_LIB_OPTIONS)
+ENDMACRO (HDF_SET_LIB_OPTIONS)
 
 #-------------------------------------------------------------------------------
-macro (TARGET_FORTRAN_WIN_PROPERTIES target addlinkflags)
-  if (WIN32 AND MSVC)
+MACRO (TARGET_C_PROPERTIES wintarget addcompileflags addlinkflags)
+  if (MSVC)
+    TARGET_MSVC_PROPERTIES (${wintarget} "${addcompileflags} ${WIN_COMPILE_FLAGS}" "${addlinkflags} ${WIN_LINK_FLAGS}")
+  else (MSVC)
     if (BUILD_SHARED_LIBS)
-      set_target_properties (${target}
+      set_target_properties (${wintarget}
           PROPERTIES
-              COMPILE_FLAGS "/dll"
+              COMPILE_FLAGS "${addcompileflags}"
+              LINK_FLAGS "${addlinkflags}"
+      ) 
+    else (BUILD_SHARED_LIBS)
+      set_target_properties (${wintarget}
+          PROPERTIES
+              COMPILE_FLAGS "${addcompileflags}"
+              LINK_FLAGS "${addlinkflags}"
+      ) 
+    endif (BUILD_SHARED_LIBS)
+  endif (MSVC)
+ENDMACRO (TARGET_C_PROPERTIES)
+
+#-------------------------------------------------------------------------------
+MACRO (TARGET_MSVC_PROPERTIES wintarget addcompileflags addlinkflags)
+  if (MSVC)
+    if (BUILD_SHARED_LIBS)
+      set_target_properties (${wintarget}
+          PROPERTIES
+              COMPILE_FLAGS "${addcompileflags}"
+              LINK_FLAGS "${addlinkflags}"
+      ) 
+    else (BUILD_SHARED_LIBS)
+      set_target_properties (${wintarget}
+          PROPERTIES
+              COMPILE_FLAGS "${addcompileflags}"
+              LINK_FLAGS "${addlinkflags}"
+      ) 
+    endif (BUILD_SHARED_LIBS)
+  endif (MSVC)
+ENDMACRO (TARGET_MSVC_PROPERTIES)
+
+#-------------------------------------------------------------------------------
+MACRO (TARGET_FORTRAN_PROPERTIES forttarget addcompileflags addlinkflags)
+  if (WIN32)
+    TARGET_FORTRAN_WIN_PROPERTIES (${forttarget} "${addcompileflags} ${WIN_COMPILE_FLAGS}" "${addlinkflags} ${WIN_LINK_FLAGS}")
+  endif (WIN32)
+ENDMACRO (TARGET_FORTRAN_PROPERTIES)
+
+#-------------------------------------------------------------------------------
+MACRO (TARGET_FORTRAN_WIN_PROPERTIES forttarget addcompileflags addlinkflags)
+  if (MSVC)
+    if (BUILD_SHARED_LIBS)
+      set_target_properties (${forttarget}
+          PROPERTIES
+              COMPILE_FLAGS "/dll ${addcompileflags}"
               LINK_FLAGS "/SUBSYSTEM:CONSOLE ${addlinkflags}"
       ) 
     else (BUILD_SHARED_LIBS)
-      set_target_properties (${target}
+      set_target_properties (${forttarget}
           PROPERTIES
-              COMPILE_FLAGS "/MD"
+              COMPILE_FLAGS "${addcompileflags}"
               LINK_FLAGS "/SUBSYSTEM:CONSOLE ${addlinkflags}"
       ) 
     endif (BUILD_SHARED_LIBS)
-  endif (WIN32 AND MSVC)
-endmacro (TARGET_FORTRAN_WIN_PROPERTIES)
+  endif (MSVC)
+ENDMACRO (TARGET_FORTRAN_WIN_PROPERTIES)

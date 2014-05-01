@@ -24,7 +24,7 @@
 # made to remove references to Qt and make this file more generally applicable
 #########################################################################
 
-macro (SZIP_ADJUST_LIB_VARS basename)
+MACRO (SZIP_ADJUST_LIB_VARS basename)
   if (${basename}_INCLUDE_DIR)
 
     # if only the release version was found, set the debug variable also to the release version
@@ -44,11 +44,11 @@ macro (SZIP_ADJUST_LIB_VARS basename)
       # if the generator supports configuration types then set
       # optimized and debug libraries, or if the CMAKE_BUILD_TYPE has a value
       if (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
-	set (${basename}_LIBRARY       optimized ${${basename}_LIBRARY_RELEASE} debug ${${basename}_LIBRARY_DEBUG})
+        set (${basename}_LIBRARY       optimized ${${basename}_LIBRARY_RELEASE} debug ${${basename}_LIBRARY_DEBUG})
       ELSE(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
-	# if there are no configuration types and CMAKE_BUILD_TYPE has no value
-	# then just use the release libraries
-	set (${basename}_LIBRARY       ${${basename}_LIBRARY_RELEASE} )
+        # if there are no configuration types and CMAKE_BUILD_TYPE has no value
+        # then just use the release libraries
+        set (${basename}_LIBRARY       ${${basename}_LIBRARY_RELEASE} )
       endif (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
       set (${basename}_LIBRARIES       optimized ${${basename}_LIBRARY_RELEASE} debug ${${basename}_LIBRARY_DEBUG})
     endif (${basename}_LIBRARY_DEBUG AND ${basename}_LIBRARY_RELEASE)
@@ -63,7 +63,7 @@ macro (SZIP_ADJUST_LIB_VARS basename)
 
   # Make variables changeble to the advanced user
   MARK_AS_ADVANCED (${basename}_LIBRARY ${basename}_LIBRARY_RELEASE ${basename}_LIBRARY_DEBUG ${basename}_INCLUDE_DIR )
-endmacro (SZIP_ADJUST_LIB_VARS)
+ENDMACRO (SZIP_ADJUST_LIB_VARS)
 
 
 # Look for the header file.
@@ -90,13 +90,13 @@ FIND_PATH (SZIP_INCLUDE_DIR
     NO_DEFAULT_PATH
 )
 
-if (WIN32 AND NOT MINGW)
+if (WIN32)
     set (SZIP_SEARCH_DEBUG_NAMES "sz_d;libsz_d")
-    set (SZIP_SEARCH_RELEASE_NAMES "sz;libsz")
-else (WIN32 AND NOT MINGW)
+    set (SZIP_SEARCH_RELEASE_NAMES "sz;libsz;libszip")
+else (WIN32)
     set (SZIP_SEARCH_DEBUG_NAMES "sz_d")
-    set (SZIP_SEARCH_RELEASE_NAMES "sz")
-endif (WIN32 AND NOT MINGW)
+    set (SZIP_SEARCH_RELEASE_NAMES "sz;szip")
+endif (WIN32)
 
 # Look for the library.
 FIND_LIBRARY (SZIP_LIBRARY_DEBUG

@@ -41,20 +41,23 @@ message (STATUS "COMMAND Result: ${TEST_RESULT}")
 message (STATUS "COMMAND Error: ${TEST_ERROR}")
 
 # now grep the output with the reference
-FILE (READ ${TEST_FOLDER}/${TEST_OUTPUT} TEST_STREAM)
+file (READ ${TEST_FOLDER}/${TEST_OUTPUT} TEST_STREAM)
+
+# TEST_REFERENCE should always be matched
+STRING(REGEX MATCH "${TEST_REFERENCE}" TEST_MATCH ${TEST_STREAM}) 
+STRING(COMPARE EQUAL "${TEST_REFERENCE}" "${TEST_MATCH}" TEST_RESULT) 
+if (${TEST_RESULT} STREQUAL "0")
+  message (FATAL_ERROR "Failed: The output of ${TEST_PROGRAM} did not contain ${TEST_REFERENCE}")
+endif (${TEST_RESULT} STREQUAL "0")
 
 STRING(REGEX MATCH "${TEST_FILTER}" TEST_MATCH ${TEST_STREAM}) 
-if (${TEST_EXPECT})
+if (${TEST_EXPECT} STREQUAL "1")
+  # TEST_EXPECT (1) interperts TEST_FILTER as NOT to match
   STRING(LENGTH "${TEST_MATCH}" TEST_RESULT) 
   if (NOT ${TEST_RESULT} STREQUAL "0")
-    message (FATAL_ERROR "Failed: The output of ${TEST_PROGRAM} did contain ${TEST_REFERENCE}")
+    message (FATAL_ERROR "Failed: The output of ${TEST_PROGRAM} did contain ${TEST_FILTER}")
   endif (NOT ${TEST_RESULT} STREQUAL "0")
-else (${TEST_EXPECT})
-  STRING(COMPARE EQUAL "${TEST_REFERENCE}" "${TEST_MATCH}" TEST_RESULT) 
-  if (${TEST_RESULT} STREQUAL "0")
-    message (FATAL_ERROR "Failed: The output of ${TEST_PROGRAM} did not contain ${TEST_REFERENCE}")
-  endif (${TEST_RESULT} STREQUAL "0")
-endif (${TEST_EXPECT})
+endif (${TEST_EXPECT} STREQUAL "1")
 
 # everything went fine...
 message ("Passed: The output of ${TEST_PROGRAM} matched")
