@@ -43,7 +43,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
-              -P "${HDF5EX_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
     endif (HDF5_BUILD_TOOLS)
@@ -68,7 +68,7 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
-            -P "${HDF5EX_RESOURCES_EXT_DIR}/runTest.cmake"
+            -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
@@ -81,7 +81,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
-              -P "${HDF5EX_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
     endif (HDF5_BUILD_TOOLS)
@@ -110,7 +110,7 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
-            -P "${HDF5EX_RESOURCES_EXT_DIR}/runTest.cmake"
+            -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
@@ -123,7 +123,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}1.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}1.ddl"
-              -P "${HDF5EX_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname}1 PROPERTIES DEPENDS ${testname})
       ADD_TEST (
@@ -135,7 +135,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}2.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}2.ddl"
-              -P "${HDF5EX_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname}2 PROPERTIES DEPENDS H5DUMP-${testname}1)
     endif (HDF5_BUILD_TOOLS)
@@ -159,7 +159,7 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
-            -P "${HDF5EX_RESOURCES_EXT_DIR}/runTest.cmake"
+            -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
   endmacro (ADD_H5_CMP_TEST testname)

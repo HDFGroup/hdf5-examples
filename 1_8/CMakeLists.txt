@@ -23,16 +23,16 @@ endif (HDF5_USE_FOLDERS)
 #-----------------------------------------------------------------------------
 # Define some CMake variables for use later in the project
 #-----------------------------------------------------------------------------
-set (HDF5EX_RESOURCES_EXT_DIR  ${PROJECT_SOURCE_DIR}/config/cmake_ext_mod)
-set (HDF5EX_RESOURCES_DIR      ${PROJECT_SOURCE_DIR}/config/cmake)
+set (HDF_RESOURCES_EXT_DIR  ${PROJECT_SOURCE_DIR}/config/cmake_ext_mod)
+set (HDF_RESOURCES_DIR      ${PROJECT_SOURCE_DIR}/config/cmake)
 set (HDF5EX_C_SRC_DIR          ${PROJECT_SOURCE_DIR}/C)
 set (HDF5EX_F90_SRC_DIR        ${PROJECT_SOURCE_DIR}/FORTRAN)
 
 #-----------------------------------------------------------------------------
 # Include some macros for reusable code
 #-----------------------------------------------------------------------------
-include (${HDF5EX_RESOURCES_EXT_DIR}/HDFMacros.cmake)
-include (${HDF5EX_RESOURCES_DIR}/HDF5Macros.cmake)
+include (${HDF_RESOURCES_EXT_DIR}/HDFMacros.cmake)
+include (${HDF_RESOURCES_DIR}/HDF5Macros.cmake)
 
 #-----------------------------------------------------------------------------
 # Setup output Directories
@@ -104,8 +104,8 @@ endif (CMAKE_COMPILER_IS_GNUCXX)
 #-----------------------------------------------------------------------------
 # HDF5 support
 #-----------------------------------------------------------------------------
-set (CMAKE_MODULE_PATH ${HDF5EX_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
-set (CMAKE_MODULE_PATH ${HDF5EX_RESOURCES_EXT_DIR} ${CMAKE_MODULE_PATH})
+set (CMAKE_MODULE_PATH ${HDF_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
+set (CMAKE_MODULE_PATH ${HDF_RESOURCES_EXT_DIR} ${CMAKE_MODULE_PATH})
 
 if (NOT USE_SHARED_LIBS)
   set (HDF5_USE_STATIC_LIBRARIES 1)
@@ -267,7 +267,7 @@ if (BUILD_TESTING)
   enable_testing ()
   include (CTest)
   include (${PROJECT_SOURCE_DIR}/CTestConfig.cmake)
-  configure_file (${HDF5EX_RESOURCES_EXT_DIR}/CTestCustom.cmake ${PROJECT_BINARY_DIR}/CTestCustom.ctest @ONLY)
+  configure_file (${HDF_RESOURCES_EXT_DIR}/CTestCustom.cmake ${PROJECT_BINARY_DIR}/CTestCustom.ctest @ONLY)
 endif (BUILD_TESTING)
 
 #-----------------------------------------------------------------------------
@@ -286,7 +286,7 @@ set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
 if (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
   option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
   if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
-    include (${HDF5EX_RESOURCES_EXT_DIR}/HDFUseFortran.cmake)
+    include (${HDF_RESOURCES_EXT_DIR}/HDFUseFortran.cmake)
     add_subdirectory (${PROJECT_SOURCE_DIR}/FORTRAN ${PROJECT_BINARY_DIR}/FORTRAN)
   endif (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
 endif (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
