@@ -39,7 +39,7 @@ main (void)
     reading_t   *reading;                   /* Conversion buffer */
     sensor_t    *sensor,                    /* Conversion buffer */
                 bkgrd[DIM0];                /* Background buffer */
-    int         i;
+    hsize_t     i;
 
     /*
      * Allocate memory for conversion buffer.  We will allocate space

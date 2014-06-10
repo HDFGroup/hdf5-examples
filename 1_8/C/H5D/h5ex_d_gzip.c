@@ -37,8 +37,8 @@ main (void)
                     filter_info;
     int             wdata[DIM0][DIM1],          /* Write buffer */
                     rdata[DIM0][DIM1],          /* Read buffer */
-                    max,
-                    i, j;
+                    max;
+    hsize_t         i, j;
 
     /*
      * Check if gzip compression is available and can be used for both

@@ -49,8 +49,8 @@ main (void)
                                                     "the 5 lazy dogs"},
                         *rdata2,
                         *name;
-    int                 ndims,
-                        i;
+    int                 ndims;
+    hsize_t             i;
 
     /*
      * Create a new file using the default properties.

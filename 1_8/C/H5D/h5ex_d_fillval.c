@@ -40,8 +40,8 @@ main (void)
                     rdata[DIM0][DIM1],          /* Read buffer */
                     rdata2[EDIM0][EDIM1],       /* Read buffer for
                                                    extenstion */
-                    fillval,
-                    i, j;
+                    fillval;
+    hsize_t         i, j;
 
     /*
      * Initialize data.

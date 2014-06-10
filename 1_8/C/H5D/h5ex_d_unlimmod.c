@@ -39,8 +39,8 @@ main (void)
                     wdata2[EDIM0][EDIM1],       /* Write buffer for
                                                    extension */
                     **rdata,                    /* Read buffer */
-                    ndims,
-                    i, j;
+                    ndims;
+    hsize_t         i, j;
 
     /*
      * Initialize data.

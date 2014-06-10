@@ -31,8 +31,8 @@ main (void)
     char        wdata[DIM0][SDIM] = {"Parting", "is such", "sweet", "sorrow."},
                                             /* Write buffer */
                 **rdata;                    /* Read buffer */
-    int         ndims,
-                i;
+    int         ndims;
+    hsize_t     i;
 
     /*
      * Create a new file using the default properties.

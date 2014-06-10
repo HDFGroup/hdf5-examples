@@ -29,8 +29,8 @@ main (void)
                 *rdata;             /* Pointer to vlen structures */
     hsize_t     dims[1] = {2};
     int         *ptr,
-                ndims,
-                i, j;
+                ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize variable-length data.  wdata[0] is a countdown of

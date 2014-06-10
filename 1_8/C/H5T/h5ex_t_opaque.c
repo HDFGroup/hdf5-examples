@@ -30,8 +30,8 @@ main (void)
                 *rdata,                     /* Read buffer */
                 str[LEN] = "OPAQUE",
                 *tag;
-    int         ndims,
-                i, j;
+    int         ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize data.

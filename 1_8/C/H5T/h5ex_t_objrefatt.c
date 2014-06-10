@@ -31,8 +31,8 @@ main (void)
     H5O_type_t  objtype;
     ssize_t     size;
     char        *name;
-    int         ndims,
-                i;
+    int         ndims;
+    hsize_t     i;
 
     /*
      * Create a new file using the default properties.

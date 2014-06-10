@@ -33,8 +33,8 @@ main (void)
                 count[2],
                 block[2];
     int         wdata[DIM0][DIM1],          /* Write buffer */
-                rdata[DIM0][DIM1],          /* Read buffer */
-                i, j;
+                rdata[DIM0][DIM1];          /* Read buffer */
+    hsize_t     i, j;
 
     /*
      * Initialize data to "1", to make it easier to see the selections.

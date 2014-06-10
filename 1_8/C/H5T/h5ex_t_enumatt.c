@@ -42,8 +42,8 @@ main (void)
                 val;
     char        *names[4] = {"SOLID", "LIQUID", "GAS", "PLASMA"},
                 name[NAME_BUF_SIZE];
-    int         ndims,
-                i, j;
+    int         ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize data.

@@ -82,8 +82,8 @@ main (void)
     color_t     val;
     sensor_t    *ptr;
     double      wdata2[32][32];
-    int         ndims,
-                i, j;
+    int         ndims;
+    hsize_t     i, j;
 
     /*
      * Create a new file using the default properties.

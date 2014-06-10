@@ -35,8 +35,8 @@ main (void)
     hsize_t     dims[1] = {DIM0};
     sensor_t    wdata[DIM0],                /* Write buffer */
                 *rdata;                     /* Read buffer */
-    int         ndims,
-                i;
+    int         ndims;
+    hsize_t     i;
 
     /*
      * Initialize data.

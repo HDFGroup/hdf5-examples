@@ -27,8 +27,8 @@ main (void)
     hsize_t     dims[2] = {DIM0, DIM1};
     int         wdata[DIM0][DIM1],          /* Write buffer */
                 **rdata,                    /* Read buffer */
-                ndims,
-                i, j;
+                ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize data.

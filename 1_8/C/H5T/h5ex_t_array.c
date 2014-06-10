@@ -30,8 +30,8 @@ main (void)
                 adims[2] = {ADIM0, ADIM1};
     int         wdata[DIM0][ADIM0][ADIM1],      /* Write buffer */
                 ***rdata,                       /* Read buffer */
-                ndims,
-                i, j, k;
+                ndims;
+    hsize_t     i, j, k;
 
     /*
      * Initialize data.  i is the element in the dataspace, j and k the

@@ -47,8 +47,8 @@ main (void)
                     wdata2[EDIM0][EDIM1],       /* Write buffer for
                                                    extension */
                     **rdata,                    /* Read buffer */
-                    ndims,
-                    i, j;
+                    ndims;
+    hsize_t         i, j;
 
     /*
      * Check if gzip compression is available and can be used for both

@@ -40,7 +40,7 @@ main (void)
                     rdata[DIM0][DIM1],          /* Read buffer */
                     max,
                     min;
-    int             i, j;
+    hsize_t         i, j;
 
     /*
      * Check if Scale-Offset compression is available and can be used

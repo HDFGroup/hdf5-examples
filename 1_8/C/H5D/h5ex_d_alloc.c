@@ -32,8 +32,8 @@ main (void)
     H5D_space_status_t      space_status;
     hsize_t                 dims[2] = {DIM0, DIM1},
                             storage_size;
-    int                     wdata[DIM0][DIM1],      /* Write buffer */
-                            i, j;
+    int                     wdata[DIM0][DIM1];      /* Write buffer */
+    hsize_t                 i, j;
 
     /*
      * Initialize data.

@@ -27,8 +27,8 @@ main (void)
     H5D_layout_t    layout;
     hsize_t     dims[2] = {DIM0, DIM1};
     int         wdata[DIM0][DIM1],          /* Write buffer */
-                rdata[DIM0][DIM1],          /* Read buffer */
-                i, j;
+                rdata[DIM0][DIM1];          /* Read buffer */
+    hsize_t     i, j;
 
     /*
      * Initialize data.
