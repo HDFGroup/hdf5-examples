@@ -310,6 +310,7 @@
 /README -text
 /aclocal.m4 -text
 bin/reconfigure -text
+/compile -text
 /config.h.in -text
 /configure -text
 /configure.ac -text
@@ -318,3 +319,4 @@ bin/reconfigure -text
 /makefile.am -text
 /makefile.in -text
 /missing -text
+/test-driver -text
