@@ -309,11 +309,6 @@
 /COPYING -text
 /README -text
 /aclocal.m4 -text
-autom4te.cache/output.0 -text
-autom4te.cache/output.1 -text
-autom4te.cache/requests -text
-autom4te.cache/traces.0 -text
-autom4te.cache/traces.1 -text
 bin/reconfigure -text
 bin/reconfigure.local -text
 /compile -text
