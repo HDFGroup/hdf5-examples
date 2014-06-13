@@ -323,7 +323,7 @@ EXTRA_DIST = testfiles/h5ex_d_rdwr.tst testfiles/h5ex_d_hyper.tst \
 	testfiles/h5ex_d_checksum.ddl testfiles/h5ex_d_transform.ddl \
 	testfiles/h5ex_d_fillval.ddl testfiles/h5ex_d_alloc.ddl \
 	test.sh $(am__append_2)
-TEST_SCRIPT = test.sh
+TESTS = test.sh
 all: all-am
 
 .SUFFIXES:

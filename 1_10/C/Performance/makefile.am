@@ -11,6 +11,6 @@ noinst_PROGRAMS = h5slabread h5slabwrite h5efc
 
 EXTRA_DIST = 
 
-TEST_SCRIPT = test.sh
+TESTS = test.sh
 
 TESTS = 
