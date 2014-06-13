@@ -3761,7 +3761,7 @@ fi
 
 
 # Set subdirectories
-ac_config_files="$ac_config_files makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile 1_6/C/H5D/makefile 1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile 1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile 1_8/FORTRAN/makefile 1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5D/makefile 1_8/FORTRAN/H5T/makefile 1_10/makefile 1_10/C/makefile 1_10/C/H5G/makefile 1_10/C/H5D/makefile 1_10/C/H5T/makefile 1_10/FORTRAN/makefile 1_10/FORTRAN/H5G/makefile 1_10/FORTRAN/H5D/makefile 1_10/FORTRAN/H5T/makefile"
+ac_config_files="$ac_config_files makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile 1_6/C/H5G/test.sh 1_6/C/H5D/makefile 1_6/C/H5D/test.sh 1_6/C/H5T/makefile 1_6/C/H5T/test.sh 1_8/makefile 1_8/C/makefile 1_8/C/H5G/makefile 1_8/C/H5G/test.sh 1_8/C/H5D/makefile 1_8/C/H5D/test.sh 1_8/C/H5T/makefile 1_8/C/H5T/test.sh 1_8/FORTRAN/makefile 1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5G/test.sh 1_8/FORTRAN/H5D/makefile 1_8/FORTRAN/H5D/test.sh 1_8/FORTRAN/H5T/makefile 1_8/FORTRAN/H5T/test.sh 1_10/makefile 1_10/C/makefile 1_10/C/H5G/makefile 1_10/C/H5G/test.sh 1_10/C/H5D/makefile 1_10/C/H5D/test.sh 1_10/C/H5T/makefile 1_10/C/H5T/test.sh 1_10/FORTRAN/makefile 1_10/FORTRAN/H5G/makefile 1_10/FORTRAN/H5G/test.sh 1_10/FORTRAN/H5D/makefile 1_10/FORTRAN/H5D/test.sh 1_10/FORTRAN/H5T/makefile 1_10/FORTRAN/H5T/test.sh"
 
 
 # Configure
@@ -4531,26 +4531,41 @@ do
     "1_6/makefile") CONFIG_FILES="$CONFIG_FILES 1_6/makefile" ;;
     "1_6/C/makefile") CONFIG_FILES="$CONFIG_FILES 1_6/C/makefile" ;;
     "1_6/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES 1_6/C/H5G/makefile" ;;
+    "1_6/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES 1_6/C/H5G/test.sh" ;;
     "1_6/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES 1_6/C/H5D/makefile" ;;
+    "1_6/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES 1_6/C/H5D/test.sh" ;;
     "1_6/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES 1_6/C/H5T/makefile" ;;
+    "1_6/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES 1_6/C/H5T/test.sh" ;;
     "1_8/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/makefile" ;;
     "1_8/C/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/C/makefile" ;;
     "1_8/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/C/H5G/makefile" ;;
+    "1_8/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES 1_8/C/H5G/test.sh" ;;
     "1_8/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/C/H5D/makefile" ;;
+    "1_8/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES 1_8/C/H5D/test.sh" ;;
     "1_8/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/C/H5T/makefile" ;;
+    "1_8/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES 1_8/C/H5T/test.sh" ;;
     "1_8/FORTRAN/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/FORTRAN/makefile" ;;
     "1_8/FORTRAN/H5G/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/FORTRAN/H5G/makefile" ;;
+    "1_8/FORTRAN/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES 1_8/FORTRAN/H5G/test.sh" ;;
     "1_8/FORTRAN/H5D/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/FORTRAN/H5D/makefile" ;;
+    "1_8/FORTRAN/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES 1_8/FORTRAN/H5D/test.sh" ;;
     "1_8/FORTRAN/H5T/makefile") CONFIG_FILES="$CONFIG_FILES 1_8/FORTRAN/H5T/makefile" ;;
+    "1_8/FORTRAN/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES 1_8/FORTRAN/H5T/test.sh" ;;
     "1_10/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/makefile" ;;
     "1_10/C/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/C/makefile" ;;
     "1_10/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/C/H5G/makefile" ;;
+    "1_10/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES 1_10/C/H5G/test.sh" ;;
     "1_10/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/C/H5D/makefile" ;;
+    "1_10/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES 1_10/C/H5D/test.sh" ;;
     "1_10/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/C/H5T/makefile" ;;
+    "1_10/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES 1_10/C/H5T/test.sh" ;;
     "1_10/FORTRAN/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/FORTRAN/makefile" ;;
     "1_10/FORTRAN/H5G/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/FORTRAN/H5G/makefile" ;;
+    "1_10/FORTRAN/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES 1_10/FORTRAN/H5G/test.sh" ;;
     "1_10/FORTRAN/H5D/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/FORTRAN/H5D/makefile" ;;
+    "1_10/FORTRAN/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES 1_10/FORTRAN/H5D/test.sh" ;;
     "1_10/FORTRAN/H5T/makefile") CONFIG_FILES="$CONFIG_FILES 1_10/FORTRAN/H5T/makefile" ;;
+    "1_10/FORTRAN/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES 1_10/FORTRAN/H5T/test.sh" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
