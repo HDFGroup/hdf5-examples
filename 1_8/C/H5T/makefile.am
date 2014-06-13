@@ -44,4 +44,8 @@ testfiles/h5ex_t_convert.ddl test.sh
 
 
 AM_CPPFLAGS = '-D H5_USE_18_API'
+
+TEST_EXTENSIONS = .sh
+SH_LOG_COMPILER = $(SHELL)
+AM_SH_LOG_FLAGS =
 TESTS = test.sh

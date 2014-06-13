@@ -14,7 +14,7 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
-AC_PREREQ(2.59)
+AC_PREREQ(2.69)
 AC_INIT(HDF5-examples, 0.1, nfortne2@hdfgroup.org)
 dnl AM_INIT_AUTOMAKE takes a list of options that should be applied to
 dnl every Makefile.am when automake is run.
@@ -104,41 +104,42 @@ AC_CONFIG_FILES([makefile
                  1_6/makefile 
                  1_6/C/makefile 
                  1_6/C/H5G/makefile 
-                 1_6/C/H5G/test.sh 
                  1_6/C/H5D/makefile 
-                 1_6/C/H5D/test.sh 
                  1_6/C/H5T/makefile 
-                 1_6/C/H5T/test.sh 
                  1_8/makefile 
                  1_8/C/makefile 
                  1_8/C/H5G/makefile 
-                 1_8/C/H5G/test.sh 
                  1_8/C/H5D/makefile 
-                 1_8/C/H5D/test.sh 
                  1_8/C/H5T/makefile 
-                 1_8/C/H5T/test.sh 
                  1_8/FORTRAN/makefile 
                  1_8/FORTRAN/H5G/makefile 
-                 1_8/FORTRAN/H5G/test.sh 
                  1_8/FORTRAN/H5D/makefile 
-                 1_8/FORTRAN/H5D/test.sh 
                  1_8/FORTRAN/H5T/makefile 
-                 1_8/FORTRAN/H5T/test.sh 
                  1_10/makefile 
                  1_10/C/makefile 
                  1_10/C/H5G/makefile 
-                 1_10/C/H5G/test.sh 
                  1_10/C/H5D/makefile 
-                 1_10/C/H5D/test.sh 
                  1_10/C/H5T/makefile 
-                 1_10/C/H5T/test.sh 
                  1_10/FORTRAN/makefile 
                  1_10/FORTRAN/H5G/makefile 
-                 1_10/FORTRAN/H5G/test.sh 
                  1_10/FORTRAN/H5D/makefile 
-                 1_10/FORTRAN/H5D/test.sh 
-                 1_10/FORTRAN/H5T/makefile
-                 1_10/FORTRAN/H5T/test.sh ])
+                 1_10/FORTRAN/H5T/makefile])
+                 
+AC_CONFIG_FILES([1_6/C/H5G/test.sh], [chmod +x 1_6/C/H5G/test.sh]) 
+AC_CONFIG_FILES([1_6/C/H5D/test.sh], [chmod +x 1_6/C/H5D/test.sh])
+AC_CONFIG_FILES([1_6/C/H5T/test.sh], [chmod +x 1_6/C/H5T/test.sh])
+AC_CONFIG_FILES([1_8/C/H5G/test.sh], [chmod +x 1_8/C/H5G/test.sh])
+AC_CONFIG_FILES([1_8/C/H5D/test.sh], [chmod +x 1_8/C/H5D/test.sh])
+AC_CONFIG_FILES([1_8/C/H5T/test.sh], [chmod +x 1_8/C/H5T/test.sh])
+AC_CONFIG_FILES([1_8/FORTRAN/H5G/test.sh], [chmod +x 1_8/FORTRAN/H5G/test.sh])
+AC_CONFIG_FILES([1_8/FORTRAN/H5D/test.sh], [chmod +x 1_8/FORTRAN/H5D/test.sh])
+AC_CONFIG_FILES([1_8/FORTRAN/H5T/test.sh], [chmod +x 1_8/FORTRAN/H5T/test.sh])
+AC_CONFIG_FILES([1_10/C/H5G/test.sh], [chmod +x 1_10/C/H5G/test.sh])
+AC_CONFIG_FILES([1_10/C/H5D/test.sh], [chmod +x 1_10/C/H5D/test.sh])
+AC_CONFIG_FILES([1_10/C/H5T/test.sh], [chmod +x 1_10/C/H5T/test.sh])
+AC_CONFIG_FILES([1_10/FORTRAN/H5G/test.sh], [chmod +x 1_10/FORTRAN/H5G/test.sh])
+AC_CONFIG_FILES([1_10/FORTRAN/H5D/test.sh], [chmod +x 1_10/FORTRAN/H5D/test.sh])
+AC_CONFIG_FILES([1_10/FORTRAN/H5T/test.sh], [chmod +x 1_10/FORTRAN/H5T/test.sh])
 
 # Configure
 AC_OUTPUT
