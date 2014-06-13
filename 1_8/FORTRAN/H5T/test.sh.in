@@ -13,6 +13,8 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+srcdir=@srcdir@
+
 
 case $FC in
 */*)    H5DUMP=`echo $FC | sed -e 's/\/[^/]*$/\/h5dump/'`;
@@ -38,19 +40,23 @@ dumpout() {
     $H5DUMP $*
 }
 
+topics="vlstring"
 
-topics="arrayatt_F03 array_F03 bitatt_F03 bit_F03 cmpdatt_F03 cmpd_F03 \
-Cstring_F03 enumatt_F03 enum_F03 floatatt_F03 float_F03 \
-intatt_F03 int_F03 objrefatt_F03 objref_F03 opaqueatt_F03 opaque_F03 regrefatt_F03 \
-regref_F03 string_F03 vlenatt_F03 vlen_F03 vlstring"
-
+if ($FC -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+  topics="$topics arrayatt_F03 array_F03 bitatt_F03 bit_F03 \
+  cmpdatt_F03 cmpd_F03  enumatt_F03 \
+  enum_F03 floatatt_F03 float_F03 intatt_F03 int_F03 \
+  objrefatt_F03 objref_F03 opaqueatt_F03 opaque_F03 \
+  regrefatt_F03 regref_F03 stringCatt_F03 stringC_F03 \
+  string_F03 vlenatt_F03 vlen_F03"
+fi
 
 return_val=0
 
 for topic in $topics
 do
     fname=h5ex_t_$topic
-    $ECHO_N "Testing 1_10/FORTRAN/H5T/$fname...$ECHO_C"
+    $ECHO_N "Testing 1_8/FORTRAN/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
     cmp -s tmp.test $srcdir/testfiles/$fname.tst
     status=$?
@@ -59,15 +65,15 @@ do
         echo "  FAILED!"
     else
         dumpout $fname.h5 >tmp.test
-    rm -f $fname.h5
+      rm -f $fname.h5
       cmp -s tmp.test $srcdir/testfiles/$fname.ddl
-    status=$?
-    if test $status -ne 0
-    then
-        echo "  FAILED!"
-    else
-        echo "  Passed"
-    fi
+      status=$?
+      if test $status -ne 0
+      then
+          echo "  FAILED!"
+      else
+          echo "  Passed"
+      fi
     fi
     return_val=`expr $status + $return_val`
 done
@@ -76,7 +82,7 @@ done
 #######Non-standard tests#######
 
 #fname=h5ex_t_cpxcmpd
-#$ECHO_N "Testing 1_10/C/H5T/$fname...$ECHO_C"
+#$ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
 #exout ./$fname >tmp.test
 #cmp -s tmp.test $srcdir/testfiles/$fname.tst
 #status=$?
@@ -85,21 +91,21 @@ done
 #    echo "  FAILED!"
 #else
 #  dumpout -n $fname.h5 >tmp.test
-#rm -f $fname.h5
+#  rm -f $fname.h5
 #  cmp -s tmp.test $srcdir/testfiles/$fname.ddl
-#status=$?
-#if test $status -ne 0
-#then
-#    echo "  FAILED!"
-#else
-#    echo "  Passed"
-#fi
+#  status=$?
+#  if test $status -ne 0
+#  then
+#      echo "  FAILED!"
+#  else
+#      echo "  Passed"
+#  fi
 #fi
 #return_val=`expr $status + $return_val`
 
 
 #fname=h5ex_t_cpxcmpdatt
-#$ECHO_N "Testing 1_10/C/H5T/$fname...$ECHO_C"
+#$ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
 #exout ./$fname >tmp.test
 #cmp -s tmp.test $srcdir/testfiles/$fname.tst
 #status=$?
@@ -108,21 +114,21 @@ done
 #    echo "  FAILED!"
 #else
 #  dumpout -n $fname.h5 >tmp.test
-#rm -f $fname.h5
+#  rm -f $fname.h5
 #  cmp -s tmp.test $srcdir/testfiles/$fname.ddl
-#status=$?
-#if test $status -ne 0
-#then
-#    echo "  FAILED!"
-#else
-#    echo "  Passed"
-#fi
+#  status=$?
+#  if test $status -ne 0
+#  then
+#      echo "  FAILED!"
+#  else
+#      echo "  Passed"
+#  fi
 #fi
 #return_val=`expr $status + $return_val`
 
 
 #fname=h5ex_t_convert
-#$ECHO_N "Testing 1_10/C/H5T/$fname...$ECHO_C"
+#$ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
 #exout ./$fname >tmp.test
 #cmp -s tmp.test $srcdir/$fname.test
 #status=$?
@@ -136,5 +142,5 @@ done
 
 
 rm -f tmp.test
-echo "$return_val tests failed in 1_10/FORTRAN/H5T/"
+echo "$return_val tests failed in 1_8/FORTRAN/H5T/"
 exit $return_val

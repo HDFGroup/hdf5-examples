@@ -13,6 +13,8 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+srcdir=@srcdir@
+
 
 case $CC in
 */*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
@@ -57,45 +59,64 @@ dumpout2() {
 }
 
 
-topics="rdwr hyper chunk gzip szip extern compact unlimadd unlimmod unlimgzip \
-checksum shuffle fillval alloc"
-
-
 return_val=0
 
 
-for topic in $topics
-do
-    fname=h5ex_d_$topic
-    $ECHO_N "Testing 1_6/C/H5D/$fname...$ECHO_C"
-    exout ./$fname >tmp.test
-    status=$?
-    if test $status -eq 1
-    then
-        echo "  Unsupported feature"
-    else
-        dumpout2 $fname.h5 >>tmp.test
-        rm -f $fname.h5
-        cmp -s tmp.test $srcdir/$fname.test
-        status=$?
-        if test $status -ne 0
-        then
-            echo "  FAILED!"
-        else
-            echo "  Passed"
-        fi
-        return_val=`expr $status + $return_val`
-    fi
-done
+$ECHO_N "Testing 1_6/C/H5G/h5ex_g_create...$ECHO_C"
+./h5ex_g_create
+dumpout h5ex_g_create.h5 >tmp.test
+rm -f h5ex_g_create.h5
+cmp -s tmp.test $srcdir/h5ex_g_create.test
+status=$?
+if test $status -ne 0
+then
+    echo "  FAILED!"
+else
+    echo "  Passed"
+fi
+return_val=`expr $status + $return_val`
 
 
-#######Non-standard tests#######
+$ECHO_N "Testing 1_6/C/H5G/h5ex_g_iterate...$ECHO_C"
+if test -f "h5ex_g_iterate.h5"
+then
+    exout ./h5ex_g_iterate >tmp.test
+else
+    cp $srcdir/h5ex_g_iterate.h5 h5ex_g_iterate.h5
+    exout ./h5ex_g_iterate >tmp.test
+    rm  -f h5ex_g_iterate.h5
+fi
+cmp -s tmp.test $srcdir/h5ex_g_iterate.test
+status=$?
+if test $status -ne 0
+then
+    echo "  FAILED!"
+else
+    echo "  Passed"
+fi
+return_val=`expr $status + $return_val`
 
 
-#Remove external data file from h5ex_d_extern
-rm -f h5ex_d_extern.data
+$ECHO_N "Testing 1_6/C/H5G/h5ex_g_traverse...$ECHO_C"
+if test -f h5ex_g_traverse.h5
+then
+    exout ./h5ex_g_traverse >tmp.test
+else
+    cp $srcdir/h5ex_g_traverse.h5 h5ex_g_traverse.h5
+    exout ./h5ex_g_traverse >tmp.test
+    rm  -f h5ex_g_traverse.h5
+fi
+cmp -s tmp.test $srcdir/h5ex_g_traverse.test
+status=$?
+if test $status -ne 0
+then
+    echo "  FAILED!"
+else
+    echo "  Passed"
+fi
+return_val=`expr $status + $return_val`
 
 
 rm -f tmp.test
-echo "$return_val tests failed in 1_6/C/H5D/"
+echo "$return_val tests failed in 1_6/C/H5G/"
 exit $return_val

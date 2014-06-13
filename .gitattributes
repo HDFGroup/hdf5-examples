@@ -20,7 +20,7 @@
 1_10/FORTRAN/H5D/makefile.am -text
 1_10/FORTRAN/H5D/makefile.in -text
 1_10/FORTRAN/H5D/maketestref.sh -text
-1_10/FORTRAN/H5D/test.sh -text
+1_10/FORTRAN/H5D/test.sh.in -text
 1_10/FORTRAN/H5G/h5ex_g_compact.f90 -text
 1_10/FORTRAN/H5G/h5ex_g_corder.f90 -text
 1_10/FORTRAN/H5G/h5ex_g_create.f90 -text
@@ -28,7 +28,7 @@
 1_10/FORTRAN/H5G/makefile.am -text
 1_10/FORTRAN/H5G/makefile.in -text
 1_10/FORTRAN/H5G/maketestref.sh -text
-1_10/FORTRAN/H5G/test.sh -text
+1_10/FORTRAN/H5G/test.sh.in -text
 1_10/FORTRAN/H5T/h5ex_t_Cstring_F03.f90 -text
 1_10/FORTRAN/H5T/h5ex_t_array_F03.f90 -text
 1_10/FORTRAN/H5T/h5ex_t_arrayatt_F03.f90 -text
@@ -58,7 +58,7 @@
 1_10/FORTRAN/H5T/makefile.am -text
 1_10/FORTRAN/H5T/makefile.in -text
 1_10/FORTRAN/H5T/maketestref.sh -text
-1_10/FORTRAN/H5T/test.sh -text
+1_10/FORTRAN/H5T/test.sh.in -text
 1_10/FORTRAN/makefile.am -text
 1_10/FORTRAN/makefile.in -text
 1_10/makefile.am -text
@@ -94,7 +94,7 @@
 1_6/C/H5D/makefile.am -text
 1_6/C/H5D/makefile.in -text
 1_6/C/H5D/maketestref.sh -text
-1_6/C/H5D/test.sh -text
+1_6/C/H5D/test.sh.in -text
 1_6/C/H5G/h5ex_g_create.c -text
 1_6/C/H5G/h5ex_g_create.test -text
 1_6/C/H5G/h5ex_g_iterate.c -text
@@ -106,7 +106,7 @@
 1_6/C/H5G/makefile.am -text
 1_6/C/H5G/makefile.in -text
 1_6/C/H5G/maketestref.sh -text
-1_6/C/H5G/test.sh -text
+1_6/C/H5G/test.sh.in -text
 1_6/C/H5T/h5ex_t_array.c -text
 1_6/C/H5T/h5ex_t_array.test -text
 1_6/C/H5T/h5ex_t_arrayatt.c -text
@@ -166,7 +166,7 @@
 1_6/C/H5T/makefile.am -text
 1_6/C/H5T/makefile.in -text
 1_6/C/H5T/maketestref.sh -text
-1_6/C/H5T/test.sh -text
+1_6/C/H5T/test.sh.in -text
 1_6/C/makefile.am -text
 1_6/C/makefile.in -text
 1_6/makefile.am -text
@@ -192,7 +192,7 @@
 1_8/C/H5D/makefile.am -text
 1_8/C/H5D/makefile.in -text
 1_8/C/H5D/maketestref.sh -text
-1_8/C/H5D/test.sh -text
+1_8/C/H5D/test.sh.in -text
 1_8/C/H5G/h5ex_g_compact.c -text
 1_8/C/H5G/h5ex_g_corder.c -text
 1_8/C/H5G/h5ex_g_create.c -text
@@ -207,7 +207,7 @@
 1_8/C/H5G/makefile.am -text
 1_8/C/H5G/makefile.in -text
 1_8/C/H5G/maketestref.sh -text
-1_8/C/H5G/test.sh -text
+1_8/C/H5G/test.sh.in -text
 1_8/C/H5T/h5ex_t_array.c -text
 1_8/C/H5T/h5ex_t_arrayatt.c -text
 1_8/C/H5T/h5ex_t_bit.c -text
@@ -239,7 +239,7 @@
 1_8/C/H5T/makefile.am -text
 1_8/C/H5T/makefile.in -text
 1_8/C/H5T/maketestref.sh -text
-1_8/C/H5T/test.sh -text
+1_8/C/H5T/test.sh.in -text
 1_8/C/makefile.am -text
 1_8/C/makefile.in -text
 1_8/FORTRAN/H5D/h5ex_d_alloc.f90 -text
@@ -260,7 +260,7 @@
 1_8/FORTRAN/H5D/makefile.am -text
 1_8/FORTRAN/H5D/makefile.in -text
 1_8/FORTRAN/H5D/maketestref.sh -text
-1_8/FORTRAN/H5D/test.sh -text
+1_8/FORTRAN/H5D/test.sh.in -text
 1_8/FORTRAN/H5G/h5ex_g_compact.f90 -text
 1_8/FORTRAN/H5G/h5ex_g_corder.f90 -text
 1_8/FORTRAN/H5G/h5ex_g_create.f90 -text
@@ -274,7 +274,7 @@
 1_8/FORTRAN/H5G/makefile.am -text
 1_8/FORTRAN/H5G/makefile.in -text
 1_8/FORTRAN/H5G/maketestref.sh -text
-1_8/FORTRAN/H5G/test.sh -text
+1_8/FORTRAN/H5G/test.sh.in -text
 1_8/FORTRAN/H5T/h5ex_t_array_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_arrayatt_F03.f90 -text
 1_8/FORTRAN/H5T/h5ex_t_bit_F03.f90 -text
@@ -303,7 +303,7 @@
 1_8/FORTRAN/H5T/makefile.am -text
 1_8/FORTRAN/H5T/makefile.in -text
 1_8/FORTRAN/H5T/maketestref.sh -text
-1_8/FORTRAN/H5T/test.sh -text
+1_8/FORTRAN/H5T/test.sh.in -text
 1_8/makefile.am -text
 1_8/makefile.in -text
 /COPYING -text

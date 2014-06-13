@@ -100,12 +100,45 @@ AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes
 AM_CONDITIONAL([FORTRAN_2003_NOTINTEL_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"])
 
 # Set subdirectories
-AC_CONFIG_FILES([makefile 1_6/makefile 1_6/C/makefile 1_6/C/H5G/makefile \
-1_6/C/H5D/makefile 1_6/C/H5T/makefile 1_8/makefile 1_8/C/makefile \
-1_8/C/H5G/makefile 1_8/C/H5D/makefile 1_8/C/H5T/makefile 1_8/FORTRAN/makefile \
-1_8/FORTRAN/H5G/makefile 1_8/FORTRAN/H5D/makefile 1_8/FORTRAN/H5T/makefile 1_10/makefile \
-1_10/C/makefile 1_10/C/H5G/makefile 1_10/C/H5D/makefile 1_10/C/H5T/makefile \
-1_10/FORTRAN/makefile 1_10/FORTRAN/H5G/makefile 1_10/FORTRAN/H5D/makefile 1_10/FORTRAN/H5T/makefile ])
+AC_CONFIG_FILES([makefile 
+                 1_6/makefile 
+                 1_6/C/makefile 
+                 1_6/C/H5G/makefile 
+                 1_6/C/H5G/test.sh 
+                 1_6/C/H5D/makefile 
+                 1_6/C/H5D/test.sh 
+                 1_6/C/H5T/makefile 
+                 1_6/C/H5T/test.sh 
+                 1_8/makefile 
+                 1_8/C/makefile 
+                 1_8/C/H5G/makefile 
+                 1_8/C/H5G/test.sh 
+                 1_8/C/H5D/makefile 
+                 1_8/C/H5D/test.sh 
+                 1_8/C/H5T/makefile 
+                 1_8/C/H5T/test.sh 
+                 1_8/FORTRAN/makefile 
+                 1_8/FORTRAN/H5G/makefile 
+                 1_8/FORTRAN/H5G/test.sh 
+                 1_8/FORTRAN/H5D/makefile 
+                 1_8/FORTRAN/H5D/test.sh 
+                 1_8/FORTRAN/H5T/makefile 
+                 1_8/FORTRAN/H5T/test.sh 
+                 1_10/makefile 
+                 1_10/C/makefile 
+                 1_10/C/H5G/makefile 
+                 1_10/C/H5G/test.sh 
+                 1_10/C/H5D/makefile 
+                 1_10/C/H5D/test.sh 
+                 1_10/C/H5T/makefile 
+                 1_10/C/H5T/test.sh 
+                 1_10/FORTRAN/makefile 
+                 1_10/FORTRAN/H5G/makefile 
+                 1_10/FORTRAN/H5G/test.sh 
+                 1_10/FORTRAN/H5D/makefile 
+                 1_10/FORTRAN/H5D/test.sh 
+                 1_10/FORTRAN/H5T/makefile
+                 1_10/FORTRAN/H5T/test.sh ])
 
 # Configure
 AC_OUTPUT

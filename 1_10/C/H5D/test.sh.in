@@ -13,6 +13,8 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+srcdir=@srcdir@
+
 
 case $CC in
 */*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
@@ -49,7 +51,7 @@ return_val=0
 for topic in $topics
 do
     fname=h5ex_d_$topic
-    $ECHO_N "Testing 1_8/C/H5D/$fname...$ECHO_C"
+    $ECHO_N "Testing 1_10/C/H5D/$fname...$ECHO_C"
     exout ./$fname >tmp.test
     status=$?
     if test $status -eq 1
@@ -86,7 +88,7 @@ rm -f h5ex_d_extern.data
 
 
 fname=h5ex_d_transform
-$ECHO_N "Testing 1_8/C/H5D/$fname...$ECHO_C"
+$ECHO_N "Testing 1_10/C/H5D/$fname...$ECHO_C"
 exout ./$fname >tmp.test
 status=$?
 if test $status -eq 1
@@ -116,5 +118,5 @@ fi
 
 
 rm -f tmp.test
-echo "$return_val tests failed in 1_8/C/H5D/"
+echo "$return_val tests failed in 1_10/C/H5D/"
 exit $return_val
