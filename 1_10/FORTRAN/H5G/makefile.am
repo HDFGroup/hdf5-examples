@@ -29,5 +29,3 @@ testfiles/h5ex_g_phase.tst \
 test.sh
 
 TEST_SCRIPT = test.sh
-
-TESTS = test.sh

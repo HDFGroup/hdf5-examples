@@ -577,7 +577,6 @@ h5ex_t_convert.test test.sh
 AM_CPPFLAGS = '-D H5_USE_16_API'
 TEST_SCRIPT = test.sh
 
-TESTS = test.sh
 all: all-am
 
 .SUFFIXES:

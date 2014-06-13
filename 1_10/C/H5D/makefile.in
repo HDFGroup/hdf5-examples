@@ -538,7 +538,6 @@ testfiles/h5ex_d_fillval.ddl testfiles/h5ex_d_alloc.ddl test.sh
 
 TEST_SCRIPT = test.sh
 
-TESTS = test.sh
 all: all-am
 
 .SUFFIXES:

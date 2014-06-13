@@ -467,7 +467,6 @@ h5ex_g_traverse.h5 h5ex_g_traverse.txt test.sh
 AM_CPPFLAGS = '-D H5_USE_16_API'
 TEST_SCRIPT = test.sh
 
-TESTS = test.sh
 all: all-am
 
 .SUFFIXES:

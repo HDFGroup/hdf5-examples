@@ -679,7 +679,6 @@ EXTRA_DIST = testfiles/h5ex_t_vlstring.tst \
 	testfiles/h5ex_t_vlstring.ddl test.sh $(am__append_2)
 TEST_SCRIPT = test.sh
 
-TESTS = test.sh
 all: all-am
 
 .SUFFIXES:

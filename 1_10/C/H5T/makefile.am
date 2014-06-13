@@ -44,5 +44,3 @@ testfiles/h5ex_t_convert.ddl test.sh
 
 
 TEST_SCRIPT = test.sh
-
-TESTS = test.sh

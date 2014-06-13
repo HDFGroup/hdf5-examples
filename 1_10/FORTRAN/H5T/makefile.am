@@ -70,5 +70,3 @@ EXTRA_DIST = testfiles/h5ex_t_arrayatt_F03.tst testfiles/h5ex_t_array_F03.tst te
   test.sh
 
 TEST_SCRIPT = test.sh
-
-TESTS = test.sh

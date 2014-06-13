@@ -26,5 +26,3 @@ h5ex_g_iterate.h5 h5ex_g_traverse.h5 h5ex_g_visit.h5 \
 test.sh
 
 TEST_SCRIPT = test.sh
-
-TESTS = test.sh

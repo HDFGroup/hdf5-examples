@@ -59,5 +59,3 @@ if FORTRAN_2003_CONDITIONAL_F
 endif
 
 TEST_SCRIPT = test.sh
-
-TESTS = test.sh

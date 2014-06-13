@@ -491,7 +491,6 @@ EXTRA_DIST = testfiles/h5ex_g_create.ddl testfiles/h5ex_g_compact1.ddl \
 	testfiles/h5ex_g_phase.tst test.sh $(am__append_3)
 TEST_SCRIPT = test.sh
 
-TESTS = test.sh
 all: all-am
 
 .SUFFIXES:
