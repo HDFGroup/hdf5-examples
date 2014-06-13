@@ -310,7 +310,6 @@
 /README -text
 /aclocal.m4 -text
 bin/reconfigure -text
-bin/reconfigure.local -text
 /compile -text
 /config.h.in -text
 /configure -text
