@@ -22,5 +22,4 @@ EXTRA_DIST = h5ex_g_create.txt h5ex_g_iterate.h5 h5ex_g_iterate.txt \
 h5ex_g_traverse.h5 h5ex_g_traverse.txt test.sh
 
 AM_CPPFLAGS = '-D H5_USE_16_API'
-TESTS_ENVIRONMENT = sh
-TESTS = test.sh
+TEST_SCRIPT = test.sh

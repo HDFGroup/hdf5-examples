@@ -51,5 +51,6 @@ if FORTRAN_2003_CONDITIONAL_F
   h5ex_g_iterate.h5 h5ex_g_visit.h5
 endif
 
-TESTS_ENVIRONMENT = sh
+TEST_SCRIPT = test.sh
+
 TESTS = test.sh

@@ -27,5 +27,6 @@ h5ex_d_checksum.test h5ex_d_shuffle.test h5ex_d_fillval.test h5ex_d_alloc.test \
 test.sh
 
 AM_CPPFLAGS = '-D H5_USE_16_API'
-TESTS_ENVIRONMENT = sh
+TEST_SCRIPT = test.sh
+
 TESTS = test.sh

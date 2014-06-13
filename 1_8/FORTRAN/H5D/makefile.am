@@ -58,5 +58,6 @@ if FORTRAN_2003_CONDITIONAL_F
   EXTRA_DIST += testfiles/h5ex_d_rdwr_kind_F03.tst testfiles/h5ex_d_rdwr_kind_F03.dll
 endif
 
-TESTS_ENVIRONMENT = sh
+TEST_SCRIPT = test.sh
+
 TESTS = test.sh

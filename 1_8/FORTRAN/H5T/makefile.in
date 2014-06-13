@@ -677,7 +677,8 @@ h5ex_t_vlstring_SOURCES = h5ex_t_vlstring.f90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_vlstring_F03_SOURCES = h5ex_t_vlstring_F03.f90
 EXTRA_DIST = testfiles/h5ex_t_vlstring.tst \
 	testfiles/h5ex_t_vlstring.ddl test.sh $(am__append_2)
-TESTS_ENVIRONMENT = sh
+TEST_SCRIPT = test.sh
+
 TESTS = test.sh
 all: all-am
 

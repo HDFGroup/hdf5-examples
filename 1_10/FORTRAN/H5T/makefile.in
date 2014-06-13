@@ -603,7 +603,8 @@ EXTRA_DIST = testfiles/h5ex_t_arrayatt_F03.tst testfiles/h5ex_t_array_F03.tst te
   testfiles/h5ex_t_vlstring.ddl \
   test.sh
 
-TESTS_ENVIRONMENT = sh
+TEST_SCRIPT = test.sh
+
 TESTS = test.sh
 all: all-am
 
