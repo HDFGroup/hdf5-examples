@@ -51,7 +51,7 @@ CONTAINS
   !
   ! ************************************************************
 
-  RECURSIVE INTEGER FUNCTION op_func(loc_id, name, info, operator_data) RESULT(ret_val) BIND(C)
+  RECURSIVE INTEGER(KIND=C_INT) FUNCTION op_func(loc_id, name, info, operator_data) RESULT(ret_val) BIND(C)
 
     USE HDF5
     USE ISO_C_BINDING
