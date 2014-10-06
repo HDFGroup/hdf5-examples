@@ -157,10 +157,7 @@ set (LIB_TYPE STATIC)
 if (BUILD_SHARED_LIBS)
   set (LIB_TYPE SHARED)
 else (BUILD_SHARED_LIBS)
-  if (NOT WIN32)
-    # should this be a user setting : Everyone uses it anyway ?
-    ADD_DEFINITIONS (-DPIC)
-  endif (NOT WIN32)
+  set (CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif (BUILD_SHARED_LIBS)
 
 #-----------------------------------------------------------------------------
