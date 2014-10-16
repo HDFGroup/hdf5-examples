@@ -26,22 +26,24 @@ PROGRAM main
   INTEGER(SIZE_T)  , PARAMETER :: NAME_BUF_SIZE = 16
 
 ! Enumerated type
-  INTEGER, PARAMETER :: SOLID=0, LIQUID=1, GAS=2, PLASMA=3
+  ENUM, BIND(C)
+     ENUMERATOR :: SOLID = 0, LIQUID, GAS, PLASMA
+  END ENUM
 
   INTEGER(HID_T) :: file, filetype, memtype, space, dset, attr ! Handles
   INTEGER :: hdferr
 
   INTEGER(hsize_t),   DIMENSION(1:2) :: dims = (/dim0, dim1/)
-  INTEGER, DIMENSION(1:dim0, 1:dim1), TARGET :: wdata ! Write buffer
-  INTEGER, DIMENSION(:,:), ALLOCATABLE, TARGET :: rdata ! Read buffer
-  INTEGER, DIMENSION(1:1), TARGET :: val
+  INTEGER(kind(SOLID)), DIMENSION(1:dim0, 1:dim1), TARGET :: wdata ! Write buffer
+  INTEGER(kind(SOLID)), DIMENSION(:,:), ALLOCATABLE, TARGET :: rdata ! Read buffer
+  INTEGER(kind(SOLID)), TARGET :: val
 
   CHARACTER(LEN=6), DIMENSION(1:4) :: &
        names = (/"SOLID ", "LIQUID", "GAS   ", "PLASMA"/)
 
   CHARACTER(LEN=NAME_BUF_SIZE) :: name
-  INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
-  INTEGER :: i, j
+  INTEGER(HSIZE_T), DIMENSION(1:2) :: maxdims
+  INTEGER(kind(SOLID)) :: i, j
   TYPE(C_PTR) :: f_ptr
   !
   ! Initialize FORTRAN interface.
@@ -51,7 +53,7 @@ PROGRAM main
   ! Initialize DATA.
   !
   F_BASET   = H5T_STD_I16BE      ! File base type
-  M_BASET   = H5T_NATIVE_INTEGER ! Memory base type
+  M_BASET   = h5kind_to_type(kind(SOLID), H5_INTEGER_KIND) ! Memory base type
   DO i = 1, dim0
      DO j = 1, dim1 
         wdata(i,j) = MOD( (j-1)*(i-1), PLASMA+1)
@@ -73,15 +75,15 @@ PROGRAM main
      !
      ! Insert enumerated value for memtype.
      !
-     val(1) = i
-     CALL H5Tenum_insert_f(memtype, TRIM(names(i+1)), val(1), hdferr)
+     val = i
+     CALL h5tenum_insert_f(memtype, TRIM(names(i+1)), val, hdferr)
      !
      ! Insert enumerated value for filetype.  We must first convert
      ! the numerical value val to the base type of the destination.
      !
-     f_ptr = C_LOC(val(1))
-     CALL H5Tconvert_f(M_BASET, F_BASET, INT(1,SIZE_T), f_ptr, hdferr)
-     CALL H5Tenum_insert_f(filetype, TRIM(names(i+1)), val(1), hdferr)
+     f_ptr = C_LOC(val)
+     CALL h5tconvert_f(M_BASET, F_BASET, INT(1,SIZE_T), f_ptr, hdferr)
+     CALL h5tenum_insert_f(filetype, TRIM(names(i+1)), val, hdferr)
   ENDDO
   !
   ! Create dataspace with a null dataspace.
@@ -102,11 +104,11 @@ PROGRAM main
   !
   ! Close and release resources.
   !
-  CALL H5Aclose_f(attr, hdferr)
-  CALL H5Dclose_f(dset, hdferr)
-  CALL H5Sclose_f(space, hdferr)
-  CALL H5Tclose_f(filetype, hdferr)
-  CALL H5Fclose_f(file, hdferr)
+  CALL h5aclose_f(attr, hdferr)
+  CALL h5dclose_f(dset, hdferr)
+  CALL h5sclose_f(space, hdferr)
+  CALL h5tclose_f(filetype, hdferr)
+  CALL h5fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
@@ -137,9 +139,9 @@ PROGRAM main
         ! Get the name of the enumeration member.
         !
         CALL h5tenum_nameof_f( memtype, rdata(i,j), NAME_BUF_SIZE, name, hdferr) 
-        WRITE(*,'(80(X,A6,X))', ADVANCE='NO') TRIM(NAME)
+        WRITE(*,'(" ",A6," ")', ADVANCE='NO') TRIM(NAME)
      ENDDO
-     WRITE(*,'(" ]")')
+     WRITE(*,'("]")')
   ENDDO
   !
   ! Close and release resources.
