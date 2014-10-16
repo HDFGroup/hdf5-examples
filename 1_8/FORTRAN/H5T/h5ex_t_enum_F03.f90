@@ -130,9 +130,9 @@ PROGRAM main
         ! Get the name of the enumeration member.
         !
         CALL h5tenum_nameof_f( memtype, rdata(i,j), NAME_BUF_SIZE, name, hdferr) 
-        WRITE(*,'(80(X,A6,X))', ADVANCE='NO') TRIM(NAME)
+        WRITE(*,'(" ", A6," ")', ADVANCE='NO') TRIM(NAME)
      ENDDO
-     WRITE(*,'(" ]")')
+     WRITE(*,'("]")')
   ENDDO
   !
   ! Close and release resources.
