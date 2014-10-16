@@ -1,10 +1,10 @@
 !************************************************************
 !
-!  This example shows how to read and write integer datatypes
-!  to a dataset.  The program first writes integers to a
-!  dataset with a dataspace of DIM0xDIM1, then closes the
-!  file.  Next, it reopens the file, reads back the data, and
-!  outputs it to the screen.
+!  This example shows how to read and write REAL datatypes
+!  (using SELECTED_REAL_KIND) to a dataset.  The program first 
+!  writes REAL datatypes to a dataset with a dataspace of 
+!  DIM0xDIM1, then closes the file.  Next, it reopens the file, 
+!  reads back the REAL data, and outputs it to the screen.
 !
 !  This file is intended for use with HDF5 Library version 1.8
 !  with --enable-fortran2003
@@ -92,7 +92,7 @@ PROGRAM main
   WRITE(*, '(A,":")') dataset
   DO i=1, dims(1)
      WRITE(*,'(" [")', ADVANCE='NO')
-     WRITE(*,'(80(x,f6.4))', ADVANCE='NO') rdata(i,1:dims(2))
+     WRITE(*,'(80(" ",f9.4))', ADVANCE='NO') rdata(i,1:dims(2))
      WRITE(*,'(" ]")')
   ENDDO
   !
