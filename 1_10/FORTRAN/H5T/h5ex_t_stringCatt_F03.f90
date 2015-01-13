@@ -21,7 +21,7 @@ PROGRAM main
   CHARACTER(LEN=3) , PARAMETER :: dataset   = "DS1"
   CHARACTER(LEN=2) , PARAMETER :: attribute = "A1"
   INTEGER          , PARAMETER :: dim0      = 4
-  INTEGER          , PARAMETER :: sdim      = 7
+  INTEGER(SIZE_T)  , PARAMETER :: sdim      = 7
 
   INTEGER(HID_T)  :: file, filetype, memtype, space, dset, attr ! Handles
   INTEGER :: hdferr

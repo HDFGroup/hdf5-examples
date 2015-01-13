@@ -134,7 +134,6 @@ PROGRAM main
   !
   ! Read the data.
   !
-  !   stop
   f_ptr = C_LOC(rdata(1))
   CALL H5Aread_f(attr, H5T_STD_REF_DSETREG, f_ptr, hdferr)
   !

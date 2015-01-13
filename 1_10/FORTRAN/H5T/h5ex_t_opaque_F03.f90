@@ -28,7 +28,7 @@ PROGRAM main
   CHARACTER(LEN=size), DIMENSION(1:dim0), TARGET :: wdata ! Write buffer
   CHARACTER(LEN=size), DIMENSION(:), ALLOCATABLE, TARGET :: rdata ! Read buffer
   CHARACTER(LEN=size-1) :: str = "OPAQUE"
-  CHARACTER(LEN=size) :: tag
+  CHARACTER(LEN=80) :: tag
   INTEGER :: taglen
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
   INTEGER :: i
