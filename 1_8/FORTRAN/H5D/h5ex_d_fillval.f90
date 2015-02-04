@@ -72,6 +72,8 @@ PROGRAM main
   ! Set the fill value for the dataset.
   !
   CALL h5pset_fill_value_f(dcpl, H5T_NATIVE_INTEGER, fillval, hdferr)
+
+  
   !
   ! Set the allocation time to "early".  This way we can be sure
   ! that reading from the dataset immediately after creation will

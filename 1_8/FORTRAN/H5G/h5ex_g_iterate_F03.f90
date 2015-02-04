@@ -91,12 +91,14 @@ PROGRAM main
   TYPE(C_PTR) :: ptr
   INTEGER(hsize_t) :: idx
   INTEGER :: ret_value
-
+  !
+  ! Initialize FORTRAN interface.
+  !
+  CALL h5open_f(status)
   !
   ! Open file.
   !
   CALL H5Fopen_f(filename, H5F_ACC_RDONLY_F, file, status)
-
   !
   ! Begin iteration.
   !

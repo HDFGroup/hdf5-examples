@@ -77,6 +77,10 @@ CONTAINS
     CHARACTER(LEN=10) :: space
     INTEGER :: spaces ! Number of whitespaces to prepend to output
     INTEGER :: len
+    !
+    ! Initialize FORTRAN interface.
+    !
+    CALL h5open_f(status)
 
     ret_val = 0
     

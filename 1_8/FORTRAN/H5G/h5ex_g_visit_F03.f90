@@ -84,7 +84,11 @@ PROGRAM main
   TYPE(C_FUNPTR) :: funptr
   TYPE(C_PTR) :: ptr
   INTEGER :: ret_value
-  
+  !
+  ! Initialize FORTRAN interface.
+  !
+  CALL h5open_f(status)
+
   CALL H5Fopen_f(filename, H5F_ACC_RDONLY_F, file, status)
   !
   ! Begin iteration using H5Ovisit
