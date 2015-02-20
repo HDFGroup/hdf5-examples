@@ -23,7 +23,7 @@ if (HDF_ENABLE_F2003)
   foreach (example ${f03examples})
     add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
     TARGET_NAMING (f90_${example} ${LIB_TYPE})
-    TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
+    TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "" "")
     if (WIN32 AND NOT CYGWIN)
       set_property (TARGET f90_${example} 
           APPEND PROPERTY COMPILE_DEFINITIONS 
@@ -38,7 +38,7 @@ endif (HDF_ENABLE_F2003)
 foreach (example ${examples})
   add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
   TARGET_NAMING (f90_${example} ${LIB_TYPE})
-  TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "")
+  TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} "" "")
   if (WIN32 AND NOT CYGWIN)
     set_property (TARGET f90_${example} 
         APPEND PROPERTY COMPILE_DEFINITIONS 
