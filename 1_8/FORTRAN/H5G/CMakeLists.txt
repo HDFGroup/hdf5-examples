@@ -7,6 +7,7 @@ PROJECT (HDF5Examples_FORTRAN_H5G C CXX Fortran)
 set (f03examples
     h5ex_g_iterate_F03
     h5ex_g_visit_F03
+    h5ex_g_traverse_F03
 )
 if (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
   set (f03examples ${f03examples} h5ex_g_traverse_F03)
