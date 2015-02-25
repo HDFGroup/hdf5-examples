@@ -4,7 +4,7 @@
 # EXTERNAL cache entries
 ########################
 
-set (USE_SHARED_LIBS ON CACHE BOOL "Use Shared Libraries" FORCE)
+set (BUILD_SHARED_LIBS ON CACHE BOOL "Build Shared Libraries" FORCE)
 
 set (HDF_BUILD_FORTRAN OFF CACHE BOOL "Build FORTRAN support" FORCE)
 

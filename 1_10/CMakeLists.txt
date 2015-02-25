@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8.10)
+cmake_minimum_required (VERSION 3.1)
 PROJECT (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
@@ -6,6 +6,7 @@ PROJECT (HDF5Examples C CXX)
 #
 # For standard build of HDF5 examples.
 #-----------------------------------------------------------------------------
+set (CMAKE_NO_SYSTEM_FROM_IMPORTED 1)
 
 #-----------------------------------------------------------------------------
 # Allow Visual Studio solution directories
@@ -46,7 +47,7 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
     ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all static libraries."
 )
 set (CMAKE_Fortran_MODULE_DIRECTORY
-    ${PROJECT_BINARY_DIR}/bin/fortran CACHE PATH "Single Directory for all fortran modules."
+    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
 )
 
 #-----------------------------------------------------------------------------
@@ -105,46 +106,60 @@ endif (CMAKE_COMPILER_IS_GNUCXX)
 #-----------------------------------------------------------------------------
 set (CMAKE_MODULE_PATH ${HDF5EX_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
 
-if (NOT USE_SHARED_LIBS)
-  set (HDF5_USE_STATIC_LIBRARIES 1)
-endif (NOT USE_SHARED_LIBS)
-
 if (NOT HDF5_HDF5_HEADER)
-  FIND_PACKAGE (HDF5 NAMES ${HDF5_PACKAGE_NAME})
-  if (HDF5_FOUND)
+  if (BUILD_SHARED_LIBS)
+    set (FIND_HDF_COMPONENTS C shared)
+  else (BUILD_SHARED_LIBS)
+    set (FIND_HDF_COMPONENTS C static)
+  endif (BUILD_SHARED_LIBS)
+  if (HDF_BUILD_FORTRAN)
+    if (BUILD_SHARED_LIBS)
+      set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
+    else (BUILD_SHARED_LIBS)
+      set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
+    endif (BUILD_SHARED_LIBS)
+  endif (HDF_BUILD_FORTRAN)
+  message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
+  
+  find_package (HDF5 NAMES ${HDF5_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
+  message (STATUS "HDF5 C libs: ${HDF5_static_C_FOUND} and ${HDF5_shared_C_FOUND}")
+  message (STATUS "HDF5 Fortran libs: ${HDF5_static_Fortran_FOUND} and ${HDF5_shared_Fortran_FOUND}")
+  
+  if (HDF5_FOUND AND (HDF5_static_C_FOUND OR HDF5_shared_C_FOUND))
     set (HDF5_HAVE_H5PUBCONF_H 1)
     set (HDF5_HAVE_HDF5 1)
     set (HDF5_HDF5_HEADER "h5pubconf.h")
     set (HDF5_INCLUDE_DIR_GEN ${HDF5_INCLUDE_DIR})
     message (STATUS "HDF5 found: INC=${HDF5_INCLUDE_DIR} TOOLS=${HDF5_TOOLS_DIR}")
-    if ((NOT USE_SHARED_LIBS AND HDF5_BUILD_SHARED_LIBS) OR (USE_SHARED_LIBS AND NOT HDF5_BUILD_SHARED_LIBS))
-      message (STATUS "HDF5 build type does match requested type")
-    endif ((NOT USE_SHARED_LIBS AND HDF5_BUILD_SHARED_LIBS) OR (USE_SHARED_LIBS AND NOT HDF5_BUILD_SHARED_LIBS))
-    if (HDF5_BUILD_SHARED_LIBS)
-      ADD_DEFINITIONS (-DH5_BUILT_AS_DYNAMIC_LIB)
-    else (HDF5_BUILD_SHARED_LIBS)
-      ADD_DEFINITIONS (-DH5_BUILT_AS_STATIC_LIB)
-    endif (HDF5_BUILD_SHARED_LIBS)
-  else (HDF5_FOUND)
+    if (BUILD_SHARED_LIBS AND NOT HDF5_BUILD_SHARED_LIBS)
+      message (STATUS "HDF5 shared libs not available, using static")
+    endif (BUILD_SHARED_LIBS AND NOT HDF5_BUILD_SHARED_LIBS)
+  else (HDF5_FOUND AND (HDF5_static_C_FOUND OR HDF5_shared_C_FOUND))
     message (FATAL_ERROR " HDF5 is Required for HDF5 Examples")
-  endif (HDF5_FOUND)
+  endif (HDF5_FOUND AND (HDF5_static_C_FOUND OR HDF5_shared_C_FOUND))
 else (NOT HDF5_HDF5_HEADER)
   # This project is being called from within another and HDF5 is already configured
   set (HDF5_HAVE_H5PUBCONF_H 1)
   set (HDF5_HAVE_HDF5 1)
 endif (NOT HDF5_HDF5_HEADER)
 add_executable (h5dump IMPORTED)
-if (USE_SHARED_LIBS AND WIN32)
-  set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dumpdll")
-else (USE_SHARED_LIBS AND WIN32)
-  set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
-endif (USE_SHARED_LIBS AND WIN32)
+set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
 set (HDF5_DUMP_EXECUTABLE $<TARGET_FILE:h5dump>)
-set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
+if (BUILD_SHARED_LIBS AND HDF5_shared_C_FOUND) 
+  set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_SHARED_LIBRARY})
+else (HDF5_static_C_FOUND) 
+  set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_STATIC_LIBRARY})
+endif (BUILD_SHARED_LIBS AND HDF5_shared_C_FOUND) 
 INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR})
 if (HDF_BUILD_FORTRAN)
+  if (BUILD_SHARED_LIBS AND HDF5_shared_Fortran_FOUND) 
+    set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_SHARED_LIBRARY})
+  else (HDF5_static_Fortran_FOUND) 
+    set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_STATIC_LIBRARY})
+  endif (BUILD_SHARED_LIBS AND HDF5_shared_Fortran_FOUND) 
   INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR_FORTRAN})
 endif (HDF_BUILD_FORTRAN)
+message (STATUS "HDF5 libs: ${LINK_LIBS}")
 
 #-----------------------------------------------------------------------------
 # Option to use Shared/Static libs, default is static
@@ -152,12 +167,8 @@ endif (HDF_BUILD_FORTRAN)
 set (LIB_TYPE STATIC)
 if (BUILD_SHARED_LIBS)
   set (LIB_TYPE SHARED)
-else (BUILD_SHARED_LIBS)
-  if (NOT WIN32)
-    # should this be a user setting : Everyone uses it anyway ?
-    ADD_DEFINITIONS (-DPIC)
-  endif (NOT WIN32)
 endif (BUILD_SHARED_LIBS)
+set (CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 #-----------------------------------------------------------------------------
 # Option to allow the user to disable compiler warnings
@@ -173,9 +184,9 @@ if (HDF_DISABLE_COMPILER_WARNINGS)
     string (REGEX REPLACE "(^| )([/-])W[0-9]( |$)" " " CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w")
   endif (MSVC)
-  if (WIN32 AND NOT CYGWIN)
+  if (WIN32)
     ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
-  endif (WIN32 AND NOT CYGWIN)
+  endif (WIN32)
   # Borland uses -w- to suppress warnings.
   if (BORLAND)
     set (HDF_WARNINGS_BLOCKED 1)

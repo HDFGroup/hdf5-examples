@@ -75,6 +75,8 @@ ENDMACRO (CHECK_FORTRAN_FEATURE)
 #
 # Be careful with leading spaces here, do not remove them.
 #-----------------------------------------------------------------------------
+
+# Check for Non-standard extension intrinsic function SIZEOF
 CHECK_FORTRAN_FEATURE(sizeof
   "
        PROGRAM main
@@ -83,6 +85,32 @@ CHECK_FORTRAN_FEATURE(sizeof
   "
   FORTRAN_HAVE_SIZEOF
 )
+
+# Check for F2008 standard intrinsic function C_SIZEOF
+CHECK_FORTRAN_FEATURE(c_sizeof
+  "
+       PROGRAM main
+         USE ISO_C_BINDING
+         INTEGER(C_INT) :: a
+         INTEGER(C_SIZE_T) :: result
+         result = c_sizeof(a)
+       END PROGRAM
+  "
+  FORTRAN_HAVE_C_SIZEOF
+)
+
+# Check for F2008 standard intrinsic function STORAGE_SIZE
+CHECK_FORTRAN_FEATURE(storage_size
+  "
+       PROGRAM main
+         INTEGER :: a
+         INTEGER :: result
+         result = storage_size(a)
+       END PROGRAM
+  "
+  FORTRAN_HAVE_STORAGE_SIZE
+)
+
 
 CHECK_FORTRAN_FEATURE(RealIsNotDouble
   "
