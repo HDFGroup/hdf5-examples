@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8.10)
+cmake_minimum_required (VERSION 3.1.0)
 PROJECT (HDF5Examples_C_H5G)
 
 #-----------------------------------------------------------------------------
@@ -191,38 +191,38 @@ if (BUILD_TESTING)
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl
     )
-    set (exrefs
-        h5ex_g_corder
-        h5ex_g_phase
-        h5ex_g_iterate
-        h5ex_g_traverse
-        h5ex_g_intermediate
-        h5ex_g_visit
-    )
-    foreach (example ${exrefs})
-      add_custom_command (
-          TARGET     ${example}
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
-      )
-    endforeach (example ${exrefs})
-      
-    set (exfiles
-        h5ex_g_iterate
-        h5ex_g_traverse
-        h5ex_g_visit
-    )
-    foreach (example ${exfiles})
-      add_custom_command (
-          TARGET     ${example}
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
-      )
-    endforeach (example ${exfiles})
-
   endif (HDF5_BUILD_TOOLS)
+  
+  set (exrefs
+      h5ex_g_corder
+      h5ex_g_phase
+      h5ex_g_iterate
+      h5ex_g_traverse
+      h5ex_g_intermediate
+      h5ex_g_visit
+  )
+  foreach (example ${exrefs})
+    add_custom_command (
+        TARGET     ${example}
+        POST_BUILD
+        COMMAND    ${CMAKE_COMMAND}
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
+    )
+  endforeach (example ${exrefs})
+     
+  set (exfiles
+      h5ex_g_iterate
+      h5ex_g_traverse
+      h5ex_g_visit
+  )
+  foreach (example ${exfiles})
+    add_custom_command (
+        TARGET     ${example}
+        POST_BUILD
+        COMMAND    ${CMAKE_COMMAND}
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
+    )
+  endforeach (example ${exfiles})
 
   ADD_H5_DUMP2_TEST (h5ex_g_compact)
   ADD_DUMP_TEST (h5ex_g_create)
