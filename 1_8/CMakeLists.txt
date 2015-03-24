@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8.10)
+cmake_minimum_required (VERSION 3.1)
 PROJECT (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
@@ -174,9 +174,9 @@ if (HDF_DISABLE_COMPILER_WARNINGS)
     string (REGEX REPLACE "(^| )([/-])W[0-9]( |$)" " " CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w")
   endif (MSVC)
-  if (WIN32 AND NOT CYGWIN)
+  if (WIN32)
     ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
-  endif (WIN32 AND NOT CYGWIN)
+  endif (WIN32)
   # Borland uses -w- to suppress warnings.
   if (BORLAND)
     set (HDF_WARNINGS_BLOCKED 1)

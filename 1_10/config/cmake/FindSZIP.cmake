@@ -45,7 +45,7 @@ MACRO (SZIP_ADJUST_LIB_VARS basename)
       # optimized and debug libraries, or if the CMAKE_BUILD_TYPE has a value
       if (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
         set (${basename}_LIBRARY       optimized ${${basename}_LIBRARY_RELEASE} debug ${${basename}_LIBRARY_DEBUG})
-      ELSE(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
+      else (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
         # if there are no configuration types and CMAKE_BUILD_TYPE has no value
         # then just use the release libraries
         set (${basename}_LIBRARY       ${${basename}_LIBRARY_RELEASE} )
@@ -118,10 +118,10 @@ if (SZIP_INCLUDE_DIR AND SZIP_LIBRARY)
   set (SZIP_LIBRARIES ${SZIP_LIBRARY})
   set (SZIP_INCLUDE_DIRS ${SZIP_INCLUDE_DIR})
   if (SZIP_LIBRARY_DEBUG)
-    GET_FILENAME_COMPONENT (SZIP_LIBRARY_PATH ${SZIP_LIBRARY_DEBUG} PATH)
+    get_filename_component (SZIP_LIBRARY_PATH ${SZIP_LIBRARY_DEBUG} PATH)
     set (SZIP_LIB_DIR  ${SZIP_LIBRARY_PATH})
   elseif (SZIP_LIBRARY_RELEASE)
-    GET_FILENAME_COMPONENT (SZIP_LIBRARY_PATH ${SZIP_LIBRARY_RELEASE} PATH)
+    get_filename_component (SZIP_LIBRARY_PATH ${SZIP_LIBRARY_RELEASE} PATH)
     set (SZIP_LIB_DIR  ${SZIP_LIBRARY_PATH})
   endif (SZIP_LIBRARY_DEBUG)
 

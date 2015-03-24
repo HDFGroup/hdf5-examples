@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8.10)
+cmake_minimum_required (VERSION 3.1)
 PROJECT (HDF5Examples_FORTRAN_H5T C CXX Fortran)
 
 #-----------------------------------------------------------------------------
@@ -166,7 +166,7 @@ if (BUILD_TESTING)
             TARGET     f90_${example}
             POST_BUILD
             COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
         )
       endif (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example})
