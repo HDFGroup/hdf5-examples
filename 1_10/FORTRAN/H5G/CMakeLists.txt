@@ -22,12 +22,6 @@ set (examples
 #    add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
 #    TARGET_NAMING (f90_${example} ${LIB_TYPE})
 #    TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} ${LIB_TYPE} "" "")
-#    if (WIN32 AND NOT CYGWIN)
-#      set_property (TARGET f90_${example} 
-#          APPEND PROPERTY COMPILE_DEFINITIONS 
-#            HDF5F90_WINDOWS
-#      )
-#    endif (WIN32 AND NOT CYGWIN)
 #    target_link_libraries (f90_${example} ${LINK_LIBS})
 #    set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
 #  endforeach (example ${f03examples})
@@ -37,12 +31,6 @@ foreach (example ${examples})
   add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
   TARGET_NAMING (f90_${example} ${LIB_TYPE})
   TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} ${LIB_TYPE} "" "")
-  if (WIN32 AND NOT CYGWIN)
-    set_property (TARGET f90_${example} 
-        APPEND PROPERTY COMPILE_DEFINITIONS 
-          HDF5F90_WINDOWS
-    )
-  endif (WIN32 AND NOT CYGWIN)
   target_link_libraries (f90_${example} ${LINK_LIBS})
   set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
 endforeach (example ${examples})
