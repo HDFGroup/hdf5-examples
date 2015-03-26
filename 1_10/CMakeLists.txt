@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1)
+cmake_minimum_required (VERSION 3.1.0)
 PROJECT (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
@@ -51,17 +51,6 @@ set (CMAKE_Fortran_MODULE_DIRECTORY
 )
 
 #-----------------------------------------------------------------------------
-# Option to Build Static executables
-#-----------------------------------------------------------------------------
-option (BUILD_STATIC_EXECS "Build Static Executabless" OFF)
-if (BUILD_STATIC_EXECS)
-  if (NOT WIN32)
-    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
-  endif (NOT WIN32)
-endif (BUILD_STATIC_EXECS)
-
-#-----------------------------------------------------------------------------
 # When building utility executables that generate other (source) files :
 # we make use of the following variables defined in the root CMakeLists.
 # Certain systems may add /Debug or /Release to output paths
@@ -111,8 +100,15 @@ if (NOT USE_SHARED_LIBS)
 endif (NOT USE_SHARED_LIBS)
 
 if (NOT HDF5_HDF5_HEADER)
-  FIND_PACKAGE (HDF5 NAMES ${HDF5_PACKAGE_NAME})
-  if (HDF5_FOUND)
+  set (FIND_HDF_COMPONENTS C)
+  if (HDF_BUILD_FORTRAN)
+    set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
+  endif (HDF_BUILD_FORTRAN)
+
+  find_package (HDF5 NAMES ${HDF5_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
+  message (STATUS "HDF5 C libs: ${HDF5_C_FOUND} and HDF5 Fortran libs: ${HDF5_Fortran_FOUND}")
+  
+  if (HDF5_FOUND AND HDF5_C_FOUND)
     set (HDF5_HAVE_H5PUBCONF_H 1)
     set (HDF5_HAVE_HDF5 1)
     set (HDF5_HDF5_HEADER "h5pubconf.h")
@@ -126,9 +122,9 @@ if (NOT HDF5_HDF5_HEADER)
     else (HDF5_BUILD_SHARED_LIBS)
       ADD_DEFINITIONS (-DH5_BUILT_AS_STATIC_LIB)
     endif (HDF5_BUILD_SHARED_LIBS)
-  else (HDF5_FOUND)
+  else (HDF5_FOUND AND HDF5_C_FOUND)
     message (FATAL_ERROR " HDF5 is Required for HDF5 Examples")
-  endif (HDF5_FOUND)
+  endif (HDF5_FOUND AND HDF5_C_FOUND)
 else (NOT HDF5_HDF5_HEADER)
   # This project is being called from within another and HDF5 is already configured
   set (HDF5_HAVE_H5PUBCONF_H 1)
