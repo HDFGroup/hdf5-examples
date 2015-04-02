@@ -304,6 +304,13 @@
 1_8/FORTRAN/H5T/makefile.in -text
 1_8/FORTRAN/H5T/maketestref.sh -text
 1_8/FORTRAN/H5T/test.sh.in -text
+1_8/config/cmake/CTestCustom.cmake -text
+1_8/config/cmake/FindMPI.cmake -text
+1_8/config/cmake/FindSZIP.cmake -text
+1_8/config/cmake/HDF5UseFortran.cmake -text
+1_8/config/cmake/HDFMacros.cmake -text
+1_8/config/cmake/grepTest.cmake -text
+1_8/config/cmake/runTest.cmake -text
 1_8/makefile.am -text
 1_8/makefile.in -text
 /COPYING -text

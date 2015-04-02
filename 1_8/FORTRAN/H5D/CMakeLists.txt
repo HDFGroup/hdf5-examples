@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 3.1)
 PROJECT (HDF5Examples_FORTRAN_H5D C CXX Fortran)
+
 # --------------------------------------------------------------------
 # Notes: When creating examples they should be prefixed
 # with "f90_". This allows for easier filtering of the examples.
@@ -81,7 +82,7 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
-            -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+            -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
@@ -94,7 +95,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     endif (HDF5_BUILD_TOOLS)

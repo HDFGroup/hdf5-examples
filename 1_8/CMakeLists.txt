@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1)
+cmake_minimum_required (VERSION 3.1.0)
 PROJECT (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
@@ -6,6 +6,7 @@ PROJECT (HDF5Examples C CXX)
 #
 # For standard build of HDF5 examples.
 #-----------------------------------------------------------------------------
+set (CMAKE_NO_SYSTEM_FROM_IMPORTED 1)
 
 #-----------------------------------------------------------------------------
 # Allow Visual Studio solution directories
@@ -23,16 +24,15 @@ endif (HDF5_USE_FOLDERS)
 #-----------------------------------------------------------------------------
 # Define some CMake variables for use later in the project
 #-----------------------------------------------------------------------------
-set (HDF_RESOURCES_EXT_DIR  ${PROJECT_SOURCE_DIR}/config/cmake_ext_mod)
-set (HDF_RESOURCES_DIR      ${PROJECT_SOURCE_DIR}/config/cmake)
+set (HDF5EX_RESOURCES_DIR      ${PROJECT_SOURCE_DIR}/config/cmake)
 set (HDF5EX_C_SRC_DIR          ${PROJECT_SOURCE_DIR}/C)
 set (HDF5EX_F90_SRC_DIR        ${PROJECT_SOURCE_DIR}/FORTRAN)
 
 #-----------------------------------------------------------------------------
 # Include some macros for reusable code
 #-----------------------------------------------------------------------------
-include (${HDF_RESOURCES_EXT_DIR}/HDFMacros.cmake)
-include (${HDF_RESOURCES_DIR}/HDF5Macros.cmake)
+include (${HDF5EX_RESOURCES_DIR}/HDFMacros.cmake)
+include (${HDF5EX_RESOURCES_DIR}/HDF5Macros.cmake)
 
 #-----------------------------------------------------------------------------
 # Setup output Directories
@@ -47,19 +47,8 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
     ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all static libraries."
 )
 set (CMAKE_Fortran_MODULE_DIRECTORY
-    ${PROJECT_BINARY_DIR}/bin/fortran CACHE PATH "Single Directory for all fortran modules."
+    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
 )
-
-#-----------------------------------------------------------------------------
-# Option to Build Static executables
-#-----------------------------------------------------------------------------
-option (BUILD_STATIC_EXECS "Build Static Executabless" OFF)
-if (BUILD_STATIC_EXECS)
-  if (NOT WIN32)
-    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static")
-    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static")
-  endif (NOT WIN32)
-endif (BUILD_STATIC_EXECS)
 
 #-----------------------------------------------------------------------------
 # When building utility executables that generate other (source) files :
@@ -104,18 +93,22 @@ endif (CMAKE_COMPILER_IS_GNUCXX)
 #-----------------------------------------------------------------------------
 # HDF5 support
 #-----------------------------------------------------------------------------
-set (CMAKE_MODULE_PATH ${HDF_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
-set (CMAKE_MODULE_PATH ${HDF_RESOURCES_EXT_DIR} ${CMAKE_MODULE_PATH})
+set (CMAKE_MODULE_PATH ${HDF5EX_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
 
 if (NOT USE_SHARED_LIBS)
   set (HDF5_USE_STATIC_LIBRARIES 1)
 endif (NOT USE_SHARED_LIBS)
 
-ADD_DEFINITIONS (-DH5_USE_18_API)
-
 if (NOT HDF5_HDF5_HEADER)
-  FIND_PACKAGE (HDF5 NAMES ${HDF5_PACKAGE_NAME})
-  if (HDF5_FOUND)
+  set (FIND_HDF_COMPONENTS C)
+  if (HDF_BUILD_FORTRAN)
+    set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
+  endif (HDF_BUILD_FORTRAN)
+
+  find_package (HDF5 NAMES ${HDF5_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
+  message (STATUS "HDF5 C libs: ${HDF5_C_FOUND} and HDF5 Fortran libs: ${HDF5_Fortran_FOUND}")
+  
+  if (HDF5_FOUND AND HDF5_C_FOUND)
     set (HDF5_HAVE_H5PUBCONF_H 1)
     set (HDF5_HAVE_HDF5 1)
     set (HDF5_HDF5_HEADER "h5pubconf.h")
@@ -129,9 +122,9 @@ if (NOT HDF5_HDF5_HEADER)
     else (HDF5_BUILD_SHARED_LIBS)
       ADD_DEFINITIONS (-DH5_BUILT_AS_STATIC_LIB)
     endif (HDF5_BUILD_SHARED_LIBS)
-  else (HDF5_FOUND)
+  else (HDF5_FOUND AND HDF5_C_FOUND)
     message (FATAL_ERROR " HDF5 is Required for HDF5 Examples")
-  endif (HDF5_FOUND)
+  endif (HDF5_FOUND AND HDF5_C_FOUND)
 else (NOT HDF5_HDF5_HEADER)
   # This project is being called from within another and HDF5 is already configured
   set (HDF5_HAVE_H5PUBCONF_H 1)
@@ -156,9 +149,8 @@ endif (HDF_BUILD_FORTRAN)
 set (LIB_TYPE STATIC)
 if (BUILD_SHARED_LIBS)
   set (LIB_TYPE SHARED)
-else (BUILD_SHARED_LIBS)
-  set (CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif (BUILD_SHARED_LIBS)
+set (CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 #-----------------------------------------------------------------------------
 # Option to allow the user to disable compiler warnings
@@ -209,6 +201,7 @@ INCLUDE_DIRECTORIES (${PROJECT_BINARY_DIR})
 #-----------------------------------------------------------------------------
 # Option to Enable MPI Parallel
 #-----------------------------------------------------------------------------
+set (CMAKE_MODULE_PATH ${HDF5EX_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
 option (HDF_ENABLE_PARALLEL "Enable parallel build (requires MPI)" OFF)
 if (HDF_ENABLE_PARALLEL)
   include (FindMPI)
@@ -264,7 +257,7 @@ if (BUILD_TESTING)
   enable_testing ()
   include (CTest)
   include (${PROJECT_SOURCE_DIR}/CTestConfig.cmake)
-  configure_file (${HDF_RESOURCES_EXT_DIR}/CTestCustom.cmake ${PROJECT_BINARY_DIR}/CTestCustom.ctest @ONLY)
+  configure_file (${HDF5EX_RESOURCES_DIR}/CTestCustom.cmake ${PROJECT_BINARY_DIR}/CTestCustom.ctest @ONLY)
 endif (BUILD_TESTING)
 
 #-----------------------------------------------------------------------------
@@ -283,7 +276,7 @@ set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
 if (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
   option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
   if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
-    include (${HDF_RESOURCES_EXT_DIR}/HDFUseFortran.cmake)
+    include (${HDF5EX_RESOURCES_DIR}/HDF5UseFortran.cmake)
     add_subdirectory (${PROJECT_SOURCE_DIR}/FORTRAN ${PROJECT_BINARY_DIR}/FORTRAN)
   endif (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
 endif (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
@@ -293,7 +286,6 @@ endif (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE
 #-----------------------------------------------------------------------------
 option (PACK_EXAMPLE_SOURCE "Package HDF5 Example Source File" OFF)
 if (PACK_EXAMPLE_SOURCE)
-#  set (CPACK_SOURCE_INSTALLED_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}") 
-  set (CPACK_SOURCE_IGNORE_FILES "${PROJECT_BINARY_DIR}" "/\\.svn/" )
+  set(CPACK_SOURCE_IGNORE_FILES "${PROJECT_BINARY_DIR}" "/\\.svn/" )
   INCLUDE(CPack)
 endif (PACK_EXAMPLE_SOURCE)
