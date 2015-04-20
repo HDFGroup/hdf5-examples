@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.1.0)
-PROJECT (HDF5Examples C CXX)
+project (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
 # Instructions for use : Normal Build
@@ -16,7 +16,7 @@ set (CMAKE_NO_SYSTEM_FROM_IMPORTED 1)
 # explicitly turn off this option to build HDF5 in the Express IDE...
 #
 option (HDF5_USE_FOLDERS "Enable folder grouping of projects in IDEs." ON)
-MARK_AS_ADVANCED (HDF5_USE_FOLDERS)
+mark_as_advanced (HDF5_USE_FOLDERS)
 if (HDF5_USE_FOLDERS)
   set_property (GLOBAL PROPERTY USE_FOLDERS ON)
 endif (HDF5_USE_FOLDERS)
@@ -59,11 +59,9 @@ set (CMAKE_Fortran_MODULE_DIRECTORY
 set (EXE_EXT "")
 if (WIN32)
   set (EXE_EXT ".exe")
-  if (NOT CYGWIN)
-    ADD_DEFINITIONS (-D_BIND_TO_CURRENT_VCLIBS_VERSION=1)
-    ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
-    ADD_DEFINITIONS (-D_CONSOLE)
-  endif (NOT CYGWIN)
+  add_definitions (-D_BIND_TO_CURRENT_VCLIBS_VERSION=1)
+  add_definitions (-D_CRT_SECURE_NO_WARNINGS)
+  add_definitions (-D_CONSOLE)
 endif (WIN32)
 
 if (MSVC)
@@ -118,9 +116,9 @@ if (NOT HDF5_HDF5_HEADER)
       message (STATUS "HDF5 build type does match requested type")
     endif ((NOT USE_SHARED_LIBS AND HDF5_BUILD_SHARED_LIBS) OR (USE_SHARED_LIBS AND NOT HDF5_BUILD_SHARED_LIBS))
     if (HDF5_BUILD_SHARED_LIBS)
-      ADD_DEFINITIONS (-DH5_BUILT_AS_DYNAMIC_LIB)
+      add_definitions (-DH5_BUILT_AS_DYNAMIC_LIB)
     else (HDF5_BUILD_SHARED_LIBS)
-      ADD_DEFINITIONS (-DH5_BUILT_AS_STATIC_LIB)
+      add_definitions (-DH5_BUILT_AS_STATIC_LIB)
     endif (HDF5_BUILD_SHARED_LIBS)
   else (HDF5_FOUND AND HDF5_C_FOUND)
     message (FATAL_ERROR " HDF5 is Required for HDF5 Examples")
@@ -130,6 +128,7 @@ else (NOT HDF5_HDF5_HEADER)
   set (HDF5_HAVE_H5PUBCONF_H 1)
   set (HDF5_HAVE_HDF5 1)
 endif (NOT HDF5_HDF5_HEADER)
+
 add_executable (h5dump IMPORTED)
 if (USE_SHARED_LIBS AND WIN32)
   set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dumpdll")
@@ -137,6 +136,7 @@ else (USE_SHARED_LIBS AND WIN32)
   set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
 endif (USE_SHARED_LIBS AND WIN32)
 set (HDF5_DUMP_EXECUTABLE $<TARGET_FILE:h5dump>)
+
 set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
 INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR})
 if (HDF_BUILD_FORTRAN)
@@ -167,7 +167,7 @@ if (HDF_DISABLE_COMPILER_WARNINGS)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w")
   endif (MSVC)
   if (WIN32)
-    ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
+    add_definitions (-D_CRT_SECURE_NO_WARNINGS)
   endif (WIN32)
   # Borland uses -w- to suppress warnings.
   if (BORLAND)
@@ -233,7 +233,7 @@ endif (H5_HAVE_PARALLEL)
 # Option to use threadsafe
 # Note: Currently CMake only allows configuring of threadsafe on WINDOWS.
 #-----------------------------------------------------------------------------
-if (WIN32 AND NOT CYGWIN)
+if (WIN32)
   option (HDF_ENABLE_THREADSAFE "Enable Threadsafety" OFF)
   if (HDF_ENABLE_THREADSAFE)
     # check for unsupported options
@@ -243,7 +243,7 @@ if (WIN32 AND NOT CYGWIN)
     set (H5_HAVE_WIN_THREADS 1)
     set (H5_HAVE_THREADSAFE 1)
   endif (HDF_ENABLE_THREADSAFE)
-endif (WIN32 AND NOT CYGWIN)
+endif (WIN32)
 
 #-----------------------------------------------------------------------------
 # Dashboard and Testing Settings
