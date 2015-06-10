@@ -14,8 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FILE            "h5ex_d_rdwr.h5"
-#define DATASET         "DS1"
+#define FILE            "  h5ex_d_rdwr.h5 "
+#define DATASET         "DS1     "
 #define DIM0            4
 #define DIM1            7
 

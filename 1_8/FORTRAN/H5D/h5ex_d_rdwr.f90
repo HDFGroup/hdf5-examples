@@ -17,7 +17,7 @@ PROGRAM main
   IMPLICIT NONE
 
   CHARACTER(LEN=14), PARAMETER :: filename = "h5ex_d_rdwr.h5"
-  CHARACTER(LEN=3) , PARAMETER :: dataset = "DS1"
+  CHARACTER(LEN=8) , PARAMETER :: dataset = "DS1     "
   INTEGER          , PARAMETER :: dim0     = 4
   INTEGER          , PARAMETER :: dim1     = 7
 
@@ -39,6 +39,8 @@ PROGRAM main
         wdata(i,j) = (i-1)*(j-1)-(j-1)
      ENDDO
   ENDDO
+
+  goto 10
   !
   ! Create a new file using the default properties.
   !
@@ -63,6 +65,8 @@ PROGRAM main
   CALL h5dclose_f(dset , hdferr)
   CALL h5sclose_f(space, hdferr)
   CALL h5fclose_f(file , hdferr)
+
+10 CONTINUE
   !
   ! Now we begin the read section of this example.
   !

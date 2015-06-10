@@ -19,7 +19,7 @@ PROGRAM main
 
   IMPLICIT NONE
 
-  CHARACTER(LEN=18), PARAMETER :: filename = "h5ex_d_chunk.h5"
+  CHARACTER(LEN=19), PARAMETER :: filename = "h5ex_d_chunk.h5 "
   CHARACTER(LEN=3) , PARAMETER :: dataset  = "DS1"
   INTEGER          , PARAMETER :: dim0     = 6
   INTEGER          , PARAMETER :: dim1     = 8
