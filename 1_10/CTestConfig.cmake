@@ -9,7 +9,7 @@ set (CTEST_PROJECT_NAME "HDF5Examples")
 
 set (CTEST_DROP_METHOD "http")
 if (CDASH_LOCAL)
-  set (CTEST_DROP_SITE "72.36.68.252")
+  set (CTEST_DROP_SITE "10.10.10.82")
   set (CTEST_DROP_LOCATION "/submit.php?project=HDF5Examples")
 else (CDASH_LOCAL)
   set (CTEST_DROP_SITE "cdash.hdfgroup.org")
