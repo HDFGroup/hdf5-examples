@@ -11,7 +11,7 @@ PROJECT (HDF5Examples_FORTRAN_H5D C CXX Fortran)
 #-----------------------------------------------------------------------------
 LINK_DIRECTORIES (
     ${CMAKE_Fortran_MODULE_DIRECTORY}
-    ${PROJECT_BINARY_DIR}
+    ${HDF5EX_F90_BINARY_DIR}
     ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
 )
 
