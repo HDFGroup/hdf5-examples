@@ -142,6 +142,7 @@ INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR})
 if (HDF_BUILD_FORTRAN)
   INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR_FORTRAN})
 endif (HDF_BUILD_FORTRAN)
+message (STATUS "HDF5 libs: ${LINK_LIBS}")
 
 #-----------------------------------------------------------------------------
 # Option to use Shared/Static libs, default is static

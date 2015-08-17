@@ -1,5 +1,5 @@
-cmake_minimum_required (VERSION 3.1)
-PROJECT (HDF5Examples C CXX)
+cmake_minimum_required (VERSION 3.1.0)
+project (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
 # Instructions for use : Normal Build
@@ -16,7 +16,7 @@ set (CMAKE_NO_SYSTEM_FROM_IMPORTED 1)
 # explicitly turn off this option to build HDF5 in the Express IDE...
 #
 option (HDF5_USE_FOLDERS "Enable folder grouping of projects in IDEs." ON)
-MARK_AS_ADVANCED (HDF5_USE_FOLDERS)
+mark_as_advanced (HDF5_USE_FOLDERS)
 if (HDF5_USE_FOLDERS)
   set_property (GLOBAL PROPERTY USE_FOLDERS ON)
 endif (HDF5_USE_FOLDERS)
@@ -59,11 +59,9 @@ set (CMAKE_Fortran_MODULE_DIRECTORY
 set (EXE_EXT "")
 if (WIN32)
   set (EXE_EXT ".exe")
-  if (NOT CYGWIN)
-    ADD_DEFINITIONS (-D_BIND_TO_CURRENT_VCLIBS_VERSION=1)
-    ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
-    ADD_DEFINITIONS (-D_CONSOLE)
-  endif (NOT CYGWIN)
+  add_definitions (-D_BIND_TO_CURRENT_VCLIBS_VERSION=1)
+  add_definitions (-D_CRT_SECURE_NO_WARNINGS)
+  add_definitions (-D_CONSOLE)
 endif (WIN32)
 
 if (MSVC)
@@ -174,7 +172,7 @@ if (HDF_DISABLE_COMPILER_WARNINGS)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w")
   endif (MSVC)
   if (WIN32)
-    ADD_DEFINITIONS (-D_CRT_SECURE_NO_WARNINGS)
+    add_definitions (-D_CRT_SECURE_NO_WARNINGS)
   endif (WIN32)
   # Borland uses -w- to suppress warnings.
   if (BORLAND)
@@ -240,7 +238,7 @@ endif (H5_HAVE_PARALLEL)
 # Option to use threadsafe
 # Note: Currently CMake only allows configuring of threadsafe on WINDOWS.
 #-----------------------------------------------------------------------------
-if (WIN32 AND NOT CYGWIN)
+if (WIN32)
   option (HDF_ENABLE_THREADSAFE "Enable Threadsafety" OFF)
   if (HDF_ENABLE_THREADSAFE)
     # check for unsupported options
@@ -250,7 +248,7 @@ if (WIN32 AND NOT CYGWIN)
     set (H5_HAVE_WIN_THREADS 1)
     set (H5_HAVE_THREADSAFE 1)
   endif (HDF_ENABLE_THREADSAFE)
-endif (WIN32 AND NOT CYGWIN)
+endif (WIN32)
 
 #-----------------------------------------------------------------------------
 # Dashboard and Testing Settings
