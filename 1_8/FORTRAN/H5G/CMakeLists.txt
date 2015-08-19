@@ -9,9 +9,6 @@ set (f03examples
     h5ex_g_visit_F03
     h5ex_g_traverse_F03
 )
-if (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
-  set (f03examples ${f03examples} h5ex_g_traverse_F03)
-endif (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
 
 set (examples
     h5ex_g_compact
@@ -43,7 +40,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.h5
@@ -70,7 +67,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.ddl.out
@@ -103,12 +100,12 @@ if (BUILD_TESTING)
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     endif (HDF5_BUILD_TOOLS)
   endmacro (ADD_H5_DUMP_TEST)
-  
+
   macro (ADD_H5_DUMP2_TEST testname)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}1.ddl.out
@@ -161,12 +158,12 @@ if (BUILD_TESTING)
       set_tests_properties (H5DUMP-f90_${testname}2 PROPERTIES DEPENDS H5DUMP-f90_${testname}1)
     endif (HDF5_BUILD_TOOLS)
   endmacro (ADD_H5_DUMP2_TEST)
-  
+
   macro (ADD_H5_CMP_TEST testname)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
     )
@@ -183,7 +180,7 @@ if (BUILD_TESTING)
     )
     set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
   endmacro (ADD_H5_CMP_TEST testname)
-    
+
   if (HDF5_BUILD_TOOLS)
     add_custom_command (
         TARGET     f90_h5ex_g_compact
@@ -205,7 +202,7 @@ if (BUILD_TESTING)
     )
 
   endif (HDF5_BUILD_TOOLS)
-  
+
   set (exrefs
       h5ex_g_corder
       h5ex_g_phase
@@ -218,7 +215,7 @@ if (BUILD_TESTING)
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
     )
   endforeach (example ${exrefs})
-      
+
   if (HDF_ENABLE_F2003)
     set (exfiles
         h5ex_g_iterate
@@ -254,4 +251,3 @@ if (BUILD_TESTING)
   endif (HDF_ENABLE_F2003)
 
 endif (BUILD_TESTING)
-  
