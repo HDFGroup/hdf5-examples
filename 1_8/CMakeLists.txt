@@ -155,6 +155,7 @@ if (NOT HDF5_HDF5_HEADER)
   else (HDF5_FOUND)
     message (FATAL_ERROR " HDF5 is Required for HDF5 Examples")
   endif (HDF5_FOUND)
+  set (HDF5_PACKAGE_NAME ${SEARCH_PACKAGE_NAME})
 else (NOT HDF5_HDF5_HEADER)
   # This project is being called from within another and HDF5 is already configured
   set (HDF5_HAVE_H5PUBCONF_H 1)
