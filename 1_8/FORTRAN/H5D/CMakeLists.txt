@@ -9,7 +9,7 @@ PROJECT (HDF5Examples_FORTRAN_H5D C CXX Fortran)
 #-----------------------------------------------------------------------------
 # Setup include Directories
 #-----------------------------------------------------------------------------
-LINK_DIRECTORIES (
+INCLUDE_DIRECTORIES (
     ${CMAKE_Fortran_MODULE_DIRECTORY}
     ${PROJECT_BINARY_DIR}
     ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
@@ -66,7 +66,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.ddl.out
@@ -118,14 +118,14 @@ if (BUILD_TESTING)
           ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
       )
     endif (HDF5_BUILD_TOOLS)
-    
-    if (${example} STREQUAL "h5ex_d_transform")  
+
+    if (${example} STREQUAL "h5ex_d_transform")
       ADD_H5_TEST (${example} -n)
-    else (${example} STREQUAL "h5ex_d_transform")  
+    else (${example} STREQUAL "h5ex_d_transform")
       ADD_H5_TEST (${example})
-    endif (${example} STREQUAL "h5ex_d_transform")  
+    endif (${example} STREQUAL "h5ex_d_transform")
   endforeach (example ${examples})
-  
+
   if (HDF_ENABLE_F2003)
     foreach (example ${f03examples})
       set (testdest "${PROJECT_BINARY_DIR}/${example}")
@@ -147,6 +147,5 @@ if (BUILD_TESTING)
       ADD_H5_TEST (${example})
     endforeach (example ${f03examples})
   endif (HDF_ENABLE_F2003)
-  
+
 endif (BUILD_TESTING)
-  
