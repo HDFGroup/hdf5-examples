@@ -27,6 +27,11 @@ endif (HDF5_USE_FOLDERS)
 set (HDF5EX_RESOURCES_DIR      ${PROJECT_SOURCE_DIR}/config/cmake)
 set (HDF5EX_C_SRC_DIR          ${PROJECT_SOURCE_DIR}/C)
 set (HDF5EX_F90_SRC_DIR        ${PROJECT_SOURCE_DIR}/FORTRAN)
+set (HDF5EX_JAVA_DIR           ${PROJECT_SOURCE_DIR}/JAVA)
+
+if (HDF_BUILD_JAVA)
+  find_package (Java)
+endif (HDF_BUILD_JAVA)
 
 #-----------------------------------------------------------------------------
 # Include some macros for reusable code
@@ -48,6 +53,9 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
 )
 set (CMAKE_Fortran_MODULE_DIRECTORY
     ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
+)
+set (CMAKE_JAVA_TARGET_OUTPUT_DIR
+    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all java jars."
 )
 
 #-----------------------------------------------------------------------------
@@ -78,6 +86,15 @@ if (MAKE_SYSTEM)
   set (CFG_INIT "")
 endif (MAKE_SYSTEM)
 
+
+if (HDF_BUILD_JAVA)
+  INCLUDE_DIRECTORIES (
+      ${JAVA_INCLUDE_PATH}
+      ${JAVA_INCLUDE_PATH2}
+  )
+  set (CMAKE_JAVA_INCLUDE_PATH "")
+endif (HDF_BUILD_JAVA)
+
 #-----------------------------------------------------------------------------
 # Compiler specific flags : Shouldn't there be compiler tests for these
 #-----------------------------------------------------------------------------
@@ -102,12 +119,16 @@ if (NOT HDF5_HDF5_HEADER)
   if (HDF_BUILD_FORTRAN)
     set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
   endif (HDF_BUILD_FORTRAN)
+  if (HDF_BUILD_JAVA)
+    set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
+  endif (HDF_BUILD_JAVA)
   message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
   set (SEARCH_PACKAGE_NAME ${HDF5_PACKAGE_NAME})
 
   find_package (HDF5 NAMES ${SEARCH_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
   message (STATUS "HDF5 C libs:${HDF5_FOUND} static:${HDF5_static_C_FOUND} and shared:${HDF5_shared_C_FOUND}")
   message (STATUS "HDF5 Fortran libs: static:${HDF5_static_Fortran_FOUND} and shared:${HDF5_shared_Fortran_FOUND}")
+  message (STATUS "HDF5 Java libs: static:${HDF5_static_Java_FOUND} and shared:${HDF5_shared_Java_FOUND}")
   if (HDF5_FOUND)
     add_executable (h5dump IMPORTED)
     if (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
@@ -115,10 +136,13 @@ if (NOT HDF5_HDF5_HEADER)
       if (HDF_BUILD_FORTRAN)
         set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
       endif (HDF_BUILD_FORTRAN)
+      if (HDF_BUILD_JAVA)
+        set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
+      endif (HDF_BUILD_JAVA)
       message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
 
       find_package (HDF5 NAMES ${SEARCH_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
-      message (STATUS "HDF5 libs:${HDF5_FOUND} C:${HDF5_C_FOUND} Fortran:${HDF5_Fortran_FOUND}")
+      message (STATUS "HDF5 libs:${HDF5_FOUND} C:${HDF5_C_FOUND} Fortran:${HDF5_Fortran_FOUND} Java:${HDF5_Java_FOUND}")
       set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
       if (HDF5_BUILD_SHARED_LIBS)
         add_definitions (-DH5_BUILT_AS_DYNAMIC_LIB)
@@ -130,6 +154,10 @@ if (NOT HDF5_HDF5_HEADER)
       else (BUILD_SHARED_LIBS AND WIN32)
         set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
       endif (BUILD_SHARED_LIBS AND WIN32)
+      if (HDF_BUILD_JAVA)
+        set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
+        message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}}")
+      endif (HDF_BUILD_JAVA)
     else (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
       if (BUILD_SHARED_LIBS AND HDF5_shared_C_FOUND)
         set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_SHARED_LIBRARY})
@@ -143,6 +171,10 @@ if (NOT HDF5_HDF5_HEADER)
           set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_STATIC_LIBRARY})
         endif (BUILD_SHARED_LIBS AND HDF5_shared_Fortran_FOUND)
       endif (HDF_BUILD_FORTRAN)
+      if (HDF_BUILD_JAVA)
+        set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
+        message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}}")
+      endif (HDF_BUILD_JAVA)
       set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
     endif (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
     set (HDF5_DUMP_EXECUTABLE $<TARGET_FILE:h5dump>)
@@ -305,6 +337,17 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DI
     add_subdirectory (${PROJECT_SOURCE_DIR}/FORTRAN ${PROJECT_BINARY_DIR}/FORTRAN)
   endif (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
 endif (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
+
+#-----------------------------------------------------------------------------
+# Option to build JAVA examples
+#-----------------------------------------------------------------------------
+if (EXISTS "${PROJECT_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/JAVA")
+  option (HDF_BUILD_JAVA "Build JAVA support" OFF)
+  if (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
+    include (${HDF5EX_RESOURCES_DIR}/UseJava.cmake)
+    add_subdirectory (${PROJECT_SOURCE_DIR}/JAVA ${PROJECT_BINARY_DIR}/JAVA)
+  endif (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
+endif (EXISTS "${PROJECT_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/JAVA")
 
 #-----------------------------------------------------------------------------
 # Source Packaging Option
