@@ -33,6 +33,11 @@ main (void)
                 *tag;
     int         ndims,
                 i, j;
+    unsigned    majnum, minnum, relnum;
+
+    /* Get library version to differentiate between acceptable version methods
+     * to free the tag returned by H5Tget_tag. */
+    H5get_libversion(&majnum, &minnum, &relnum);
 
     /*
      * Initialize data.
@@ -135,7 +140,12 @@ main (void)
      * Close and release resources.
      */
     free (rdata);
-    free (tag);
+    /* H5free_memory is available in 1.8.16 and above.
+     * Last version for 1.6 was 1.6.10. */
+    if (minnum > 8 || relnum > 15)
+        H5free_memory (tag);
+    else
+        free (tag);
     status = H5Aclose (attr);
     status = H5Dclose (dset);
     status = H5Sclose (space);
