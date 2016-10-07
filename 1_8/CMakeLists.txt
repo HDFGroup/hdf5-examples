@@ -311,6 +311,28 @@ endif (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE
 #-----------------------------------------------------------------------------
 option (PACK_EXAMPLE_SOURCE "Package HDF5 Example Source File" OFF)
 if (PACK_EXAMPLE_SOURCE)
-  set(CPACK_SOURCE_IGNORE_FILES "${PROJECT_BINARY_DIR}" "/\\.svn/" )
+  set(CPACK_SOURCE_IGNORE_FILES
+      "^${PROJECT_SOURCE_DIR}/\\\\.git*"
+      "^${PROJECT_SOURCE_DIR}/\\\\.project"
+  )
+  set (CPACK_PACKAGE_VENDOR "HDF_Group")
+  set (CPACK_PACKAGE_NAME "${HDF5_PACKAGE_NAME}")
+  set (CPACK_GENERATOR "TGZ")
+  set (CPACK_SOURCE_GENERATOR "TGZ")
+  set (CPACK_SOURCE_PACKAGE_FILE_NAME "HDF5Examples-${CPACK_PACKAGE_VERSION}")
   INCLUDE(CPack)
+  # Installation types
+  cpack_add_install_type(Full DISPLAY_NAME "Everything")
+
+  # Component groups
+  cpack_add_component_group(Development
+      EXPANDED
+      DESCRIPTION "All of the examples to test HDF5 library"
+  )
+  cpack_add_component(source
+      DISPLAY_NAME "Source Files"
+      DESCRIPTION "Source files of HDF5 Library Examples"
+      GROUP Development
+      INSTALL_TYPES Full
+  )
 endif (PACK_EXAMPLE_SOURCE)
