@@ -51,7 +51,7 @@ if (HDF_ENABLE_F2003)
     target_link_libraries (f90_${example} ${LINK_LIBS})
     set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
   endforeach (example ${f03examples})
-endif (HDF_ENABLE_F2003)
+endif ()
 
 foreach (example ${examples})
   add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
@@ -89,7 +89,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME H5DUMP-f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.ddl.out"
@@ -98,7 +98,7 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
-    endif (HDF5_BUILD_TOOLS)
+    endif ()
   endmacro (ADD_H5_TEST)
 
   foreach (example ${examples})
@@ -117,13 +117,13 @@ if (BUILD_TESTING)
           COMMAND    ${CMAKE_COMMAND}
           ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
       )
-    endif (HDF5_BUILD_TOOLS)
+    endif ()
 
     if (${example} STREQUAL "h5ex_d_transform")
       ADD_H5_TEST (${example} -n)
-    else (${example} STREQUAL "h5ex_d_transform")
+    else ()
       ADD_H5_TEST (${example})
-    endif (${example} STREQUAL "h5ex_d_transform")
+    endif ()
   endforeach (example ${examples})
 
   if (HDF_ENABLE_F2003)
@@ -143,9 +143,9 @@ if (BUILD_TESTING)
             COMMAND    ${CMAKE_COMMAND}
             ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
         )
-      endif (HDF5_BUILD_TOOLS)
+      endif ()
       ADD_H5_TEST (${example})
     endforeach (example ${f03examples})
-  endif (HDF_ENABLE_F2003)
+  endif ()
 
 endif (BUILD_TESTING)

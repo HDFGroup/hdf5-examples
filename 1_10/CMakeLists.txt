@@ -19,7 +19,7 @@ option (HDF5_USE_FOLDERS "Enable folder grouping of projects in IDEs." ON)
 mark_as_advanced (HDF5_USE_FOLDERS)
 if (HDF5_USE_FOLDERS)
   set_property (GLOBAL PROPERTY USE_FOLDERS ON)
-endif (HDF5_USE_FOLDERS)
+endif ()
 
 #-----------------------------------------------------------------------------
 # Define some CMake variables for use later in the project
@@ -31,7 +31,7 @@ set (HDF5EX_JAVA_DIR           ${PROJECT_SOURCE_DIR}/JAVA)
 
 if (HDF_BUILD_JAVA)
   find_package (Java)
-endif (HDF_BUILD_JAVA)
+endif ()
 
 #-----------------------------------------------------------------------------
 # Include some macros for reusable code
@@ -70,21 +70,21 @@ if (WIN32)
   add_definitions (-D_BIND_TO_CURRENT_VCLIBS_VERSION=1)
   add_definitions (-D_CRT_SECURE_NO_WARNINGS)
   add_definitions (-D_CONSOLE)
-endif (WIN32)
+endif ()
 
 if (MSVC)
   set (CMAKE_MFC_FLAG 0)
-endif (MSVC)
+endif ()
 
 set (MAKE_SYSTEM)
 if (CMAKE_BUILD_TOOL MATCHES "make")
   set (MAKE_SYSTEM 1)
-endif (CMAKE_BUILD_TOOL MATCHES "make")
+endif ()
 
 set (CFG_INIT "/${CMAKE_CFG_INTDIR}")
 if (MAKE_SYSTEM)
   set (CFG_INIT "")
-endif (MAKE_SYSTEM)
+endif ()
 
 
 if (HDF_BUILD_JAVA)
@@ -93,17 +93,17 @@ if (HDF_BUILD_JAVA)
       ${JAVA_INCLUDE_PATH2}
   )
   set (CMAKE_JAVA_INCLUDE_PATH "")
-endif (HDF_BUILD_JAVA)
+endif ()
 
 #-----------------------------------------------------------------------------
 # Compiler specific flags : Shouldn't there be compiler tests for these
 #-----------------------------------------------------------------------------
 if (CMAKE_COMPILER_IS_GNUCC)
   set (CMAKE_C_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_C_FLAGS} -std=c99 -fomit-frame-pointer -finline-functions -fno-common")
-endif (CMAKE_COMPILER_IS_GNUCC)
+endif ()
 if (CMAKE_COMPILER_IS_GNUCXX)
   set (CMAKE_CXX_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_CXX_FLAGS} -fomit-frame-pointer -finline-functions -fno-common")
-endif (CMAKE_COMPILER_IS_GNUCXX)
+endif ()
 
 #-----------------------------------------------------------------------------
 # HDF5 support
@@ -113,15 +113,15 @@ set (CMAKE_MODULE_PATH ${HDF5EX_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
 if (NOT HDF5_HDF5_HEADER)
   if (BUILD_SHARED_LIBS)
     set (FIND_HDF_COMPONENTS C shared)
-  else (BUILD_SHARED_LIBS)
+  else ()
     set (FIND_HDF_COMPONENTS C static)
-  endif (BUILD_SHARED_LIBS)
+  endif ()
   if (HDF_BUILD_FORTRAN)
     set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
-  endif (HDF_BUILD_FORTRAN)
+  endif ()
   if (HDF_BUILD_JAVA)
     set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
-  endif (HDF_BUILD_JAVA)
+  endif ()
   message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
   set (SEARCH_PACKAGE_NAME ${HDF5_PACKAGE_NAME})
 
@@ -130,15 +130,17 @@ if (NOT HDF5_HDF5_HEADER)
   message (STATUS "HDF5 Fortran libs: static:${HDF5_static_Fortran_FOUND} and shared:${HDF5_shared_Fortran_FOUND}")
   message (STATUS "HDF5 Java libs: static:${HDF5_static_Java_FOUND} and shared:${HDF5_shared_Java_FOUND}")
   if (HDF5_FOUND)
-    add_executable (h5dump IMPORTED)
+    if (NOT TARGET hdf5::h5dump)
+        add_executable (hdf5::h5dump IMPORTED)
+    endif()
     if (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
       set (FIND_HDF_COMPONENTS C)
       if (HDF_BUILD_FORTRAN)
         set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
-      endif (HDF_BUILD_FORTRAN)
+      endif ()
       if (HDF_BUILD_JAVA)
         set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
-      endif (HDF_BUILD_JAVA)
+      endif ()
       message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
 
       find_package (HDF5 NAMES ${SEARCH_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
@@ -146,38 +148,37 @@ if (NOT HDF5_HDF5_HEADER)
       set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
       if (HDF5_BUILD_SHARED_LIBS)
         add_definitions (-DH5_BUILT_AS_DYNAMIC_LIB)
-      else (HDF5_BUILD_SHARED_LIBS)
+      else ()
         add_definitions (-DH5_BUILT_AS_STATIC_LIB)
-      endif (HDF5_BUILD_SHARED_LIBS)
+      endif ()
       if (BUILD_SHARED_LIBS AND WIN32)
-        set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dumpdll")
-      else (BUILD_SHARED_LIBS AND WIN32)
-        set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
-      endif (BUILD_SHARED_LIBS AND WIN32)
+        set_property (TARGET hdf5::h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dumpdll")
+      else ()
+        set_property (TARGET hdf5::h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
+      endif ()
       if (HDF_BUILD_JAVA)
         set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
         message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}}")
-      endif (HDF_BUILD_JAVA)
-    else (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
+      endif ()
+    else ()
       if (BUILD_SHARED_LIBS AND HDF5_shared_C_FOUND)
         set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_SHARED_LIBRARY})
-      else (HDF5_static_C_FOUND)
+      else ()
         set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_STATIC_LIBRARY})
-      endif (BUILD_SHARED_LIBS AND HDF5_shared_C_FOUND)
+      endif ()
       if (HDF_BUILD_FORTRAN)
         if (BUILD_SHARED_LIBS AND HDF5_shared_Fortran_FOUND)
           set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_SHARED_LIBRARY})
-        else (HDF5_static_Fortran_FOUND)
+        else ()
           set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_STATIC_LIBRARY})
-        endif (BUILD_SHARED_LIBS AND HDF5_shared_Fortran_FOUND)
-      endif (HDF_BUILD_FORTRAN)
+        endif ()
+      endif ()
       if (HDF_BUILD_JAVA)
         set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
         message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}}")
-      endif (HDF_BUILD_JAVA)
-      set_property (TARGET h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
-    endif (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
-    set (HDF5_DUMP_EXECUTABLE $<TARGET_FILE:h5dump>)
+      endif ()
+    endif ()
+    set (HDF5_DUMP_EXECUTABLE $<TARGET_FILE:hdf5::h5dump>)
 
     set (HDF5_HAVE_H5PUBCONF_H 1)
     set (HDF5_HAVE_HDF5 1)
@@ -197,7 +198,7 @@ endif (NOT HDF5_HDF5_HEADER)
 INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR})
 if (HDF_BUILD_FORTRAN)
   INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR_FORTRAN})
-endif (HDF_BUILD_FORTRAN)
+endif ()
 message (STATUS "HDF5 link libs: ${LINK_LIBS}")
 
 #-----------------------------------------------------------------------------
@@ -206,7 +207,7 @@ message (STATUS "HDF5 link libs: ${LINK_LIBS}")
 set (LIB_TYPE STATIC)
 if (BUILD_SHARED_LIBS)
   set (LIB_TYPE SHARED)
-endif (BUILD_SHARED_LIBS)
+endif ()
 set (CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 #-----------------------------------------------------------------------------
@@ -222,22 +223,22 @@ if (HDF_DISABLE_COMPILER_WARNINGS)
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /w")
     string (REGEX REPLACE "(^| )([/-])W[0-9]( |$)" " " CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w")
-  endif (MSVC)
+  endif ()
   if (WIN32)
     add_definitions (-D_CRT_SECURE_NO_WARNINGS)
-  endif (WIN32)
+  endif ()
   # Borland uses -w- to suppress warnings.
   if (BORLAND)
     set (HDF_WARNINGS_BLOCKED 1)
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w-")
-  endif (BORLAND)
+  endif ()
 
   # Most compilers use -w to suppress warnings.
   if (NOT HDF_WARNINGS_BLOCKED)
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
-  endif (NOT HDF_WARNINGS_BLOCKED)
-endif (HDF_DISABLE_COMPILER_WARNINGS)
+  endif ()
+endif ()
 
 #-----------------------------------------------------------------------------
 # This is in here to help some of the GCC based IDES like Eclipse
@@ -245,10 +246,10 @@ endif (HDF_DISABLE_COMPILER_WARNINGS)
 #-----------------------------------------------------------------------------
 if (CMAKE_COMPILER_IS_GNUCC)
   set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fmessage-length=0")
-endif (CMAKE_COMPILER_IS_GNUCC)
+endif ()
 if (CMAKE_COMPILER_IS_GNUCXX)
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmessage-length=0")
-endif (CMAKE_COMPILER_IS_GNUCXX)
+endif ()
 
 #-----------------------------------------------------------------------------
 # All examples need the main include directories
@@ -272,19 +273,19 @@ if (HDF_ENABLE_PARALLEL)
     # Used by Fortran + MPI
     CHECK_SYMBOL_EXISTS (MPI_Comm_c2f "${MPI_INCLUDE_PATH}/mpi.h"  H5_HAVE_MPI_MULTI_LANG_Comm)
     CHECK_SYMBOL_EXISTS (MPI_Info_c2f "${MPI_INCLUDE_PATH}/mpi.h"  H5_HAVE_MPI_MULTI_LANG_Info)
-  endif (MPI_FOUND)
-endif (HDF_ENABLE_PARALLEL)
+  endif ()
+endif ()
 
 # Parallel IO usage requires MPI to be Linked and Included
 if (H5_HAVE_PARALLEL)
   set (LINK_LIBS ${LINK_LIBS} ${MPI_LIBRARY})
   if (MPI_LINK_FLAGS)
     set (CMAKE_EXE_LINKER_FLAGS ${MPI_LINK_FLAGS} ${CMAKE_EXE_LINKER_FLAGS})
-  endif (MPI_LINK_FLAGS)
+  endif ()
   if (MPI_EXTRA_LIBRARY)
     set (LINK_LIBS ${LINK_LIBS} ${MPI_EXTRA_LIBRARY})
-  endif (MPI_EXTRA_LIBRARY)
-endif (H5_HAVE_PARALLEL)
+  endif ()
+endif ()
 
 #-----------------------------------------------------------------------------
 # Option to use threadsafe
@@ -296,11 +297,11 @@ if (WIN32)
     # check for unsupported options
     if (HDF_ENABLE_PARALLEL)
       message (FATAL " **** Parallel and Threadsafe options are mutually exclusive **** ")
-    endif (HDF_ENABLE_PARALLEL)
+    endif ()
     set (H5_HAVE_WIN_THREADS 1)
     set (H5_HAVE_THREADSAFE 1)
-  endif (HDF_ENABLE_THREADSAFE)
-endif (WIN32)
+  endif ()
+endif ()
 
 #-----------------------------------------------------------------------------
 # Dashboard and Testing Settings
@@ -315,7 +316,7 @@ if (BUILD_TESTING)
   include (CTest)
   include (${PROJECT_SOURCE_DIR}/CTestConfig.cmake)
   configure_file (${HDF5EX_RESOURCES_DIR}/CTestCustom.cmake ${PROJECT_BINARY_DIR}/CTestCustom.ctest @ONLY)
-endif (BUILD_TESTING)
+endif ()
 
 #-----------------------------------------------------------------------------
 # Build examples
@@ -335,8 +336,8 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DI
   if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
     include (${HDF5EX_RESOURCES_DIR}/HDF5UseFortran.cmake)
     add_subdirectory (${PROJECT_SOURCE_DIR}/FORTRAN ${PROJECT_BINARY_DIR}/FORTRAN)
-  endif (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
-endif (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
+  endif ()
+endif ()
 
 #-----------------------------------------------------------------------------
 # Option to build JAVA examples
@@ -346,8 +347,13 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/
   if (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
     include (${HDF5EX_RESOURCES_DIR}/UseJava.cmake)
     add_subdirectory (${PROJECT_SOURCE_DIR}/JAVA ${PROJECT_BINARY_DIR}/JAVA)
-  endif (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
-endif (EXISTS "${PROJECT_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/JAVA")
+  endif ()
+endif ()
+
+#-----------------------------------------------------------------------------
+# Configure the README.txt file for the binary package
+#-----------------------------------------------------------------------------
+HDF_README_PROPERTIES(HDF_BUILD_FORTRAN)
 
 #-----------------------------------------------------------------------------
 # Source Packaging Option

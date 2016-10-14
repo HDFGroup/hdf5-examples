@@ -26,7 +26,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.h5
@@ -37,7 +37,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.out"
@@ -46,14 +46,14 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
-    endif (HDF5_BUILD_TOOLS)
+    endif ()
   endmacro (ADD_DUMP_TEST)
 
   macro (ADD_H5_DUMP_TEST testname)
     ADD_TEST (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.ddl.out
@@ -75,7 +75,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.ddl.out"
@@ -84,14 +84,14 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
-    endif (HDF5_BUILD_TOOLS)
+    endif ()
   endmacro (ADD_H5_DUMP_TEST)
-  
+
   macro (ADD_H5_DUMP2_TEST testname)
     ADD_TEST (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}1.ddl.out
@@ -117,7 +117,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME H5DUMP-${testname}1
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
               -D "TEST_ARGS:STRING=${testname}1.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}1.ddl.out"
@@ -129,7 +129,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME H5DUMP-${testname}2
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
               -D "TEST_ARGS:STRING=${testname}2.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}2.ddl.out"
@@ -138,14 +138,14 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname}2 PROPERTIES DEPENDS H5DUMP-${testname}1)
-    endif (HDF5_BUILD_TOOLS)
+    endif ()
   endmacro (ADD_H5_DUMP2_TEST)
-  
+
   macro (ADD_H5_CMP_TEST testname)
     ADD_TEST (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.tmp
             ${testname}.out.err
@@ -171,7 +171,7 @@ if (BUILD_TESTING)
       COMMAND    ${CMAKE_COMMAND}
       ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_compact.tst ${PROJECT_BINARY_DIR}/h5ex_g_compact.tst
   )
-    
+
   if (HDF5_BUILD_TOOLS)
     add_custom_command (
         TARGET     h5ex_g_compact
@@ -191,8 +191,8 @@ if (BUILD_TESTING)
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl
     )
-  endif (HDF5_BUILD_TOOLS)
-  
+  endif ()
+
   set (exrefs
       h5ex_g_corder
       h5ex_g_phase
@@ -209,7 +209,7 @@ if (BUILD_TESTING)
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
     )
   endforeach (example ${exrefs})
-     
+
   set (exfiles
       h5ex_g_iterate
       h5ex_g_traverse
@@ -234,4 +234,3 @@ if (BUILD_TESTING)
   ADD_H5_CMP_TEST (h5ex_g_visit)
 
 endif (BUILD_TESTING)
-  
