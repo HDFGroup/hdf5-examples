@@ -21,7 +21,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.dmp.out
@@ -44,7 +44,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.dmp.out"
@@ -53,7 +53,7 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
-    endif (HDF5_BUILD_TOOLS)
+    endif ()
   endmacro (ADD_H5_TEST)
 
   foreach (example ${examples})
@@ -68,4 +68,3 @@ if (BUILD_TESTING)
     ADD_H5_TEST (${example})
   endforeach (example ${examples})
 endif (BUILD_TESTING)
-  

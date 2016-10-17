@@ -67,7 +67,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.ddl.out
@@ -90,7 +90,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME H5DUMP-f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:h5dump>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.ddl.out"
@@ -101,12 +101,12 @@ if (BUILD_TESTING)
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     endif (HDF5_BUILD_TOOLS)
   endmacro (ADD_H5_TEST)
-  
+
   macro (ADD_H5_CMP_TEST testname)
     ADD_TEST (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
-            -E remove 
+            -E remove
             ${testname}.out
             ${testname}.out.err
             ${testname}.h5
@@ -126,7 +126,7 @@ if (BUILD_TESTING)
   endmacro (ADD_H5_CMP_TEST)
 
   macro (TEST_EXAMPLE example)
-    if (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
+    if (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")
       set (testdest "${PROJECT_BINARY_DIR}/${example}")
       #message (STATUS " Copying ${example}.test")
       add_custom_command (
@@ -144,7 +144,7 @@ if (BUILD_TESTING)
         )
       endif (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example} -n)
-    elseif (${example} STREQUAL "h5ex_t_convert")  
+    elseif (${example} STREQUAL "h5ex_t_convert")
       add_custom_command (
           TARGET     f90_${example}
           POST_BUILD
@@ -152,7 +152,7 @@ if (BUILD_TESTING)
           ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
       )
       ADD_H5_CMP_TEST (${example})
-    else (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
+    else (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")
       set (testdest "${PROJECT_BINARY_DIR}/${example}")
       #message (STATUS " Copying ${example}.test")
       add_custom_command (
@@ -170,7 +170,7 @@ if (BUILD_TESTING)
         )
       endif (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example})
-    endif (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")  
+    endif (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")
   endmacro (TEST_EXAMPLE)
 
   if (HDF_ENABLE_F2003)
@@ -178,10 +178,9 @@ if (BUILD_TESTING)
       TEST_EXAMPLE (${example})
     endforeach (example ${f03examples})
   endif (HDF_ENABLE_F2003)
-  
+
   foreach (example ${examples})
     TEST_EXAMPLE (${example})
   endforeach (example ${examples})
-  
+
 endif (BUILD_TESTING)
-  
