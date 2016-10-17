@@ -144,7 +144,7 @@ if (NOT HDF5_HDF5_HEADER)
         else ()
           set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_STATIC_LIBRARY})
         endif ()
-      endif (HDF_BUILD_FORTRAN)
+      endif ()
     endif ()
     set (HDF5_DUMP_EXECUTABLE $<TARGET_FILE:hdf5::h5dump>)
 
@@ -206,7 +206,7 @@ if (HDF_DISABLE_COMPILER_WARNINGS)
     set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
   endif ()
-endif (HDF_DISABLE_COMPILER_WARNINGS)
+endif ()
 
 #-----------------------------------------------------------------------------
 # This is in here to help some of the GCC based IDES like Eclipse
@@ -322,10 +322,10 @@ if (PACK_EXAMPLE_SOURCE)
       "^${PROJECT_SOURCE_DIR}/\\\\.project"
   )
   set (CPACK_PACKAGE_VENDOR "HDF_Group")
-  set (CPACK_PACKAGE_NAME "${HDF5_PACKAGE_NAME}")
+  set (CPACK_PACKAGE_NAME "HDF5Examples")
   set (CPACK_GENERATOR "TGZ")
   set (CPACK_SOURCE_GENERATOR "TGZ")
-  set (CPACK_SOURCE_PACKAGE_FILE_NAME "HDF5Examples-${CPACK_PACKAGE_VERSION}")
+  set (CPACK_SOURCE_PACKAGE_FILE_NAME "HDF5Examples-${CPACK_PACKAGE_VERSION}-Source")
   INCLUDE(CPack)
   # Installation types
   cpack_add_install_type(Full DISPLAY_NAME "Everything")

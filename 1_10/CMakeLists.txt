@@ -365,10 +365,10 @@ if (PACK_EXAMPLE_SOURCE)
       "^${PROJECT_SOURCE_DIR}/\\\\.project"
   )
   set (CPACK_PACKAGE_VENDOR "HDF_Group")
-  set (CPACK_PACKAGE_NAME "${HDF5_PACKAGE_NAME}")
+  set (CPACK_PACKAGE_NAME "HDF5Examples")
   set (CPACK_GENERATOR "TGZ")
   set (CPACK_SOURCE_GENERATOR "TGZ")
-  set (CPACK_SOURCE_PACKAGE_FILE_NAME "HDF5Examples-${CPACK_PACKAGE_VERSION}")
+  set (CPACK_SOURCE_PACKAGE_FILE_NAME "HDF5Examples-${CPACK_PACKAGE_VERSION}-Source")
   INCLUDE(CPack)
   # Installation types
   cpack_add_install_type(Full DISPLAY_NAME "Everything")
