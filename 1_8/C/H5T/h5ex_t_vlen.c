@@ -123,7 +123,7 @@ main (void)
      * Output the variable-length data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%u]:\n  {",DATASET,i);
+        printf ("%s[%llu]:\n  {",DATASET,i);
         ptr = rdata[i].p;
         for (j=0; j<rdata[i].len; j++) {
             printf (" %d", ptr[j]);

@@ -131,7 +131,7 @@ main (void)
      */
     printf ("Datatype tag for %s is: \"%s\"\n", ATTRIBUTE, tag);
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%u]: ",ATTRIBUTE,i);
+        printf ("%s[%llu]: ",ATTRIBUTE,i);
         for (j=0; j<len; j++)
             printf ("%c", rdata[j + i * len]);
         printf ("\n");

@@ -337,7 +337,7 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n", ATTRIBUTE, i);
+        printf ("%s[%llu]:\n", ATTRIBUTE, i);
         printf ("   Vehicle name :\n      %s\n", rdata[i].name);
         printf ("   Sensor locations :\n");
         for (j=0; j<rdata[i].sensors.len; j++)

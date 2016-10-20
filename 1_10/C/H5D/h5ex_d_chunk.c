@@ -147,6 +147,13 @@ main (void)
             break;
         case H5D_CHUNKED:
             printf ("H5D_CHUNKED\n");
+            break;
+        case H5D_VIRTUAL:
+            printf ("H5D_VIRTUAL\n");
+            break;
+        case H5D_LAYOUT_ERROR:
+        case H5D_NLAYOUTS:
+            printf ("H5D_LAYOUT_ERROR\n");
     }
 
     /*

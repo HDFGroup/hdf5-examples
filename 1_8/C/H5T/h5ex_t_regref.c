@@ -133,7 +133,7 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n  ->", DATASET, i);
+        printf ("%s[%llu]:\n  ->", DATASET, i);
 
         /*
          * Open the referenced object, retrieve its region as a

@@ -39,16 +39,16 @@ main (void)
     printf ("Group storage type for %s is: ", FILE1);
     switch (ginfo.storage_type) {
         case H5G_STORAGE_TYPE_COMPACT:
-            printf ("H5G_STORAGE_TYPE_COMPACT\n");
-                        /* New compact format */
+            printf ("H5G_STORAGE_TYPE_COMPACT\n"); /* New compact format */
             break;
         case H5G_STORAGE_TYPE_DENSE:
-            printf ("H5G_STORAGE_TYPE_DENSE\n");
-                        /* New dense (indexed) format */
+            printf ("H5G_STORAGE_TYPE_DENSE\n"); /* New dense (indexed) format */
             break;
         case H5G_STORAGE_TYPE_SYMBOL_TABLE:
-            printf ("H5G_STORAGE_TYPE_SYMBOL_TABLE\n");
-                        /* Original format */
+            printf ("H5G_STORAGE_TYPE_SYMBOL_TABLE\n"); /* Original format */
+            break;
+        case H5G_STORAGE_TYPE_UNKNOWN:
+            printf ("H5G_STORAGE_TYPE_UNKNOWN\n"); /* Unknown format */
     }
 
     /*
@@ -89,16 +89,16 @@ main (void)
     printf ("Group storage type for %s is: ", FILE2);
     switch (ginfo.storage_type) {
         case H5G_STORAGE_TYPE_COMPACT:
-            printf ("H5G_STORAGE_TYPE_COMPACT\n");
-                        /* New compact format */
+            printf ("H5G_STORAGE_TYPE_COMPACT\n"); /* New compact format */
             break;
         case H5G_STORAGE_TYPE_DENSE:
-            printf ("H5G_STORAGE_TYPE_DENSE\n");
-                        /* New dense (indexed) format */
+            printf ("H5G_STORAGE_TYPE_DENSE\n"); /* New dense (indexed) format */
             break;
         case H5G_STORAGE_TYPE_SYMBOL_TABLE:
-            printf ("H5G_STORAGE_TYPE_SYMBOL_TABLE\n");
-                        /* Original format */
+            printf ("H5G_STORAGE_TYPE_SYMBOL_TABLE\n"); /* Original format */
+            break;
+        case H5G_STORAGE_TYPE_UNKNOWN:
+            printf ("H5G_STORAGE_TYPE_UNKNOWN\n"); /* Unknown format */
     }
 
     /*
