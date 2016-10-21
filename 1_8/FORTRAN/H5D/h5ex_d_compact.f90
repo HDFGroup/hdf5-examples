@@ -26,7 +26,7 @@ PROGRAM main
   INTEGER(HID_T)  :: file, space, dset, dcpl ! Handles
   INTEGER(HSIZE_T), DIMENSION(1:2) :: dims = (/dim0, dim1/)
 
-  INTEGER, DIMENSION(1:dim0, 1:dim1) :: wdata, & ! Write buffer 
+  INTEGER, DIMENSION(1:dim0, 1:dim1) :: wdata, & ! Write buffer
                                         rdata    ! Read buffer
   INTEGER :: i, j
   !
@@ -61,7 +61,7 @@ PROGRAM main
   ! example.
   !
   CALL h5dcreate_f(file, dataset, H5T_STD_I32LE, space, dset, hdferr, dcpl)
-  ! 
+  !
   ! Write the data to the dataset.
   !
   CALL h5dwrite_f(dset, H5T_NATIVE_INTEGER, wdata, dims, hdferr)
@@ -92,7 +92,9 @@ PROGRAM main
   ELSE IF (layout.EQ.H5D_CONTIGUOUS_F)THEN
      WRITE(*,'("H5D_CONTIGUOUS_F",/)')
   ELSE IF (layout.EQ.H5D_CHUNKED_F)THEN
-     WRITE(*,'("H5D_CHUNKED",/)')
+     WRITE(*,'("H5D_CHUNKED_F",/)')
+  ELSE
+     WRITE(*,'("H5D_LAYOUT_ERROR_F",/)')
   ENDIF
   !
   ! Read the data using the default properties.
@@ -113,5 +115,5 @@ PROGRAM main
   CALL h5pclose_f(dcpl , hdferr)
   CALL h5dclose_f(dset , hdferr)
   CALL h5fclose_f(file , hdferr)
-  
+
 END PROGRAM main
