@@ -119,7 +119,7 @@ PROGRAM main
   ELSE IF (layout.EQ.H5D_CHUNKED_F)THEN
      WRITE(*,'("H5D_CHUNKED_F",/)')
   ELSE
-     WRITE(*,'("H5D_LAYOUT_ERROR_F",/)')
+     WRITE(*,'("Layout Error",/)')
   ENDIF
   !
   ! Read the data using the default properties.
