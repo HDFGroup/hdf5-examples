@@ -27,7 +27,7 @@ PROGRAM main
                           !   H5G_STORAGE_TYPE_DENSE: Indexed storage
                           !   H5G_STORAGE_TYPE_SYMBOL_TABLE: Symbol tables
   INTEGER :: nlinks       ! Number of links in group
-  INTEGER :: max_corder   ! Current maximum creation order value for group 
+  INTEGER :: max_corder   ! Current maximum creation order value for group
   INTEGER(HSIZE_T) :: size
   !
   ! Initialize FORTRAN interface.
@@ -91,6 +91,8 @@ PROGRAM main
      WRITE(*,'("H5G_STORAGE_TYPE_DENSE_F")') ! New dense (indexed) format
   ELSE IF(storage_type.EQ.H5G_STORAGE_TYPE_SYMBOL_TABLE_F)THEN
      WRITE(*,'("H5G_STORAGE_TYPE_SYMBOL_TABLE_F")') ! Original format
+  ELSE IF(storage_type.EQ.H5G_STORAGE_TYPE_UNKNOWN_F)THEN
+     WRITE(*,'("H5G_STORAGE_TYPE_UNKNOWN_F")') ! Unknown format
   ENDIF
   !
   ! Close and re-open file.  Needed to get the correct file size.

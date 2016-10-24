@@ -129,6 +129,8 @@ PROGRAM main
         WRITE(*,'("Dataset")', ADVANCE="NO")
      ELSE IF(objtype.EQ.H5G_TYPE_F)THEN
         WRITE(*,'("Named Datatype")', ADVANCE="NO")
+     ELSE
+        WRITE(*,'("Unknown")', ADVANCE="NO")
      ENDIF
      CALL h5oclose_f(obj, hdferr)
      !

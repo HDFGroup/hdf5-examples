@@ -32,7 +32,7 @@ PROGRAM main
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: dims = (/dim0, dim1/), chunk = (/chunk0,chunk1/)
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: start, stride, count, block
 
-  INTEGER, DIMENSION(1:dim0, 1:dim1) :: wdata, & ! Write buffer 
+  INTEGER, DIMENSION(1:dim0, 1:dim1) :: wdata, & ! Write buffer
                                         rdata    ! Read buffer
   INTEGER :: i, j
   !
@@ -67,11 +67,11 @@ PROGRAM main
   CALL h5pset_chunk_f(dcpl, 2, chunk, hdferr)
   !
   ! Create the chunked dataset.
-  !  
+  !
   CALL h5dcreate_f(file, dataset, H5T_STD_I32LE, space, dset, hdferr, dcpl)
   !
   ! Define and select the first part of the hyperslab selection.
-  ! 
+  !
   start = 0
   stride = 3
   count(1:2) = (/2,3/)
@@ -105,7 +105,7 @@ PROGRAM main
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
   CALL h5dopen_f (file, dataset, dset, hdferr)
-  ! 
+  !
   ! Retrieve the dataset creation property list, and print the
   ! storage layout.
   !
@@ -117,7 +117,11 @@ PROGRAM main
   ELSE IF (layout.EQ.H5D_CONTIGUOUS_F)THEN
      WRITE(*,'("H5D_CONTIGUOUS_F",/)')
   ELSE IF (layout.EQ.H5D_CHUNKED_F)THEN
-     WRITE(*,'("H5D_CHUNKED",/)')
+     WRITE(*,'("H5D_CHUNKED_F",/)')
+  ELSE IF (layout.EQ.H5D_VIRTUAL_F)THEN
+     WRITE(*,'("H5D_VIRTUAL_F",/)')
+  ELSE
+     WRITE(*,'("Layout Error",/)')
   ENDIF
   !
   ! Read the data using the default properties.
@@ -144,7 +148,7 @@ PROGRAM main
   stride = 4
   count = 2
   block(1:2) = (/2,3/)
- 
+
   CALL h5sselect_hyperslab_f (space, H5S_SELECT_SET_F, start, count, &
        hdferr, stride, block)
   !

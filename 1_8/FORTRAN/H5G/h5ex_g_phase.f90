@@ -60,7 +60,7 @@ PROGRAM main
      ! Define the subgroup name and create the subgroup.
      !
      WRITE(name,'(A,I1)') "G",i ! G1, G2, G3 etc.
-     
+
      CALL h5gcreate_f(group, name, subgroup, hdferr)
      CALL h5gclose_f(subgroup, hdferr)
      !
@@ -73,7 +73,9 @@ PROGRAM main
      ELSE IF(storage_type.EQ.H5G_STORAGE_TYPE_DENSE_F)THEN
         WRITE(*,'("H5G_STORAGE_TYPE_DENSE_F")') ! New dense (indexed) format
      ELSE IF(storage_type.EQ.H5G_STORAGE_TYPE_SYMBOL_TABLE_F)THEN
-        WRITE(*,'("H5G_STORAGE_TYPE_SYMBOL_TABLE")') ! Original format
+        WRITE(*,'("H5G_STORAGE_TYPE_SYMBOL_TABLE_F")') ! Original format
+     ELSE IF(storage_type.EQ.H5G_STORAGE_TYPE_UNKNOWN_F)THEN
+        WRITE(*,'("H5G_STORAGE_TYPE_UNKNOWN_F")') ! Unknown format
      END IF
   ENDDO
   WRITE(*,'()')
@@ -102,7 +104,7 @@ PROGRAM main
   ENDDO
   !
   ! Close and release resources.
-  !  
+  !
   CALL h5pclose_f(fapl, hdferr)
   CALL h5pclose_f(gcpl, hdferr)
   CALL h5gclose_f(group, hdferr)

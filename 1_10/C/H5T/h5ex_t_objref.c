@@ -141,6 +141,10 @@ main (void)
                 break;
             case H5O_TYPE_NAMED_DATATYPE:
                 printf ("Named Datatype");
+                break;
+            case H5O_TYPE_UNKNOWN:
+            case H5O_TYPE_NTYPES:
+                printf ("Unknown");
         }
         status = H5Oclose (obj);
 
