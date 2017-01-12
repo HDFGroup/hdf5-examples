@@ -259,7 +259,7 @@ macro (HDF_README_PROPERTIES target_fortran)
   endif ()
 
   configure_file (
-      ${HDF_RESOURCES_DIR}/README.txt.cmake.in
+      ${HDF5EX_RESOURCES_DIR}/README.txt.cmake.in
       ${CMAKE_BINARY_DIR}/README.txt @ONLY
   )
 endmacro ()
