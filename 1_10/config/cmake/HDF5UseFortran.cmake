@@ -1,3 +1,4 @@
+include (${CMAKE_ROOT}/Modules/CheckIncludeFiles.cmake)
 
 ## Check for non-standard extenstion quadmath.h
 
