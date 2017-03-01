@@ -24,7 +24,7 @@
 # made to remove references to Qt and make this file more generally applicable
 #########################################################################
 
-MACRO (SZIP_ADJUST_LIB_VARS basename)
+macro (SZIP_ADJUST_LIB_VARS basename)
   if (${basename}_INCLUDE_DIR)
 
     # if only the release version was found, set the debug variable also to the release version
@@ -62,7 +62,7 @@ MACRO (SZIP_ADJUST_LIB_VARS basename)
 
   # Make variables changeble to the advanced user
   MARK_AS_ADVANCED (${basename}_LIBRARY ${basename}_LIBRARY_RELEASE ${basename}_LIBRARY_DEBUG ${basename}_INCLUDE_DIR )
-ENDMACRO ()
+endmacro ()
 
 
 # Look for the header file.
@@ -154,12 +154,6 @@ if (SZIP_FOUND)
   # Add SZIP_INCLUDE_DIR to CMAKE_REQUIRED_INCLUDES
   set (CMAKE_REQUIRED_INCLUDES "${CMAKE_REQUIRED_INCLUDES};${SZIP_INCLUDE_DIRS}")
 
-  CHECK_SYMBOL_EXISTS (SZIP_BUILT_AS_DYNAMIC_LIB "SZconfig.h" HAVE_SZIP_DLL)
-
-  if (HAVE_SZIP_DLL STREQUAL "TRUE")
-    set (HAVE_SZIP_DLL "1")
-  endif ()
-
   # Restore CMAKE_REQUIRED_INCLUDES and CMAKE_REQUIRED_FLAGS variables
   set (CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES_SAVE})
   set (CMAKE_REQUIRED_FLAGS    ${CMAKE_REQUIRED_FLAGS_SAVE})
@@ -172,6 +166,5 @@ if (FIND_SZIP_DEBUG)
   message (STATUS "SZIP_INCLUDE_DIRS: ${SZIP_INCLUDE_DIRS}")
   message (STATUS "SZIP_LIBRARY_DEBUG: ${SZIP_LIBRARY_DEBUG}")
   message (STATUS "SZIP_LIBRARY_RELEASE: ${SZIP_LIBRARY_RELEASE}")
-  message (STATUS "HAVE_SZIP_DLL: ${HAVE_SZIP_DLL}")
   message (STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 endif ()

@@ -57,6 +57,9 @@ set (CMAKE_Fortran_MODULE_DIRECTORY
 set (CMAKE_JAVA_TARGET_OUTPUT_DIR
     ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all java jars."
 )
+set (CMAKE_PDB_OUTPUT_DIRECTORY
+    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all pdb files."
+)
 
 #-----------------------------------------------------------------------------
 # When building utility executables that generate other (source) files :
