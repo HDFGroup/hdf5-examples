@@ -1,4 +1,5 @@
 include (${CMAKE_ROOT}/Modules/CheckIncludeFiles.cmake)
+include (${CMAKE_ROOT}/Modules/CheckFortranFunctionExists.cmake)
 
 ## Check for non-standard extenstion quadmath.h
 
@@ -71,7 +72,7 @@ endmacro ()
 
 # Read source line beginning at the line matching Input:"START" and ending at the line matching Input:"END"
 macro (READ_SOURCE START END RETURN)
-  file (READ "${HDF5_SOURCE_DIR}/m4/aclocal_fc.f90" CODE)
+  file (READ "${HDF5EX_RESOURCES_DIR}/aclocal_fc.f90" CODE)
   string (REGEX MATCH "${START}[\\\t\\\n\\\r[].+]*${END}" CODE ${CODE})
   set (RETURN "${CODE}")
 endmacro ()
