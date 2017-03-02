@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 macro (SET_GLOBAL_VARIABLE name value)
   set (${name} ${value} CACHE INTERNAL "Used to pass variables between directories" FORCE)
-endmacro (SET_GLOBAL_VARIABLE)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (IDE_GENERATED_PROPERTIES SOURCE_PATH HEADERS SOURCES)
@@ -14,7 +14,7 @@ macro (IDE_GENERATED_PROPERTIES SOURCE_PATH HEADERS SOURCES)
   #set_property (SOURCE ${HEADERS}
   #       PROPERTY MACOSX_PACKAGE_LOCATION Headers/${NAME}
   #)
-endmacro (IDE_GENERATED_PROPERTIES)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (IDE_SOURCE_PROPERTIES SOURCE_PATH HEADERS SOURCES)
@@ -31,45 +31,49 @@ macro (IDE_SOURCE_PROPERTIES SOURCE_PATH HEADERS SOURCES)
   #set_property (SOURCE ${HEADERS}
   #       PROPERTY MACOSX_PACKAGE_LOCATION Headers/${NAME}
   #)
-endmacro (IDE_SOURCE_PROPERTIES)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (TARGET_NAMING libtarget libtype)
   if (${libtype} MATCHES "SHARED")
     set_target_properties (${libtarget} PROPERTIES OUTPUT_NAME "${libtarget}${ARGN}")
   endif ()
-endmacro (TARGET_NAMING)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (INSTALL_TARGET_PDB libtarget targetdestination targetcomponent)
   if (WIN32 AND MSVC)
-    get_target_property (target_name ${libtarget} OUTPUT_NAME_RELWITHDEBINFO)
+    get_target_property (target_type ${libtarget} TYPE)
+    if (${libtype} MATCHES "SHARED")
+      set (targetfilename $<TARGET_PDB_FILE:${libtarget}>)
+    else ()
+      get_property (target_name TARGET ${libtarget} PROPERTY OUTPUT_NAME_RELWITHDEBINFO)
+      set (targetfilename $<TARGET_FILE_DIR:${libtarget}>/${target_name}.pdb)
+    endif ()
     install (
       FILES
-          ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/${CMAKE_IMPORT_LIBRARY_PREFIX}${target_name}.pdb
+          ${targetfilename}
       DESTINATION
           ${targetdestination}
       CONFIGURATIONS RelWithDebInfo
       COMPONENT ${targetcomponent}
   )
   endif ()
-endmacro (INSTALL_TARGET_PDB)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (INSTALL_PROGRAM_PDB progtarget targetdestination targetcomponent)
   if (WIN32 AND MSVC)
-    get_target_property (target_name ${progtarget} OUTPUT_NAME_RELWITHDEBINFO)
-    get_target_property (target_prefix ${progtarget} PREFIX)
     install (
       FILES
-          ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/${target_prefix}${target_name}.pdb
+          $<TARGET_PDB_FILE:${progtarget}>
       DESTINATION
           ${targetdestination}
       CONFIGURATIONS RelWithDebInfo
       COMPONENT ${targetcomponent}
   )
   endif ()
-endmacro (INSTALL_PROGRAM_PDB)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
@@ -81,7 +85,7 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
       set (LIB_RELEASE_NAME "${libname}")
       set (LIB_DEBUG_NAME "${libname}_debug")
     endif ()
-  else (${libtype} MATCHES "SHARED")
+  else ()
     if (WIN32)
       set (LIB_RELEASE_NAME "lib${libname}")
       set (LIB_DEBUG_NAME "lib${libname}_D")
@@ -89,7 +93,7 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
       set (LIB_RELEASE_NAME "${libname}")
       set (LIB_DEBUG_NAME "${libname}_debug")
     endif ()
-  endif (${libtype} MATCHES "SHARED")
+  endif ()
 
   set_target_properties (${libtarget}
       PROPERTIES
@@ -98,6 +102,18 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
       OUTPUT_NAME_MINSIZEREL     ${LIB_RELEASE_NAME}
       OUTPUT_NAME_RELWITHDEBINFO ${LIB_RELEASE_NAME}
   )
+  if (${libtype} MATCHES "STATIC")
+    if (WIN32)
+      set_target_properties (${libtarget}
+          PROPERTIES
+          COMPILE_PDB_NAME_DEBUG          ${LIB_DEBUG_NAME}
+          COMPILE_PDB_NAME_RELEASE        ${LIB_RELEASE_NAME}
+          COMPILE_PDB_NAME_MINSIZEREL     ${LIB_RELEASE_NAME}
+          COMPILE_PDB_NAME_RELWITHDEBINFO ${LIB_RELEASE_NAME}
+          COMPILE_PDB_OUTPUT_DIRECTORY    "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
+      )
+    endif ()
+  endif ()
 
   #----- Use MSVC Naming conventions for Shared Libraries
   if (MINGW AND ${libtype} MATCHES "SHARED")
@@ -108,8 +124,7 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
         PREFIX ""
     )
   endif ()
-
-endmacro (HDF_SET_LIB_OPTIONS)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (HDF_IMPORT_SET_LIB_OPTIONS libtarget libname libtype libversion)
@@ -135,9 +150,9 @@ macro (HDF_IMPORT_SET_LIB_OPTIONS libtarget libname libtype libversion)
         set_target_properties (${libtarget} PROPERTIES
             IMPORTED_IMPLIB "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/${CMAKE_IMPORT_LIBRARY_PREFIX}${IMPORT_LIB_NAME}${CMAKE_IMPORT_LIBRARY_SUFFIX}"
             IMPORTED_LOCATION "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/${CMAKE_IMPORT_LIBRARY_PREFIX}${IMPORT_LIB_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}"
-         )
+        )
       endif ()
-    else (WIN32)
+    else ()
       if (CYGWIN)
         set_target_properties (${libtarget} PROPERTIES
             IMPORTED_IMPLIB "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_IMPORT_LIBRARY_PREFIX}${IMPORT_LIB_NAME}${CMAKE_IMPORT_LIBRARY_SUFFIX}"
@@ -150,8 +165,8 @@ macro (HDF_IMPORT_SET_LIB_OPTIONS libtarget libname libtype libversion)
             SOVERSION "${libversion}"
         )
       endif ()
-    endif (WIN32)
-  else (${libtype} MATCHES "SHARED")
+    endif ()
+  else ()
     if (WIN32 AND NOT MINGW)
       set_target_properties (${libtarget} PROPERTIES
           IMPORTED_LOCATION "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}/${IMPORT_LIB_NAME}${CMAKE_STATIC_LIBRARY_SUFFIX}"
@@ -163,9 +178,8 @@ macro (HDF_IMPORT_SET_LIB_OPTIONS libtarget libname libtype libversion)
           IMPORTED_LINK_INTERFACE_LANGUAGES "C"
       )
     endif ()
-  endif (${libtype} MATCHES "SHARED")
-
-endmacro (HDF_IMPORT_SET_LIB_OPTIONS)
+  endif ()
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (TARGET_C_PROPERTIES wintarget libtype addcompileflags addlinkflags)
@@ -174,21 +188,21 @@ macro (TARGET_C_PROPERTIES wintarget libtype addcompileflags addlinkflags)
   else ()
     set_target_properties (${wintarget} PROPERTIES COMPILE_FLAGS "${addcompileflags}" LINK_FLAGS "${addlinkflags}")
   endif ()
-endmacro (TARGET_C_PROPERTIES)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (TARGET_MSVC_PROPERTIES wintarget libtype addcompileflags addlinkflags)
   if (MSVC)
     set_target_properties (${wintarget} PROPERTIES COMPILE_FLAGS "${addcompileflags}" LINK_FLAGS "${addlinkflags}")
   endif ()
-endmacro (TARGET_MSVC_PROPERTIES)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (TARGET_FORTRAN_PROPERTIES forttarget libtype addcompileflags addlinkflags)
   if (WIN32)
     TARGET_FORTRAN_WIN_PROPERTIES (${forttarget} ${libtype} "${addcompileflags} ${WIN_COMPILE_FLAGS}" "${addlinkflags} ${WIN_LINK_FLAGS}")
   endif ()
-endmacro (TARGET_FORTRAN_PROPERTIES)
+endmacro ()
 
 #-------------------------------------------------------------------------------
 macro (TARGET_FORTRAN_WIN_PROPERTIES forttarget libtype addcompileflags addlinkflags)
@@ -199,7 +213,7 @@ macro (TARGET_FORTRAN_WIN_PROPERTIES forttarget libtype addcompileflags addlinkf
       set_target_properties (${forttarget} PROPERTIES COMPILE_FLAGS "${addcompileflags}" LINK_FLAGS "/SUBSYSTEM:CONSOLE ${addlinkflags}")
     endif ()
   endif ()
-endmacro (TARGET_FORTRAN_WIN_PROPERTIES)
+endmacro ()
 
 #-----------------------------------------------------------------------------
 # Configure the README.txt file for the binary package
@@ -221,7 +235,7 @@ macro (HDF_README_PROPERTIES target_fortran)
       set (BINARY_PLATFORM "${BINARY_PLATFORM} 8")
     elseif (${CMAKE_SYSTEM_VERSION} MATCHES "6.3")
       set (BINARY_PLATFORM "${BINARY_PLATFORM} 10")
-    endif (${CMAKE_SYSTEM_VERSION} MATCHES "6.1")
+    endif ()
     set (BINARY_PLATFORM "${BINARY_PLATFORM} ${MSVC_C_ARCHITECTURE_ID}")
     if (${CMAKE_C_COMPILER_VERSION} MATCHES "16.*")
       set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2010")
@@ -233,20 +247,20 @@ macro (HDF_README_PROPERTIES target_fortran)
       set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2013")
     elseif (${CMAKE_C_COMPILER_VERSION} MATCHES "19.*")
       set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2015")
-    else (${CMAKE_C_COMPILER_VERSION} MATCHES "16.*")
+    else ()
       set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO ${CMAKE_C_COMPILER_VERSION}")
-    endif (${CMAKE_C_COMPILER_VERSION} MATCHES "16.*")
+    endif ()
   elseif (APPLE)
     set (BINARY_EXAMPLE_ENDING "tar.gz")
     set (BINARY_INSTALL_ENDING "dmg")
     set (BINARY_PLATFORM "${BINARY_PLATFORM} ${CMAKE_SYSTEM_VERSION} ${CMAKE_SYSTEM_PROCESSOR}")
     set (BINARY_PLATFORM "${BINARY_PLATFORM}, using ${CMAKE_C_COMPILER_ID} C ${CMAKE_C_COMPILER_VERSION}")
-  else (WIN32)
+  else ()
     set (BINARY_EXAMPLE_ENDING "tar.gz")
     set (BINARY_INSTALL_ENDING "sh")
     set (BINARY_PLATFORM "${BINARY_PLATFORM} ${CMAKE_SYSTEM_VERSION} ${CMAKE_SYSTEM_PROCESSOR}")
     set (BINARY_PLATFORM "${BINARY_PLATFORM}, using ${CMAKE_C_COMPILER_ID} C ${CMAKE_C_COMPILER_VERSION}")
-  endif (WIN32)
+  endif ()
 
   if (target_fortran)
     set (BINARY_PLATFORM "${BINARY_PLATFORM} / ${CMAKE_Fortran_COMPILER_ID} Fortran")
@@ -262,4 +276,14 @@ macro (HDF_README_PROPERTIES target_fortran)
       ${HDF5EX_RESOURCES_DIR}/README.txt.cmake.in
       ${CMAKE_BINARY_DIR}/README.txt @ONLY
   )
-endmacro (HDF_README_PROPERTIES)
+endmacro ()
+
+macro (HDFTEST_COPY_FILE src dest target)
+    add_custom_command(
+        OUTPUT  "${dest}"
+        COMMAND "${CMAKE_COMMAND}"
+        ARGS     -E copy_if_different "${src}" "${dest}"
+        DEPENDS "${src}"
+    )
+    list (APPEND ${target}_list "${dest}")
+endmacro ()

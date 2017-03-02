@@ -41,11 +41,20 @@ if (BUILD_TESTING)
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
-            ${testname}.out
-            ${testname}.out.err
             ${testname}.h5
     )
-    ADD_TEST ( NAME f90_${testname} COMMAND $<TARGET_FILE:f90_${testname}>)
+    ADD_TEST (
+        NAME f90_${testname}
+        COMMAND "${CMAKE_COMMAND}"
+            -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
+            -D "TEST_ARGS:STRING="
+            -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
+            -D "TEST_EXPECT=0"
+            -D "TEST_SKIP_COMPARE=TRUE"
+            -D "TEST_OUTPUT=${testname}.out"
+            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
+            -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
+    )
     set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
       ADD_TEST (
@@ -57,6 +66,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
@@ -64,15 +74,6 @@ if (BUILD_TESTING)
   endmacro (ADD_DUMP_TEST)
 
   macro (ADD_H5_DUMP_TEST testname)
-    ADD_TEST (
-        NAME f90_${testname}-clearall
-        COMMAND    ${CMAKE_COMMAND}
-            -E remove
-            ${testname}.out
-            ${testname}.out.err
-            ${testname}.ddl.out
-            ${testname}.ddl.out.err
-    )
     ADD_TEST (
         NAME f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
@@ -82,9 +83,9 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
+            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
-    set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
       ADD_TEST (
           NAME H5DUMP-f90_${testname}
@@ -95,6 +96,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
@@ -106,17 +108,22 @@ if (BUILD_TESTING)
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
-            ${testname}.out
-            ${testname}.out.err
-            ${testname}1.ddl.out
-            ${testname}1.ddl.out.err
             ${testname}1.h5
-            ${testname}2.ddl.out
-            ${testname}2.ddl.out.err
             ${testname}2.h5
     )
     if (${ARGN} STREQUAL "NULL")
-      ADD_TEST (NAME f90_${testname} COMMAND $<TARGET_FILE:f90_${testname}>)
+      ADD_TEST (
+          NAME f90_${testname}
+          COMMAND "${CMAKE_COMMAND}"
+              -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
+              -D "TEST_ARGS:STRING="
+              -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
+              -D "TEST_EXPECT=0"
+              -D "TEST_SKIP_COMPARE=TRUE"
+              -D "TEST_OUTPUT=${testname}.out"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
+              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
+      )
     else ()
       ADD_TEST (
           NAME f90_${testname}
@@ -127,6 +134,7 @@ if (BUILD_TESTING)
               -D "TEST_EXPECT=0"
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_REFERENCE=${testname}.tst"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
@@ -141,6 +149,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}1.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}1.ddl"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-f90_${testname}1 PROPERTIES DEPENDS f90_${testname})
@@ -153,6 +162,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}2.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}2.ddl"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-f90_${testname}2 PROPERTIES DEPENDS H5DUMP-f90_${testname}1)
@@ -160,13 +170,6 @@ if (BUILD_TESTING)
   endmacro (ADD_H5_DUMP2_TEST)
 
   macro (ADD_H5_CMP_TEST testname)
-    ADD_TEST (
-        NAME f90_${testname}-clearall
-        COMMAND    ${CMAKE_COMMAND}
-            -E remove
-            ${testname}.out
-            ${testname}.out.err
-    )
     ADD_TEST (
         NAME f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
@@ -176,9 +179,9 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
+            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
-    set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
   endmacro (ADD_H5_CMP_TEST testname)
 
   if (HDF5_BUILD_TOOLS)

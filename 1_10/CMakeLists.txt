@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1.0)
+cmake_minimum_required (VERSION 3.2.2)
 project (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
@@ -56,6 +56,9 @@ set (CMAKE_Fortran_MODULE_DIRECTORY
 )
 set (CMAKE_JAVA_TARGET_OUTPUT_DIR
     ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all java jars."
+)
+set (CMAKE_PDB_OUTPUT_DIRECTORY
+    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all pdb files."
 )
 
 #-----------------------------------------------------------------------------
@@ -200,6 +203,11 @@ if (HDF_BUILD_FORTRAN)
   INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR_FORTRAN})
 endif ()
 message (STATUS "HDF5 link libs: ${LINK_LIBS}")
+if (WIN32)
+  set(CMAKE_TEST_LIB_DIRECTORY "${HDF5_TOOLS_DIR}")
+else ()
+  set(CMAKE_TEST_LIB_DIRECTORY "${HDF5_LIBRARY_PATH}")
+endif ()
 
 #-----------------------------------------------------------------------------
 # Option to use Shared/Static libs, default is static
@@ -334,6 +342,7 @@ set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
 if (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/FORTRAN")
   option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
   if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
+    include (${HDF5EX_RESOURCES_DIR}/HDFUseFortran.cmake)
     include (${HDF5EX_RESOURCES_DIR}/HDF5UseFortran.cmake)
     add_subdirectory (${PROJECT_SOURCE_DIR}/FORTRAN ${PROJECT_BINARY_DIR}/FORTRAN)
   endif ()

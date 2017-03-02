@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1.0)
+cmake_minimum_required (VERSION 3.2.2)
 project (HDFJAVAExamples_NATIVE Java)
 
 set (CMAKE_VERBOSE_MAKEFILE 1)

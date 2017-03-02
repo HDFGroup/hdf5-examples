@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1.0)
+cmake_minimum_required (VERSION 3.2.2)
 project (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
@@ -132,7 +132,7 @@ if (NOT HDF5_HDF5_HEADER)
       else ()
         set_property (TARGET hdf5::h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
       endif ()
-    else (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
+    else ()
       if (BUILD_SHARED_LIBS AND HDF5_shared_C_FOUND)
         set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_SHARED_LIBRARY})
       else ()
@@ -168,6 +168,11 @@ if (HDF_BUILD_FORTRAN)
   INCLUDE_DIRECTORIES (${HDF5_INCLUDE_DIR_FORTRAN})
 endif ()
 message (STATUS "HDF5 link libs: ${LINK_LIBS}")
+if (WIN32)
+  set(CMAKE_TEST_LIB_DIRECTORY "${HDF5_TOOLS_DIR}")
+else ()
+  set(CMAKE_TEST_LIB_DIRECTORY "${HDF5_LIBRARY_PATH}")
+endif ()
 
 #-----------------------------------------------------------------------------
 # Option to use Shared/Static libs, default is static
