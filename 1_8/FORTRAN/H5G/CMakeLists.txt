@@ -46,7 +46,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
-            -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>
+            -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
             -D "TEST_ARGS:STRING="
             -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
             -D "TEST_EXPECT=0"
@@ -115,7 +115,7 @@ if (BUILD_TESTING)
       ADD_TEST (
           NAME f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>
+              -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
               -D "TEST_ARGS:STRING="
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_EXPECT=0"

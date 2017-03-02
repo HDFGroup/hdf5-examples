@@ -32,7 +32,7 @@ if (BUILD_TESTING)
     ADD_TEST (
         NAME ${testname}
         COMMAND "${CMAKE_COMMAND}"
-            -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>
+            -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
             -D "TEST_ARGS:STRING="
             -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
             -D "TEST_EXPECT=0"
