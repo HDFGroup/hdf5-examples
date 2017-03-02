@@ -47,10 +47,6 @@ if (BUILD_TESTING)
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
-            ${testname}.out
-            ${testname}.out.err
-            ${testname}.ddl.out
-            ${testname}.ddl.out.err
             ${testname}.h5
     )
     ADD_TEST (
@@ -62,6 +58,7 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
+            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
@@ -75,6 +72,7 @@ if (BUILD_TESTING)
               -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${testname}.ddl"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
@@ -86,8 +84,6 @@ if (BUILD_TESTING)
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
-            ${testname}.out
-            ${testname}.out.err
             ${testname}.h5
     )
     ADD_TEST (
@@ -99,6 +95,7 @@ if (BUILD_TESTING)
             -D "TEST_EXPECT=0"
             -D "TEST_OUTPUT=${testname}.out"
             -D "TEST_REFERENCE=${testname}.tst"
+            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
