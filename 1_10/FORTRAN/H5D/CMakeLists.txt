@@ -18,44 +18,26 @@ INCLUDE_DIRECTORIES (
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
-set (examples
-    h5ex_d_alloc
-    h5ex_d_checksum
-    h5ex_d_chunk
-    h5ex_d_compact
-    h5ex_d_extern
-    h5ex_d_fillval
-    h5ex_d_gzip
-    h5ex_d_hyper
-#    h5ex_d_nbit
-    h5ex_d_rdwr
-#    h5ex_d_soint
-#    h5ex_d_szip
-    h5ex_d_transform
-    h5ex_d_unlimmod
-#    h5ex_d_shuffle
-#    h5ex_d_sofloat
-#    h5ex_d_unlimadd
-#    h5ex_d_unlimgzip
-)
+include (Fortran_sourcefiles.cmake)
 
 foreach (example ${examples})
-  add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
-  TARGET_NAMING (f90_${example} ${LIB_TYPE})
-  TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} ${LIB_TYPE} "" "")
-  target_link_libraries (f90_${example} ${LINK_LIBS})
-  set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
-endforeach (example ${examples})
+  get_filename_component (example_name ${example} NAME_WE)
+  add_executable (f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+  TARGET_NAMING (f90_${example_name} ${LIB_TYPE})
+  TARGET_FORTRAN_WIN_PROPERTIES (f90_${example_name} ${LIB_TYPE} "" "")
+  target_link_libraries (f90_${example_name} ${LINK_LIBS})
+  set_target_properties (f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
+endforeach ()
 
 if (BUILD_TESTING)
   macro (ADD_H5_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}.h5
     )
-    ADD_TEST (
+    add_test (
         NAME f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
@@ -69,7 +51,7 @@ if (BUILD_TESTING)
     )
     set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -83,30 +65,31 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     endif ()
-  endmacro (ADD_H5_TEST)
+  endmacro ()
 
   foreach (example ${examples})
-    set (testdest "${PROJECT_BINARY_DIR}/${example}")
-    #message (STATUS " Copying ${example}.test")
+    get_filename_component (example_name ${example} NAME_WE)
+    set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
+    #message (STATUS " Copying ${example_name}.test")
     add_custom_command (
         TARGET     f90_${example}
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.tst ${testdest}.tst
     )
     if (HDF5_BUILD_TOOLS)
       add_custom_command (
           TARGET     f90_${example}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.ddl ${testdest}.ddl
       )
     endif ()
 
-    if (${example} STREQUAL "h5ex_d_transform")
-      ADD_H5_TEST (${example} -n)
+    if (${example_name} STREQUAL "h5ex_d_transform")
+      ADD_H5_TEST (${example_name} -n)
     else ()
-      ADD_H5_TEST (${example})
+      ADD_H5_TEST (${example_name})
     endif ()
-  endforeach (example ${examples})
-endif (BUILD_TESTING)
+  endforeach ()
+endif ()

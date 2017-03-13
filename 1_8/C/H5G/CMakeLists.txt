@@ -4,32 +4,24 @@ PROJECT (HDF5Examples_C_H5G)
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
-set (examples
-    h5ex_g_compact
-    h5ex_g_corder
-    h5ex_g_create
-    h5ex_g_phase
-    h5ex_g_iterate
-    h5ex_g_traverse
-    h5ex_g_intermediate
-    h5ex_g_visit
-)
+include (C_sourcefiles.cmake)
 
 foreach (example ${examples})
-  add_executable (${example} ${PROJECT_SOURCE_DIR}/${example}.c)
-  TARGET_NAMING (${example} ${LIB_TYPE})
-  target_link_libraries (${example} ${LINK_LIBS})
-endforeach (example ${examples})
+  get_filename_component (example_name ${example} NAME_WE)
+  add_executable (${example_name} ${PROJECT_SOURCE_DIR}/${example})
+  TARGET_NAMING (${example_name} ${LIB_TYPE})
+  target_link_libraries (${example_name} ${LINK_LIBS})
+endforeach ()
 
 if (BUILD_TESTING)
   macro (ADD_DUMP_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}.h5
     )
-    ADD_TEST (
+    add_test (
         NAME ${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
@@ -43,7 +35,7 @@ if (BUILD_TESTING)
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -57,10 +49,10 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
     endif ()
-  endmacro (ADD_DUMP_TEST)
+  endmacro ()
 
   macro (ADD_H5_DUMP_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME ${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
@@ -73,7 +65,7 @@ if (BUILD_TESTING)
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -87,17 +79,17 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
     endif ()
-  endmacro (ADD_H5_DUMP_TEST)
+  endmacro ()
 
   macro (ADD_H5_DUMP2_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}1.h5
             ${testname}2.h5
     )
-    ADD_TEST (
+    add_test (
         NAME ${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
@@ -111,7 +103,7 @@ if (BUILD_TESTING)
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-${testname}1
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -124,7 +116,7 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-${testname}1 PROPERTIES DEPENDS ${testname})
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-${testname}2
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -138,16 +130,16 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-${testname}2 PROPERTIES DEPENDS H5DUMP-${testname}1)
     endif ()
-  endmacro (ADD_H5_DUMP2_TEST)
+  endmacro ()
 
   macro (ADD_H5_CMP_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}.out.tmp
     )
-    ADD_TEST (
+    add_test (
         NAME ${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
@@ -160,7 +152,7 @@ if (BUILD_TESTING)
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
-  endmacro (ADD_H5_CMP_TEST testname)
+  endmacro ()
 
   #message (STATUS " Copying h5ex_g_compact.test")
   add_custom_command (
@@ -206,7 +198,7 @@ if (BUILD_TESTING)
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
     )
-  endforeach (example ${exrefs})
+  endforeach ()
 
   set (exfiles
       h5ex_g_iterate
@@ -220,7 +212,7 @@ if (BUILD_TESTING)
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
     )
-  endforeach (example ${exfiles})
+  endforeach ()
 
   ADD_H5_DUMP2_TEST (h5ex_g_compact)
   ADD_DUMP_TEST (h5ex_g_create)
@@ -231,4 +223,4 @@ if (BUILD_TESTING)
   ADD_H5_CMP_TEST (h5ex_g_intermediate)
   ADD_H5_CMP_TEST (h5ex_g_visit)
 
-endif (BUILD_TESTING)
+endif ()
