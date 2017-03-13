@@ -72,14 +72,14 @@ if (BUILD_TESTING)
     set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
     #message (STATUS " Copying ${example_name}.test")
     add_custom_command (
-        TARGET     f90_${example}
+        TARGET     f90_${example_name}
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
         ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.tst ${testdest}.tst
     )
     if (HDF5_BUILD_TOOLS)
       add_custom_command (
-          TARGET     f90_${example}
+          TARGET     f90_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
           ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.ddl ${testdest}.ddl
