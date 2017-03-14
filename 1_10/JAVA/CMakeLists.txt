@@ -9,41 +9,37 @@ INCLUDE_DIRECTORIES (
     ${JAVA_INCLUDE_PATH2}
 )
 
-set (HDF_JAVA_EXAMPLES
-    HDF5FileCreate
-    HDF5GroupCreate
-    HDF5DatasetCreate
-    HDF5AttributeCreate
-    HDF5DatasetRead
-    HDF5FileStructure
-    HDF5SubsetSelect
-)
+#-----------------------------------------------------------------------------
+# Define Sources
+#-----------------------------------------------------------------------------
+include (Java_sourcefiles.cmake)
 
 if (WIN32 AND NOT CYGWIN)
   set (CMAKE_JAVA_INCLUDE_FLAG_SEP ";")
-else (WIN32 AND NOT CYGWIN)
+else ()
   set (CMAKE_JAVA_INCLUDE_FLAG_SEP ":")
-endif (WIN32 AND NOT CYGWIN)
+endif ()
 
 set (CMAKE_JAVA_CLASSPATH ".")
 foreach (CMAKE_INCLUDE_PATH ${CMAKE_JAVA_INCLUDE_PATH})
   set (CMAKE_JAVA_CLASSPATH "${CMAKE_JAVA_CLASSPATH}${CMAKE_JAVA_INCLUDE_FLAG_SEP}${CMAKE_INCLUDE_PATH}")
-endforeach (CMAKE_INCLUDE_PATH)
+endforeach ()
 
 foreach (HCP_JAR ${CMAKE_JAVA_INCLUDE_PATH})
   get_filename_component (_HCP_FILE ${HCP_JAR} NAME)
   set (HDFJAVA_CLASSJARS "${_HCP_FILE} ${HDFJAVA_CLASSJARS}")
-endforeach (HCP_JAR ${CMAKE_JAVA_INCLUDE_PATH})
+endforeach ()
 
 foreach (example ${HDF_JAVA_EXAMPLES})
+  get_filename_component (example_name ${example} NAME_WE)
   file (WRITE ${PROJECT_BINARY_DIR}/Manifest.txt
-  "Main-Class: ${example}
+  "Main-Class: ${example_name}
 Class-Path: ${HDFJAVA_CLASSJARS}
 "
   )
-  ADD_JAR (${example} SOURCES ${example}.java MANIFEST ${PROJECT_BINARY_DIR}/Manifest.txt)
-  get_target_property (${example}_JAR_FILE ${example} JAR_FILE)
-endforeach (example ${HDF_JAVA_EXAMPLES})
+  ADD_JAR (${example_name} SOURCES ${example} MANIFEST ${PROJECT_BINARY_DIR}/Manifest.txt)
+  get_target_property (${example_name}_JAR_FILE ${example_name} JAR_FILE)
+endforeach ()
 
 if (BUILD_TESTING)
   macro (ADD_H5_TEST resultfile resultcode)
@@ -64,32 +60,33 @@ if (BUILD_TESTING)
     )
     if (NOT "${last_test}" STREQUAL "")
       set_tests_properties (jnative-h5-${resultfile} PROPERTIES DEPENDS ${last_test})
-    endif (NOT "${last_test}" STREQUAL "")
+    endif ()
     set (last_test "jnative-h5-${resultfile}")
-  endmacro (ADD_H5_TEST file)
+  endmacro ()
 
   foreach (example ${HDF_JAVA_EXAMPLES})
+    get_filename_component (example_name ${example} NAME_WE)
     add_test (
-        NAME jnative-h5-${example}-clearall-objects
+        NAME jnative-h5-${example_name}-clearall-objects
         COMMAND    ${CMAKE_COMMAND}
             -E remove
-            ${HDFJAVAExamples_NATIVE_BINARY_DIR}/${example}.h5
-            ${example}.out
-            ${example}.out.err
+            ${HDFJAVAExamples_NATIVE_BINARY_DIR}/${example_name}.h5
+            ${example_name}.out
+            ${example_name}.out.err
     )
     if (NOT "${last_test}" STREQUAL "")
-      set_tests_properties (jnative-h5-${example}-clearall-objects PROPERTIES DEPENDS ${last_test})
-    endif (NOT "${last_test}" STREQUAL "")
+      set_tests_properties (jnative-h5-${example_name}-clearall-objects PROPERTIES DEPENDS ${last_test})
+    endif ()
     add_test (
-        NAME jnative-h5-${example}-copy-objects
+        NAME jnative-h5-${example_name}-copy-objects
         COMMAND    ${CMAKE_COMMAND}
             -E copy_if_different
-            ${HDFJAVAExamples_NATIVE_SOURCE_DIR}/testfiles/${example}.txt
-            ${HDFJAVAExamples_NATIVE_BINARY_DIR}/${example}.txt
+            ${HDFJAVAExamples_NATIVE_SOURCE_DIR}/testfiles/${example_name}.txt
+            ${HDFJAVAExamples_NATIVE_BINARY_DIR}/${example_name}.txt
     )
-    set_tests_properties (jnative-h5-${example}-copy-objects PROPERTIES DEPENDS jnative-h5-${example}-clearall-objects)
-    set (last_test "jnative-h5-${example}-copy-objects")
-    ADD_H5_TEST (${example} 0)
-  endforeach (example ${HDF_JAVA_EXAMPLES})
+    set_tests_properties (jnative-h5-${example_name}-copy-objects PROPERTIES DEPENDS jnative-h5-${example_name}-clearall-objects)
+    set (last_test "jnative-h5-${example_name}-copy-objects")
+    ADD_H5_TEST (${example_name} 0)
+  endforeach ()
 
-endif (BUILD_TESTING)
+endif ()

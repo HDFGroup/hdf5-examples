@@ -4,44 +4,24 @@ PROJECT (HDF5Examples_C_H5D)
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
-set (examples
-    h5ex_d_alloc
-    h5ex_d_checksum
-    h5ex_d_chunk
-    h5ex_d_compact
-    h5ex_d_extern
-    h5ex_d_fillval
-    h5ex_d_gzip
-    h5ex_d_hyper
-    h5ex_d_nbit
-    h5ex_d_rdwr
-    h5ex_d_soint
-    h5ex_d_transform
-    h5ex_d_unlimmod
-    h5ex_d_shuffle
-    h5ex_d_sofloat
-    h5ex_d_unlimadd
-    h5ex_d_unlimgzip
-)
-if (HDF5_ENABLE_SZIP_SUPPORT)
-  set (examples ${examples} h5ex_d_szip)
-endif ()
+include (C_sourcefiles.cmake)
 
 foreach (example ${examples})
-  add_executable (${example} ${PROJECT_SOURCE_DIR}/${example}.c)
-  TARGET_NAMING (${example} ${LIB_TYPE})
-  target_link_libraries (${example} ${LINK_LIBS})
-endforeach (example ${examples})
+  get_filename_component (example_name ${example} NAME_WE)
+  add_executable (${example_name} ${PROJECT_SOURCE_DIR}/${example})
+  TARGET_NAMING (${example_name} ${LIB_TYPE})
+  target_link_libraries (${example_name} ${LINK_LIBS})
+endforeach ()
 
 if (BUILD_TESTING)
   macro (ADD_H5_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME ${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}.h5
     )
-    ADD_TEST (
+    add_test (
         NAME ${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
@@ -55,7 +35,7 @@ if (BUILD_TESTING)
     )
     set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -69,30 +49,31 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
     endif ()
-  endmacro (ADD_H5_TEST)
+  endmacro ()
 
   foreach (example ${examples})
-    set (testdest "${PROJECT_BINARY_DIR}/${example}")
-    #message (STATUS " Copying ${example}.test")
+    get_filename_component (example_name ${example} NAME_WE)
+    set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
+    #message (STATUS " Copying ${example_name}.test")
     add_custom_command (
-        TARGET     ${example}
+        TARGET     ${example_name}
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.tst ${testdest}.tst
     )
     if (HDF5_BUILD_TOOLS)
       add_custom_command (
-          TARGET     ${example}
+          TARGET     ${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.ddl ${testdest}.ddl
       )
     endif ()
 
-    if (${example} STREQUAL "h5ex_d_transform")
-      ADD_H5_TEST (${example} -n)
+    if (${example_name} STREQUAL "h5ex_d_transform")
+      ADD_H5_TEST (${example_name} -n)
     else ()
-      ADD_H5_TEST (${example})
+      ADD_H5_TEST (${example_name})
     endif ()
-  endforeach (example ${examples})
-endif (BUILD_TESTING)
+  endforeach ()
+endif ()

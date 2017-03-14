@@ -399,4 +399,4 @@ if (PACK_EXAMPLE_SOURCE)
       GROUP Development
       INSTALL_TYPES Full
   )
-endif (PACK_EXAMPLE_SOURCE)
+endif ()

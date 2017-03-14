@@ -20,4 +20,4 @@ set (HDF5_PACKAGE_NAME "hdf5" CACHE STRING "Name of HDF5 package" FORCE)
 
 set (PACK_EXAMPLE_SOURCE ON CACHE BOOL "Package the source" FORCE)
 
-set (CPACK_PACKAGE_VERSION "1.10.4" CACHE STRING "Version of HDF5 source package" FORCE)
+set (CPACK_PACKAGE_VERSION "1.10.5" CACHE STRING "Version of HDF5 source package" FORCE)

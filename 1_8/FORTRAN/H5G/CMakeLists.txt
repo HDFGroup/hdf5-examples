@@ -4,46 +4,37 @@ PROJECT (HDF5Examples_FORTRAN_H5G C CXX Fortran)
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
-set (f03examples
-    h5ex_g_iterate_F03
-    h5ex_g_visit_F03
-    h5ex_g_traverse_F03
-)
+include (Fortran_sourcefiles.cmake)
 
-set (examples
-    h5ex_g_compact
-    h5ex_g_corder
-    h5ex_g_create
-    h5ex_g_phase
-)
-
-if (HDF_ENABLE_F2003)
-  foreach (example ${f03examples})
-    add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
-    TARGET_NAMING (f90_${example} ${LIB_TYPE})
-    TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} ${LIB_TYPE} "" "")
-    target_link_libraries (f90_${example} ${LINK_LIBS})
-    set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
-  endforeach (example ${f03examples})
-endif ()
+#if (HDF_ENABLE_F2003)
+#  foreach (example ${f03examples})
+#    get_filename_component (example_name ${example} NAME_WE)
+#    add_executable (f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+#    TARGET_NAMING (f90_${example_name} ${LIB_TYPE})
+#    TARGET_FORTRAN_WIN_PROPERTIES (f90_${example_name} ${LIB_TYPE} "" "")
+#    target_link_libraries (f90_${example_name} ${LINK_LIBS})
+#    set_target_properties (f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
+#  endforeach (example ${f03examples})
+#endif ()
 
 foreach (example ${examples})
-  add_executable (f90_${example} ${PROJECT_SOURCE_DIR}/${example}.f90)
-  TARGET_NAMING (f90_${example} ${LIB_TYPE})
-  TARGET_FORTRAN_WIN_PROPERTIES (f90_${example} ${LIB_TYPE} "" "")
-  target_link_libraries (f90_${example} ${LINK_LIBS})
-  set_target_properties (f90_${example} PROPERTIES LINKER_LANGUAGE Fortran)
-endforeach (example ${examples})
+  get_filename_component (example_name ${example} NAME_WE)
+  add_executable (f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+  TARGET_NAMING (f90_${example_name} ${LIB_TYPE})
+  TARGET_FORTRAN_WIN_PROPERTIES (f90_${example_name} ${LIB_TYPE} "" "")
+  target_link_libraries (f90_${example_name} ${LINK_LIBS})
+  set_target_properties (f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
+endforeach ()
 
 if (BUILD_TESTING)
   macro (ADD_DUMP_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}.h5
     )
-    ADD_TEST (
+    add_test (
         NAME f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
@@ -57,7 +48,7 @@ if (BUILD_TESTING)
     )
     set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -71,10 +62,10 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     endif ()
-  endmacro (ADD_DUMP_TEST)
+  endmacro ()
 
   macro (ADD_H5_DUMP_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
@@ -87,7 +78,7 @@ if (BUILD_TESTING)
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -101,10 +92,10 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-f90_${testname} PROPERTIES DEPENDS f90_${testname})
     endif ()
-  endmacro (ADD_H5_DUMP_TEST)
+  endmacro ()
 
   macro (ADD_H5_DUMP2_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
@@ -112,7 +103,7 @@ if (BUILD_TESTING)
             ${testname}2.h5
     )
     if (${ARGN} STREQUAL "NULL")
-      ADD_TEST (
+      add_test (
           NAME f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
@@ -125,7 +116,7 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
     else ()
-      ADD_TEST (
+      add_test (
           NAME f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
@@ -140,7 +131,7 @@ if (BUILD_TESTING)
     endif ()
     set_tests_properties (f90_${testname} PROPERTIES DEPENDS f90_${testname}-clearall)
     if (HDF5_BUILD_TOOLS)
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-f90_${testname}1
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -153,7 +144,7 @@ if (BUILD_TESTING)
               -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5DUMP-f90_${testname}1 PROPERTIES DEPENDS f90_${testname})
-      ADD_TEST (
+      add_test (
           NAME H5DUMP-f90_${testname}2
           COMMAND "${CMAKE_COMMAND}"
               -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
@@ -167,10 +158,10 @@ if (BUILD_TESTING)
       )
       set_tests_properties (H5DUMP-f90_${testname}2 PROPERTIES DEPENDS H5DUMP-f90_${testname}1)
     endif ()
-  endmacro (ADD_H5_DUMP2_TEST)
+  endmacro ()
 
   macro (ADD_H5_CMP_TEST testname)
-    ADD_TEST (
+    add_test (
         NAME f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:f90_${testname}>"
@@ -182,7 +173,7 @@ if (BUILD_TESTING)
             -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
             -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
     )
-  endmacro (ADD_H5_CMP_TEST testname)
+  endmacro ()
 
   if (HDF5_BUILD_TOOLS)
     add_custom_command (
@@ -219,38 +210,36 @@ if (BUILD_TESTING)
     )
   endforeach ()
 
-  if (HDF_ENABLE_F2003)
-    set (exfiles
-        h5ex_g_iterate
-        h5ex_g_traverse
-        h5ex_g_visit
-    )
-    foreach (example ${exfiles})
-      add_custom_command (
-          TARGET     f90_${example}_F03
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}_F03.tst ${PROJECT_BINARY_DIR}/${example}_F03.tst
-      )
-      add_custom_command (
-          TARGET     f90_${example}_F03
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
-      )
-    endforeach ()
-  endif ()
+#  if (HDF_ENABLE_F2003)
+#    set (exfiles
+#        h5ex_g_iterate
+#        h5ex_g_traverse
+#        h5ex_g_visit
+#    )
+#    foreach (example ${exfiles})
+#      add_custom_command (
+#          TARGET     f90_${example}_F03
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}_F03.tst ${PROJECT_BINARY_DIR}/${example}_F03.tst
+#      )
+#      add_custom_command (
+#          TARGET     f90_${example}_F03
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
+#      )
+#    endforeach ()
+#  endif ()
 
   ADD_H5_DUMP2_TEST (h5ex_g_compact NULL)
   ADD_DUMP_TEST (h5ex_g_create)
   ADD_H5_CMP_TEST (h5ex_g_corder)
   ADD_H5_CMP_TEST (h5ex_g_phase)
-  if (HDF_ENABLE_F2003)
-    ADD_H5_CMP_TEST (h5ex_g_iterate_F03)
-    if (NOT "${CMAKE_Fortran_COMPILER_ID}" MATCHES "^(Intel)$")
-      ADD_H5_CMP_TEST (h5ex_g_traverse_F03)
-    endif ()
-    ADD_H5_CMP_TEST (h5ex_g_visit_F03)
-  endif ()
+#  if (HDF_ENABLE_F2003)
+#    ADD_H5_CMP_TEST (h5ex_g_iterate_F03)
+#    ADD_H5_CMP_TEST (h5ex_g_traverse_F03)
+#    ADD_H5_CMP_TEST (h5ex_g_visit_F03)
+#  endif ()
 
-endif (BUILD_TESTING)
+endif ()
