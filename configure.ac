@@ -74,9 +74,17 @@ AM_CONDITIONAL(H5T, test "$H5EX_T")
 HAVE_FORTRAN_2003="no"
 
 AC_MSG_CHECKING([if h5fc was compiled with Fortran 2003 enabled])
+
+# Check pre-1.10 HDF5 versions; 1.10 requires a 2003 Fortran compiler, so no need to check.
 if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
   HAVE_FORTRAN_2003="yes"	
 fi
+
+# if HDF5 version is 1.10, then HDF5 used a 2003 Fortran compiler.
+if test "$H5EX_110" = "1"; then
+  HAVE_FORTRAN_2003="yes"
+fi
+
 echo $HAVE_FORTRAN_2003 
 
 # Check if we have Fortran 2003 and Intel compiler; Intel doesn't work with RECURSIVE used by h5ex_g_traverse.f90
