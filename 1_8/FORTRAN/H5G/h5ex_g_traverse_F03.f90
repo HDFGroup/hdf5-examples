@@ -77,10 +77,6 @@ CONTAINS
     CHARACTER(LEN=10) :: space
     INTEGER :: spaces ! Number of whitespaces to prepend to output
     INTEGER :: len
-    !
-    ! Initialize FORTRAN interface.
-    !
-    CALL h5open_f(status)
 
     ret_val = 0
     
@@ -196,6 +192,10 @@ PROGRAM main
   INTEGER(hsize_t) :: idx
   INTEGER :: ret_value
   TYPE(C_FUNPTR) :: funptr
+  !
+  ! Initialize FORTRAN interface.
+  !
+  CALL h5open_f(status)
   !
   ! Open file and initialize the operator data structure.
   !
