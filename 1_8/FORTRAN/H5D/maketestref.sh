@@ -40,6 +40,12 @@ unlimmod  checksum  fillval alloc"
 
 if ($FC -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
   topics="$topics rdwr_kind_F03"
+else
+# check if HDF5 version is > 1.10
+ CHCK_HDF5VER=`$FC -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g'`
+ if test "$(echo "$CHCK_HDF5VER" | tr " " "\n" | sort -V | head -n 1)" != "1.9"; then
+  topics="$topics rdwr_kind_F03"
+ fi
 fi
 
 for topic in $topics

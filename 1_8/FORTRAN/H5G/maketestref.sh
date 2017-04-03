@@ -44,7 +44,17 @@ rm -f h5ex_g_phase.h5
 exout ./h5ex_g_corder >testfiles/h5ex_g_corder.tst
 rm -f h5ex_g_corder.h5
 
+F2003_ENABLED=0
 if ($FC -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
+  F2003_ENABLED=1
+else
+# check if HDF5 version is > 1.9
+ CHCK_HDF5VER=`$FC -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g'`
+ if test "$(echo "$CHCK_HDF5VER" | tr " " "\n" | sort -V | head -n 1)" != "1.9"; then
+     F2003_ENABLED=1 
+ fi
+fi
+if test $F2003_ENABLED -eq 1; then
 
 exout ./h5ex_g_iterate_F03 > testfiles/h5ex_g_iterate_F03.tst
 exout ./h5ex_g_traverse_F03 > testfiles/h5ex_g_traverse_F03.tst
