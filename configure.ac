@@ -75,14 +75,17 @@ HAVE_FORTRAN_2003="no"
 
 AC_MSG_CHECKING([if h5fc was compiled with Fortran 2003 enabled])
 
-# Check pre-1.10 HDF5 versions; 1.10 requires a 2003 Fortran compiler, so no need to check.
-if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
-  HAVE_FORTRAN_2003="yes"	
-fi
 
-# if HDF5 version is 1.10, then HDF5 used a 2003 Fortran compiler.
-if test "$H5EX_110" = "1"; then
+# if HDF5 version is > 1.9, then HDF5 used a 2003 Fortran compiler.
+F2003_ENABLED=0
+if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
   HAVE_FORTRAN_2003="yes"
+else
+# check if HDF5 version is > 1.9
+ CHCK_HDF5VER=`${FC} -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g'`
+ if test "$(echo "$CHCK_HDF5VER" | tr " " "\n" | sort -V | head -n 1)" != "1.9"; then
+     HAVE_FORTRAN_2003="yes" 
+ fi
 fi
 
 echo $HAVE_FORTRAN_2003 
