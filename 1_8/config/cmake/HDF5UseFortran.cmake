@@ -1,3 +1,7 @@
+include (${CMAKE_ROOT}/Modules/CheckTypeSize.cmake)
+include (${CMAKE_ROOT}/Modules/CheckIncludeFiles.cmake)
+include (${CMAKE_ROOT}/Modules/CheckFortranFunctionExists.cmake)
+
 #
 # This file provides functions for Fortran support.
 #
@@ -32,9 +36,9 @@ MACRO (CHECK_FORTRAN_FEATURE FUNCTION CODE VARIABLE)
     if (CMAKE_REQUIRED_LIBRARIES)
       set (CHECK_FUNCTION_EXISTS_ADD_LIBRARIES
           "-DLINK_LIBRARIES:STRING=${CMAKE_REQUIRED_LIBRARIES}")
-    else (CMAKE_REQUIRED_LIBRARIES)
+    else ()
       set (CHECK_FUNCTION_EXISTS_ADD_LIBRARIES)
-    endif (CMAKE_REQUIRED_LIBRARIES)
+    endif ()
     file (WRITE
         ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler.f90
         "${CODE}"
@@ -65,7 +69,7 @@ MACRO (CHECK_FORTRAN_FEATURE FUNCTION CODE VARIABLE)
           "${OUTPUT}\n\n")
     endif ()
 
-ENDMACRO (CHECK_FORTRAN_FEATURE)
+ENDMACRO ()
 
 #-----------------------------------------------------------------------------
 # Configure Checks which require Fortran compilation must go in here
@@ -176,5 +180,5 @@ if (CMAKE_Fortran_COMPILER MATCHES ifort)
     if (WIN32)
         set (CMAKE_Fortran_FLAGS_DEBUG "/debug:full /dbglibs " CACHE "flags" STRING FORCE)
         set (CMAKE_EXE_LINKER_FLAGS_DEBUG "/DEBUG" CACHE "flags" STRING FORCE)
-    endif (WIN32)
-endif (CMAKE_Fortran_COMPILER MATCHES ifort)
+    endif ()
+endif ()
