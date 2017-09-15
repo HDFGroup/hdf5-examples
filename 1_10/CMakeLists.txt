@@ -124,6 +124,7 @@ if (NOT HDF5_HDF5_HEADER)
   endif ()
   if (HDF_BUILD_JAVA)
     set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
+    set (HDF5_Java_FOUND 1) #default setting for 1.10.1 and earlier
   endif ()
   message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
   set (SEARCH_PACKAGE_NAME ${HDF5_PACKAGE_NAME})
