@@ -25,7 +25,7 @@ foreach (example ${examples})
   add_executable (f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
   TARGET_NAMING (f90_${example_name} ${LIB_TYPE})
   TARGET_FORTRAN_WIN_PROPERTIES (f90_${example_name} ${LIB_TYPE} "" "")
-  target_link_libraries (f90_${example_name} ${LINK_LIBS})
+  target_link_libraries (f90_${example_name} ${LINK_Fortran_LIBS})
   set_target_properties (f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
 endforeach ()
 
