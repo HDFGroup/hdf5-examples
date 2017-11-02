@@ -355,10 +355,11 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DI
   if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
     include (${HDF5EX_RESOURCES_DIR}/HDFUseFortran.cmake)
     include (${HDF5EX_RESOURCES_DIR}/HDF5UseFortran.cmake)
+    set (LINK_Fortran_LIBS ${LINK_LIBS})
 
     # Parallel IO usage requires MPI to be Linked and Included
     if (H5_HAVE_PARALLEL)
-      set (LINK_Fortran_LIBS ${LINK_LIBS} ${MPI_Fortran_LIBRARIES})
+      set (LINK_Fortran_LIBS ${LINK_Fortran_LIBS} ${MPI_Fortran_LIBRARIES})
       if (MPI_Fortran_LINK_FLAGS)
         set (CMAKE_Fortran_EXE_LINKER_FLAGS "${MPI_Fortran_LINK_FLAGS} ${CMAKE_EXE_LINKER_FLAGS}")
       endif ()
