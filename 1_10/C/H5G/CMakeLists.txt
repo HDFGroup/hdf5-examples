@@ -12,7 +12,6 @@ foreach (example ${examples})
   if (H5_HAVE_PARALLEL)
     target_include_directories (${example_name} PUBLIC ${MPI_C_INCLUDE_DIRS})
   endif ()
-  TARGET_NAMING (${example_name} ${LIB_TYPE})
   target_link_libraries (${example_name} ${LINK_LIBS})
 endforeach ()
 
