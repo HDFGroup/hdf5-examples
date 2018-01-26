@@ -106,6 +106,7 @@ These steps are described in more detail below.
             * BUILD_TESTING:BOOL=ON
             * BUILD_SHARED_LIBS:BOOL=[ON | OFF]
             * HDF_BUILD_FORTRAN:BOOL=[ON | OFF]
+            * HDF_BUILD_JAVA:BOOL=[ON | OFF]
 
    2. Configure the cache settings
 
