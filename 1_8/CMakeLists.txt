@@ -34,6 +34,8 @@ set (HDF5EX_F90_SRC_DIR        ${PROJECT_SOURCE_DIR}/FORTRAN)
 include (${HDF5EX_RESOURCES_DIR}/HDFMacros.cmake)
 include (${HDF5EX_RESOURCES_DIR}/HDF5Macros.cmake)
 
+SET_HDF_BUILD_TYPE()
+
 #-----------------------------------------------------------------------------
 # Setup output Directories
 #-----------------------------------------------------------------------------

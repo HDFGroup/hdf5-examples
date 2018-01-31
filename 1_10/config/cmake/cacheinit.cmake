@@ -8,6 +8,8 @@ set (BUILD_SHARED_LIBS ON CACHE BOOL "Build Shared Libraries" FORCE)
 
 set (HDF_BUILD_FORTRAN OFF CACHE BOOL "Build FORTRAN support" FORCE)
 
+set (HDF_BUILD_JAVA OFF CACHE BOOL "Build JAVA support" FORCE)
+
 set (BUILD_TESTING ON CACHE BOOL "Build HDF5 Unit Testing" FORCE)
 
 set (HDF_ENABLE_PARALLEL OFF CACHE BOOL "Enable parallel build (requires MPI)" FORCE)
