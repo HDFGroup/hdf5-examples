@@ -309,18 +309,21 @@ endif ()
 # Option to use threadsafe
 # Note: Currently CMake only allows configuring of threadsafe on WINDOWS.
 #-----------------------------------------------------------------------------
-if (WIN32)
-  option (HDF_ENABLE_THREADSAFE "Enable Threadsafety" OFF)
-  if (HDF_ENABLE_THREADSAFE)
-    # check for unsupported options
-    if (HDF_ENABLE_PARALLEL)
-      message (FATAL " **** Parallel and Threadsafe options are mutually exclusive **** ")
-    endif ()
-    set(THREADS_PREFER_PTHREAD_FLAG ON)
-    find_package(Threads)
-    if (NOT Threads_FOUND)
-      message (STATUS " **** thread-safe package not found - threads still might work **** ")
-    endif ()
+option (HDF_ENABLE_THREADSAFE "Enable Threadsafety" OFF)
+if (HDF_ENABLE_THREADSAFE)
+  # check for unsupported options
+  if (HDF_ENABLE_PARALLEL)
+    message (FATAL " **** Parallel and Threadsafe options are mutually exclusive **** ")
+  endif ()
+  if (WIN32)
+    set (H5_HAVE_WIN_THREADS 1)
+    set (H5_HAVE_THREADSAFE 1)
+  endif ()
+  set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+  set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+  find_package(Threads REQUIRED)
+  if (NOT Threads_FOUND)
+    message (STATUS " **** thread-safe package not found - threads still might work **** ")
   endif ()
 endif ()
 
