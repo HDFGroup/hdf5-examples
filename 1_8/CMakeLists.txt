@@ -286,6 +286,7 @@ if (HDF_ENABLE_THREADSAFE)
   if (NOT Threads_FOUND)
     message (STATUS " **** thread-safe package not found - threads still might work **** ")
   endif ()
+  set (LINK_LIBS ${LINK_LIBS} Threads::Threads)
 endif ()
 
 #-----------------------------------------------------------------------------
