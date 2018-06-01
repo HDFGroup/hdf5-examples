@@ -53,7 +53,7 @@ main (void)
      * Open file and initialize the operator data structure.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    status = H5Oget_info (file, &infobuf);
+    status = H5Oget_info2 (file, &infobuf, H5O_INFO_ALL);
     od.recurs = 0;
     od.prev = NULL;
     od.addr = infobuf.addr;
@@ -102,7 +102,7 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
      * The name of the object is passed to this function by
      * the Library.
      */
-    status = H5Oget_info_by_name (loc_id, name, &infobuf, H5P_DEFAULT);
+    status = H5Oget_info_by_name2 (loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
     printf ("%*s", spaces, "");     /* Format output */
     switch (infobuf.type) {
         case H5O_TYPE_GROUP:
