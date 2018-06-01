@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.1)
+cmake_minimum_required (VERSION 3.10)
 PROJECT (HDF5Examples_FORTRAN_H5G C CXX Fortran)
 
 #-----------------------------------------------------------------------------

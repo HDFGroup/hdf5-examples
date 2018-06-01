@@ -15,8 +15,12 @@ macro (SET_HDF_BUILD_TYPE)
       set(HDF_BUILD_TYPE "Release")
     endif()
   endif()
-  if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release")
+  if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    message(STATUS "Setting build type to 'RelWithDebInfo' as none was specified.")
+    set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build." FORCE)
+    # Set the possible values of build type for cmake-gui
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
+      "MinSizeRel" "RelWithDebInfo")
   endif()
 endmacro ()
 
@@ -112,6 +116,8 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
 
   set_target_properties (${libtarget}
       PROPERTIES
+         OUTPUT_NAME
+               ${LIB_RELEASE_NAME}
          OUTPUT_NAME_DEBUG
                ${LIB_DEBUG_NAME}
          OUTPUT_NAME_RELEASE
@@ -152,7 +158,7 @@ macro (HDF_IMPORT_SET_LIB_OPTIONS libtarget libname libtype libversion)
   if (${importtype} MATCHES "IMPORT")
     set (importprefix "${CMAKE_STATIC_LIBRARY_PREFIX}")
   endif ()
-  if (${HDF_CFG_NAME} MATCHES "Debug")
+  if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
     set (IMPORT_LIB_NAME ${LIB_DEBUG_NAME})
   else ()
     set (IMPORT_LIB_NAME ${LIB_RELEASE_NAME})
@@ -273,9 +279,11 @@ macro (HDF_README_PROPERTIES target_fortran)
       elseif (${CMAKE_C_COMPILER_VERSION} MATCHES "^18.*")
         set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2013")
       elseif (${CMAKE_C_COMPILER_VERSION} MATCHES "^19.*")
-        set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2015")
-      elseif (${CMAKE_C_COMPILER_VERSION} MATCHES "^20.*")
-        set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2017")
+        if (${CMAKE_C_COMPILER_VERSION} MATCHES "^19.0.*")
+          set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2015")
+        else ()
+          set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO 2017")
+        endif ()
       else ()
         set (BINARY_PLATFORM "${BINARY_PLATFORM}, using VISUAL STUDIO ${CMAKE_C_COMPILER_VERSION}")
       endif ()

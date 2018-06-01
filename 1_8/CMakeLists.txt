@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.2.2)
+cmake_minimum_required (VERSION 3.10)
 project (HDF5Examples C CXX)
 
 #-----------------------------------------------------------------------------
@@ -286,6 +286,7 @@ if (HDF_ENABLE_THREADSAFE)
   if (NOT Threads_FOUND)
     message (STATUS " **** thread-safe package not found - threads still might work **** ")
   endif ()
+  set (LINK_LIBS ${LINK_LIBS} Threads::Threads)
 endif ()
 
 #-----------------------------------------------------------------------------

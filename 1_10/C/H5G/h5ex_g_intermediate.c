@@ -48,7 +48,7 @@ main(void)
      * on how to use H5Ovisit.
      */
     printf ("Objects in the file:\n");
-    status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL);
+    status = H5Ovisit2 (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL, H5O_INFO_ALL);
 
     /*
      * Close and release resources.
