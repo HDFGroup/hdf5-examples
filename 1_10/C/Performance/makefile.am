@@ -11,6 +11,7 @@ noinst_PROGRAMS = h5slabread h5slabwrite h5efc
 
 EXTRA_DIST = 
 
+AM_CPPFLAGS = '-D H5_USE_110_API'
 TESTS = test.sh
 
 TESTS = 
