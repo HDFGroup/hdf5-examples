@@ -61,7 +61,7 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
      * The name of the object is passed to this function by
      * the Library.
      */
-    status = H5Oget_info_by_name2 (loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
+    status = H5Oget_info_by_name (loc_id, name, &infobuf, H5P_DEFAULT);
     switch (infobuf.type) {
         case H5O_TYPE_GROUP:
             printf ("  Group: %s\n", name);
