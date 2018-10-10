@@ -40,11 +40,21 @@ dumpout() {
     $H5DUMP $*
 }
 
-
-
-topics="rdwr hyper chunk gzip  extern compact \
-unlimmod  checksum  fillval alloc"
-
+topics="alloc \
+  checksum \
+  chunk \
+  compact \
+  extern  \
+  fillval \
+  gzip \
+  hyper \
+  nbit \
+  rdwr \
+  rdwr_kind \
+  soint \
+  szip \
+  transform \
+  unlimmod"
 
 return_val=0
 
@@ -116,7 +126,7 @@ else
     then
         echo "  FAILED!"
     else
-      dumpout -n $fname.h5 >tmp.test
+      dumpout $fname.h5 >tmp.test
     rm -f $fname.h5
       cmp -s tmp.test $srcdir/testfiles/$fname.ddl
     status=$?

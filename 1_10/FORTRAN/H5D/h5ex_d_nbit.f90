@@ -26,7 +26,7 @@ PROGRAM main
 
   INTEGER :: hdferr
   INTEGER(HID_T)  :: file, space, dset, dtype, dcpl ! Handles
-  INTEGER, DIMENSION(1:1) :: cd_values
+  INTEGER, DIMENSION(1:50) :: cd_values
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: dims = (/dim0, dim1/), chunk = (/chunk0,chunk1/)
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: start, stride, count, block
   LOGICAL :: avail
@@ -83,8 +83,8 @@ PROGRAM main
   ! after being packed by the N-Bit filter.
   !
   CALL h5tcopy_f (H5T_STD_I32LE, dtype, hdferr)
-  CALL h5tset_precision_f (dtype, 16, hdferr)
-  CALL h5tset_offset_f (dtype, 5, hdferr)
+  CALL h5tset_precision_f (dtype, INT(16,SIZE_T), hdferr)
+  CALL h5tset_offset_f (dtype, INT(5,SIZE_T), hdferr)
   !
   ! Create the dataset creation property list, add the N-Bit filter
   ! and set the chunk size.
@@ -124,7 +124,7 @@ PROGRAM main
   ! first filter because we know that we only added one filter.
   !
   nelmts = 0
-  CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, MaxChrLen, name, filter_id, hdferr)
+  CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, INT(MaxChrLen, SIZE_T), name, filter_id, hdferr)
   WRITE(*,'("Filter type is: ")', ADVANCE='NO')
   IF(filter_id.EQ.H5Z_FILTER_DEFLATE_F)THEN
      WRITE(*,'(T2,"H5Z_FILTER_DEFLATE_F")')

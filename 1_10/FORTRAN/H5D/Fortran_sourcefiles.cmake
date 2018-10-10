@@ -12,6 +12,7 @@ set (examples
     h5ex_d_hyper.f90
 #    h5ex_d_nbit.f90
     h5ex_d_rdwr.f90
+    h5ex_d_rdwr_kind.f90
 #    h5ex_d_soint.f90
 #    h5ex_d_szip.f90
     h5ex_d_transform.f90
