@@ -28,11 +28,12 @@
 # of versions that can get confused (not even counting the m4 utility)!
 
 # HDF5 currently uses the following versions of the autotools:
+AUTOCONF_DIR=/usr/hdf/bin/AUTOTOOLS
 AUTOCONF_VERSION="autoconf (GNU Autoconf) 2.69"
-AUTOMAKE_VERSION="automake (GNU automake) 1.14.1"
+AUTOMAKE_VERSION="automake (GNU automake) 1.15"
 AUTOHEADER_VERSION="autoheader (GNU Autoconf) 2.69"
-ACLOCAL_VERSION="aclocal (GNU automake) 1.14.1"
-LIBTOOL_VERSION="(GNU libtool) 2.4.2"
+ACLOCAL_VERSION="aclocal (GNU automake) 1.15"
+LIBTOOL_VERSION="(GNU libtool) 2.4.6"
 M4_VERSION="m4 (GNU M4) 1.4.17"
 
 #
@@ -41,27 +42,27 @@ M4_VERSION="m4 (GNU M4) 1.4.17"
 
 
 # If paths to autotools are not specified by the user, assume tools are
-# running on jam in /mnt/hdf/packages and set paths accordingly.
+# running on jelly in AUTOCONF_DIR and set paths accordingly.
 if test -z ${AUTORECONF}; then
-  AUTORECONF=/mnt/hdf/packages/autoconf/autoconf-2.69/bin/autoreconf
+  AUTORECONF=${AUTOCONF_DIR}/autoreconf
 fi
 if test -z ${AUTOCONF}; then
-  AUTOCONF=/mnt/hdf/packages/autoconf/autoconf-2.69/bin/autoconf
+  AUTOCONF=${AUTOCONF_DIR}/autoconf
 fi
 if test -z ${AUTOMAKE}; then
-  AUTOMAKE=/mnt/hdf/packages/automake/automake-1.14.1/bin/automake-1.14
+  AUTOMAKE=${AUTOCONF_DIR}/automake
 fi
 if test -z ${AUTOHEADER}; then
-  AUTOHEADER=/mnt/hdf/packages/autoconf/autoconf-2.69/bin/autoheader
+  AUTOHEADER=${AUTOCONF_DIR}/autoheader
 fi
 if test -z ${ACLOCAL}; then
-  ACLOCAL=/mnt/hdf/packages/automake/automake-1.14.1/bin/aclocal-1.14
+  ACLOCAL=${AUTOCONF_DIR}/aclocal
 fi
 if test -z ${LIBTOOL}; then
-  LIBTOOL=/mnt/hdf/packages/libtool/libtool-2.4.2/bin/libtool
+  LIBTOOL=${AUTOCONF_DIR}/libtool
 fi
 if test -z ${M4}; then
-  M4=/mnt/hdf/packages/m4/m4-1.4.17/bin/m4
+  M4=${AUTOCONF_DIR}/m4
 fi
 
 # Check version numbers of all autotools against the "correct" versions
@@ -103,8 +104,8 @@ M4_DIR=`dirname ${M4}`
 PATH=${AUTOCONF_DIR}:${M4_DIR}:$PATH
 
 # Run autoconf/automake commands in order
-  echo ${ACLOCAL} -I ${LIBTOOL_DIR}/../share/aclocal
-  ${ACLOCAL} -I ${LIBTOOL_DIR}/../share/aclocal || exit 1
+  echo ${ACLOCAL}
+  ${ACLOCAL} || exit 1
 
   echo ${AUTOHEADER}
   ${AUTOHEADER} || exit 1
