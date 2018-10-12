@@ -88,10 +88,7 @@ if (BUILD_TESTING)
       )
     endif ()
 
-    if (${example_name} STREQUAL "h5ex_d_transform")
-      ADD_H5_TEST (${example_name})
-    else ()
-      ADD_H5_TEST (${example_name})
-    endif ()
+    ADD_H5_TEST (${example_name})
+
   endforeach ()
 endif ()
