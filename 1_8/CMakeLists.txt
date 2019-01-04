@@ -32,7 +32,6 @@ set (HDF5EX_F90_SRC_DIR        ${PROJECT_SOURCE_DIR}/FORTRAN)
 # Include some macros for reusable code
 #-----------------------------------------------------------------------------
 include (${HDF5EX_RESOURCES_DIR}/HDFMacros.cmake)
-include (${HDF5EX_RESOURCES_DIR}/HDF5Macros.cmake)
 
 SET_HDF_BUILD_TYPE()
 
@@ -50,6 +49,9 @@ set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
 )
 set (CMAKE_Fortran_MODULE_DIRECTORY
     ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
+)
+set (CMAKE_PDB_OUTPUT_DIRECTORY
+    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all pdb files."
 )
 
 #-----------------------------------------------------------------------------
