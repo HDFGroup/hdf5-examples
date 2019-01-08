@@ -14,7 +14,7 @@ INCLUDE_DIRECTORIES (
 #-----------------------------------------------------------------------------
 include (Java_sourcefiles.cmake)
 
-if (WIN32 AND NOT CYGWIN)
+if (WIN32)
   set (CMAKE_JAVA_INCLUDE_FLAG_SEP ";")
 else ()
   set (CMAKE_JAVA_INCLUDE_FLAG_SEP ":")
@@ -37,7 +37,7 @@ foreach (example ${HDF_JAVA_EXAMPLES})
 Class-Path: ${HDFJAVA_CLASSJARS}
 "
   )
-  ADD_JAR (${example_name} SOURCES ${example} MANIFEST ${PROJECT_BINARY_DIR}/Manifest.txt)
+  add_jar (${example_name} SOURCES ${example} MANIFEST ${PROJECT_BINARY_DIR}/Manifest.txt)
   get_target_property (${example_name}_JAR_FILE ${example_name} JAR_FILE)
 endforeach ()
 
