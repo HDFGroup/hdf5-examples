@@ -130,7 +130,7 @@ CONTAINS
           nextod%prev => od
           nextod%addr = infobuf%addr
           idx = 0
-          ptr2 = C_LOC(nextod)
+          ptr2 = C_LOC(nextod%recurs)
           funptr = C_FUNLOC(op_func)
           CALL h5literate_by_name_f(loc_id, name_string, H5_INDEX_NAME_F, H5_ITER_NATIVE_F, idx, &
                funptr, ptr2, ret_val, status)
