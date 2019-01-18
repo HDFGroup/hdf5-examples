@@ -383,7 +383,7 @@
 # Create C header files from java classes. These files provide the connective glue
 # that allow your Java and C code to interact.
 #
-# This command will no longer be supported starting with version 1.10 of the JDK due
+# This command will no longer be supported starting with version 10 of the JDK due
 # to the `suppression of javah tool <http://openjdk.java.net/jeps/313>`_.
 # Command ``add_jar(GENERATE_NATIVE_HEADERS)`` must be used instead.
 #
@@ -447,7 +447,7 @@ endfunction ()
 
 function(__java_lcat VAR)
     foreach(_line ${ARGN})
-        set(${VAR} "${${VAR}}${_line}\n")
+        string(APPEND ${VAR} "${_line}\n")
     endforeach()
 
     set(${VAR} "${${VAR}}" PARENT_SCOPE)
@@ -569,7 +569,7 @@ function(add_jar _TARGET_NAME)
     endif()
 
     foreach (JAVA_INCLUDE_DIR ${CMAKE_JAVA_INCLUDE_PATH})
-       set(CMAKE_JAVA_INCLUDE_PATH_FINAL "${CMAKE_JAVA_INCLUDE_PATH_FINAL}${CMAKE_JAVA_INCLUDE_FLAG_SEP}${JAVA_INCLUDE_DIR}")
+       string(APPEND CMAKE_JAVA_INCLUDE_PATH_FINAL "${CMAKE_JAVA_INCLUDE_FLAG_SEP}${JAVA_INCLUDE_DIR}")
     endforeach()
 
     set(CMAKE_JAVA_CLASS_OUTPUT_PATH "${CMAKE_CURRENT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/${_TARGET_NAME}.dir")
@@ -641,7 +641,7 @@ function(add_jar _TARGET_NAME)
         if (TARGET ${_JAVA_INCLUDE_JAR})
             get_target_property(_JAVA_JAR_PATH ${_JAVA_INCLUDE_JAR} JAR_FILE)
             if (_JAVA_JAR_PATH)
-                set(CMAKE_JAVA_INCLUDE_PATH_FINAL "${CMAKE_JAVA_INCLUDE_PATH_FINAL}${CMAKE_JAVA_INCLUDE_FLAG_SEP}${_JAVA_JAR_PATH}")
+                string(APPEND CMAKE_JAVA_INCLUDE_PATH_FINAL "${CMAKE_JAVA_INCLUDE_FLAG_SEP}${_JAVA_JAR_PATH}")
                 list(APPEND CMAKE_JAVA_INCLUDE_PATH ${_JAVA_JAR_PATH})
                 list(APPEND _JAVA_DEPENDS ${_JAVA_INCLUDE_JAR})
                 list(APPEND _JAVA_COMPILE_DEPENDS ${_JAVA_INCLUDE_JAR})
@@ -649,7 +649,7 @@ function(add_jar _TARGET_NAME)
                 message(SEND_ERROR "add_jar: INCLUDE_JARS target ${_JAVA_INCLUDE_JAR} is not a jar")
             endif ()
         else ()
-            set(CMAKE_JAVA_INCLUDE_PATH_FINAL "${CMAKE_JAVA_INCLUDE_PATH_FINAL}${CMAKE_JAVA_INCLUDE_FLAG_SEP}${_JAVA_INCLUDE_JAR}")
+            string(APPEND CMAKE_JAVA_INCLUDE_PATH_FINAL "${CMAKE_JAVA_INCLUDE_FLAG_SEP}${_JAVA_INCLUDE_JAR}")
             list(APPEND CMAKE_JAVA_INCLUDE_PATH "${_JAVA_INCLUDE_JAR}")
             list(APPEND _JAVA_DEPENDS "${_JAVA_INCLUDE_JAR}")
             list(APPEND _JAVA_COMPILE_DEPENDS "${_JAVA_INCLUDE_JAR}")
