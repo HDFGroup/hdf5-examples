@@ -14,7 +14,9 @@ set (examples
   h5ex_d_rdwr.f90
   h5ex_d_rdwr_kind.f90
   h5ex_d_soint.f90
-  h5ex_d_szip.f90
   h5ex_d_transform.f90
   h5ex_d_unlimmod.f90
 )
+if (HDF5_ENABLE_SZIP_SUPPORT)
+  set (examples ${examples} h5ex_d_szip.f90)
+endif ()
