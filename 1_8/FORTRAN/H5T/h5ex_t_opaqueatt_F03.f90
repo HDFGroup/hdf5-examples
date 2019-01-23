@@ -74,7 +74,7 @@ PROGRAM main
   ! Create the attribute and write the opaque data to it.
   !
   CALL H5Acreate_f(dset, attribute, dtype, space, attr, hdferr)
-  f_ptr = C_LOC(wdata(1))
+  f_ptr = C_LOC(wdata(1)(1:1))
   CALL H5Awrite_f(attr, dtype, f_ptr, hdferr)
   !
   ! Close and release resources.
@@ -107,7 +107,7 @@ PROGRAM main
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata(1))
+  f_ptr = C_LOC(rdata(1)(1:1))
   CALL h5aread_f(attr, dtype, f_ptr, hdferr)
   !
   ! Output the data to the screen.

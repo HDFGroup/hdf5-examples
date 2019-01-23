@@ -81,7 +81,7 @@ PROGRAM main
   CALL h5tset_size_f(strtype, INT(maxstringlen,size_t), hdferr)  
 
   CALL h5tinsert_f(memtype, "Location", &
-       H5OFFSETOF(C_LOC(wdata(1)),C_LOC(wdata(1)%location)), strtype, hdferr)
+       H5OFFSETOF(C_LOC(wdata(1)),C_LOC(wdata(1)%location(1:1))), strtype, hdferr)
 
   CALL h5tinsert_f(memtype, "Temperature (F)", &
        H5OFFSETOF(C_LOC(wdata(1)),C_LOC(wdata(1)%temperature)), &

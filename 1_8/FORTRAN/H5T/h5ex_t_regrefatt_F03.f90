@@ -163,7 +163,7 @@ PROGRAM main
      !
      CALL h5screate_simple_f(1, dims3, memspace, hdferr)
 
-     f_ptr = C_LOC(rdata2(1))
+     f_ptr = C_LOC(rdata2(1)(1:1))
      CALL h5dread_f( dset2, h5kind_to_type(KIND(rdata2(1)),H5_INTEGER_KIND), f_ptr, hdferr, memspace, space)
      !
      ! Print the name and region data, close and release resources.

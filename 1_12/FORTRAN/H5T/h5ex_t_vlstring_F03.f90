@@ -41,10 +41,10 @@ PROGRAM main
   INTEGER :: i, len
 
   ! Initialize array of C pointers
-  wdata(1) = C_LOC(A(1))     
-  wdata(2) = C_LOC(B(1))     
-  wdata(3) = C_LOC(C(1))     
-  wdata(4) = C_LOC(D(1))     
+  wdata(1) = C_LOC(A(1)(1:1))
+  wdata(2) = C_LOC(B(1)(1:1))
+  wdata(3) = C_LOC(C(1)(1:1))
+  wdata(4) = C_LOC(D(1)(1:1))
   !
   ! Initialize FORTRAN interface.
   !

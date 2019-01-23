@@ -64,7 +64,7 @@ PROGRAM main
   ! Create the dataset and write the opaque data to it.
   !
   CALL h5dcreate_f(file, dataset, dtype, space, dset, hdferr)
-  f_ptr = C_LOC(wdata(1))
+  f_ptr = C_LOC(wdata(1)(1:1))
   CALL h5dwrite_f(dset, dtype, f_ptr, hdferr)
   !
   ! Close and release resources.
@@ -95,7 +95,7 @@ PROGRAM main
   !
   ! Read the data.
   !
-  f_ptr = C_LOC(rdata(1))
+  f_ptr = C_LOC(rdata(1)(1:1))
   CALL h5dread_f(dset, dtype, f_ptr, hdferr)
   !
   ! Output the data to the screen.
