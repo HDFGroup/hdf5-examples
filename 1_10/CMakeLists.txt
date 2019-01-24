@@ -38,29 +38,7 @@ endif ()
 #-----------------------------------------------------------------------------
 include (${HDF5EX_RESOURCES_DIR}/HDFMacros.cmake)
 
-SET_HDF_BUILD_TYPE()
-
-#-----------------------------------------------------------------------------
-# Setup output Directories
-#-----------------------------------------------------------------------------
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY
-    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all Executables."
-)
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY
-    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all Libraries"
-)
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
-    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all static libraries."
-)
-set (CMAKE_Fortran_MODULE_DIRECTORY
-    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
-)
-set (CMAKE_JAVA_TARGET_OUTPUT_DIR
-    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all java jars."
-)
-set (CMAKE_PDB_OUTPUT_DIRECTORY
-    ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all pdb files."
-)
+HDF_DIR_PATHS("HDF5EX")
 
 #-----------------------------------------------------------------------------
 # When building utility executables that generate other (source) files :
@@ -105,7 +83,7 @@ endif ()
 if (CMAKE_COMPILER_IS_GNUCC)
   set (CMAKE_C_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_C_FLAGS} -std=c99 -fomit-frame-pointer -finline-functions -fno-common")
 endif ()
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_LOADED)
   set (CMAKE_CXX_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_CXX_FLAGS} -fomit-frame-pointer -finline-functions -fno-common")
 endif ()
 
@@ -136,7 +114,7 @@ if (NOT HDF5_HDF5_HEADER)
   message (STATUS "HDF5 Java libs: ${HDF5_Java_FOUND}")
   if (HDF5_FOUND)
     if (NOT TARGET hdf5::h5dump)
-        add_executable (hdf5::h5dump IMPORTED)
+      add_executable (hdf5::h5dump IMPORTED)
     endif()
     if (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
       set (FIND_HDF_COMPONENTS C)
@@ -290,7 +268,7 @@ endif ()
 if (CMAKE_COMPILER_IS_GNUCC)
   set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fmessage-length=0")
 endif ()
-if (CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_LOADED)
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmessage-length=0")
 endif ()
 
@@ -369,7 +347,7 @@ endif ()
 #-----------------------------------------------------------------------------
 # Build examples
 #-----------------------------------------------------------------------------
-add_subdirectory (${PROJECT_SOURCE_DIR}/C ${PROJECT_BINARY_DIR}/C)
+add_subdirectory (C)
 
 #-----------------------------------------------------------------------------
 # Option to build Fortran examples
@@ -394,7 +372,7 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${PROJECT_SOURCE_DI
       endif ()
     endif ()
 
-    add_subdirectory (${PROJECT_SOURCE_DIR}/FORTRAN ${PROJECT_BINARY_DIR}/FORTRAN)
+    add_subdirectory (FORTRAN)
   endif ()
 endif ()
 
@@ -405,7 +383,7 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/
   option (HDF_BUILD_JAVA "Build JAVA support" OFF)
   if (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
     include (${HDF5EX_RESOURCES_DIR}/UseJava.cmake)
-    add_subdirectory (${PROJECT_SOURCE_DIR}/JAVA ${PROJECT_BINARY_DIR}/JAVA)
+    add_subdirectory (JAVA)
   endif ()
 endif ()
 
