@@ -1,4 +1,3 @@
-#
 # This file provides functions for Fortran support.
 #
 #-------------------------------------------------------------------------------
@@ -36,9 +35,9 @@ set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) ${CMAKE_MATCH_1}")
 #-----------------------------------------------------------------------------
 macro (CHECK_FORTRAN_FEATURE FUNCTION CODE VARIABLE)
     message (STATUS "Testing Fortran ${FUNCTION}")
-    if (CMAKE_REQUIRED_LIBRARIES)
+    if (HDF5_REQUIRED_LIBRARIES)
       set (CHECK_FUNCTION_EXISTS_ADD_LIBRARIES
-          "-DLINK_LIBRARIES:STRING=${CMAKE_REQUIRED_LIBRARIES}")
+          "-DLINK_LIBRARIES:STRING=${HDF5_REQUIRED_LIBRARIES}")
     else ()
       set (CHECK_FUNCTION_EXISTS_ADD_LIBRARIES)
     endif ()
