@@ -6,7 +6,7 @@ include (${CMAKE_ROOT}/Modules/CheckFortranFunctionExists.cmake)
 # This file provides functions for Fortran support.
 #
 #-------------------------------------------------------------------------------
-ENABLE_LANGUAGE (Fortran)
+enable_language (Fortran)
   
 #-----------------------------------------------------------------------------
 # Detect name mangling convention used between Fortran and C

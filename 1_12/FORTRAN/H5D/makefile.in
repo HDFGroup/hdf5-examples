@@ -86,12 +86,14 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-noinst_PROGRAMS = h5ex_d_alloc$(EXEEXT) h5ex_d_fillval$(EXEEXT) \
-	h5ex_d_checksum$(EXEEXT) h5ex_d_gzip$(EXEEXT) \
-	h5ex_d_chunk$(EXEEXT) h5ex_d_hyper$(EXEEXT) \
-	h5ex_d_unlimmod$(EXEEXT) h5ex_d_compact$(EXEEXT) \
-	h5ex_d_extern$(EXEEXT) h5ex_d_rdwr$(EXEEXT) \
-	h5ex_d_transform$(EXEEXT)
+noinst_PROGRAMS = h5ex_d_alloc$(EXEEXT) h5ex_d_checksum$(EXEEXT) \
+	h5ex_d_chunk$(EXEEXT) h5ex_d_compact$(EXEEXT) \
+	h5ex_d_extern$(EXEEXT) h5ex_d_fillval$(EXEEXT) \
+	h5ex_d_gzip$(EXEEXT) h5ex_d_hyper$(EXEEXT) \
+	h5ex_d_nbit$(EXEEXT) h5ex_d_rdwr$(EXEEXT) \
+	h5ex_d_rdwr_kind$(EXEEXT) h5ex_d_soint$(EXEEXT) \
+	h5ex_d_szip$(EXEEXT) h5ex_d_transform$(EXEEXT) \
+	h5ex_d_unlimmod$(EXEEXT)
 subdir = 1_10/FORTRAN/H5D
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -127,9 +129,21 @@ h5ex_d_gzip_LDADD = $(LDADD)
 am_h5ex_d_hyper_OBJECTS = h5ex_d_hyper.$(OBJEXT)
 h5ex_d_hyper_OBJECTS = $(am_h5ex_d_hyper_OBJECTS)
 h5ex_d_hyper_LDADD = $(LDADD)
+am_h5ex_d_nbit_OBJECTS = h5ex_d_nbit.$(OBJEXT)
+h5ex_d_nbit_OBJECTS = $(am_h5ex_d_nbit_OBJECTS)
+h5ex_d_nbit_LDADD = $(LDADD)
 am_h5ex_d_rdwr_OBJECTS = h5ex_d_rdwr.$(OBJEXT)
 h5ex_d_rdwr_OBJECTS = $(am_h5ex_d_rdwr_OBJECTS)
 h5ex_d_rdwr_LDADD = $(LDADD)
+am_h5ex_d_rdwr_kind_OBJECTS = h5ex_d_rdwr_kind.$(OBJEXT)
+h5ex_d_rdwr_kind_OBJECTS = $(am_h5ex_d_rdwr_kind_OBJECTS)
+h5ex_d_rdwr_kind_LDADD = $(LDADD)
+am_h5ex_d_soint_OBJECTS = h5ex_d_soint.$(OBJEXT)
+h5ex_d_soint_OBJECTS = $(am_h5ex_d_soint_OBJECTS)
+h5ex_d_soint_LDADD = $(LDADD)
+am_h5ex_d_szip_OBJECTS = h5ex_d_szip.$(OBJEXT)
+h5ex_d_szip_OBJECTS = $(am_h5ex_d_szip_OBJECTS)
+h5ex_d_szip_LDADD = $(LDADD)
 am_h5ex_d_transform_OBJECTS = h5ex_d_transform.$(OBJEXT)
 h5ex_d_transform_OBJECTS = $(am_h5ex_d_transform_OBJECTS)
 h5ex_d_transform_LDADD = $(LDADD)
@@ -165,13 +179,17 @@ SOURCES = $(h5ex_d_alloc_SOURCES) $(h5ex_d_checksum_SOURCES) \
 	$(h5ex_d_chunk_SOURCES) $(h5ex_d_compact_SOURCES) \
 	$(h5ex_d_extern_SOURCES) $(h5ex_d_fillval_SOURCES) \
 	$(h5ex_d_gzip_SOURCES) $(h5ex_d_hyper_SOURCES) \
-	$(h5ex_d_rdwr_SOURCES) $(h5ex_d_transform_SOURCES) \
+	$(h5ex_d_nbit_SOURCES) $(h5ex_d_rdwr_SOURCES) \
+	$(h5ex_d_rdwr_kind_SOURCES) $(h5ex_d_soint_SOURCES) \
+	$(h5ex_d_szip_SOURCES) $(h5ex_d_transform_SOURCES) \
 	$(h5ex_d_unlimmod_SOURCES)
 DIST_SOURCES = $(h5ex_d_alloc_SOURCES) $(h5ex_d_checksum_SOURCES) \
 	$(h5ex_d_chunk_SOURCES) $(h5ex_d_compact_SOURCES) \
 	$(h5ex_d_extern_SOURCES) $(h5ex_d_fillval_SOURCES) \
 	$(h5ex_d_gzip_SOURCES) $(h5ex_d_hyper_SOURCES) \
-	$(h5ex_d_rdwr_SOURCES) $(h5ex_d_transform_SOURCES) \
+	$(h5ex_d_nbit_SOURCES) $(h5ex_d_rdwr_SOURCES) \
+	$(h5ex_d_rdwr_kind_SOURCES) $(h5ex_d_soint_SOURCES) \
+	$(h5ex_d_szip_SOURCES) $(h5ex_d_transform_SOURCES) \
 	$(h5ex_d_unlimmod_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -492,17 +510,21 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-h5ex_d_alloc_SOURCES = h5ex_d_alloc.f90    
-h5ex_d_fillval_SOURCES = h5ex_d_fillval.f90
+h5ex_d_alloc_SOURCES = h5ex_d_alloc.f90
 h5ex_d_checksum_SOURCES = h5ex_d_checksum.f90
-h5ex_d_gzip_SOURCES = h5ex_d_gzip.f90
 h5ex_d_chunk_SOURCES = h5ex_d_chunk.f90 
-h5ex_d_hyper_SOURCES = h5ex_d_hyper.f90    
-h5ex_d_unlimmod_SOURCES = h5ex_d_unlimmod.f90
 h5ex_d_compact_SOURCES = h5ex_d_compact.f90
-h5ex_d_extern_SOURCES = h5ex_d_extern.f90     
-h5ex_d_rdwr_SOURCES = h5ex_d_rdwr.f90
+h5ex_d_extern_SOURCES = h5ex_d_extern.f90   
+h5ex_d_fillval_SOURCES = h5ex_d_fillval.f90
+h5ex_d_gzip_SOURCES = h5ex_d_gzip.f90
+h5ex_d_hyper_SOURCES = h5ex_d_hyper.f90
+h5ex_d_nbit_SOURCES = h5ex_d_nbit.f90
+h5ex_d_rdwr_SOURCES = h5ex_d_rdwr.f90  
+h5ex_d_rdwr_kind_SOURCES = h5ex_d_rdwr_kind.f90
+h5ex_d_soint_SOURCES = h5ex_d_soint.f90
+h5ex_d_szip_SOURCES = h5ex_d_szip.f90
 h5ex_d_transform_SOURCES = h5ex_d_transform.f90
+h5ex_d_unlimmod_SOURCES = h5ex_d_unlimmod.f90
 EXTRA_DIST = testfiles/h5ex_d_rdwr.tst testfiles/h5ex_d_hyper.tst testfiles/h5ex_d_chunk.tst \
 testfiles/h5ex_d_gzip.tst testfiles/h5ex_d_extern.tst testfiles/h5ex_d_compact.tst \
 testfiles/h5ex_d_unlimadd.tst \
@@ -512,7 +534,13 @@ testfiles/h5ex_d_rdwr.ddl testfiles/h5ex_d_hyper.ddl testfiles/h5ex_d_chunk.ddl 
 testfiles/h5ex_d_gzip.ddl testfiles/h5ex_d_extern.ddl testfiles/h5ex_d_compact.ddl \
 testfiles/h5ex_d_unlimadd.ddl \
 testfiles/h5ex_d_checksum.ddl testfiles/h5ex_d_transform.ddl \
-testfiles/h5ex_d_fillval.ddl testfiles/h5ex_d_alloc.ddl test.sh
+testfiles/h5ex_d_soint.tst testfiles/h5ex_d_soint.dll \
+testfiles/h5ex_d_szip.tst testfiles/h5ex_d_szip.dll \
+testfiles/h5ex_d_nbit.tst testfiles/h5ex_d_nbit.dll \
+testfiles/h5ex_d_unlimmod.tst testfiles/h5ex_d_unlimmod.dll \
+testfiles/h5ex_d_fillval.ddl testfiles/h5ex_d_alloc.ddl \
+testfiles/h5ex_d_rdwr_kind.tst testfiles/h5ex_d_rdwr_kind.dll \
+test.sh
 
 TESTS = test.sh
 all: all-am
@@ -586,9 +614,25 @@ h5ex_d_hyper$(EXEEXT): $(h5ex_d_hyper_OBJECTS) $(h5ex_d_hyper_DEPENDENCIES) $(EX
 	@rm -f h5ex_d_hyper$(EXEEXT)
 	$(AM_V_FCLD)$(FCLINK) $(h5ex_d_hyper_OBJECTS) $(h5ex_d_hyper_LDADD) $(LIBS)
 
+h5ex_d_nbit$(EXEEXT): $(h5ex_d_nbit_OBJECTS) $(h5ex_d_nbit_DEPENDENCIES) $(EXTRA_h5ex_d_nbit_DEPENDENCIES) 
+	@rm -f h5ex_d_nbit$(EXEEXT)
+	$(AM_V_FCLD)$(FCLINK) $(h5ex_d_nbit_OBJECTS) $(h5ex_d_nbit_LDADD) $(LIBS)
+
 h5ex_d_rdwr$(EXEEXT): $(h5ex_d_rdwr_OBJECTS) $(h5ex_d_rdwr_DEPENDENCIES) $(EXTRA_h5ex_d_rdwr_DEPENDENCIES) 
 	@rm -f h5ex_d_rdwr$(EXEEXT)
 	$(AM_V_FCLD)$(FCLINK) $(h5ex_d_rdwr_OBJECTS) $(h5ex_d_rdwr_LDADD) $(LIBS)
+
+h5ex_d_rdwr_kind$(EXEEXT): $(h5ex_d_rdwr_kind_OBJECTS) $(h5ex_d_rdwr_kind_DEPENDENCIES) $(EXTRA_h5ex_d_rdwr_kind_DEPENDENCIES) 
+	@rm -f h5ex_d_rdwr_kind$(EXEEXT)
+	$(AM_V_FCLD)$(FCLINK) $(h5ex_d_rdwr_kind_OBJECTS) $(h5ex_d_rdwr_kind_LDADD) $(LIBS)
+
+h5ex_d_soint$(EXEEXT): $(h5ex_d_soint_OBJECTS) $(h5ex_d_soint_DEPENDENCIES) $(EXTRA_h5ex_d_soint_DEPENDENCIES) 
+	@rm -f h5ex_d_soint$(EXEEXT)
+	$(AM_V_FCLD)$(FCLINK) $(h5ex_d_soint_OBJECTS) $(h5ex_d_soint_LDADD) $(LIBS)
+
+h5ex_d_szip$(EXEEXT): $(h5ex_d_szip_OBJECTS) $(h5ex_d_szip_DEPENDENCIES) $(EXTRA_h5ex_d_szip_DEPENDENCIES) 
+	@rm -f h5ex_d_szip$(EXEEXT)
+	$(AM_V_FCLD)$(FCLINK) $(h5ex_d_szip_OBJECTS) $(h5ex_d_szip_LDADD) $(LIBS)
 
 h5ex_d_transform$(EXEEXT): $(h5ex_d_transform_OBJECTS) $(h5ex_d_transform_DEPENDENCIES) $(EXTRA_h5ex_d_transform_DEPENDENCIES) 
 	@rm -f h5ex_d_transform$(EXEEXT)

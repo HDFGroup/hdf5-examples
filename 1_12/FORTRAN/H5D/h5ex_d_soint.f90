@@ -28,7 +28,7 @@ PROGRAM main
   LOGICAL :: avail
   INTEGER(HID_T)  :: file, space, dset, dtype, dcpl ! Handles
 
-  INTEGER, DIMENSION(1:1) :: cd_values
+  INTEGER, DIMENSION(1:50) :: cd_values
   INTEGER :: filter_id
   INTEGER :: filter_info_both
   INTEGER(HSIZE_T), DIMENSION(1:2) :: dims = (/dim0, dim1/), chunk =(/chunk0,chunk1/)
@@ -132,7 +132,7 @@ PROGRAM main
   ! first filter because we know that we only added one filter.
   !
   nelmts = 1
-  CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, MaxChrLen, name, filter_id, hdferr)
+  CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, INT(MaxChrLen, SIZE_T), name, filter_id, hdferr)
   WRITE(*,'("Filter type is: ")', ADVANCE='NO')
   IF(filter_id.EQ.H5Z_FILTER_DEFLATE_F)THEN
      WRITE(*,'(T2,"H5Z_FILTER_DEFLATE_F")')
