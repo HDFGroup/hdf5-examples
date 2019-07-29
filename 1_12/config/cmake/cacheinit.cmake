@@ -6,6 +6,8 @@
 
 set (BUILD_SHARED_LIBS ON CACHE BOOL "Build Shared Libraries" FORCE)
 
+set (HDF_BUILD_CXX OFF CACHE BOOL "Build CXX support" FORCE)
+
 set (HDF_BUILD_FORTRAN OFF CACHE BOOL "Build FORTRAN support" FORCE)
 
 set (HDF_BUILD_JAVA OFF CACHE BOOL "Build JAVA support" FORCE)
@@ -22,4 +24,4 @@ set (HDF5_PACKAGE_NAME "hdf5" CACHE STRING "Name of HDF5 package" FORCE)
 
 set (PACK_EXAMPLE_SOURCE ON CACHE BOOL "Package the source" FORCE)
 
-set (CPACK_PACKAGE_VERSION "1.12.4" CACHE STRING "Version of HDF5 source package" FORCE)
+set (CPACK_PACKAGE_VERSION "1.12.5" CACHE STRING "Version of HDF5 source package" FORCE)

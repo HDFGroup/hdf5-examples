@@ -1,4 +1,4 @@
-# runTest.cmake executes a command and captures the output in a file. File is then compared
+# jrunTest.cmake executes a command and captures the output in a file. File is then compared
 # against a reference file. Exit status of command can also be compared.
 cmake_policy(SET CMP0007 NEW)
 
@@ -13,7 +13,7 @@ if (NOT TEST_LIBRARY_DIRECTORY)
   message (STATUS "Require TEST_LIBRARY_DIRECTORY to be defined")
 endif ()
 if (NOT TEST_FOLDER)
-  message ( FATAL_ERROR "Require TEST_FOLDER to be defined")
+  message (FATAL_ERROR "Require TEST_FOLDER to be defined")
 endif ()
 if (NOT TEST_OUTPUT)
   message (FATAL_ERROR "Require TEST_OUTPUT to be defined")
@@ -38,8 +38,10 @@ endif ()
 
 message (STATUS "COMMAND: ${TEST_TESTER} -Xmx1024M -Dorg.slf4j.simpleLogger.defaultLog=${LOG_LEVEL} -Djava.library.path=\"${TEST_LIBRARY_DIRECTORY}\" -cp \"${TEST_CLASSPATH}\" ${TEST_ARGS} ${TEST_PROGRAM} ${ARGN}")
 
-if (WIN32 AND NOT MINGW)
+if (WIN32 OR MINGW)
   set (ENV{PATH} "$ENV{PATH}\\;${TEST_LIBRARY_DIRECTORY}")
+else ()
+  set (ENV{LD_LIBRARY_PATH} "$ENV{LD_LIBRARY_PATH}:${TEST_LIBRARY_DIRECTORY}")
 endif ()
 
 # run the test program, capture the stdout/stderr and the result var
@@ -53,6 +55,7 @@ execute_process (
     RESULT_VARIABLE TEST_RESULT
     OUTPUT_FILE ${TEST_OUTPUT}
     ERROR_FILE ${TEST_OUTPUT}.err
+    OUTPUT_VARIABLE TEST_OUT
     ERROR_VARIABLE TEST_ERROR
 )
 
@@ -110,16 +113,29 @@ message (STATUS "COMMAND Error: ${TEST_ERROR}")
 # compare output files to references unless this must be skipped
 if (NOT TEST_SKIP_COMPARE)
   if (EXISTS ${TEST_FOLDER}/${TEST_REFERENCE})
-    if (WIN32 AND NOT MINGW)
-      file (READ ${TEST_FOLDER}/${TEST_REFERENCE} TEST_STREAM)
-      file (WRITE ${TEST_FOLDER}/${TEST_REFERENCE} "${TEST_STREAM}")
+    if (WIN32 OR MINGW)
+      configure_file(${TEST_FOLDER}/${TEST_REFERENCE} ${TEST_FOLDER}/${TEST_REFERENCE}.tmp NEWLINE_STYLE CRLF)
+      file(RENAME ${TEST_FOLDER}/${TEST_REFERENCE}.tmp ${TEST_FOLDER}/${TEST_REFERENCE})
+      #file (READ ${TEST_FOLDER}/${TEST_REFERENCE} TEST_STREAM)
+      #file (WRITE ${TEST_FOLDER}/${TEST_REFERENCE} "${TEST_STREAM}")
     endif ()
 
-    # now compare the output with the reference
-    execute_process (
-        COMMAND ${CMAKE_COMMAND} -E compare_files ${TEST_FOLDER}/${TEST_OUTPUT} ${TEST_FOLDER}/${TEST_REFERENCE}
-        RESULT_VARIABLE TEST_RESULT
-    )
+    if (NOT TEST_SORT_COMPARE)
+      # now compare the output with the reference
+      execute_process (
+          COMMAND ${CMAKE_COMMAND} -E compare_files ${TEST_FOLDER}/${TEST_OUTPUT} ${TEST_FOLDER}/${TEST_REFERENCE}
+          RESULT_VARIABLE TEST_RESULT
+      )
+    else ()
+      file (STRINGS ${TEST_FOLDER}/${TEST_OUTPUT} v1)
+      file (STRINGS ${TEST_FOLDER}/${TEST_REFERENCE} v2)
+      list (SORT v1)
+      list (SORT v2)
+      if (NOT v1 STREQUAL v2)
+        set(TEST_RESULT 1)
+      endif ()
+    endif ()
+
     if (TEST_RESULT)
       set (TEST_RESULT 0)
       file (STRINGS ${TEST_FOLDER}/${TEST_OUTPUT} test_act)
@@ -134,7 +150,7 @@ if (NOT TEST_SKIP_COMPARE)
           if (NOT str_act STREQUAL str_ref)
             if (str_act)
               set (TEST_RESULT 1)
-              message ("line = ${line}\n***ACTUAL: ${str_act}\n****REFER: ${str_ref}\n")
+              message (STATUS "line = ${line}\n***ACTUAL: ${str_act}\n****REFER: ${str_ref}\n")
             endif ()
           endif ()
         endforeach ()
@@ -161,9 +177,11 @@ if (NOT TEST_SKIP_COMPARE)
 
   # now compare the .err file with the error reference, if supplied
   if (TEST_ERRREF)
-    if (WIN32 AND NOT MINGW)
-      file (READ ${TEST_FOLDER}/${TEST_ERRREF} TEST_STREAM)
-      file (WRITE ${TEST_FOLDER}/${TEST_ERRREF} "${TEST_STREAM}")
+    if (WIN32 OR MINGW)
+      configure_file(${TEST_FOLDER}/${TEST_ERRREF} ${TEST_FOLDER}/${TEST_ERRREF}.tmp NEWLINE_STYLE CRLF)
+      file(RENAME ${TEST_FOLDER}/${TEST_ERRREF}.tmp ${TEST_FOLDER}/${TEST_ERRREF})
+      #file (READ ${TEST_FOLDER}/${TEST_ERRREF} TEST_STREAM)
+      #file (WRITE ${TEST_FOLDER}/${TEST_ERRREF} "${TEST_STREAM}")
     endif ()
 
     # now compare the error output with the error reference
@@ -186,7 +204,7 @@ if (NOT TEST_SKIP_COMPARE)
           if (NOT str_act STREQUAL str_ref)
             if (str_act)
               set (TEST_RESULT 1)
-              message ("line = ${line}\n***ACTUAL: ${str_act}\n****REFER: ${str_ref}\n")
+              message (STATUS "line = ${line}\n***ACTUAL: ${str_act}\n****REFER: ${str_ref}\n")
             endif ()
           endif ()
         endforeach ()
@@ -234,5 +252,5 @@ if (TEST_GREP_COMPARE)
 endif ()
 
 # everything went fine...
-message ("${TEST_PROGRAM} Passed")
+message (STATUS "${TEST_PROGRAM} Passed")
 

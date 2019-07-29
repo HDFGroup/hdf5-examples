@@ -118,7 +118,7 @@ PROGRAM main
   !
   
   nelmts = 1
-  CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, MaxChrLen, name, filter_id, hdferr)
+  CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, INT(MaxChrLen,SIZE_T), name, filter_id, hdferr)
   WRITE(*,'("Filter type is: ")', ADVANCE='NO')
   IF(filter_id.EQ.H5Z_FILTER_DEFLATE_F)THEN
      WRITE(*,'(T2,"H5Z_FILTER_DEFLATE_F")')

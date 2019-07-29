@@ -35,13 +35,26 @@ dumpout() {
     $H5DUMP $*
 }
 
-topics="rdwr hyper chunk gzip  extern compact  \
-unlimmod  checksum  fillval alloc"
+topics="alloc \
+  checksum \
+  chunk \
+  compact \
+  extern  \
+  fillval \
+  gzip \
+  hyper \
+  nbit \
+  rdwr \
+  rdwr_kind \
+  soint \
+  szip \
+  transform \
+  unlimmod"
 
 for topic in $topics
 do
     fname=h5ex_d_$topic
-    $ECHO_N "Creating test reference file for 1.8/FORTRAN/H5D/$fname...$ECHO_C"
+    $ECHO_N "Creating test reference file for 1.12/FORTRAN/H5D/$fname...$ECHO_C"
     exout ./$fname >testfiles/$fname.tst
     dumpout $fname.h5 >testfiles/$fname.ddl
     rm -f $fname.h5
@@ -54,8 +67,8 @@ done
 rm -f h5ex_d_extern.data
 
 fname=h5ex_d_transform
-$ECHO_N "Creating test reference file for 1.8/FORTRAN/H5D/$fname...$ECHO_C"
+$ECHO_N "Creating test reference file for 1.12/FORTRAN/H5D/$fname...$ECHO_C"
 exout ./$fname >testfiles/$fname.tst
-dumpout -n $fname.h5 >testfiles/$fname.ddl
+dumpout $fname.h5 >testfiles/$fname.ddl
 rm -f $fname.h5
 echo "  Done."

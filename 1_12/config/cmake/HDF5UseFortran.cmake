@@ -13,10 +13,10 @@ else ()
 endif ()
 
 #
-# This file provides functions for HDF5 specific Fortran support.
+# This file provides functions for Fortran support.
 #
 #-------------------------------------------------------------------------------
-ENABLE_LANGUAGE (Fortran)
+enable_language (Fortran)
 
 # The provided CMake Fortran macros don't provide a general compile/run function
 # so this one is used.
@@ -246,7 +246,7 @@ foreach (KIND ${VAR} )
   set (pack_real_sizeof "${pack_real_sizeof} ${PROG_OUTPUT1},")
 endforeach ()
 
-if (pack_int_sizeof STREQUAL "")
+if (pack_real_sizeof STREQUAL "")
    message (FATAL_ERROR "Failed to find available REAL KINDs for Fortran")
 endif ()
 
@@ -388,11 +388,11 @@ macro (C_RUN FUNCTION_NAME SOURCE_CODE RETURN_VAR)
 
     set (${RETURN_VAR} ${OUTPUT_VAR})
 
-    #message ( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ")
-    #message ( "Test COMPILE_RESULT_VAR ${COMPILE_RESULT_VAR} ")
-    #message ( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ")
-    #message ( "Test RUN_RESULT_VAR ${RUN_RESULT_VAR} ")
-    #message ( "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ")
+    #message (STATUS "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ")
+    #message (STATUS "Test COMPILE_RESULT_VAR ${COMPILE_RESULT_VAR} ")
+    #message (STATUS "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ")
+    #message (STATUS "Test RUN_RESULT_VAR ${RUN_RESULT_VAR} ")
+    #message (STATUS "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ")
 
     if (${COMPILE_RESULT_VAR})
       if (${RUN_RESULT_VAR} MATCHES 1)
