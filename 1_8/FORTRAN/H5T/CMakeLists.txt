@@ -53,7 +53,7 @@ if (BUILD_TESTING)
       add_test (
           NAME H5DUMP-f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:hdf5::h5dump>"
+              -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.ddl.out"
