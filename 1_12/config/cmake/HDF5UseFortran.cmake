@@ -91,7 +91,7 @@ else ()
 endif ()
 
 ## Set the sizeof function for use later in the fortran tests
-if (FORTRAN_HAVE_STORAGE_SIZE)
+if (H5_FORTRAN_HAVE_STORAGE_SIZE)
   set (FC_SIZEOF_A "STORAGE_SIZE(a, c_size_t)/STORAGE_SIZE(c_char_'a',c_size_t)")
   set (FC_SIZEOF_B "STORAGE_SIZE(b, c_size_t)/STORAGE_SIZE(c_char_'a',c_size_t)")
   set (FC_SIZEOF_C "STORAGE_SIZE(c, c_size_t)/STORAGE_SIZE(c_char_'a',c_size_t)")
