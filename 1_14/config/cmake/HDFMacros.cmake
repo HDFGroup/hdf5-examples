@@ -130,7 +130,7 @@ macro (HDF_SET_LIB_OPTIONS libtarget libname libtype)
   #message (STATUS "${target_name} : ${target_name_debug} : ${target_name_rwdi}")
 
   if (${libtype} MATCHES "STATIC")
-    if (WIN32)
+    if (WIN32 OR MINGW)
       set_target_properties (${libtarget}
           PROPERTIES
           COMPILE_PDB_NAME_DEBUG          ${LIB_DEBUG_NAME}
@@ -381,7 +381,7 @@ macro (HDF_DIR_PATHS package_prefix)
 
   #set the default debug suffix for all library targets
     if(NOT CMAKE_DEBUG_POSTFIX)
-      if (WIN32)
+      if (WIN32 OR MINGW)
         set (CMAKE_DEBUG_POSTFIX "_D")
       else ()
         set (CMAKE_DEBUG_POSTFIX "_debug")
