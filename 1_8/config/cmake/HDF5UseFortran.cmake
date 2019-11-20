@@ -7,7 +7,7 @@ include (${CMAKE_ROOT}/Modules/CheckFortranFunctionExists.cmake)
 #
 #-------------------------------------------------------------------------------
 enable_language (Fortran)
-  
+
 #-----------------------------------------------------------------------------
 # Detect name mangling convention used between Fortran and C
 #-----------------------------------------------------------------------------
@@ -165,7 +165,7 @@ CHECK_FORTRAN_FEATURE(iso_c_binding
             IMPLICIT NONE
             TYPE(C_PTR) :: ptr
             TYPE(C_FUNPTR) :: funptr
-            INTEGER(C_INT64_T) :: c_int64_type 
+            INTEGER(C_INT64_T) :: c_int64_type
             CHARACTER(LEN=80, KIND=c_char), TARGET :: ichr
             ptr = C_LOC(ichr(1:1))
        END PROGRAM
@@ -178,7 +178,7 @@ CHECK_FORTRAN_FEATURE(iso_c_binding
 #-----------------------------------------------------------------------------
 if (CMAKE_Fortran_COMPILER MATCHES ifort)
     if (WIN32)
-        set (CMAKE_Fortran_FLAGS_DEBUG "/debug:full /dbglibs " CACHE "flags" STRING FORCE)
-        set (CMAKE_EXE_LINKER_FLAGS_DEBUG "/DEBUG" CACHE "flags" STRING FORCE)
+        set (CMAKE_Fortran_FLAGS_DEBUG "/debug:full /dbglibs " CACHE STRING "flags" FORCE)
+        set (CMAKE_EXE_LINKER_FLAGS_DEBUG "/DEBUG" CACHE STRING "flags" FORCE)
     endif ()
 endif ()
