@@ -9,9 +9,17 @@ GROUP "/" {
          DATATYPE  H5T_REFERENCE { H5T_STD_REF_DSETREG }
          DATASPACE  SIMPLE { ( 2 ) / ( 2 ) }
          DATA {
-         (0): DATASET /DS2 {(0,1), (2,11), (1,0), (2,4)},
-         (1): DATASET /DS2 {(0,0)-(0,2), (0,11)-(0,13), (2,0)-(2,2),
-         (1):  (2,11)-(2,13)}
+         DATASET h5ex_t_regrefatt.h5/DS2{
+            REGION_TYPE POINT  (0,1), (2,11), (1,0), (2,4)
+            DATATYPE  H5T_STD_I8LE
+            DATASPACE  SIMPLE { ( 3, 16 ) / ( 3, 16 ) }
+         }
+         DATASET h5ex_t_regrefatt.h5/DS2  {
+            REGION_TYPE BLOCK  (0,0)-(0,2), (0,11)-(0,13), (2,0)-(2,2),
+             (2,11)-(2,13)
+            DATATYPE  H5T_STD_I8LE
+            DATASPACE  SIMPLE { ( 3, 16 ) / ( 3, 16 ) }
+         }
          }
       }
    }
