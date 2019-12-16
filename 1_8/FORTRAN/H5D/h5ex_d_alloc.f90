@@ -50,7 +50,7 @@ PROGRAM main
   !
   CALL h5fcreate_f(filename, H5F_ACC_TRUNC_F, file, hdferr)
   !
-  ! Create dataspace. 
+  ! Create dataspace.
   !
   CALL h5screate_simple_f(rank, dims, space, hdferr)
   !
@@ -64,7 +64,7 @@ PROGRAM main
   !
   CALL h5pset_alloc_time_f(dcpl, H5D_ALLOC_TIME_EARLY_F,hdferr)
   !
-  WRITE(*,'(/,"Creating datasets...",/)') 
+  WRITE(*,'(/,"Creating datasets...",/)')
   WRITE(*,'(A," has allocation time H5D_ALLOC_TIME_LATE_F")') dataset1
   WRITE(*,'(A," has allocation time H5D_ALLOC_TIME_EARLY_F"/)') dataset2
   !
@@ -72,7 +72,7 @@ PROGRAM main
   !
   CALL h5dcreate_f(file, dataset1, H5T_STD_I32LE, space, dset1, hdferr)
   CALL h5dcreate_f(file, dataset2, H5T_STD_I32LE, space, dset2, hdferr, dcpl)
-  ! 
+  !
   ! Retrieve and print space status and storage size for dset1.
   !
   storage_size = 0
@@ -84,7 +84,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset1
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.")') dataset1, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.")') dataset1, storage_size
   !
   ! Retrieve and print space status and storage size for dset2.
   !
@@ -96,7 +96,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset2
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.")') dataset2, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.")') dataset2, storage_size
   !
   WRITE(*,'(/,"Writing data...",/)')
   !
@@ -115,7 +115,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset1
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.")') dataset1, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.")') dataset1, storage_size
   !
   ! Retrieve and print space status and storage size for dset2.
   !
@@ -127,7 +127,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset2
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.",/)') dataset2, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.",/)') dataset2, storage_size
   !
   ! Close and release resources.
   !

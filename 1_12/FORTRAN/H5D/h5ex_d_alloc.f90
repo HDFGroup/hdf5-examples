@@ -84,7 +84,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset1
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.")') dataset1, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.")') dataset1, storage_size
   !
   ! Retrieve and print space status and storage size for dset2.
   !
@@ -96,7 +96,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset2
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.")') dataset2, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.")') dataset2, storage_size
   !
   WRITE(*,'(/,"Writing data...",/)')
   !
@@ -115,7 +115,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset1
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.")') dataset1, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.")') dataset1, storage_size
   !
   ! Retrieve and print space status and storage size for dset2.
   !
@@ -127,7 +127,7 @@ PROGRAM main
   ELSE
      WRITE(*,'("Space for ",A," has not been allocated.")') dataset2
   END IF
-  WRITE(*,'("Storage size for ",A," is: ",I3," bytes.",/)') dataset2, storage_size
+  WRITE(*,'("Storage size for ",A," is: ",I0," bytes.",/)') dataset2, storage_size
   !
   ! Close and release resources.
   !
