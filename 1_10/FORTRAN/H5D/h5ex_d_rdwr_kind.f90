@@ -58,7 +58,7 @@ PROGRAM main
   DO i = 1, dim0
      DO j = 1, dim1
         wdata_i(i,j) = (i-1)*(j-1)-(j-1)
-        wdata_r(i,j) = (REAL(i,kind=ip)-1.0_ip)*(REAL(j,kind=ip)-1.0_ip)-(REAL(j,kind=ip)-1.0_ip)
+        wdata_r(i,j) = (REAL(i,kind=dp)-1.0_dp)*(REAL(j,kind=dp)-1.0_dp)-(REAL(j,kind=dp)-1.0_dp)
      ENDDO
   ENDDO
   !
