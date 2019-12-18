@@ -9,7 +9,10 @@ GROUP "/" {
          DATATYPE  H5T_REFERENCE { H5T_STD_REF_OBJECT }
          DATASPACE  SIMPLE { ( 2 ) / ( 2 ) }
          DATA {
-         (0): GROUP 1400 /G1 , DATASET 800 /DS2 
+            GROUP "h5ex_t_objrefatt_F03.h5/G1"
+            DATASET "h5ex_t_objrefatt_F03.h5/DS2"
+               DATA {
+               }
          }
       }
    }
