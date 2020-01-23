@@ -101,11 +101,11 @@ public class HDF5FileStructure {
         String objNames[] = new String[(int) members.nlinks];
         int objTypes[] = new int[(int) members.nlinks];
         int lnkTypes[] = new int[(int) members.nlinks];
-        long objRefs[] = new long[(int) members.nlinks];
+        H5O_token_t objTokens[] = new H5O_token_t[(int) members.nlinks];
         int names_found = 0;
         try {
             names_found = H5.H5Gget_obj_info_all(g_id, null, objNames,
-                    objTypes, lnkTypes, objRefs, HDF5Constants.H5_INDEX_NAME);
+                    objTypes, lnkTypes, objTokens, HDF5Constants.H5_INDEX_NAME);
         }
         catch (Throwable err) {
             err.printStackTrace();
