@@ -33,7 +33,7 @@ struct opdata {
 /*
  * Operator function to be called by H5Literate.
  */
-herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
+herr_t op_func (hid_t loc_id, const char *name, const H5L_info1_t *info,
             void *operator_data);
 
 /*
@@ -46,14 +46,14 @@ main (void)
 {
     hid_t           file;           /* Handle */
     herr_t          status;
-    H5O_info_t      infobuf;
+    H5O_info1_t      infobuf;
     struct opdata   od;
 
     /*
      * Open file and initialize the operator data structure.
      */
     file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    status = H5Oget_info (file, &infobuf, H5O_INFO_ALL);
+    status = H5Oget_info2 (file, &infobuf, H5O_INFO_ALL);
     od.recurs = 0;
     od.prev = NULL;
     od.addr = infobuf.addr;
@@ -62,7 +62,7 @@ main (void)
      * Print the root group and formatting, begin iteration.
      */
     printf ("/ {\n");
-    status = H5Literate (file, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
+    status = H5Literate1 (file, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
                 (void *) &od);
     printf ("}\n");
 
@@ -86,11 +86,11 @@ main (void)
   circular path in the file.
 
  ************************************************************/
-herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
+herr_t op_func (hid_t loc_id, const char *name, const H5L_info1_t *info,
             void *operator_data)
 {
     herr_t          status, return_val = 0;
-    H5O_info_t      infobuf;
+    H5O_info1_t     infobuf;
     struct opdata   *od = (struct opdata *) operator_data;
                                 /* Type conversion */
     unsigned        spaces = 2*(od->recurs+1);
@@ -102,7 +102,7 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
      * The name of the object is passed to this function by
      * the Library.
      */
-    status = H5Oget_info_by_name (loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
+    status = H5Oget_info_by_name2 (loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
     printf ("%*s", spaces, "");     /* Format output */
     switch (infobuf.type) {
         case H5O_TYPE_GROUP:
@@ -134,7 +134,7 @@ herr_t op_func (hid_t loc_id, const char *name, const H5L_info_t *info,
                 nextod.recurs = od->recurs + 1;
                 nextod.prev = od;
                 nextod.addr = infobuf.addr;
-                return_val = H5Literate_by_name (loc_id, name, H5_INDEX_NAME,
+                return_val = H5Literate_by_name1 (loc_id, name, H5_INDEX_NAME,
                             H5_ITER_NATIVE, NULL, op_func, (void *) &nextod,
                             H5P_DEFAULT);
             }
