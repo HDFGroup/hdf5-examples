@@ -16,6 +16,7 @@
 import hdf.hdf5lib.H5;
 import hdf.hdf5lib.HDF5Constants;
 import hdf.hdf5lib.structs.H5G_info_t;
+import hdf.hdf5lib.structs.H5O_token_t;
 
 /**
  * <p>
