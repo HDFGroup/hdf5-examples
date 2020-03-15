@@ -1,12 +1,13 @@
 include (${CMAKE_ROOT}/Modules/CheckTypeSize.cmake)
 include (${CMAKE_ROOT}/Modules/CheckIncludeFiles.cmake)
-include (${CMAKE_ROOT}/Modules/CheckFortranFunctionExists.cmake)
 
 #
-# This file provides functions for Fortran support.
+# This file provides functions for HDF5 specific Fortran support.
 #
 #-------------------------------------------------------------------------------
 enable_language (Fortran)
+
+include (${CMAKE_ROOT}/Modules/CheckFortranFunctionExists.cmake)
 
 #-----------------------------------------------------------------------------
 # Detect name mangling convention used between Fortran and C
