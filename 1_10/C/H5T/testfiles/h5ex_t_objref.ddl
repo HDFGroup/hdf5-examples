@@ -7,7 +7,7 @@ GROUP "/" {
          GROUP 1400 "/G1"
             DATA {
             }
-         DATASET 800 "/DS2
+         DATASET 800 "/DS2"
             DATA {
             }
       }
