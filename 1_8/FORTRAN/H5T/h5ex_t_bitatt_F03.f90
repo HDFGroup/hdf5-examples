@@ -31,8 +31,9 @@ PROGRAM main
   INTEGER(C_SIGNED_CHAR), DIMENSION(:,:), ALLOCATABLE, TARGET :: rdata    ! Read buffer
   INTEGER :: A, B, C, D
   INTEGER(C_SIGNED_CHAR) :: i, j
-  INTEGER(C_SIGNED_CHAR), PARAMETER :: hex =  Z'03'
+  INTEGER(C_SIGNED_CHAR) :: hex
   TYPE(C_PTR) :: f_ptr
+  DATA hex /Z'03'/
   !
   ! Initialize FORTRAN interface.
   !
