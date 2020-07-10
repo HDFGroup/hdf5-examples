@@ -19,9 +19,10 @@ set (examples
 #    h5ex_d_unlimadd.f90
 #    h5ex_d_unlimgzip.f90
 )
-if (HDF5_ENABLE_Z_LIB_SUPPORT)
-  set (examples ${examples} h5ex_d_gzip.f90)
-endif ()
-if (HDF5_ENABLE_SZIP_SUPPORT)
-  set (examples ${examples} h5ex_d_szip.f90)
-endif ()
+# uncomment if reference files added
+#if (HDF5_ENABLE_Z_LIB_SUPPORT)
+#  set (examples ${examples} h5ex_d_gzip.f90)
+#endif ()
+#if (HDF5_ENABLE_SZIP_SUPPORT)
+#  set (examples ${examples} h5ex_d_szip.f90)
+#endif ()
