@@ -403,6 +403,13 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/
 endif ()
 
 #-----------------------------------------------------------------------------
+# Option to build filter examples
+#-----------------------------------------------------------------------------
+if (EXISTS "${PROJECT_SOURCE_DIR}/C/H5Filters" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/C/H5Filters")
+  option (HDF_BUILD_FILTERS "Test filter support" OFF)
+endif ()
+
+#-----------------------------------------------------------------------------
 # Configure the README.txt file for the binary package
 #-----------------------------------------------------------------------------
 HDF_README_PROPERTIES(HDF_BUILD_FORTRAN)
