@@ -231,7 +231,7 @@ endif ()
 #-----------------------------------------------------------------------------
 # Option to use 1.12.x API
 #-----------------------------------------------------------------------------
-option (HDF5_USE_112_API "Use the HDF5 1.12.x API" ON)
+option (HDF5_USE_112_API "Use the HDF5 1.12.x API" OFF)
 if (HDF5_USE_112_API)
   add_definitions (-DH5_USE_112_API)
 endif ()
@@ -408,6 +408,13 @@ if (EXISTS "${PROJECT_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/
     include (${HDF5EX_RESOURCES_DIR}/UseJava.cmake)
     add_subdirectory (JAVA)
   endif ()
+endif ()
+
+#-----------------------------------------------------------------------------
+# Option to build filter examples
+#-----------------------------------------------------------------------------
+if (EXISTS "${PROJECT_SOURCE_DIR}/C/H5Filters" AND IS_DIRECTORY "${PROJECT_SOURCE_DIR}/C/H5Filters")
+  option (HDF_BUILD_FILTERS "Test filter support" OFF)
 endif ()
 
 #-----------------------------------------------------------------------------
