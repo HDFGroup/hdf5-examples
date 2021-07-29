@@ -69,7 +69,6 @@ macro (CHECK_FORTRAN_FEATURE FUNCTION CODE VARIABLE)
           "Determining if the Fortran ${FUNCTION} exists failed with the following output:\n"
           "${OUTPUT}\n\n")
     endif ()
-
 endmacro ()
 
 #-----------------------------------------------------------------------------
