@@ -101,6 +101,9 @@ These steps are described in more detail below.
             * HDF_BUILD_FORTRAN:BOOL=[ON | OFF]
             * HDF_BUILD_JAVA:BOOL=[ON | OFF]
 
+        if the hdf5 library was built with a namespace (i.e. "hdf5::") add:
+            -D HDF5_NAMESPACE:STRING=hdf5::
+
    2. Configure the cache settings
 
       2.1  Visual CMake users, click the Configure button. If this is the first time you are
