@@ -1,4 +1,3 @@
-#
 # grepTest.cmake executes a command and captures the output in a file. File is then compared
 # against a reference file. Exit status of command can also be compared.
 
