@@ -133,10 +133,8 @@ main (void)
          * the name.
          */
         size = 1 + H5Iget_name (obj, NULL, 0);
-        if (size > 1) {
-            name = (char *) malloc (size);
-            size = 1 + H5Iget_name (obj, name, size);
-        }
+        name = (char *) malloc (size);
+        size = H5Iget_name (obj, name, size);
 
         /*
          * Print the object type and close the object.
@@ -158,11 +156,8 @@ main (void)
         /*
          * Print the name and deallocate space for the name.
          */
-        if (size > 1) {
-            printf (": %s", name);
-            free (name);
-        }
-        printf ("\n");
+        printf (": %s\n", name);
+        free (name);
     }
 
     /*

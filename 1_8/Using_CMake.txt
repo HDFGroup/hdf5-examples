@@ -90,16 +90,15 @@ These steps are described in more detail below.
             * MinGW Makefiles
             * NMake Makefiles
             * Unix Makefiles
-            * Visual Studio 11
-            * Visual Studio 11 Win64
-            * Visual Studio 10
-            * Visual Studio 10 Win64
+            * Visual Studio 15
+            * Visual Studio 15 Win64
+            * Visual Studio 14
+            * Visual Studio 14 Win64
 
         <options> is:
             * BUILD_TESTING:BOOL=ON
             * BUILD_SHARED_LIBS:BOOL=[ON | OFF]
             * HDF_BUILD_FORTRAN:BOOL=[ON | OFF]
-            * HDF_BUILD_JAVA:BOOL=[ON | OFF]
 
         if the hdf5 library was built with a namespace (i.e. "hdf5::") add:
             -D HDF5_NAMESPACE:STRING=hdf5::
@@ -126,7 +125,7 @@ These steps are described in more detail below.
 
       2.2  Alternative command line example on Windows in c:\MyHDFstuff\hdf5ex\build directory:
 
-           cmake -G "Visual Studio 10" -DBUILD_TESTING:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON ..
+           cmake -G "Visual Studio 15" -DBUILD_TESTING:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON ..
 
    3. Build HDF5 examples
 

@@ -38,7 +38,7 @@ endif ()
 
 # Read source line beginning at the line matching Input:"START" and ending at the line matching Input:"END"
 macro (READ_SOURCE SOURCE_START SOURCE_END RETURN_VAR)
-  file (READ "${HDF5EX_RESOURCES_DIR}/aclocal_fc.f90" SOURCE_MASTER)
+  file (READ "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/aclocal_fc.f90" SOURCE_MASTER)
   string (REGEX MATCH "${SOURCE_START}[\\\t\\\n\\\r[].+]*${SOURCE_END}" SOURCE_CODE ${SOURCE_MASTER})
   set (RETURN_VAR "${SOURCE_CODE}")
 endmacro ()

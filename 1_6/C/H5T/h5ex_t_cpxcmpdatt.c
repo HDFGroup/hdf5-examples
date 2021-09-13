@@ -251,6 +251,7 @@ main (void)
     attr = H5Acreate (dset, ATTRIBUTE, vehicletype, space, H5P_DEFAULT);
     status = H5Awrite (attr, vehicletype, wdata);
 
+
     /*
      * Close and release resources.  Note that we cannot use
      * H5Dvlen_reclaim as it would attempt to free() the string
@@ -270,7 +271,6 @@ main (void)
     status = H5Tclose (loctype);
     status = H5Tclose (vehicletype);
     status = H5Fclose (file);
-
 
     /*
      * Now we begin the read section of this example.  Here we assume

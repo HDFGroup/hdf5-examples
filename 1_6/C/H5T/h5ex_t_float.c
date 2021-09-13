@@ -1,7 +1,7 @@
 /************************************************************
 
-  This example shows how to read and write integer datatypes
-  to a dataset.  The program first writes integers to a
+  This example shows how to read and write float datatypes
+  to a dataset.  The program first writes floats to a
   dataset with a dataspace of DIM0xDIM1, then closes the
   file.  Next, it reopens the file, reads back the data, and
   outputs it to the screen.

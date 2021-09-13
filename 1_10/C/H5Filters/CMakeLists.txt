@@ -76,21 +76,27 @@ endif ()
 
 #run-time loadable library examples
 foreach (example ${dyn_examples})
-  add_executable (${example} ${PROJECT_SOURCE_DIR}/${example}.c)
-  TARGET_C_PROPERTIES (${example} ${LIB_TYPE} " " " ")
+  add_executable (${EXAMPLE_VARNAME}_${example} ${PROJECT_SOURCE_DIR}/${example}.c)
+  TARGET_C_PROPERTIES (${EXAMPLE_VARNAME}_${example} ${LIB_TYPE} " " " ")
+  target_compile_options(${EXAMPLE_VARNAME}_${example}
+      PRIVATE
+          "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
+          "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_18_API}>:-DH5_USE_18_API>"
+          "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_110_API}>:-DH5_USE_110_API>"
+  )
   if (H5_HAVE_PARALLEL)
-    target_include_directories (${example} PUBLIC ${MPI_C_INCLUDE_DIRS})
+    target_include_directories (${EXAMPLE_VARNAME}_${example} PUBLIC ${MPI_C_INCLUDE_DIRS})
   endif ()
-  target_link_libraries (${example} PRIVATE ${LINK_LIBS})
+  target_link_libraries (${EXAMPLE_VARNAME}_${example} PRIVATE ${LINK_LIBS})
   if (NOT WIN32)
-    target_link_libraries (${example} PRIVATE dl)
+    target_link_libraries (${EXAMPLE_VARNAME}_${example} PRIVATE dl)
   endif ()
 endforeach ()
 
 if (BUILD_TESTING)
   macro (ADD_H5_TEST testname)
     add_test (
-        NAME ${testname}-clearall
+        NAME ${EXAMPLE_VARNAME}_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}.out
@@ -100,9 +106,9 @@ if (BUILD_TESTING)
             ${testname}.h5
     )
     if (NOT "${last_test}" STREQUAL "")
-      set_tests_properties (${testname}-clearall PROPERTIES DEPENDS ${last_test})
+      set_tests_properties (${EXAMPLE_VARNAME}_${testname}-clearall PROPERTIES DEPENDS ${last_test})
     endif ()
-    set (last_test "${testname}-clearall")
+    set (last_test "${EXAMPLE_VARNAME}_${testname}-clearall")
     if (WIN32)
       set(TESTLIBDIR "${HDF5_TOOLS_DIR}")
     else ()
@@ -110,9 +116,9 @@ if (BUILD_TESTING)
     endif ()
     if (DISABLE_H5PL_ENCODER)
       add_test (
-          NAME ${testname}-ERR
+          NAME ${EXAMPLE_VARNAME}_${testname}-ERR
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_${testname}>"
               -D "TEST_ARGS:STRING=${ARGN}"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_EXPECT=1"
@@ -123,36 +129,36 @@ if (BUILD_TESTING)
               -D "TEST_ERRREF=1"
               -D "GREP_ERRREF=Filter present but encoding disabled"
               -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
+              -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/runTest.cmake"
       )
-      set_tests_properties (${testname}-ERR PROPERTIES DEPENDS ${testname}-clearall)
+      set_tests_properties (${EXAMPLE_VARNAME}_${testname}-ERR PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname}-clearall)
       add_test (
-          NAME ${testname}
+          NAME ${EXAMPLE_VARNAME}_${testname}
           COMMAND "${CMAKE_COMMAND}"
               -E copy_if_different
               "${PROJECT_SOURCE_DIR}/testfiles/${testname}.h5" "${PROJECT_BINARY_DIR}/${testname}.h5"
       )
-      set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-ERR)
+      set_tests_properties (${EXAMPLE_VARNAME}_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname}-ERR)
     else ()
       add_test (
-          NAME ${testname}
+          NAME ${EXAMPLE_VARNAME}_${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=$<TARGET_FILE:${testname}>"
+              -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_${testname}>"
               -D "TEST_ARGS:STRING=${ARGN}"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_EXPECT=0"
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_REFERENCE=${testname}.tst"
               -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-              -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
+              -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/runTest.cmake"
       )
-      set_tests_properties (${testname} PROPERTIES DEPENDS ${testname}-clearall)
+      set_tests_properties (${EXAMPLE_VARNAME}_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname}-clearall)
     endif ()
-    set (last_test "${testname}")
+    set (last_test "${EXAMPLE_VARNAME}_${testname}")
     if (HDF5_BUILD_TOOLS)
       if (NOT "${ARGN}" STREQUAL "FILTERALL")
         add_test (
-            NAME H5DUMP-${testname}
+            NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}
             COMMAND "${CMAKE_COMMAND}"
                -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
                 -D "TEST_ARGS:STRING=--enable-error-stack;-p;${testname}.h5"
@@ -163,11 +169,11 @@ if (BUILD_TESTING)
                 -D "TEST_EXPECT=0"
                 -D "TEST_REFERENCE=${testname}.ddl"
                 -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-                -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
+                -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/runTest.cmake"
         )
       else ()
         add_test (
-            NAME H5DUMP-${testname}
+            NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}
             COMMAND "${CMAKE_COMMAND}"
                 -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
                 -D "TEST_ARGS:STRING=--enable-error-stack;-p;${testname}.h5"
@@ -178,11 +184,11 @@ if (BUILD_TESTING)
                 -D "TEST_EXPECT=0"
                 -D "TEST_REFERENCE=${testname}.ddl"
                 -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-                -P "${HDF5EX_RESOURCES_DIR}/runTest.cmake"
+                -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/runTest.cmake"
         )
       endif ()
-      set_tests_properties (H5DUMP-${testname} PROPERTIES DEPENDS ${testname})
-      set (last_test "H5DUMP-${testname}")
+      set_tests_properties (${EXAMPLE_VARNAME}_H5DUMP-${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname})
+      set (last_test "${EXAMPLE_VARNAME}_H5DUMP-${testname}")
     endif ()
   endmacro ()
 
@@ -200,7 +206,7 @@ if (BUILD_TESTING)
   foreach (h5_file ${LIST_HDF5_TEST_FILES} ${LIST_OTHER_TEST_FILES})
     HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${h5_file}" "${PROJECT_BINARY_DIR}/${h5_file}" "example_files")
   endforeach ()
-  add_custom_target(example_files ALL COMMENT "Copying files needed by example tests" DEPENDS ${example_files_list})
+  add_custom_target(${EXAMPLE_VARNAME}_example_files ALL COMMENT "Copying files needed by example tests" DEPENDS ${example_files_list})
 
   foreach (h5_file ${dyn_examples})
     if (${h5_file} MATCHES "h5ex_d_zfp")

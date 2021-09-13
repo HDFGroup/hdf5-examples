@@ -131,8 +131,8 @@ main (void)
      * Close and release resources.
      */
     free (rdata);
-    /* H5free_memory is available in 1.8.16 and above.  
-     * Last version for 1.6 was 1.6.10. */ 
+    /* H5free_memory is available in 1.8.16 and above.
+     * Last version for 1.6 was 1.6.10. */
     if (minnum > 8 || relnum > 15)
         H5free_memory (tag);
     else
