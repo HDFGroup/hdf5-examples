@@ -184,9 +184,6 @@ III. Using HDF5 Libraries with Visual Studio 2008
           library path (i.e. c:\Program Files\HDF Group\HDF5\hdf5-1.6.x\lib)
           to the library directories.
 
-      8.4 If using Fortran libraries, you will also need to setup the path
-          for the Intel Fortran compiler.
-
 
 ************************************************************************
 

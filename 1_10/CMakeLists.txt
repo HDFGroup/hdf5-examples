@@ -5,7 +5,6 @@ project (H5110EX C CXX)
 # Basic H5110EX stuff here
 #-----------------------------------------------------------------------------
 if (NOT H5EXAMPLES_RESOURCES_DIR)
-  include (${H5110EX_SOURCE_DIR}/config/cmake/HDFMacros.cmake)
   include (${H5110EX_SOURCE_DIR}/config/cmake/HDFExampleMacros.cmake)
   set (CMAKE_JAVA_INCLUDE_PATH "")
 
@@ -130,8 +129,6 @@ set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
 if (EXISTS "${H5110EX_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H5110EX_SOURCE_DIR}/FORTRAN")
   option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
   if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
-    include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDFUseFortran.cmake)
-    include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDF5UseFortran.cmake)
     set (LINK_Fortran_LIBS ${LINK_LIBS})
 
     # Parallel IO usage requires MPI to be Linked and Included

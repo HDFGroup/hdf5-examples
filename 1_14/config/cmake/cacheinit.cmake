@@ -24,4 +24,4 @@ set (HDF5_PACKAGE_NAME "hdf5" CACHE STRING "Name of HDF5 package" FORCE)
 
 set (HDF5_NAMESPACE "hdf5::" CACHE STRING "Name space of HDF5 library" FORCE)
 
-set (CPACK_PACKAGE_VERSION "1.14.4" CACHE STRING "Version of HDF5 source package" FORCE)
+set (CPACK_PACKAGE_VERSION "1.14.5" CACHE STRING "Version of HDF5 source package" FORCE)

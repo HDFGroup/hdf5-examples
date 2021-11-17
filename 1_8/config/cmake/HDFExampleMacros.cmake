@@ -178,7 +178,7 @@ macro (HDF5_SUPPORT)
         message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
 
         find_package (HDF5 NAMES ${SEARCH_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
-        message (STATUS "HDF5 libs:${HDF5_FOUND} C:${HDF5_C_FOUND} Fortran:${HDF5_Fortran_FOUND} Java:${HDF5_Java_FOUND}")
+        message (STATUS "HDF5 libs:${HDF5_FOUND} C:${HDF5_C_FOUND} Fortran:${HDF5_Fortran_FOUND}")
         set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
         if (HDF5_BUILD_SHARED_LIBS)
           add_definitions (-DH5_BUILT_AS_DYNAMIC_LIB)

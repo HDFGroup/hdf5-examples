@@ -5,7 +5,6 @@ project (H518EX C CXX)
 # Basic H518EX stuff here
 #-----------------------------------------------------------------------------
 if (NOT H5EXAMPLES_RESOURCES_DIR)
-  include (${H518EX_SOURCE_DIR}/config/cmake/HDFMacros.cmake)
   include (${H518EX_SOURCE_DIR}/config/cmake/HDFExampleMacros.cmake)
 
   SET_HDF_BUILD_TYPE()
@@ -70,7 +69,6 @@ set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
 if (EXISTS "${H518EX_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H518EX_SOURCE_DIR}/FORTRAN")
   option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
   if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
-    include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDF5UseFortran.cmake)
     set (LINK_Fortran_LIBS ${LINK_LIBS})
 
     # Parallel IO usage requires MPI to be Linked and Included
