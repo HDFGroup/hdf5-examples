@@ -38,11 +38,38 @@ AC_ARG_ENABLE(shared,
     [shared_suffix=" -shlib"])
 
 # Sets compiler.
-AC_PROG_CC([h5cc])
-AC_PROG_FC([h5fc])
+H5C_exists=`h5cc --version > /dev/null 2>&1; echo $?`
+if test "0" = "$H5C_exists"; then
+  H5C="h5cc"
+else
+  H5C_exists=`h5pcc --version > /dev/null 2>&1; echo $?`
+  if test "0" = "$H5C_exists"; then
+     H5C="h5pcc"
+  else
+     AC_MSG_ERROR(failed to find h5cc or h5pcc)
+  fi
+fi      
+AC_PROG_CC([$H5C])
+
+H5FC_exists=`h5fc --version > /dev/null 2>&1; echo $?`
+if test "x0" = "x$H5FC_exists"; then
+     H5FC="h5fc"
+else
+  H5FC_exists=`h5pfc --version  > /dev/null 2>&1; echo $?`
+  if test "x0" = "x$H5FC_exists"; then
+     H5FC="h5pfc"
+  fi
+fi
+AC_PROG_FC([$H5FC])
+
+
+#AC_PROG_CC([h5cc])
+#AC_PROG_FC([h5fc])
+
+
 # Add the suffix to CC for shared linking.  Can't just set as an option
 # because it must be first.
-if test "$shared_suffix" && test ! `echo $CC | grep "$shared_suffix"`; then
+if test "$shared_suffix" && test ! `echo ${CC} | grep "$shared_suffix"`; then
     CC=${CC}${shared_suffix}
 fi
 # Checks for typedefs, structures, and compiler characteristics.
