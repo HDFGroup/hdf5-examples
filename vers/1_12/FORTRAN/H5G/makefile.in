@@ -459,10 +459,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-h5ex_g_compact_SOURCES = h5ex_g_compact.f90
-h5ex_g_create_SOURCES = h5ex_g_create.f90
-h5ex_g_corder_SOURCES = h5ex_g_corder.f90
-h5ex_g_phase_SOURCES = h5ex_g_phase.f90
+h5ex_g_compact_SOURCES = h5ex_g_compact.F90
+h5ex_g_create_SOURCES = h5ex_g_create.F90
+h5ex_g_corder_SOURCES = h5ex_g_corder.F90
+h5ex_g_phase_SOURCES = h5ex_g_phase.F90
 EXTRA_DIST = testfiles/h5ex_g_create.ddl \
 testfiles/h5ex_g_compact1.ddl testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
 testfiles/h5ex_g_phase.tst \
@@ -472,7 +472,7 @@ TESTS = test.sh
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .f90 .log .o .obj .test .test$(EXEEXT) .trs
+.SUFFIXES: .F90 .log .o .obj .test .test$(EXEEXT) .trs
 $(srcdir)/makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -530,10 +530,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-.f90.o:
+.F90.o:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ $<
 
-.f90.obj:
+.F90.obj:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)

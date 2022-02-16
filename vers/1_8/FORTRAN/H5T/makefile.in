@@ -163,111 +163,111 @@ CONFIG_CLEAN_VPATH_FILES =
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_vlen_F03$(EXEEXT) \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_vlstring_F03$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
-am__h5ex_t_array_F03_SOURCES_DIST = h5ex_t_array_F03.f90
+am__h5ex_t_array_F03_SOURCES_DIST = h5ex_t_array_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_array_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_array_F03.$(OBJEXT)
 h5ex_t_array_F03_OBJECTS = $(am_h5ex_t_array_F03_OBJECTS)
 h5ex_t_array_F03_LDADD = $(LDADD)
-am__h5ex_t_arrayatt_F03_SOURCES_DIST = h5ex_t_arrayatt_F03.f90
+am__h5ex_t_arrayatt_F03_SOURCES_DIST = h5ex_t_arrayatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_arrayatt_F03_OBJECTS = h5ex_t_arrayatt_F03.$(OBJEXT)
 h5ex_t_arrayatt_F03_OBJECTS = $(am_h5ex_t_arrayatt_F03_OBJECTS)
 h5ex_t_arrayatt_F03_LDADD = $(LDADD)
-am__h5ex_t_bit_F03_SOURCES_DIST = h5ex_t_bit_F03.f90
+am__h5ex_t_bit_F03_SOURCES_DIST = h5ex_t_bit_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_bit_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_bit_F03.$(OBJEXT)
 h5ex_t_bit_F03_OBJECTS = $(am_h5ex_t_bit_F03_OBJECTS)
 h5ex_t_bit_F03_LDADD = $(LDADD)
-am__h5ex_t_bitatt_F03_SOURCES_DIST = h5ex_t_bitatt_F03.f90
+am__h5ex_t_bitatt_F03_SOURCES_DIST = h5ex_t_bitatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_bitatt_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_bitatt_F03.$(OBJEXT)
 h5ex_t_bitatt_F03_OBJECTS = $(am_h5ex_t_bitatt_F03_OBJECTS)
 h5ex_t_bitatt_F03_LDADD = $(LDADD)
-am__h5ex_t_cmpd_F03_SOURCES_DIST = h5ex_t_cmpd_F03.f90
+am__h5ex_t_cmpd_F03_SOURCES_DIST = h5ex_t_cmpd_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_cmpd_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_cmpd_F03.$(OBJEXT)
 h5ex_t_cmpd_F03_OBJECTS = $(am_h5ex_t_cmpd_F03_OBJECTS)
 h5ex_t_cmpd_F03_LDADD = $(LDADD)
-am__h5ex_t_cmpdatt_F03_SOURCES_DIST = h5ex_t_cmpdatt_F03.f90
+am__h5ex_t_cmpdatt_F03_SOURCES_DIST = h5ex_t_cmpdatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_cmpdatt_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_cmpdatt_F03.$(OBJEXT)
 h5ex_t_cmpdatt_F03_OBJECTS = $(am_h5ex_t_cmpdatt_F03_OBJECTS)
 h5ex_t_cmpdatt_F03_LDADD = $(LDADD)
-am__h5ex_t_enum_F03_SOURCES_DIST = h5ex_t_enum_F03.f90
+am__h5ex_t_enum_F03_SOURCES_DIST = h5ex_t_enum_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_enum_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_enum_F03.$(OBJEXT)
 h5ex_t_enum_F03_OBJECTS = $(am_h5ex_t_enum_F03_OBJECTS)
 h5ex_t_enum_F03_LDADD = $(LDADD)
-am__h5ex_t_enumatt_F03_SOURCES_DIST = h5ex_t_enumatt_F03.f90
+am__h5ex_t_enumatt_F03_SOURCES_DIST = h5ex_t_enumatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_enumatt_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_enumatt_F03.$(OBJEXT)
 h5ex_t_enumatt_F03_OBJECTS = $(am_h5ex_t_enumatt_F03_OBJECTS)
 h5ex_t_enumatt_F03_LDADD = $(LDADD)
-am__h5ex_t_float_F03_SOURCES_DIST = h5ex_t_float_F03.f90
+am__h5ex_t_float_F03_SOURCES_DIST = h5ex_t_float_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_float_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_float_F03.$(OBJEXT)
 h5ex_t_float_F03_OBJECTS = $(am_h5ex_t_float_F03_OBJECTS)
 h5ex_t_float_F03_LDADD = $(LDADD)
-am__h5ex_t_floatatt_F03_SOURCES_DIST = h5ex_t_floatatt_F03.f90
+am__h5ex_t_floatatt_F03_SOURCES_DIST = h5ex_t_floatatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_floatatt_F03_OBJECTS = h5ex_t_floatatt_F03.$(OBJEXT)
 h5ex_t_floatatt_F03_OBJECTS = $(am_h5ex_t_floatatt_F03_OBJECTS)
 h5ex_t_floatatt_F03_LDADD = $(LDADD)
-am__h5ex_t_int_F03_SOURCES_DIST = h5ex_t_int_F03.f90
+am__h5ex_t_int_F03_SOURCES_DIST = h5ex_t_int_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_int_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_int_F03.$(OBJEXT)
 h5ex_t_int_F03_OBJECTS = $(am_h5ex_t_int_F03_OBJECTS)
 h5ex_t_int_F03_LDADD = $(LDADD)
-am__h5ex_t_intatt_F03_SOURCES_DIST = h5ex_t_intatt_F03.f90
+am__h5ex_t_intatt_F03_SOURCES_DIST = h5ex_t_intatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_intatt_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_intatt_F03.$(OBJEXT)
 h5ex_t_intatt_F03_OBJECTS = $(am_h5ex_t_intatt_F03_OBJECTS)
 h5ex_t_intatt_F03_LDADD = $(LDADD)
-am__h5ex_t_objref_F03_SOURCES_DIST = h5ex_t_objref_F03.f90
+am__h5ex_t_objref_F03_SOURCES_DIST = h5ex_t_objref_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_objref_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_objref_F03.$(OBJEXT)
 h5ex_t_objref_F03_OBJECTS = $(am_h5ex_t_objref_F03_OBJECTS)
 h5ex_t_objref_F03_LDADD = $(LDADD)
-am__h5ex_t_objrefatt_F03_SOURCES_DIST = h5ex_t_objrefatt_F03.f90
+am__h5ex_t_objrefatt_F03_SOURCES_DIST = h5ex_t_objrefatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_objrefatt_F03_OBJECTS = h5ex_t_objrefatt_F03.$(OBJEXT)
 h5ex_t_objrefatt_F03_OBJECTS = $(am_h5ex_t_objrefatt_F03_OBJECTS)
 h5ex_t_objrefatt_F03_LDADD = $(LDADD)
-am__h5ex_t_opaque_F03_SOURCES_DIST = h5ex_t_opaque_F03.f90
+am__h5ex_t_opaque_F03_SOURCES_DIST = h5ex_t_opaque_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_opaque_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_opaque_F03.$(OBJEXT)
 h5ex_t_opaque_F03_OBJECTS = $(am_h5ex_t_opaque_F03_OBJECTS)
 h5ex_t_opaque_F03_LDADD = $(LDADD)
-am__h5ex_t_opaqueatt_F03_SOURCES_DIST = h5ex_t_opaqueatt_F03.f90
+am__h5ex_t_opaqueatt_F03_SOURCES_DIST = h5ex_t_opaqueatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_opaqueatt_F03_OBJECTS = h5ex_t_opaqueatt_F03.$(OBJEXT)
 h5ex_t_opaqueatt_F03_OBJECTS = $(am_h5ex_t_opaqueatt_F03_OBJECTS)
 h5ex_t_opaqueatt_F03_LDADD = $(LDADD)
-am__h5ex_t_regref_F03_SOURCES_DIST = h5ex_t_regref_F03.f90
+am__h5ex_t_regref_F03_SOURCES_DIST = h5ex_t_regref_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_regref_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_regref_F03.$(OBJEXT)
 h5ex_t_regref_F03_OBJECTS = $(am_h5ex_t_regref_F03_OBJECTS)
 h5ex_t_regref_F03_LDADD = $(LDADD)
-am__h5ex_t_regrefatt_F03_SOURCES_DIST = h5ex_t_regrefatt_F03.f90
+am__h5ex_t_regrefatt_F03_SOURCES_DIST = h5ex_t_regrefatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_regrefatt_F03_OBJECTS = h5ex_t_regrefatt_F03.$(OBJEXT)
 h5ex_t_regrefatt_F03_OBJECTS = $(am_h5ex_t_regrefatt_F03_OBJECTS)
 h5ex_t_regrefatt_F03_LDADD = $(LDADD)
-am__h5ex_t_stringC_F03_SOURCES_DIST = h5ex_t_stringC_F03.f90
+am__h5ex_t_stringC_F03_SOURCES_DIST = h5ex_t_stringC_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_stringC_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_stringC_F03.$(OBJEXT)
 h5ex_t_stringC_F03_OBJECTS = $(am_h5ex_t_stringC_F03_OBJECTS)
 h5ex_t_stringC_F03_LDADD = $(LDADD)
-am__h5ex_t_stringCatt_F03_SOURCES_DIST = h5ex_t_stringCatt_F03.f90
+am__h5ex_t_stringCatt_F03_SOURCES_DIST = h5ex_t_stringCatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_stringCatt_F03_OBJECTS = h5ex_t_stringCatt_F03.$(OBJEXT)
 h5ex_t_stringCatt_F03_OBJECTS = $(am_h5ex_t_stringCatt_F03_OBJECTS)
 h5ex_t_stringCatt_F03_LDADD = $(LDADD)
-am__h5ex_t_string_F03_SOURCES_DIST = h5ex_t_string_F03.f90
+am__h5ex_t_string_F03_SOURCES_DIST = h5ex_t_string_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_string_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_string_F03.$(OBJEXT)
 h5ex_t_string_F03_OBJECTS = $(am_h5ex_t_string_F03_OBJECTS)
 h5ex_t_string_F03_LDADD = $(LDADD)
-am__h5ex_t_vlen_F03_SOURCES_DIST = h5ex_t_vlen_F03.f90
+am__h5ex_t_vlen_F03_SOURCES_DIST = h5ex_t_vlen_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_vlen_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_vlen_F03.$(OBJEXT)
 h5ex_t_vlen_F03_OBJECTS = $(am_h5ex_t_vlen_F03_OBJECTS)
 h5ex_t_vlen_F03_LDADD = $(LDADD)
-am__h5ex_t_vlenatt_F03_SOURCES_DIST = h5ex_t_vlenatt_F03.f90
+am__h5ex_t_vlenatt_F03_SOURCES_DIST = h5ex_t_vlenatt_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_vlenatt_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_t_vlenatt_F03.$(OBJEXT)
 h5ex_t_vlenatt_F03_OBJECTS = $(am_h5ex_t_vlenatt_F03_OBJECTS)
@@ -275,7 +275,7 @@ h5ex_t_vlenatt_F03_LDADD = $(LDADD)
 am_h5ex_t_vlstring_OBJECTS = h5ex_t_vlstring.$(OBJEXT)
 h5ex_t_vlstring_OBJECTS = $(am_h5ex_t_vlstring_OBJECTS)
 h5ex_t_vlstring_LDADD = $(LDADD)
-am__h5ex_t_vlstring_F03_SOURCES_DIST = h5ex_t_vlstring_F03.f90
+am__h5ex_t_vlstring_F03_SOURCES_DIST = h5ex_t_vlstring_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_t_vlstring_F03_OBJECTS = h5ex_t_vlstring_F03.$(OBJEXT)
 h5ex_t_vlstring_F03_OBJECTS = $(am_h5ex_t_vlstring_F03_OBJECTS)
 h5ex_t_vlstring_F03_LDADD = $(LDADD)
@@ -661,38 +661,38 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-h5ex_t_vlstring_SOURCES = h5ex_t_vlstring.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_arrayatt_F03_SOURCES = h5ex_t_arrayatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_array_F03_SOURCES = h5ex_t_array_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_bitatt_F03_SOURCES = h5ex_t_bitatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_bit_F03_SOURCES = h5ex_t_bit_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_cmpdatt_F03_SOURCES = h5ex_t_cmpdatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_cmpd_F03_SOURCES = h5ex_t_cmpd_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_enumatt_F03_SOURCES = h5ex_t_enumatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_enum_F03_SOURCES = h5ex_t_enum_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_floatatt_F03_SOURCES = h5ex_t_floatatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_float_F03_SOURCES = h5ex_t_float_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_intatt_F03_SOURCES = h5ex_t_intatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_int_F03_SOURCES = h5ex_t_int_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_objrefatt_F03_SOURCES = h5ex_t_objrefatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_objref_F03_SOURCES = h5ex_t_objref_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_opaqueatt_F03_SOURCES = h5ex_t_opaqueatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_opaque_F03_SOURCES = h5ex_t_opaque_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_regrefatt_F03_SOURCES = h5ex_t_regrefatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_regref_F03_SOURCES = h5ex_t_regref_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_stringCatt_F03_SOURCES = h5ex_t_stringCatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_stringC_F03_SOURCES = h5ex_t_stringC_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_string_F03_SOURCES = h5ex_t_string_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_vlenatt_F03_SOURCES = h5ex_t_vlenatt_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_vlen_F03_SOURCES = h5ex_t_vlen_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_vlstring_F03_SOURCES = h5ex_t_vlstring_F03.f90
+h5ex_t_vlstring_SOURCES = h5ex_t_vlstring.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_arrayatt_F03_SOURCES = h5ex_t_arrayatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_array_F03_SOURCES = h5ex_t_array_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_bitatt_F03_SOURCES = h5ex_t_bitatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_bit_F03_SOURCES = h5ex_t_bit_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_cmpdatt_F03_SOURCES = h5ex_t_cmpdatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_cmpd_F03_SOURCES = h5ex_t_cmpd_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_enumatt_F03_SOURCES = h5ex_t_enumatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_enum_F03_SOURCES = h5ex_t_enum_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_floatatt_F03_SOURCES = h5ex_t_floatatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_float_F03_SOURCES = h5ex_t_float_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_intatt_F03_SOURCES = h5ex_t_intatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_int_F03_SOURCES = h5ex_t_int_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_objrefatt_F03_SOURCES = h5ex_t_objrefatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_objref_F03_SOURCES = h5ex_t_objref_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_opaqueatt_F03_SOURCES = h5ex_t_opaqueatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_opaque_F03_SOURCES = h5ex_t_opaque_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_regrefatt_F03_SOURCES = h5ex_t_regrefatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_regref_F03_SOURCES = h5ex_t_regref_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_stringCatt_F03_SOURCES = h5ex_t_stringCatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_stringC_F03_SOURCES = h5ex_t_stringC_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_string_F03_SOURCES = h5ex_t_string_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_vlenatt_F03_SOURCES = h5ex_t_vlenatt_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_vlen_F03_SOURCES = h5ex_t_vlen_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_t_vlstring_F03_SOURCES = h5ex_t_vlstring_F03.F90
 EXTRA_DIST = testfiles/h5ex_t_vlstring.tst \
 	testfiles/h5ex_t_vlstring.ddl test.sh $(am__append_2)
 TESTS = test.sh
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .f90 .log .o .obj .test .test$(EXEEXT) .trs
+.SUFFIXES: .F90 .log .o .obj .test .test$(EXEEXT) .trs
 $(srcdir)/makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -834,10 +834,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-.f90.o:
+.F90.o:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ $<
 
-.f90.obj:
+.F90.obj:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)

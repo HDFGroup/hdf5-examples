@@ -119,7 +119,7 @@ h5ex_g_corder_LDADD = $(LDADD)
 am_h5ex_g_create_OBJECTS = h5ex_g_create.$(OBJEXT)
 h5ex_g_create_OBJECTS = $(am_h5ex_g_create_OBJECTS)
 h5ex_g_create_LDADD = $(LDADD)
-am__h5ex_g_iterate_F03_SOURCES_DIST = h5ex_g_iterate_F03.f90
+am__h5ex_g_iterate_F03_SOURCES_DIST = h5ex_g_iterate_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_g_iterate_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_g_iterate_F03.$(OBJEXT)
 h5ex_g_iterate_F03_OBJECTS = $(am_h5ex_g_iterate_F03_OBJECTS)
@@ -127,11 +127,11 @@ h5ex_g_iterate_F03_LDADD = $(LDADD)
 am_h5ex_g_phase_OBJECTS = h5ex_g_phase.$(OBJEXT)
 h5ex_g_phase_OBJECTS = $(am_h5ex_g_phase_OBJECTS)
 h5ex_g_phase_LDADD = $(LDADD)
-am__h5ex_g_traverse_F03_SOURCES_DIST = h5ex_g_traverse_F03.f90
+am__h5ex_g_traverse_F03_SOURCES_DIST = h5ex_g_traverse_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@@FORTRAN_2003_NOTINTEL_CONDITIONAL_F_TRUE@am_h5ex_g_traverse_F03_OBJECTS = h5ex_g_traverse_F03.$(OBJEXT)
 h5ex_g_traverse_F03_OBJECTS = $(am_h5ex_g_traverse_F03_OBJECTS)
 h5ex_g_traverse_F03_LDADD = $(LDADD)
-am__h5ex_g_visit_F03_SOURCES_DIST = h5ex_g_visit_F03.f90
+am__h5ex_g_visit_F03_SOURCES_DIST = h5ex_g_visit_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_g_visit_F03_OBJECTS =  \
 @FORTRAN_2003_CONDITIONAL_F_TRUE@	h5ex_g_visit_F03.$(OBJEXT)
 h5ex_g_visit_F03_OBJECTS = $(am_h5ex_g_visit_F03_OBJECTS)
@@ -489,14 +489,14 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-h5ex_g_compact_SOURCES = h5ex_g_compact.f90
-h5ex_g_create_SOURCES = h5ex_g_create.f90
-h5ex_g_corder_SOURCES = h5ex_g_corder.f90
-h5ex_g_phase_SOURCES = h5ex_g_phase.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_g_iterate_F03_SOURCES = h5ex_g_iterate_F03.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_g_visit_F03_SOURCES = h5ex_g_visit_F03.f90
+h5ex_g_compact_SOURCES = h5ex_g_compact.F90
+h5ex_g_create_SOURCES = h5ex_g_create.F90
+h5ex_g_corder_SOURCES = h5ex_g_corder.F90
+h5ex_g_phase_SOURCES = h5ex_g_phase.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_g_iterate_F03_SOURCES = h5ex_g_iterate_F03.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_g_visit_F03_SOURCES = h5ex_g_visit_F03.F90
 # Intel 12.0 doesn't work with RECURSIVE; example should be skipped. EIP -2011/10/14
-@FORTRAN_2003_CONDITIONAL_F_TRUE@@FORTRAN_2003_NOTINTEL_CONDITIONAL_F_TRUE@h5ex_g_traverse_F03_SOURCES = h5ex_g_traverse_F03.f90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@@FORTRAN_2003_NOTINTEL_CONDITIONAL_F_TRUE@h5ex_g_traverse_F03_SOURCES = h5ex_g_traverse_F03.F90
 EXTRA_DIST = testfiles/h5ex_g_create.ddl testfiles/h5ex_g_compact1.ddl \
 	testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
 	testfiles/h5ex_g_phase.tst test.sh $(am__append_3)
@@ -504,7 +504,7 @@ TESTS = test.sh
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .f90 .log .o .obj .test .test$(EXEEXT) .trs
+.SUFFIXES: .F90 .log .o .obj .test .test$(EXEEXT) .trs
 $(srcdir)/makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -574,10 +574,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-.f90.o:
+.F90.o:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ $<
 
-.f90.obj:
+.F90.obj:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)

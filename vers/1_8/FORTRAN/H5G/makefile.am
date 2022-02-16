@@ -25,17 +25,17 @@ if FORTRAN_2003_NOTINTEL_CONDITIONAL_F
 endif
 endif
 
-h5ex_g_compact_SOURCES       = h5ex_g_compact.f90
-h5ex_g_create_SOURCES        = h5ex_g_create.f90
-h5ex_g_corder_SOURCES        = h5ex_g_corder.f90
-h5ex_g_phase_SOURCES         = h5ex_g_phase.f90
+h5ex_g_compact_SOURCES       = h5ex_g_compact.F90
+h5ex_g_create_SOURCES        = h5ex_g_create.F90
+h5ex_g_corder_SOURCES        = h5ex_g_corder.F90
+h5ex_g_phase_SOURCES         = h5ex_g_phase.F90
 
 if FORTRAN_2003_CONDITIONAL_F
-  h5ex_g_iterate_F03_SOURCES = h5ex_g_iterate_F03.f90
-  h5ex_g_visit_F03_SOURCES   = h5ex_g_visit_F03.f90
+  h5ex_g_iterate_F03_SOURCES = h5ex_g_iterate_F03.F90
+  h5ex_g_visit_F03_SOURCES   = h5ex_g_visit_F03.F90
 # Intel 12.0 doesn't work with RECURSIVE; example should be skipped. EIP -2011/10/14
 if FORTRAN_2003_NOTINTEL_CONDITIONAL_F
-  h5ex_g_traverse_F03_SOURCES = h5ex_g_traverse_F03.f90
+  h5ex_g_traverse_F03_SOURCES = h5ex_g_traverse_F03.F90
 endif
 endif
 

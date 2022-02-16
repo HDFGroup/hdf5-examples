@@ -32,21 +32,21 @@ noinst_PROGRAMS = \
   h5ex_d_transform \
   h5ex_d_unlimmod
 
-h5ex_d_alloc_SOURCES     = h5ex_d_alloc.f90
-h5ex_d_checksum_SOURCES  = h5ex_d_checksum.f90
-h5ex_d_chunk_SOURCES     = h5ex_d_chunk.f90 
-h5ex_d_compact_SOURCES   = h5ex_d_compact.f90
-h5ex_d_extern_SOURCES    = h5ex_d_extern.f90   
-h5ex_d_fillval_SOURCES   = h5ex_d_fillval.f90
-h5ex_d_gzip_SOURCES      = h5ex_d_gzip.f90
-h5ex_d_hyper_SOURCES     = h5ex_d_hyper.f90
-h5ex_d_nbit_SOURCES      = h5ex_d_nbit.f90
-h5ex_d_rdwr_SOURCES      = h5ex_d_rdwr.f90  
-h5ex_d_rdwr_kind_SOURCES = h5ex_d_rdwr_kind.f90
-h5ex_d_soint_SOURCES     = h5ex_d_soint.f90
-h5ex_d_szip_SOURCES      = h5ex_d_szip.f90
-h5ex_d_transform_SOURCES = h5ex_d_transform.f90
-h5ex_d_unlimmod_SOURCES  = h5ex_d_unlimmod.f90
+h5ex_d_alloc_SOURCES     = h5ex_d_alloc.F90
+h5ex_d_checksum_SOURCES  = h5ex_d_checksum.F90
+h5ex_d_chunk_SOURCES     = h5ex_d_chunk.F90 
+h5ex_d_compact_SOURCES   = h5ex_d_compact.F90
+h5ex_d_extern_SOURCES    = h5ex_d_extern.F90   
+h5ex_d_fillval_SOURCES   = h5ex_d_fillval.F90
+h5ex_d_gzip_SOURCES      = h5ex_d_gzip.F90
+h5ex_d_hyper_SOURCES     = h5ex_d_hyper.F90
+h5ex_d_nbit_SOURCES      = h5ex_d_nbit.F90
+h5ex_d_rdwr_SOURCES      = h5ex_d_rdwr.F90  
+h5ex_d_rdwr_kind_SOURCES = h5ex_d_rdwr_kind.F90
+h5ex_d_soint_SOURCES     = h5ex_d_soint.F90
+h5ex_d_szip_SOURCES      = h5ex_d_szip.F90
+h5ex_d_transform_SOURCES = h5ex_d_transform.F90
+h5ex_d_unlimmod_SOURCES  = h5ex_d_unlimmod.F90
 
 
 EXTRA_DIST = testfiles/h5ex_d_rdwr.tst testfiles/h5ex_d_hyper.tst testfiles/h5ex_d_chunk.tst \

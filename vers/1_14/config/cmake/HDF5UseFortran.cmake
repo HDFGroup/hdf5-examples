@@ -38,7 +38,7 @@ endif ()
 
 # Read source line beginning at the line matching Input:"START" and ending at the line matching Input:"END"
 macro (READ_SOURCE SOURCE_START SOURCE_END RETURN_VAR)
-  file (READ "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/aclocal_fc.f90" SOURCE_MASTER)
+  file (READ "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/aclocal_fc.F90" SOURCE_MASTER)
   string (REGEX MATCH "${SOURCE_START}[\\\t\\\n\\\r[].+]*${SOURCE_END}" SOURCE_CODE ${SOURCE_MASTER})
   set (RETURN_VAR "${SOURCE_CODE}")
 endmacro ()
@@ -57,12 +57,12 @@ macro (FORTRAN_RUN FUNCTION_NAME SOURCE_CODE RUN_RESULT_VAR1 COMPILE_RESULT_VAR1
       message (VERBOSE "Detecting Fortran ${FUNCTION_NAME}")
     endif ()
     file (WRITE
-        ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler1.f90
+        ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler1.F90
         "${SOURCE_CODE}"
     )
     TRY_RUN (RUN_RESULT_VAR COMPILE_RESULT_VAR
         ${CMAKE_BINARY_DIR}
-        ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler1.f90
+        ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler1.F90
         LINK_LIBRARIES "${HDF5_REQUIRED_LIBRARIES}"
     )
 
@@ -99,7 +99,7 @@ endif ()
 
 READ_SOURCE("PROGRAM PROG_FC_HAVE_C_LONG_DOUBLE" "END PROGRAM PROG_FC_HAVE_C_LONG_DOUBLE" SOURCE_CODE)
 if (NOT CMAKE_VERSION VERSION_LESS "3.14.0")
-  check_fortran_source_compiles (${SOURCE_CODE} FORTRAN_HAVE_C_LONG_DOUBLE SRC_EXT f90)
+  check_fortran_source_compiles (${SOURCE_CODE} FORTRAN_HAVE_C_LONG_DOUBLE SRC_EXT.F90)
 else ()
   CHECK_FORTRAN_FEATURE(c_long_double "${SOURCE_CODE}" FORTRAN_HAVE_C_LONG_DOUBLE)
 endif ()
@@ -114,7 +114,7 @@ endif ()
 
 READ_SOURCE("MODULE type_mod" "END PROGRAM PROG_FC_C_LONG_DOUBLE_EQ_C_DOUBLE" SOURCE_CODE)
 if (NOT CMAKE_VERSION VERSION_LESS "3.14.0")
-  check_fortran_source_compiles (${SOURCE_CODE} FORTRAN_C_LONG_DOUBLE_IS_UNIQUE SRC_EXT f90)
+  check_fortran_source_compiles (${SOURCE_CODE} FORTRAN_C_LONG_DOUBLE_IS_UNIQUE SRC_EXT.F90)
 else ()
   CHECK_FORTRAN_FEATURE(c_long_double "${SOURCE_CODE}" FORTRAN_C_LONG_DOUBLE_IS_UNIQUE)
 endif ()
@@ -205,7 +205,7 @@ set (PROG_SRC_CODE
   "
 )
 if (NOT CMAKE_VERSION VERSION_LESS "3.14.0")
-  check_fortran_source_runs (${PROG_SRC_CODE} FC_AVAIL_KINDS_RESULT SRC_EXT f90)
+  check_fortran_source_runs (${PROG_SRC_CODE} FC_AVAIL_KINDS_RESULT SRC_EXT.F90)
 else ()
 FORTRAN_RUN ("REAL and INTEGER KINDs"
     "${PROG_SRC_CODE}"
@@ -279,7 +279,7 @@ foreach (KIND ${VAR})
    "
   )
   if (NOT CMAKE_VERSION VERSION_LESS "3.14.0")
-    check_fortran_source_runs (${PROG_SRC_${KIND}} VALIDINTKINDS_RESULT_${KIND} SRC_EXT f90)
+    check_fortran_source_runs (${PROG_SRC_${KIND}} VALIDINTKINDS_RESULT_${KIND} SRC_EXT.F90)
   else ()
     FORTRAN_RUN("INTEGER KIND SIZEOF" ${PROG_SRC_${KIND}} XX YY VALIDINTKINDS_RESULT_${KIND})
   endif ()
@@ -328,7 +328,7 @@ foreach (KIND ${VAR} )
   "
   )
   if (NOT CMAKE_VERSION VERSION_LESS "3.14.0")
-    check_fortran_source_runs (${PROG_SRC2_${KIND}} VALIDREALKINDS_RESULT_${KIND} SRC_EXT f90)
+    check_fortran_source_runs (${PROG_SRC2_${KIND}} VALIDREALKINDS_RESULT_${KIND} SRC_EXT.F90)
   else ()
     FORTRAN_RUN ("REAL KIND SIZEOF" ${PROG_SRC2_${KIND}} XX YY VALIDREALKINDS_RESULT_${KIND})
   endif ()
@@ -383,7 +383,7 @@ set (PROG_SRC3
   "
 )
 if (NOT CMAKE_VERSION VERSION_LESS "3.14.0")
-  check_fortran_source_runs (${PROG_SRC3} PAC_SIZEOF_NATIVE_KINDS_RESULT SRC_EXT f90)
+  check_fortran_source_runs (${PROG_SRC3} PAC_SIZEOF_NATIVE_KINDS_RESULT SRC_EXT.F90)
 else ()
   FORTRAN_RUN ("SIZEOF NATIVE KINDs" ${PROG_SRC3} XX YY PAC_SIZEOF_NATIVE_KINDS_RESULT)
 endif ()

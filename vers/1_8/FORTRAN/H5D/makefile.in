@@ -147,7 +147,7 @@ h5ex_d_hyper_LDADD = $(LDADD)
 am_h5ex_d_rdwr_OBJECTS = h5ex_d_rdwr.$(OBJEXT)
 h5ex_d_rdwr_OBJECTS = $(am_h5ex_d_rdwr_OBJECTS)
 h5ex_d_rdwr_LDADD = $(LDADD)
-am__h5ex_d_rdwr_kind_F03_SOURCES_DIST = h5ex_d_rdwr_kind_F03.f90
+am__h5ex_d_rdwr_kind_F03_SOURCES_DIST = h5ex_d_rdwr_kind_F03.F90
 @FORTRAN_2003_CONDITIONAL_F_TRUE@am_h5ex_d_rdwr_kind_F03_OBJECTS = h5ex_d_rdwr_kind_F03.$(OBJEXT)
 h5ex_d_rdwr_kind_F03_OBJECTS = $(am_h5ex_d_rdwr_kind_F03_OBJECTS)
 h5ex_d_rdwr_kind_F03_LDADD = $(LDADD)
@@ -514,18 +514,18 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-h5ex_d_alloc_SOURCES = h5ex_d_alloc.f90    
-h5ex_d_fillval_SOURCES = h5ex_d_fillval.f90
-h5ex_d_checksum_SOURCES = h5ex_d_checksum.f90
-h5ex_d_gzip_SOURCES = h5ex_d_gzip.f90
-h5ex_d_chunk_SOURCES = h5ex_d_chunk.f90 
-h5ex_d_hyper_SOURCES = h5ex_d_hyper.f90    
-h5ex_d_unlimmod_SOURCES = h5ex_d_unlimmod.f90
-h5ex_d_compact_SOURCES = h5ex_d_compact.f90
-h5ex_d_extern_SOURCES = h5ex_d_extern.f90     
-h5ex_d_rdwr_SOURCES = h5ex_d_rdwr.f90
-h5ex_d_transform_SOURCES = h5ex_d_transform.f90
-@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_d_rdwr_kind_F03_SOURCES = h5ex_d_rdwr_kind_F03.f90
+h5ex_d_alloc_SOURCES = h5ex_d_alloc.F90    
+h5ex_d_fillval_SOURCES = h5ex_d_fillval.F90
+h5ex_d_checksum_SOURCES = h5ex_d_checksum.F90
+h5ex_d_gzip_SOURCES = h5ex_d_gzip.F90
+h5ex_d_chunk_SOURCES = h5ex_d_chunk.F90 
+h5ex_d_hyper_SOURCES = h5ex_d_hyper.F90    
+h5ex_d_unlimmod_SOURCES = h5ex_d_unlimmod.F90
+h5ex_d_compact_SOURCES = h5ex_d_compact.F90
+h5ex_d_extern_SOURCES = h5ex_d_extern.F90     
+h5ex_d_rdwr_SOURCES = h5ex_d_rdwr.F90
+h5ex_d_transform_SOURCES = h5ex_d_transform.F90
+@FORTRAN_2003_CONDITIONAL_F_TRUE@h5ex_d_rdwr_kind_F03_SOURCES = h5ex_d_rdwr_kind_F03.F90
 EXTRA_DIST = testfiles/h5ex_d_rdwr.tst testfiles/h5ex_d_hyper.tst \
 	testfiles/h5ex_d_chunk.tst testfiles/h5ex_d_gzip.tst \
 	testfiles/h5ex_d_extern.tst testfiles/h5ex_d_compact.tst \
@@ -542,7 +542,7 @@ TESTS = test.sh
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .f90 .log .o .obj .test .test$(EXEEXT) .trs
+.SUFFIXES: .F90 .log .o .obj .test .test$(EXEEXT) .trs
 $(srcdir)/makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -632,10 +632,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-.f90.o:
+.F90.o:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ $<
 
-.f90.obj:
+.F90.obj:
 	$(AM_V_FC)$(FCCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)

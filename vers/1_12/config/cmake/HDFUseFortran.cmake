@@ -110,12 +110,12 @@ if (NOT CMAKE_VERSION VERSION_LESS "3.14.0")
   if (HDF5_REQUIRED_LIBRARIES)
     set (CMAKE_REQUIRED_LIBRARIES "${HDF5_REQUIRED_LIBRARIES}")
   endif ()
-  check_fortran_source_compiles (${SIZEOF_CODE} H5_FORTRAN_HAVE_SIZEOF SRC_EXT f90)
-  check_fortran_source_compiles (${C_SIZEOF_CODE} H5_FORTRAN_HAVE_C_SIZEOF SRC_EXT f90)
-  check_fortran_source_compiles (${STORAGE_SIZE_CODE} H5_FORTRAN_HAVE_STORAGE_SIZE SRC_EXT f90)
-  check_fortran_source_compiles (${ISO_FORTRAN_ENV_CODE} H5_HAVE_ISO_FORTRAN_ENV SRC_EXT f90)
-  check_fortran_source_compiles (${REALISNOTDOUBLE_CODE} H5_FORTRAN_DEFAULT_REAL_NOT_DOUBLE SRC_EXT f90)
-  check_fortran_source_compiles (${ISO_C_BINDING_CODE} H5_FORTRAN_HAVE_ISO_C_BINDING SRC_EXT f90)
+  check_fortran_source_compiles (${SIZEOF_CODE} H5_FORTRAN_HAVE_SIZEOF SRC_EXT.F90)
+  check_fortran_source_compiles (${C_SIZEOF_CODE} H5_FORTRAN_HAVE_C_SIZEOF SRC_EXT.F90)
+  check_fortran_source_compiles (${STORAGE_SIZE_CODE} H5_FORTRAN_HAVE_STORAGE_SIZE SRC_EXT.F90)
+  check_fortran_source_compiles (${ISO_FORTRAN_ENV_CODE} H5_HAVE_ISO_FORTRAN_ENV SRC_EXT.F90)
+  check_fortran_source_compiles (${REALISNOTDOUBLE_CODE} H5_FORTRAN_DEFAULT_REAL_NOT_DOUBLE SRC_EXT.F90)
+  check_fortran_source_compiles (${ISO_C_BINDING_CODE} H5_FORTRAN_HAVE_ISO_C_BINDING SRC_EXT.F90)
 else ()
   #-----------------------------------------------------------------------------
   # The provided CMake Fortran macros don't provide a general check function
@@ -132,12 +132,12 @@ else ()
         set (CHECK_FUNCTION_EXISTS_ADD_LIBRARIES)
       endif ()
       file (WRITE
-          ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler.f90
+          ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler.F90
           "${CODE}"
       )
       TRY_COMPILE (RESULT_VAR
           ${CMAKE_BINARY_DIR}
-          ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler.f90
+          ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeTmp/testFortranCompiler.F90
           CMAKE_FLAGS "${CHECK_FUNCTION_EXISTS_ADD_LIBRARIES}"
           OUTPUT_VARIABLE OUTPUT
       )
