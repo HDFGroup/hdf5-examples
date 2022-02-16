@@ -1,0 +1,1 @@
+../../../../examples/FORTRAN/H5D/h5ex_d_rdwr_kind_F03.F90
