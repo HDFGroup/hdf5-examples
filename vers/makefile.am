@@ -33,7 +33,7 @@ DO_112=1_12
 endif
 
 if V114
-DO_110=1_14
+DO_114=1_14
 endif
 
 SUBDIRS = $(DO_16) $(DO_18) $(DO_110) $(DO_112) $(DO_114)

@@ -163,7 +163,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = 1_6 1_8 1_10 1_14 1_12
+DIST_SUBDIRS = 1_6 1_8 1_10 1_12 1_14
 am__DIST_COMMON = $(srcdir)/makefile.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -211,6 +211,7 @@ ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
 FC = @FC@
 FCFLAGS = @FCFLAGS@
+H5_LIBVER = @H5_LIBVER@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -282,8 +283,8 @@ top_srcdir = @top_srcdir@
 @V16_TRUE@DO_16 = 1_6
 @V18_TRUE@DO_18 = 1_8
 @V110_TRUE@DO_110 = 1_10
-@V114_TRUE@DO_110 = 1_14
 @V112_TRUE@DO_112 = 1_12
+@V114_TRUE@DO_114 = 1_14
 SUBDIRS = $(DO_16) $(DO_18) $(DO_110) $(DO_112) $(DO_114)
 all: all-recursive
 

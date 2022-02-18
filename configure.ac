@@ -15,7 +15,7 @@
 # access to either file, you may request a copy from help@hdfgroup.org.
 
 AC_PREREQ(2.69)
-AC_INIT(HDF5-examples, 0.1, nfortne2@hdfgroup.org)
+AC_INIT(HDF5-examples, 0.1, help@hdfgroup.org)
 dnl AM_INIT_AUTOMAKE takes a list of options that should be applied to
 dnl every Makefile.am when automake is run.
 AM_INIT_AUTOMAKE([foreign])
@@ -70,6 +70,18 @@ fi
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
 
+# Determine the version of the HDF5 Library
+AC_MSG_CHECKING([the version of the HDF5 Library])
+
+AC_SUBST([H5_LIBVER])
+H5_LIBVER=$(${CC} -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/[-].*//g')
+
+AC_MSG_RESULT([$H5_LIBVER])
+
+function version_gt { 
+     test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
+}
+
 # Check which versions to build, if no environmental variables are set, build
 # all.
 
@@ -111,18 +123,14 @@ AM_CONDITIONAL(H5T, test "$H5EX_T")
 HAVE_FORTRAN_2003="no"
 
 AC_MSG_CHECKING([if h5fc was compiled with Fortran 2003 enabled])
- 
-CHCK_HDF5VER=`${FC} -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/[-].*//g'`
-function version_gt { 
-     test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
-}
+
 
 # if HDF5 version is > 1.9, then HDF5 used a 2003 Fortran compiler.
 if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
   HAVE_FORTRAN_2003="yes"
 else
-# check if HDF5 version is > 1.9
- if version_gt $CHCK_HDF5VER "1.9"; then
+# check if HDF5 version is > 1.8
+ if version_gt $H5_LIBVER "1.8"; then
      HAVE_FORTRAN_2003="yes"
  fi
 fi
@@ -149,7 +157,7 @@ fi
 AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
 AM_CONDITIONAL([FORTRAN_2003_NOTINTEL_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"])
 
-if version_gt $CHCK_HDF5VER "1.10"; then
+if version_gt $H5_LIBVER "1.10"; then
   AM_CONDITIONAL([HDF5_GE112], [test "X$HDF5_GE112" = "Xyes"])
 fi
 
