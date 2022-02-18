@@ -588,6 +588,8 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+HDF5_GE112_FALSE
+HDF5_GE112_TRUE
 FORTRAN_2003_NOTINTEL_CONDITIONAL_F_FALSE
 FORTRAN_2003_NOTINTEL_CONDITIONAL_F_TRUE
 FORTRAN_2003_CONDITIONAL_F_FALSE
@@ -3778,15 +3780,16 @@ HAVE_FORTRAN_2003="no"
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking if h5fc was compiled with Fortran 2003 enabled" >&5
 $as_echo_n "checking if h5fc was compiled with Fortran 2003 enabled... " >&6; }
 
+CHCK_HDF5VER=`${FC} -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/-.*//g'`
+function version_gt {
+     test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1";
+}
+
 # if HDF5 version is > 1.9, then HDF5 used a 2003 Fortran compiler.
 if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
   HAVE_FORTRAN_2003="yes"
 else
 # check if HDF5 version is > 1.9
- CHCK_HDF5VER=`${FC} -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/-.*//g'`
- function version_gt {
-      test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1";
- }
  if version_gt $CHCK_HDF5VER "1.9"; then
      HAVE_FORTRAN_2003="yes"
  fi
@@ -3829,23 +3832,36 @@ else
 fi
 
 
+if version_gt $CHCK_HDF5VER "1.10"; then
+   if test "X$HDF5_GE112" = "Xyes"; then
+  HDF5_GE112_TRUE=
+  HDF5_GE112_FALSE='#'
+else
+  HDF5_GE112_TRUE='#'
+  HDF5_GE112_FALSE=
+fi
+
+fi
+
+ac_config_files="$ac_config_files Makefile vers/makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile vers/1_8/makefile vers/1_8/C/makefile vers/1_8/C/H5G/makefile vers/1_8/C/H5D/makefile vers/1_8/C/H5T/makefile vers/1_8/FORTRAN/makefile vers/1_8/FORTRAN/H5G/makefile vers/1_8/FORTRAN/H5D/makefile vers/1_8/FORTRAN/H5T/makefile vers/1_10/makefile vers/1_10/C/makefile vers/1_10/C/H5G/makefile vers/1_10/C/H5D/makefile vers/1_10/C/H5T/makefile vers/1_10/FORTRAN/makefile vers/1_10/FORTRAN/H5G/makefile vers/1_10/FORTRAN/H5D/makefile vers/1_10/FORTRAN/H5T/makefile vers/1_12/makefile vers/1_12/C/makefile vers/1_12/C/H5G/makefile vers/1_12/C/H5D/makefile vers/1_12/C/H5T/makefile vers/1_12/FORTRAN/makefile vers/1_12/FORTRAN/H5G/makefile vers/1_12/FORTRAN/H5D/makefile vers/1_12/FORTRAN/H5T/makefile vers/1_14/makefile vers/1_14/C/makefile vers/1_14/C/H5G/makefile vers/1_14/C/H5D/makefile vers/1_14/C/H5T/makefile vers/1_14/FORTRAN/makefile vers/1_14/FORTRAN/H5G/makefile vers/1_14/FORTRAN/H5D/makefile vers/1_14/FORTRAN/H5T/makefile"
+
+
 #list="vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile"
-list=""
-for i in $h5_vers; do
-  list="$list vers/$i/makefile"
-  list="$list vers/$i/C/makefile"
-  list="$list vers/$i/C/H5G/makefile"
-  list="$list vers/$i/C/H5D/makefile"
-  list="$list vers/$i/C/H5T/makefile"
-  list="$list vers/$i/FORTRAN/makefile"
-  list="$list vers/$i/FORTRAN/H5G/makefile"
-  list="$list vers/$i/FORTRAN/H5D/makefile"
-  list="$list vers/$i/FORTRAN/H5T/makefile"
-done
+#list=""
+#for i in $h5_vers; do
+#  list="$list vers/$i/makefile"
+#  list="$list vers/$i/C/makefile"
+#  list="$list vers/$i/C/H5G/makefile"
+#  list="$list vers/$i/C/H5D/makefile"
+#  list="$list vers/$i/C/H5T/makefile"
+#  list="$list vers/$i/FORTRAN/makefile"
+#  list="$list vers/$i/FORTRAN/H5G/makefile"
+#  list="$list vers/$i/FORTRAN/H5D/makefile"
+#  list="$list vers/$i/FORTRAN/H5T/makefile"
+#done
 
 # Set subdirectories
-ac_config_files="$ac_config_files Makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile $list"
-
+#AC_CONFIG_FILES([Makefile vers/Makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile $list])
 
 ac_config_files="$ac_config_files vers/1_6/C/H5G/test.sh"
 
@@ -3853,20 +3869,97 @@ ac_config_files="$ac_config_files vers/1_6/C/H5D/test.sh"
 
 ac_config_files="$ac_config_files vers/1_6/C/H5T/test.sh"
 
-for i in $h5_vers; do
-  ac_config_files="$ac_config_files vers/$i/C/H5G/test.sh"
 
-  ac_config_files="$ac_config_files vers/$i/C/H5D/test.sh"
+ac_config_files="$ac_config_files vers/1_8/C/H5G/test.sh"
 
-  ac_config_files="$ac_config_files vers/$i/C/H5T/test.sh"
+ac_config_files="$ac_config_files vers/1_8/C/H5D/test.sh"
 
-  ac_config_files="$ac_config_files vers/$i/FORTRAN/H5G/test.sh"
+ac_config_files="$ac_config_files vers/1_8/C/H5T/test.sh"
 
-  ac_config_files="$ac_config_files vers/$i/FORTRAN/H5D/test.sh"
+ac_config_files="$ac_config_files vers/1_8/FORTRAN/H5G/test.sh"
 
-  ac_config_files="$ac_config_files vers/$i/FORTRAN/H5T/test.sh"
+ac_config_files="$ac_config_files vers/1_8/FORTRAN/H5D/test.sh"
 
-done
+ac_config_files="$ac_config_files vers/1_8/FORTRAN/H5T/test.sh"
+
+
+ac_config_files="$ac_config_files vers/1_10/C/H5G/test.sh"
+
+ac_config_files="$ac_config_files vers/1_10/C/H5D/test.sh"
+
+ac_config_files="$ac_config_files vers/1_10/C/H5T/test.sh"
+
+ac_config_files="$ac_config_files vers/1_10/FORTRAN/H5G/test.sh"
+
+ac_config_files="$ac_config_files vers/1_10/FORTRAN/H5D/test.sh"
+
+ac_config_files="$ac_config_files vers/1_10/FORTRAN/H5T/test.sh"
+
+
+ac_config_files="$ac_config_files vers/1_12/C/H5G/test.sh"
+
+ac_config_files="$ac_config_files vers/1_12/C/H5D/test.sh"
+
+ac_config_files="$ac_config_files vers/1_12/C/H5T/test.sh"
+
+ac_config_files="$ac_config_files vers/1_12/FORTRAN/H5G/test.sh"
+
+ac_config_files="$ac_config_files vers/1_12/FORTRAN/H5D/test.sh"
+
+ac_config_files="$ac_config_files vers/1_12/FORTRAN/H5T/test.sh"
+
+
+ac_config_files="$ac_config_files vers/1_14/C/H5G/test.sh"
+
+ac_config_files="$ac_config_files vers/1_14/C/H5D/test.sh"
+
+ac_config_files="$ac_config_files vers/1_14/C/H5T/test.sh"
+
+ac_config_files="$ac_config_files vers/1_14/FORTRAN/H5G/test.sh"
+
+ac_config_files="$ac_config_files vers/1_14/FORTRAN/H5D/test.sh"
+
+ac_config_files="$ac_config_files vers/1_14/FORTRAN/H5T/test.sh"
+
+
+# Set subdirectories
+#AC_CONFIG_FILES([Makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile $list])
+
+#AC_CONFIG_FILES([vers/1_6/C/H5G/test.sh], [chmod +x vers/1_6/C/H5G/test.sh])
+#AC_CONFIG_FILES([vers/1_6/C/H5D/test.sh], [chmod +x vers/1_6/C/H5D/test.sh])
+#AC_CONFIG_FILES([vers/1_6/C/H5T/test.sh], [chmod +x vers/1_6/C/H5T/test.sh])
+
+#i=./vers/1_8/C/H5D/test.sh
+#j=chmod +x vers/1_8/C/H5D/test.sh
+#AC_CONFIG_FILES([${i}], [${j}])
+#AC_CONFIG_FILES([vers/${i}/C/H5D/test.sh], [chmod +x vers/${i}/C/H5D/test.sh])
+#AC_CONFIG_FILES([vers/1_8/C/H5D/test.sh], [chmod +x vers/1_8/C/H5D/test.sh])
+
+#for i in $h5_vers; do
+#  my_CONFIG_EXEC_FILE(vers/${i}/C/H5G/test.sh)
+#  my_CONFIG_EXEC_FILE(./vers/${i}/C/H5D/test.sh)
+#  AC_CONFIG_FILES([vers/"${i}"/C/H5G/test.sh], [echo "config.status: chmod a+w vers/${i}/C/H5G/test.sh .." chmod +x vers/"${i}"/C/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5D/test.sh], [chmod +x vers/${i}/C/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5T/test.sh], [chmod +x vers/${i}/C/H5T/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5G/test.sh], [chmod +x vers/${i}/FORTRAN/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5D/test.sh], [chmod +x vers/${i}/FORTRAN/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5T/test.sh], [chmod +x vers/${i}/FORTRAN/H5T/test.sh])
+#done
+
+#for i in $h5_vers; do
+#  AC_CONFIG_FILES([vers/${i}/C/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5T/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5T/test.sh])
+#done
+
+#for i in $h5_vers; do
+#  chmod +x vers/${i}/C/H5G/test.sh
+#  chmod +x vers/${i}/C/H5D/test.sh
+#  chmod +x vers/${i}/C/H5T/test.sh
+#done
 
 # Configure
 cat >confcache <<\_ACEOF
@@ -4043,6 +4136,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${FORTRAN_2003_NOTINTEL_CONDITIONAL_F_TRUE}" && test -z "${FORTRAN_2003_NOTINTEL_CONDITIONAL_F_FALSE}"; then
   as_fn_error $? "conditional \"FORTRAN_2003_NOTINTEL_CONDITIONAL_F\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HDF5_GE112_TRUE}" && test -z "${HDF5_GE112_FALSE}"; then
+  as_fn_error $? "conditional \"HDF5_GE112\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 
@@ -4640,21 +4737,75 @@ do
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "vers/makefile") CONFIG_FILES="$CONFIG_FILES vers/makefile" ;;
     "vers/1_6/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_6/makefile" ;;
     "vers/1_6/C/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_6/C/makefile" ;;
     "vers/1_6/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_6/C/H5G/makefile" ;;
     "vers/1_6/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_6/C/H5D/makefile" ;;
     "vers/1_6/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_6/C/H5T/makefile" ;;
-    "$list") CONFIG_FILES="$CONFIG_FILES $list" ;;
+    "vers/1_8/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/makefile" ;;
+    "vers/1_8/C/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/C/makefile" ;;
+    "vers/1_8/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/C/H5G/makefile" ;;
+    "vers/1_8/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/C/H5D/makefile" ;;
+    "vers/1_8/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/C/H5T/makefile" ;;
+    "vers/1_8/FORTRAN/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/FORTRAN/makefile" ;;
+    "vers/1_8/FORTRAN/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/FORTRAN/H5G/makefile" ;;
+    "vers/1_8/FORTRAN/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/FORTRAN/H5D/makefile" ;;
+    "vers/1_8/FORTRAN/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_8/FORTRAN/H5T/makefile" ;;
+    "vers/1_10/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/makefile" ;;
+    "vers/1_10/C/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/C/makefile" ;;
+    "vers/1_10/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/C/H5G/makefile" ;;
+    "vers/1_10/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/C/H5D/makefile" ;;
+    "vers/1_10/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/C/H5T/makefile" ;;
+    "vers/1_10/FORTRAN/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/FORTRAN/makefile" ;;
+    "vers/1_10/FORTRAN/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/FORTRAN/H5G/makefile" ;;
+    "vers/1_10/FORTRAN/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/FORTRAN/H5D/makefile" ;;
+    "vers/1_10/FORTRAN/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_10/FORTRAN/H5T/makefile" ;;
+    "vers/1_12/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/makefile" ;;
+    "vers/1_12/C/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/C/makefile" ;;
+    "vers/1_12/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/C/H5G/makefile" ;;
+    "vers/1_12/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/C/H5D/makefile" ;;
+    "vers/1_12/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/C/H5T/makefile" ;;
+    "vers/1_12/FORTRAN/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/FORTRAN/makefile" ;;
+    "vers/1_12/FORTRAN/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/FORTRAN/H5G/makefile" ;;
+    "vers/1_12/FORTRAN/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/FORTRAN/H5D/makefile" ;;
+    "vers/1_12/FORTRAN/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_12/FORTRAN/H5T/makefile" ;;
+    "vers/1_14/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/makefile" ;;
+    "vers/1_14/C/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/C/makefile" ;;
+    "vers/1_14/C/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/C/H5G/makefile" ;;
+    "vers/1_14/C/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/C/H5D/makefile" ;;
+    "vers/1_14/C/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/C/H5T/makefile" ;;
+    "vers/1_14/FORTRAN/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/FORTRAN/makefile" ;;
+    "vers/1_14/FORTRAN/H5G/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/FORTRAN/H5G/makefile" ;;
+    "vers/1_14/FORTRAN/H5D/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/FORTRAN/H5D/makefile" ;;
+    "vers/1_14/FORTRAN/H5T/makefile") CONFIG_FILES="$CONFIG_FILES vers/1_14/FORTRAN/H5T/makefile" ;;
     "vers/1_6/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_6/C/H5G/test.sh" ;;
     "vers/1_6/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_6/C/H5D/test.sh" ;;
     "vers/1_6/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_6/C/H5T/test.sh" ;;
-    "vers/$i/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/$i/C/H5G/test.sh" ;;
-    "vers/$i/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/$i/C/H5D/test.sh" ;;
-    "vers/$i/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/$i/C/H5T/test.sh" ;;
-    "vers/$i/FORTRAN/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/$i/FORTRAN/H5G/test.sh" ;;
-    "vers/$i/FORTRAN/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/$i/FORTRAN/H5D/test.sh" ;;
-    "vers/$i/FORTRAN/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/$i/FORTRAN/H5T/test.sh" ;;
+    "vers/1_8/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_8/C/H5G/test.sh" ;;
+    "vers/1_8/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_8/C/H5D/test.sh" ;;
+    "vers/1_8/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_8/C/H5T/test.sh" ;;
+    "vers/1_8/FORTRAN/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_8/FORTRAN/H5G/test.sh" ;;
+    "vers/1_8/FORTRAN/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_8/FORTRAN/H5D/test.sh" ;;
+    "vers/1_8/FORTRAN/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_8/FORTRAN/H5T/test.sh" ;;
+    "vers/1_10/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_10/C/H5G/test.sh" ;;
+    "vers/1_10/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_10/C/H5D/test.sh" ;;
+    "vers/1_10/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_10/C/H5T/test.sh" ;;
+    "vers/1_10/FORTRAN/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_10/FORTRAN/H5G/test.sh" ;;
+    "vers/1_10/FORTRAN/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_10/FORTRAN/H5D/test.sh" ;;
+    "vers/1_10/FORTRAN/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_10/FORTRAN/H5T/test.sh" ;;
+    "vers/1_12/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_12/C/H5G/test.sh" ;;
+    "vers/1_12/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_12/C/H5D/test.sh" ;;
+    "vers/1_12/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_12/C/H5T/test.sh" ;;
+    "vers/1_12/FORTRAN/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_12/FORTRAN/H5G/test.sh" ;;
+    "vers/1_12/FORTRAN/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_12/FORTRAN/H5D/test.sh" ;;
+    "vers/1_12/FORTRAN/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_12/FORTRAN/H5T/test.sh" ;;
+    "vers/1_14/C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_14/C/H5G/test.sh" ;;
+    "vers/1_14/C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_14/C/H5D/test.sh" ;;
+    "vers/1_14/C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_14/C/H5T/test.sh" ;;
+    "vers/1_14/FORTRAN/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_14/FORTRAN/H5G/test.sh" ;;
+    "vers/1_14/FORTRAN/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_14/FORTRAN/H5D/test.sh" ;;
+    "vers/1_14/FORTRAN/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES vers/1_14/FORTRAN/H5T/test.sh" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
@@ -5346,12 +5497,30 @@ $as_echo X"$file" |
     "vers/1_6/C/H5G/test.sh":F) chmod +x vers/1_6/C/H5G/test.sh ;;
     "vers/1_6/C/H5D/test.sh":F) chmod +x vers/1_6/C/H5D/test.sh ;;
     "vers/1_6/C/H5T/test.sh":F) chmod +x vers/1_6/C/H5T/test.sh ;;
-    "vers/$i/C/H5G/test.sh":F) chmod +x vers/$i/C/H5G/test.sh ;;
-    "vers/$i/C/H5D/test.sh":F) chmod +x vers/$i/C/H5D/test.sh ;;
-    "vers/$i/C/H5T/test.sh":F) chmod +x vers/$i/C/H5T/test.sh ;;
-    "vers/$i/FORTRAN/H5G/test.sh":F) chmod +x vers/$i/FORTRAN/H5G/test.sh ;;
-    "vers/$i/FORTRAN/H5D/test.sh":F) chmod +x vers/$i/FORTRAN/H5D/test.sh ;;
-    "vers/$i/FORTRAN/H5T/test.sh":F) chmod +x vers/$i/FORTRAN/H5T/test.sh ;;
+    "vers/1_8/C/H5G/test.sh":F) chmod +x vers/1_8/C/H5G/test.sh ;;
+    "vers/1_8/C/H5D/test.sh":F) chmod +x vers/1_8/C/H5D/test.sh ;;
+    "vers/1_8/C/H5T/test.sh":F) chmod +x vers/1_8/C/H5T/test.sh ;;
+    "vers/1_8/FORTRAN/H5G/test.sh":F) chmod +x vers/1_8/FORTRAN/H5G/test.sh ;;
+    "vers/1_8/FORTRAN/H5D/test.sh":F) chmod +x vers/1_8/FORTRAN/H5D/test.sh ;;
+    "vers/1_8/FORTRAN/H5T/test.sh":F) chmod +x vers/1_8/FORTRAN/H5T/test.sh ;;
+    "vers/1_10/C/H5G/test.sh":F) chmod +x vers/1_10/C/H5G/test.sh ;;
+    "vers/1_10/C/H5D/test.sh":F) chmod +x vers/1_10/C/H5D/test.sh ;;
+    "vers/1_10/C/H5T/test.sh":F) chmod +x vers/1_10/C/H5T/test.sh ;;
+    "vers/1_10/FORTRAN/H5G/test.sh":F) chmod +x vers/1_10/FORTRAN/H5G/test.sh ;;
+    "vers/1_10/FORTRAN/H5D/test.sh":F) chmod +x vers/1_10/FORTRAN/H5D/test.sh ;;
+    "vers/1_10/FORTRAN/H5T/test.sh":F) chmod +x vers/1_10/FORTRAN/H5T/test.sh ;;
+    "vers/1_12/C/H5G/test.sh":F) chmod +x vers/1_12/C/H5G/test.sh ;;
+    "vers/1_12/C/H5D/test.sh":F) chmod +x vers/1_12/C/H5D/test.sh ;;
+    "vers/1_12/C/H5T/test.sh":F) chmod +x vers/1_12/C/H5T/test.sh ;;
+    "vers/1_12/FORTRAN/H5G/test.sh":F) chmod +x vers/1_12/FORTRAN/H5G/test.sh ;;
+    "vers/1_12/FORTRAN/H5D/test.sh":F) chmod +x vers/1_12/FORTRAN/H5D/test.sh ;;
+    "vers/1_12/FORTRAN/H5T/test.sh":F) chmod +x vers/1_12/FORTRAN/H5T/test.sh ;;
+    "vers/1_14/C/H5G/test.sh":F) chmod +x vers/1_14/C/H5G/test.sh ;;
+    "vers/1_14/C/H5D/test.sh":F) chmod +x vers/1_14/C/H5D/test.sh ;;
+    "vers/1_14/C/H5T/test.sh":F) chmod +x vers/1_14/C/H5T/test.sh ;;
+    "vers/1_14/FORTRAN/H5G/test.sh":F) chmod +x vers/1_14/FORTRAN/H5G/test.sh ;;
+    "vers/1_14/FORTRAN/H5D/test.sh":F) chmod +x vers/1_14/FORTRAN/H5D/test.sh ;;
+    "vers/1_14/FORTRAN/H5T/test.sh":F) chmod +x vers/1_14/FORTRAN/H5T/test.sh ;;
 
   esac
 done # for ac_tag

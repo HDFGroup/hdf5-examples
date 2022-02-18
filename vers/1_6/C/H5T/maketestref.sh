@@ -13,6 +13,9 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+VER_DIR=$(echo $(basename $(dirname $(dirname $PWD))))
+echo $VER_DIR
+
 case $CC in
 */*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
         test -x $H5DUMP || H5DUMP=h5dump;;
@@ -28,41 +31,23 @@ esac
 ECHO_N="echo $ECHO_N"
 
 exout() {
-    echo '*******************************'
-    echo '*  Output of example program  *'
-    echo '*******************************'
-    echo
     $*
 }
 
 dumpout() {
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
-    $H5DUMP $*
-}
-
-dumpout2() {
-    echo
-    echo
-    echo '**********************'
-    echo '*  Output of h5dump  *'
-    echo '**********************'
-    echo
     $H5DUMP $*
 }
 
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
-cmpd cmpdatt objref objrefatt regref regrefatt commit"
+cmpd cmpdatt commit"
 
 for topic in $topics
 do
     fname=h5ex_t_$topic
-    $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-    exout ./$fname >$fname.test
-    dumpout2 $fname.h5 >>$fname.test
+    $ECHO_N "Creating test reference file for $VER_DIR/C/H5T/$fname...$ECHO_C"
+    exout ./$fname >testfiles/$fname.tst
+    dumpout $fname.h5 >testfiles/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -70,20 +55,41 @@ done
 #######Non-standard tests#######
 
 fname=h5ex_t_cpxcmpd
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >$fname.test
-dumpout2 -n $fname.h5 >>$fname.test
+$ECHO_N "Creating test reference file for $VER_DIR/C/H5T/$fname...$ECHO_C"
+exout ./$fname >testfiles/$fname.tst
+dumpout -n $fname.h5 >testfiles/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_cpxcmpdatt
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >$fname.test
-dumpout2 -n $fname.h5 >>$fname.test
+$ECHO_N "Creating test reference file for $VER_DIR/C/H5T/$fname...$ECHO_C"
+exout ./$fname >testfiles/$fname.tst
+dumpout -n $fname.h5 >testfiles/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_convert
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >$fname.test
+$ECHO_N "Creating test reference file for $VER_DIR/C/H5T/$fname...$ECHO_C"
+exout ./$fname >testfiles/$fname.tst
 echo "  Done."
+
+topics="objref objrefatt regref regrefatt"
+
+CHCK_HDF5VER=`$H5DUMP -V | grep -i "Version " | sed 's/^.* //g' | sed 's/[-].*//g'`
+function version_gt { 
+     test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
+}
+VERS=""
+if version_gt $CHCK_HDF5VER "1.8"; then
+   VERS="110"  
+fi
+
+for topic in $topics
+do
+    fname=h5ex_t_$topic
+    $ECHO_N "Creating test reference file for $VER_DIR/C/H5T/$fname...$ECHO_C"
+    exout ./$fname >testfiles/$fname.tst
+    dumpout $fname.h5 >testfiles/$fname$VERS.ddl
+    rm -f $fname.h5
+    echo "  Done."
+done

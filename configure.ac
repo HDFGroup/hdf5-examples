@@ -111,16 +111,17 @@ AM_CONDITIONAL(H5T, test "$H5EX_T")
 HAVE_FORTRAN_2003="no"
 
 AC_MSG_CHECKING([if h5fc was compiled with Fortran 2003 enabled])
+ 
+CHCK_HDF5VER=`${FC} -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/[-].*//g'`
+function version_gt { 
+     test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
+}
 
 # if HDF5 version is > 1.9, then HDF5 used a 2003 Fortran compiler.
 if (${FC} -showconfig 2>&1 | grep 'Fortran 2003 Compiler: yes') > /dev/null; then
   HAVE_FORTRAN_2003="yes"
 else
 # check if HDF5 version is > 1.9
- CHCK_HDF5VER=`${FC} -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/[-].*//g'`
- function version_gt { 
-      test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
- }
  if version_gt $CHCK_HDF5VER "1.9"; then
      HAVE_FORTRAN_2003="yes"
  fi
@@ -148,34 +149,141 @@ fi
 AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
 AM_CONDITIONAL([FORTRAN_2003_NOTINTEL_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"])
 
+if version_gt $CHCK_HDF5VER "1.10"; then
+  AM_CONDITIONAL([HDF5_GE112], [test "X$HDF5_GE112" = "Xyes"])
+fi
+
+AC_CONFIG_FILES([Makefile
+                 vers/makefile
+                 vers/1_6/makefile
+                 vers/1_6/C/makefile
+                 vers/1_6/C/H5G/makefile
+                 vers/1_6/C/H5D/makefile
+                 vers/1_6/C/H5T/makefile
+                 vers/1_8/makefile
+                 vers/1_8/C/makefile
+                 vers/1_8/C/H5G/makefile
+                 vers/1_8/C/H5D/makefile
+                 vers/1_8/C/H5T/makefile
+                 vers/1_8/FORTRAN/makefile
+                 vers/1_8/FORTRAN/H5G/makefile
+                 vers/1_8/FORTRAN/H5D/makefile
+                 vers/1_8/FORTRAN/H5T/makefile
+                 vers/1_10/makefile
+                 vers/1_10/C/makefile
+                 vers/1_10/C/H5G/makefile
+                 vers/1_10/C/H5D/makefile
+                 vers/1_10/C/H5T/makefile
+                 vers/1_10/FORTRAN/makefile
+                 vers/1_10/FORTRAN/H5G/makefile
+                 vers/1_10/FORTRAN/H5D/makefile
+                 vers/1_10/FORTRAN/H5T/makefile
+                 vers/1_12/makefile
+                 vers/1_12/C/makefile
+                 vers/1_12/C/H5G/makefile
+                 vers/1_12/C/H5D/makefile
+                 vers/1_12/C/H5T/makefile
+                 vers/1_12/FORTRAN/makefile
+                 vers/1_12/FORTRAN/H5G/makefile
+                 vers/1_12/FORTRAN/H5D/makefile
+                 vers/1_12/FORTRAN/H5T/makefile
+                 vers/1_14/makefile
+                 vers/1_14/C/makefile
+                 vers/1_14/C/H5G/makefile
+                 vers/1_14/C/H5D/makefile
+                 vers/1_14/C/H5T/makefile
+                 vers/1_14/FORTRAN/makefile
+                 vers/1_14/FORTRAN/H5G/makefile
+                 vers/1_14/FORTRAN/H5D/makefile
+                 vers/1_14/FORTRAN/H5T/makefile])
+
 #list="vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile"
-list=""
-for i in $h5_vers; do
-  list="$list vers/$i/makefile"
-  list="$list vers/$i/C/makefile"
-  list="$list vers/$i/C/H5G/makefile" 
-  list="$list vers/$i/C/H5D/makefile"
-  list="$list vers/$i/C/H5T/makefile"
-  list="$list vers/$i/FORTRAN/makefile"
-  list="$list vers/$i/FORTRAN/H5G/makefile"
-  list="$list vers/$i/FORTRAN/H5D/makefile"
-  list="$list vers/$i/FORTRAN/H5T/makefile"
-done
+#list=""
+#for i in $h5_vers; do
+#  list="$list vers/$i/makefile"
+#  list="$list vers/$i/C/makefile"
+#  list="$list vers/$i/C/H5G/makefile" 
+#  list="$list vers/$i/C/H5D/makefile"
+#  list="$list vers/$i/C/H5T/makefile"
+#  list="$list vers/$i/FORTRAN/makefile"
+#  list="$list vers/$i/FORTRAN/H5G/makefile"
+#  list="$list vers/$i/FORTRAN/H5D/makefile"
+#  list="$list vers/$i/FORTRAN/H5T/makefile"
+#done
 
 # Set subdirectories
-AC_CONFIG_FILES([Makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile $list])
-                 
+#AC_CONFIG_FILES([Makefile vers/Makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile $list])
+
 AC_CONFIG_FILES([vers/1_6/C/H5G/test.sh], [chmod +x vers/1_6/C/H5G/test.sh]) 
 AC_CONFIG_FILES([vers/1_6/C/H5D/test.sh], [chmod +x vers/1_6/C/H5D/test.sh])
 AC_CONFIG_FILES([vers/1_6/C/H5T/test.sh], [chmod +x vers/1_6/C/H5T/test.sh])
-for i in $h5_vers; do
-  AC_CONFIG_FILES([vers/$i/C/H5G/test.sh], [chmod +x vers/$i/C/H5G/test.sh])
-  AC_CONFIG_FILES([vers/$i/C/H5D/test.sh], [chmod +x vers/$i/C/H5D/test.sh])
-  AC_CONFIG_FILES([vers/$i/C/H5T/test.sh], [chmod +x vers/$i/C/H5T/test.sh])
-  AC_CONFIG_FILES([vers/$i/FORTRAN/H5G/test.sh], [chmod +x vers/$i/FORTRAN/H5G/test.sh])
-  AC_CONFIG_FILES([vers/$i/FORTRAN/H5D/test.sh], [chmod +x vers/$i/FORTRAN/H5D/test.sh])
-  AC_CONFIG_FILES([vers/$i/FORTRAN/H5T/test.sh], [chmod +x vers/$i/FORTRAN/H5T/test.sh])
-done
+
+AC_CONFIG_FILES([vers/1_8/C/H5G/test.sh], [chmod +x vers/1_8/C/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_8/C/H5D/test.sh], [chmod +x vers/1_8/C/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_8/C/H5T/test.sh], [chmod +x vers/1_8/C/H5T/test.sh])
+AC_CONFIG_FILES([vers/1_8/FORTRAN/H5G/test.sh], [chmod +x vers/1_8/FORTRAN/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_8/FORTRAN/H5D/test.sh], [chmod +x vers/1_8/FORTRAN/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_8/FORTRAN/H5T/test.sh], [chmod +x vers/1_8/FORTRAN/H5T/test.sh])
+
+AC_CONFIG_FILES([vers/1_10/C/H5G/test.sh], [chmod +x vers/1_10/C/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_10/C/H5D/test.sh], [chmod +x vers/1_10/C/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_10/C/H5T/test.sh], [chmod +x vers/1_10/C/H5T/test.sh])
+AC_CONFIG_FILES([vers/1_10/FORTRAN/H5G/test.sh], [chmod +x vers/1_10/FORTRAN/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_10/FORTRAN/H5D/test.sh], [chmod +x vers/1_10/FORTRAN/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_10/FORTRAN/H5T/test.sh], [chmod +x vers/1_10/FORTRAN/H5T/test.sh])
+
+AC_CONFIG_FILES([vers/1_12/C/H5G/test.sh], [chmod +x vers/1_12/C/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_12/C/H5D/test.sh], [chmod +x vers/1_12/C/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_12/C/H5T/test.sh], [chmod +x vers/1_12/C/H5T/test.sh])
+AC_CONFIG_FILES([vers/1_12/FORTRAN/H5G/test.sh], [chmod +x vers/1_12/FORTRAN/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_12/FORTRAN/H5D/test.sh], [chmod +x vers/1_12/FORTRAN/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_12/FORTRAN/H5T/test.sh], [chmod +x vers/1_12/FORTRAN/H5T/test.sh])
+
+AC_CONFIG_FILES([vers/1_14/C/H5G/test.sh], [chmod +x vers/1_14/C/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_14/C/H5D/test.sh], [chmod +x vers/1_14/C/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_14/C/H5T/test.sh], [chmod +x vers/1_14/C/H5T/test.sh])
+AC_CONFIG_FILES([vers/1_14/FORTRAN/H5G/test.sh], [chmod +x vers/1_14/FORTRAN/H5G/test.sh])
+AC_CONFIG_FILES([vers/1_14/FORTRAN/H5D/test.sh], [chmod +x vers/1_14/FORTRAN/H5D/test.sh])
+AC_CONFIG_FILES([vers/1_14/FORTRAN/H5T/test.sh], [chmod +x vers/1_14/FORTRAN/H5T/test.sh])
+
+# Set subdirectories
+#AC_CONFIG_FILES([Makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile $list])
+                 
+#AC_CONFIG_FILES([vers/1_6/C/H5G/test.sh], [chmod +x vers/1_6/C/H5G/test.sh]) 
+#AC_CONFIG_FILES([vers/1_6/C/H5D/test.sh], [chmod +x vers/1_6/C/H5D/test.sh])
+#AC_CONFIG_FILES([vers/1_6/C/H5T/test.sh], [chmod +x vers/1_6/C/H5T/test.sh])
+
+#i=./vers/1_8/C/H5D/test.sh
+#j=chmod +x vers/1_8/C/H5D/test.sh
+#AC_CONFIG_FILES([${i}], [${j}])
+#AC_CONFIG_FILES([vers/${i}/C/H5D/test.sh], [chmod +x vers/${i}/C/H5D/test.sh])
+#AC_CONFIG_FILES([vers/1_8/C/H5D/test.sh], [chmod +x vers/1_8/C/H5D/test.sh])
+
+#for i in $h5_vers; do
+#  my_CONFIG_EXEC_FILE(vers/${i}/C/H5G/test.sh)
+#  my_CONFIG_EXEC_FILE(./vers/${i}/C/H5D/test.sh)
+#  AC_CONFIG_FILES([vers/"${i}"/C/H5G/test.sh], [echo "config.status: chmod a+w vers/${i}/C/H5G/test.sh .." chmod +x vers/"${i}"/C/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5D/test.sh], [chmod +x vers/${i}/C/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5T/test.sh], [chmod +x vers/${i}/C/H5T/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5G/test.sh], [chmod +x vers/${i}/FORTRAN/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5D/test.sh], [chmod +x vers/${i}/FORTRAN/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5T/test.sh], [chmod +x vers/${i}/FORTRAN/H5T/test.sh])
+#done
+
+#for i in $h5_vers; do
+#  AC_CONFIG_FILES([vers/${i}/C/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/C/H5T/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5G/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5D/test.sh])
+#  AC_CONFIG_FILES([vers/${i}/FORTRAN/H5T/test.sh])
+#done
+
+#for i in $h5_vers; do
+#  chmod +x vers/${i}/C/H5G/test.sh
+#  chmod +x vers/${i}/C/H5D/test.sh
+#  chmod +x vers/${i}/C/H5T/test.sh
+#done
 
 # Configure
 AC_OUTPUT

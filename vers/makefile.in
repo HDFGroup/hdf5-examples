@@ -99,7 +99,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-subdir = vers/1_14/C
+subdir = vers
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -163,7 +163,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = H5G H5D H5T
+DIST_SUBDIRS = 1_6 1_8 1_10 1_14 1_12
 am__DIST_COMMON = $(srcdir)/makefile.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -279,10 +279,12 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-@H5G_TRUE@DO_H5G = H5G
-@H5T_TRUE@DO_H5T = H5T
-@H5D_TRUE@DO_H5D = H5D
-SUBDIRS = $(DO_H5G) $(DO_H5D) $(DO_H5T)
+@V16_TRUE@DO_16 = 1_6
+@V18_TRUE@DO_18 = 1_8
+@V110_TRUE@DO_110 = 1_10
+@V114_TRUE@DO_110 = 1_14
+@V112_TRUE@DO_112 = 1_12
+SUBDIRS = $(DO_16) $(DO_18) $(DO_110) $(DO_112) $(DO_114)
 all: all-recursive
 
 .SUFFIXES:
@@ -295,9 +297,9 @@ $(srcdir)/makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign vers/1_14/C/makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign vers/makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign vers/1_14/C/makefile
+	  $(AUTOMAKE) --foreign vers/makefile
 makefile: $(srcdir)/makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

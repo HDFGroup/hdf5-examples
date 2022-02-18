@@ -168,7 +168,7 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
-DIST_SUBDIRS = vers/1_6 vers/1_8 vers/1_10 vers/1_14 vers/1_12
+DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in COPYING \
 	README compile depcomp install-sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -301,12 +301,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-@V16_TRUE@DO_16 = vers/1_6
-@V18_TRUE@DO_18 = vers/1_8
-@V110_TRUE@DO_110 = vers/1_10
-@V114_TRUE@DO_110 = vers/1_14
-@V112_TRUE@DO_112 = vers/1_12
-SUBDIRS = $(DO_16) $(DO_18) $(DO_110) $(DO_112) $(DO_114)
+SUBDIRS = vers 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

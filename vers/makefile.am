@@ -16,4 +16,24 @@
 ## Run automake to generate a Makefile.in from this file.
 ##
 
-SUBDIRS = vers 
+if V16
+DO_16=1_6
+endif
+
+if V18
+DO_18=1_8
+endif
+
+if V110
+DO_110=1_10
+endif
+
+if V112
+DO_112=1_12
+endif
+
+if V114
+DO_110=1_14
+endif
+
+SUBDIRS = $(DO_16) $(DO_18) $(DO_110) $(DO_112) $(DO_114)

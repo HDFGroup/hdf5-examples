@@ -15,6 +15,7 @@
 
 srcdir=@srcdir@
 
+VER_DIR=$(echo $(basename $(dirname $(dirname $PWD))))
 
 case $CC in
 */*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
@@ -43,7 +44,7 @@ dumpout() {
 
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
-cmpd cmpdatt objref objrefatt regref regrefatt"
+cmpd cmpdatt"
 
 
 return_val=0
@@ -60,7 +61,7 @@ do
     then
         echo "  FAILED!"
     else
-        dumpout $fname.h5 >tmp.test
+      dumpout $fname.h5 >tmp.test
       rm -f $fname.h5
       cmp -s tmp.test $srcdir/testfiles/$fname.ddl
       status=$?
@@ -136,6 +137,42 @@ else
 fi
 return_val=`expr $status + $return_val`
 
+topics="objref objrefatt regref regrefatt"
+
+VERS=""
+CHCK_HDF5VER=`$CC -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/[-].*//g'`
+function version_gt { 
+     test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
+}
+if version_gt $CHCK_HDF5VER "1.8"; then
+   VERS="110"  
+fi
+
+return_val=0
+for topic in $topics
+do
+    fname=h5ex_t_$topic
+    $ECHO_N "Testing 1_8/C/H5T/$fname...$ECHO_C"
+    exout ./$fname >tmp.test
+    cmp -s tmp.test $srcdir/testfiles/$fname.tst
+    status=$?
+    if test $status -ne 0
+    then
+        echo "  FAILED!"
+    else
+      dumpout $fname.h5 >tmp.test
+      rm -f $fname.h5
+      cmp -s tmp.test $srcdir/testfiles/$fname$VERS.ddl
+      status=$?
+      if test $status -ne 0
+      then
+          echo "  FAILED!"
+      else
+          echo "  Passed"
+      fi
+    fi
+    return_val=`expr $status + $return_val`
+done
 
 rm -f tmp.test
 echo "$return_val tests failed in 1_8/C/H5T/"

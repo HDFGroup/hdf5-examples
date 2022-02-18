@@ -53,14 +53,14 @@ PROGRAM main
 
   IF (.NOT.avail) THEN
      WRITE(*,'("gzip filter not available.",/)')
-     STOP
+     CALL EXIT(1)
   ENDIF
   CALL h5zget_filter_info_f(H5Z_FILTER_DEFLATE_F, filter_info, hdferr)
 
   filter_info_both=IOR(H5Z_FILTER_ENCODE_ENABLED_F,H5Z_FILTER_DECODE_ENABLED_F)
   IF (filter_info .NE. filter_info_both) THEN
      WRITE(*,'("gzip filter not available for encoding and decoding.",/)')
-     STOP
+     CALL EXIT(1)
   ENDIF
   !
   ! Initialize data.
