@@ -75,7 +75,7 @@ echo "  Done."
 topics="objref objrefatt regref regrefatt"
 
 VERS=""
-CHCK_HDF5VER=`$H5DUMP -V | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/[-].*//g'`
+CHCK_HDF5VER=`$H5DUMP -V | grep -i "Version " | sed 's/^.* //g' | sed 's/[-].*//g'`
 function version_gt { 
      test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
 }
