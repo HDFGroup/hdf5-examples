@@ -156,10 +156,11 @@ fi
 
 AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
 AM_CONDITIONAL([FORTRAN_2003_NOTINTEL_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"])
-
+HDF5_GE112="no"
 if version_gt $H5_LIBVER "1.10"; then
-  AM_CONDITIONAL([HDF5_GE112], [test "X$HDF5_GE112" = "Xyes"])
+  HDF5_GE112="yes"
 fi
+AM_CONDITIONAL([HDF5_GE112], [test "X$HDF5_GE112" = "Xyes"])
 
 AC_CONFIG_FILES([Makefile
                  vers/makefile

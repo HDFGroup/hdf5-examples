@@ -3842,9 +3842,11 @@ else
   FORTRAN_2003_NOTINTEL_CONDITIONAL_F_FALSE=
 fi
 
-
+HDF5_GE112="no"
 if version_gt $H5_LIBVER "1.10"; then
-   if test "X$HDF5_GE112" = "Xyes"; then
+  HDF5_GE112="yes"
+fi
+ if test "X$HDF5_GE112" = "Xyes"; then
   HDF5_GE112_TRUE=
   HDF5_GE112_FALSE='#'
 else
@@ -3852,7 +3854,6 @@ else
   HDF5_GE112_FALSE=
 fi
 
-fi
 
 ac_config_files="$ac_config_files Makefile vers/makefile vers/1_6/makefile vers/1_6/C/makefile vers/1_6/C/H5G/makefile vers/1_6/C/H5D/makefile vers/1_6/C/H5T/makefile vers/1_8/makefile vers/1_8/C/makefile vers/1_8/C/H5G/makefile vers/1_8/C/H5D/makefile vers/1_8/C/H5T/makefile vers/1_8/FORTRAN/makefile vers/1_8/FORTRAN/H5G/makefile vers/1_8/FORTRAN/H5D/makefile vers/1_8/FORTRAN/H5T/makefile vers/1_10/makefile vers/1_10/C/makefile vers/1_10/C/H5G/makefile vers/1_10/C/H5D/makefile vers/1_10/C/H5T/makefile vers/1_10/FORTRAN/makefile vers/1_10/FORTRAN/H5G/makefile vers/1_10/FORTRAN/H5D/makefile vers/1_10/FORTRAN/H5T/makefile vers/1_12/makefile vers/1_12/C/makefile vers/1_12/C/H5G/makefile vers/1_12/C/H5D/makefile vers/1_12/C/H5T/makefile vers/1_12/FORTRAN/makefile vers/1_12/FORTRAN/H5G/makefile vers/1_12/FORTRAN/H5D/makefile vers/1_12/FORTRAN/H5T/makefile vers/1_14/makefile vers/1_14/C/makefile vers/1_14/C/H5G/makefile vers/1_14/C/H5D/makefile vers/1_14/C/H5T/makefile vers/1_14/FORTRAN/makefile vers/1_14/FORTRAN/H5G/makefile vers/1_14/FORTRAN/H5D/makefile vers/1_14/FORTRAN/H5T/makefile"
 
