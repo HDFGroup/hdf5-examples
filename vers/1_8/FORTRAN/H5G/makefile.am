@@ -33,8 +33,8 @@ if FORTRAN_2003_CONDITIONAL_F
 	else
 #   Intel 12.0 doesn't work with RECURSIVE; example should be skipped. EIP -2011/10/14
 		if FORTRAN_2003_NOTINTEL_CONDITIONAL_F
-			noinst_PROGRAMS += h5ex_g_traverse_F03
-			h5ex_g_traverse_F03_SOURCES = h5ex_g_traverse_F03.F90
+			noinst_PROGRAMS += h5ex_g_traverse
+			h5ex_g_traverse_SOURCES = h5ex_g_traverse.F90
 		endif
 	endif
 endif
