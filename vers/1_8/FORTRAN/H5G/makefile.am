@@ -51,3 +51,5 @@ if FORTRAN_2003_CONDITIONAL_F
 endif
 
 TESTS = test.sh
+
+CLEANFILES = *.mod

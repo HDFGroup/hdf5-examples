@@ -75,6 +75,7 @@ do
         if test $status -ne 0
         then
             echo "  FAILED!"
+            return_val=`expr $status + $return_val`
         else
           dumpout $fname.h5 >tmp.test
           rm -f $fname.h5

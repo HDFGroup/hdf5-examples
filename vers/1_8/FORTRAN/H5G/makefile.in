@@ -491,6 +491,7 @@ EXTRA_DIST = testfiles/h5ex_g_create.ddl testfiles/h5ex_g_compact1.ddl \
 	testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
 	testfiles/h5ex_g_phase.tst test.sh $(am__append_2)
 TESTS = test.sh
+CLEANFILES = *.mod
 all: all-am
 
 .SUFFIXES:
@@ -841,6 +842,7 @@ mostlyclean-generic:
 	-test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
