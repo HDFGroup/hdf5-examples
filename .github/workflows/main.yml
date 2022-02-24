@@ -69,4 +69,3 @@ jobs:
 #        cmake -D FORTRAN_INTERFACE=ON -D CMAKE_BUILD_TYPE=Release ..
 #        make
 #      shell: bash
-h
