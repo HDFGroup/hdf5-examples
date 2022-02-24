@@ -42,6 +42,9 @@ jobs:
         echo "OS_NAME=macOS" >> $GITHUB_ENV
         # Use the newest stable gcc compiler
         brew update
+        brew upgrade gcc
+        brew install gcc
+        brew unlink gcc && brew link gcc
         brew install hdf5
         brew install cmake
 

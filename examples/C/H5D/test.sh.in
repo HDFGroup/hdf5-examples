@@ -56,6 +56,7 @@ do
     if test $status -eq 1
     then
         echo "  Unsupported feature"
+        status=0
     else
         cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
         status=$?
