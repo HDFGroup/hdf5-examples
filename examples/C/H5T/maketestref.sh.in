@@ -36,12 +36,12 @@ dumpout() {
 }
 
 H5_LIBVER=@H5_LIBVER@
-H5_APIVER=@H5_APIVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
 
-if [ ! -d "testfiles/$H5_APIVER" ]; then
-  mkdir testfiles/$H5_APIVER
+if [ ! -d "testfiles/$H5_LIBVER_DIR" ]; then
+  mkdir testfiles/$H5_LIBVER_DIR
 fi
-echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_APIVER/README.md
+echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_LIBVER_DIR/README.md
 
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
@@ -51,8 +51,8 @@ for topic in $topics
 do
     fname=h5ex_t_$topic
     $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-    exout ./$fname >testfiles/$H5_APIVER/$fname.tst
-    dumpout $fname.h5 >testfiles/$H5_APIVER/$fname.ddl
+    exout ./$fname >testfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >testfiles/$H5_LIBVER_DIR/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -61,19 +61,19 @@ done
 
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-exout ./$fname >testfiles/$H5_APIVER/$fname.tst
-dumpout -n $fname.h5 >testfiles/$H5_APIVER/$fname.ddl
+exout ./$fname >testfiles/$H5_LIBVER_DIR/$fname.tst
+dumpout -n $fname.h5 >testfiles/$H5_LIBVER_DIR/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_cpxcmpdatt
 $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-exout ./$fname >testfiles/$H5_APIVER/$fname.tst
-dumpout -n $fname.h5 >testfiles/$H5_APIVER/$fname.ddl
+exout ./$fname >testfiles/$H5_LIBVER_DIR/$fname.tst
+dumpout -n $fname.h5 >testfiles/$H5_LIBVER_DIR/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_convert
 $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-exout ./$fname >testfiles/$H5_APIVER/$fname.tst
+exout ./$fname >testfiles/$H5_LIBVER_DIR/$fname.tst
 echo "  Done."

@@ -38,7 +38,7 @@ dumpout() {
 }
 
 H5_LIBVER=@H5_LIBVER@
-H5_APIVER=@H5_APIVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
 
 topics="alloc \
   checksum \
@@ -70,7 +70,7 @@ do
     then
         echo "  Unsupported feature"
     else
-        cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.tst
+        cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
         status=$?
         if test $status -ne 0
         then
@@ -78,12 +78,12 @@ do
         else
           dumpout $fname.h5 >tmp.test
           rm -f $fname.h5
-          cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.ddl
+          cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
           status=$?
           if test $status -ne 0
              then 
 	     # test to see if the only difference is because of big-endian and little-endian
-	     \diff tmp.test $srcdir/testfiles/$H5_APIVER/$fname.ddl > tmp.diff
+	     \diff tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl > tmp.diff
              echo " "
              NumOfFinds=`grep -c "DATATYPE" tmp.diff`
              NumOfFinds=`expr $NumOfFinds \* 2`
@@ -121,7 +121,7 @@ if test $status -eq 1
 then
     echo "  Unsupported feature"
 else
-    cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.tst
+    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -129,7 +129,7 @@ else
     else
       dumpout -n $fname.h5 >tmp.test
       rm -f $fname.h5
-      cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.ddl
+      cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
       status=$?
       if test $status -ne 0
       then

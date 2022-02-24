@@ -38,12 +38,12 @@ dumpout() {
 }
 
 H5_LIBVER=@H5_LIBVER@
-H5_APIVER=@H5_APIVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
 
-if [ ! -d "testfiles/$H5_APIVER" ]; then
-  mkdir testfiles/$H5_APIVER
+if [ ! -d "testfiles/$H5_LIBVER_DIR" ]; then
+  mkdir testfiles/$H5_LIBVER_DIR
 fi
-echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_APIVER/README.md
+echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_LIBVER_DIR/README.md
 
 topics="rdwr hyper chunk gzip szip nbit soint sofloat extern compact unlimadd \
 unlimmod unlimgzip checksum shuffle fillval alloc"
@@ -53,8 +53,8 @@ for topic in $topics
 do
     fname=h5ex_d_$topic
     $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-    exout ./$fname >$srcdir/testfiles/$H5_APIVER/$fname.tst
-    dumpout $fname.h5 >$srcdir/testfiles/$H5_APIVER/$fname.ddl
+    exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -66,7 +66,7 @@ rm -f h5ex_d_extern.data
 
 fname=h5ex_d_transform
 $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-exout ./$fname >$srcdir/testfiles/$H5_APIVER/$fname.tst
-dumpout -n $fname.h5 >$srcdir/testfiles/$H5_APIVER/$fname.ddl
+exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
 rm -f $fname.h5
 echo "  Done."

@@ -603,6 +603,7 @@ H5D_FALSE
 H5D_TRUE
 H5G_FALSE
 H5G_TRUE
+H5_LIBVER_DIR
 H5_APIVER
 H5_LIBVER
 ac_ct_FC
@@ -3690,6 +3691,18 @@ $as_echo_n "checking the API mapping of the HDF5 Library... " >&6; }
 H5_APIVER=$(${CC} -showconfig | grep -i "Default API mapping:" | sed 's/^.* //g' | sed 's/v//g' | sed 's/1/1_/')
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $H5_APIVER" >&5
 $as_echo "$H5_APIVER" >&6; }
+
+#if version is unreleased then bump to next official release.
+
+
+H5_MAJORVER=$(echo $H5_LIBVER | cut -f1 -d'.'  | sed -r 's/\./_/g')
+H5_MINORVER=$(echo $H5_LIBVER | cut -f2 -d'.'  | sed -r 's/\./_/g')
+
+rem=$(( $H5_MINORVER % 2 ))
+if test "$rem" != "0";then
+ H5_MINORVER=$(($H5_MINORVER+1))
+fi
+H5_LIBVER_DIR=${H5_MAJORVER}_${H5_MINORVER}
 
 # Test whether one version ($1) is greater than or equal to other ($2).
 function version_gt {

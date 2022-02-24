@@ -82,6 +82,18 @@ AC_SUBST([H5_APIVER])
 H5_APIVER=$(${CC} -showconfig | grep -i "Default API mapping:" | sed 's/^.* //g' | sed 's/v//g' | sed 's/1/1_/')
 AC_MSG_RESULT([$H5_APIVER])
 
+#if version is unreleased then bump to next official release.
+
+AC_SUBST([H5_LIBVER_DIR])
+H5_MAJORVER=$(echo $H5_LIBVER | cut -f1 -d'.'  | sed -r 's/\./_/g')
+H5_MINORVER=$(echo $H5_LIBVER | cut -f2 -d'.'  | sed -r 's/\./_/g')
+
+rem=$(( $H5_MINORVER % 2 ))
+if test "$rem" != "0";then
+ H5_MINORVER=$(($H5_MINORVER+1))
+fi
+H5_LIBVER_DIR=${H5_MAJORVER}_${H5_MINORVER}
+
 # Test whether one version ($1) is greater than or equal to other ($2).
 function version_gt {
     test "`printf '%s\n' "$@" | sort -V | head -n 1`" != "$1";

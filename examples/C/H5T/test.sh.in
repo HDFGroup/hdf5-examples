@@ -39,7 +39,7 @@ dumpout() {
 }
 
 H5_LIBVER=@H5_LIBVER@
-H5_APIVER=@H5_APIVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
 
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
@@ -53,7 +53,7 @@ do
     fname=h5ex_t_$topic
     $ECHO_N "Testing examples/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
-    cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.tst
+    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -61,7 +61,7 @@ do
     else
       dumpout $fname.h5 >tmp.test
       rm -f $fname.h5
-      cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.ddl
+      cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
       status=$?
       if test $status -ne 0
       then
@@ -79,7 +79,7 @@ done
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Testing examples/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.tst
+cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
 status=$?
 if test $status -ne 0
 then
@@ -87,7 +87,7 @@ then
 else
   dumpout -n $fname.h5 >tmp.test
   rm -f $fname.h5
-  cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.ddl
+  cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
   status=$?
   if test $status -ne 0
   then
@@ -102,7 +102,7 @@ return_val=`expr $status + $return_val`
 fname=h5ex_t_cpxcmpdatt
 $ECHO_N "Testing examples/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.tst
+cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
 status=$?
 if test $status -ne 0
 then
@@ -110,7 +110,7 @@ then
 else
   dumpout -n $fname.h5 >tmp.test
   rm -f $fname.h5
-  cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.ddl
+  cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
   status=$?
   if test $status -ne 0
   then
@@ -125,7 +125,7 @@ return_val=`expr $status + $return_val`
 fname=h5ex_t_convert
 $ECHO_N "Testing examples/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.tst
+cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
 status=$?
 if test $status -ne 0
 then
@@ -143,7 +143,7 @@ do
     fname=h5ex_t_$topic
     $ECHO_N "Testing examples/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
-    cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.tst
+    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -151,7 +151,7 @@ do
     else
       dumpout $fname.h5 >tmp.test
       rm -f $fname.h5
-      cmp -s tmp.test $srcdir/testfiles/$H5_APIVER/$fname.ddl
+      cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
       status=$?
       if test $status -ne 0
       then
