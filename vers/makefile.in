@@ -27,6 +27,10 @@
 # is linked from the top-level documents page.  It can also be found at
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
+
+#if V16
+#DO_16=1_6
+#endif
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -163,7 +167,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = 1_6 1_8 1_10 1_12 1_14
+DIST_SUBDIRS = 1_8 1_10 1_12 1_14
 am__DIST_COMMON = $(srcdir)/makefile.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
@@ -212,6 +216,7 @@ EXEEXT = @EXEEXT@
 FC = @FC@
 FCFLAGS = @FCFLAGS@
 H5_LIBVER = @H5_LIBVER@
+HDF5_GE110 = @HDF5_GE110@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -280,7 +285,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-@V16_TRUE@DO_16 = 1_6
 @V18_TRUE@DO_18 = 1_8
 @V110_TRUE@DO_110 = 1_10
 @V112_TRUE@DO_112 = 1_12

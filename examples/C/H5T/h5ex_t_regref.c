@@ -139,10 +139,10 @@ main (void)
          * Open the referenced object, retrieve its region as a
          * dataspace selection.
          */
-#if defined(H5_USE_18_API)
-        dset2 = H5Rdereference (dset, H5R_DATASET_REGION, &rdata[i]);
-#else
+#if H5_VERSION_GE(1,10,0)
         dset2 = H5Rdereference (dset, H5P_DEFAULT, H5R_DATASET_REGION, &rdata[i]);
+#else
+        dset2 = H5Rdereference (dset, H5R_DATASET_REGION, &rdata[i]);
 #endif
         space = H5Rget_region (dset, H5R_DATASET_REGION, &rdata[i]);
 

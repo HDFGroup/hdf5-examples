@@ -19,11 +19,16 @@
 noinst_PROGRAMS = h5ex_g_create h5ex_g_iterate h5ex_g_traverse \
 h5ex_g_compact h5ex_g_corder h5ex_g_intermediate h5ex_g_phase h5ex_g_visit
 
+if HDF5_GE112
+noinst_PROGRAMS += h5ex_g_traverse_GE_112
+else
+noinst_PROGRAMS += h5ex_g_traverse
+endif
+
 EXTRA_DIST = testfiles/h5ex_g_create.ddl testfiles/h5ex_g_iterate.tst testfiles/h5ex_g_traverse.tst \
 testfiles/h5ex_g_compact1.ddl testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
 testfiles/h5ex_g_intermediate.tst testfiles/h5ex_g_phase.tst testfiles/h5ex_g_visit.tst \
 h5ex_g_iterate.h5 h5ex_g_traverse.h5 h5ex_g_visit.h5 \
 test.sh
 
-AM_CPPFLAGS = '-D H5_USE_112_API'
 TESTS = test.sh

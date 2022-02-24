@@ -139,13 +139,11 @@ return_val=`expr $status + $return_val`
 
 topics="objref objrefatt regref regrefatt"
 
-VERS=""
-CHCK_HDF5VER=`$CC -showconfig | grep -i "HDF5 Version:" | sed 's/^.* //g' | sed 's/[-].*//g'`
-function version_gt { 
-     test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1"; 
-}
-if version_gt $CHCK_HDF5VER "1.8"; then
-   VERS="110"  
+HDF5_GE110=@HDF5_GE110@
+
+VERS="" 
+if [ "$HDF5_GE110" = "yes" ]; then
+   VERS="112/"  
 fi
 
 return_val=0
@@ -162,7 +160,7 @@ do
     else
       dumpout $fname.h5 >tmp.test
       rm -f $fname.h5
-      cmp -s tmp.test $srcdir/testfiles/$fname$VERS.ddl
+      cmp -s tmp.test $srcdir/testfiles/$VERS$fname.ddl
       status=$?
       if test $status -ne 0
       then

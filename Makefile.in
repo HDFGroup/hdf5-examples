@@ -233,7 +233,9 @@ ECHO_T = @ECHO_T@
 EXEEXT = @EXEEXT@
 FC = @FC@
 FCFLAGS = @FCFLAGS@
+H5_APIVER = @H5_APIVER@
 H5_LIBVER = @H5_LIBVER@
+HDF5_GE110 = @HDF5_GE110@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -302,7 +304,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = vers 
+SUBDIRS = examples
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

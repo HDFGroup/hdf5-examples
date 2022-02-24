@@ -16,4 +16,4 @@
 ## Run automake to generate a Makefile.in from this file.
 ##
 
-SUBDIRS = vers 
+SUBDIRS = examples

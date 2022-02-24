@@ -448,6 +448,7 @@ EXEEXT = @EXEEXT@
 FC = @FC@
 FCFLAGS = @FCFLAGS@
 H5_LIBVER = @H5_LIBVER@
+HDF5_GE110 = @HDF5_GE110@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -540,6 +541,7 @@ EXTRA_DIST = testfiles/h5ex_d_rdwr.tst testfiles/h5ex_d_hyper.tst \
 	testfiles/h5ex_d_checksum.ddl testfiles/h5ex_d_transform.ddl \
 	testfiles/h5ex_d_fillval.ddl testfiles/h5ex_d_alloc.ddl \
 	test.sh $(am__append_2)
+@HDF5_GE112_TRUE@AM_CPPFLAGS = "-D HDF5_GE112"
 TESTS = test.sh
 all: all-am
 

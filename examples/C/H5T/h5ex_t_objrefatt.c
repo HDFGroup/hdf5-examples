@@ -128,10 +128,10 @@ main (void)
         /*
          * Open the referenced object, get its name and type.
          */
-#if defined(H5_USE_18_API)
-        obj = H5Rdereference (dset, H5R_OBJECT, &rdata[i]);
-#else
+#if H5_VERSION_GE(1,10,0)
         obj = H5Rdereference (dset, H5P_DEFAULT, H5R_OBJECT, &rdata[i]);
+#else
+        obj = H5Rdereference (dset, H5R_OBJECT, &rdata[i]);
 #endif
         status = H5Rget_obj_type (dset, H5R_OBJECT, &rdata[i], &objtype);
 

@@ -103,7 +103,10 @@ POST_UNINSTALL = :
 noinst_PROGRAMS = h5ex_g_create$(EXEEXT) h5ex_g_iterate$(EXEEXT) \
 	h5ex_g_traverse$(EXEEXT) h5ex_g_compact$(EXEEXT) \
 	h5ex_g_corder$(EXEEXT) h5ex_g_intermediate$(EXEEXT) \
-	h5ex_g_phase$(EXEEXT) h5ex_g_visit$(EXEEXT)
+	h5ex_g_phase$(EXEEXT) h5ex_g_visit$(EXEEXT) $(am__EXEEXT_1) \
+	$(am__EXEEXT_2)
+@HDF5_GE112_TRUE@am__append_1 = h5ex_g_traverse_GE_112
+@HDF5_GE112_FALSE@am__append_2 = h5ex_g_traverse
 subdir = vers/1_12/C/H5G
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -114,6 +117,8 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES = test.sh
 CONFIG_CLEAN_VPATH_FILES =
+@HDF5_GE112_TRUE@am__EXEEXT_1 = h5ex_g_traverse_GE_112$(EXEEXT)
+@HDF5_GE112_FALSE@am__EXEEXT_2 = h5ex_g_traverse$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
 h5ex_g_compact_SOURCES = h5ex_g_compact.c
 h5ex_g_compact_OBJECTS = h5ex_g_compact.$(OBJEXT)
@@ -136,6 +141,9 @@ h5ex_g_phase_LDADD = $(LDADD)
 h5ex_g_traverse_SOURCES = h5ex_g_traverse.c
 h5ex_g_traverse_OBJECTS = h5ex_g_traverse.$(OBJEXT)
 h5ex_g_traverse_LDADD = $(LDADD)
+h5ex_g_traverse_GE_112_SOURCES = h5ex_g_traverse_GE_112.c
+h5ex_g_traverse_GE_112_OBJECTS = h5ex_g_traverse_GE_112.$(OBJEXT)
+h5ex_g_traverse_GE_112_LDADD = $(LDADD)
 h5ex_g_visit_SOURCES = h5ex_g_visit.c
 h5ex_g_visit_OBJECTS = h5ex_g_visit.$(OBJEXT)
 h5ex_g_visit_LDADD = $(LDADD)
@@ -169,10 +177,10 @@ am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = h5ex_g_compact.c h5ex_g_corder.c h5ex_g_create.c \
 	h5ex_g_intermediate.c h5ex_g_iterate.c h5ex_g_phase.c \
-	h5ex_g_traverse.c h5ex_g_visit.c
+	h5ex_g_traverse.c h5ex_g_traverse_GE_112.c h5ex_g_visit.c
 DIST_SOURCES = h5ex_g_compact.c h5ex_g_corder.c h5ex_g_create.c \
 	h5ex_g_intermediate.c h5ex_g_iterate.c h5ex_g_phase.c \
-	h5ex_g_traverse.c h5ex_g_visit.c
+	h5ex_g_traverse.c h5ex_g_traverse_GE_112.c h5ex_g_visit.c
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -425,6 +433,7 @@ EXEEXT = @EXEEXT@
 FC = @FC@
 FCFLAGS = @FCFLAGS@
 H5_LIBVER = @H5_LIBVER@
+HDF5_GE110 = @HDF5_GE110@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -499,7 +508,6 @@ testfiles/h5ex_g_intermediate.tst testfiles/h5ex_g_phase.tst testfiles/h5ex_g_vi
 h5ex_g_iterate.h5 h5ex_g_traverse.h5 h5ex_g_visit.h5 \
 test.sh
 
-AM_CPPFLAGS = '-D H5_USE_112_API'
 TESTS = test.sh
 all: all-am
 
@@ -568,6 +576,10 @@ h5ex_g_traverse$(EXEEXT): $(h5ex_g_traverse_OBJECTS) $(h5ex_g_traverse_DEPENDENC
 	@rm -f h5ex_g_traverse$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(h5ex_g_traverse_OBJECTS) $(h5ex_g_traverse_LDADD) $(LIBS)
 
+h5ex_g_traverse_GE_112$(EXEEXT): $(h5ex_g_traverse_GE_112_OBJECTS) $(h5ex_g_traverse_GE_112_DEPENDENCIES) $(EXTRA_h5ex_g_traverse_GE_112_DEPENDENCIES) 
+	@rm -f h5ex_g_traverse_GE_112$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(h5ex_g_traverse_GE_112_OBJECTS) $(h5ex_g_traverse_GE_112_LDADD) $(LIBS)
+
 h5ex_g_visit$(EXEEXT): $(h5ex_g_visit_OBJECTS) $(h5ex_g_visit_DEPENDENCIES) $(EXTRA_h5ex_g_visit_DEPENDENCIES) 
 	@rm -f h5ex_g_visit$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(h5ex_g_visit_OBJECTS) $(h5ex_g_visit_LDADD) $(LIBS)
@@ -585,6 +597,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/h5ex_g_iterate.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/h5ex_g_phase.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/h5ex_g_traverse.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/h5ex_g_traverse_GE_112.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/h5ex_g_visit.Po@am__quote@
 
 .c.o:

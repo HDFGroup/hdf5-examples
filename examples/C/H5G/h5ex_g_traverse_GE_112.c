@@ -1,17 +1,19 @@
-/************************************************************
+/***************************************************************************
 
-  This example shows a way to recursively traverse the file
-  using H5Literate.  The method shown here guarantees that
-  the recursion will not enter an infinite loop, but does
-  not prevent objects from being visited more than once.
-  The program prints the directory structure of the file
-  specified in FILE.  The default file used by this example
-  implements the structure described in the User's Guide,
-  chapter 4, figure 26.
+  This example shows a way to recursively traverse the file using H5Literate.  
+  The method shown here guarantees that the recursion will not enter an infinite 
+  loop, but does not prevent objects from being visited more than once.
+  The program prints the directory structure of the file specified in FILE.  The 
+  default file used by this example implements the structure described in 
+  the User's Guide, chapter 4, figure 26.
 
- This example is intended for HDF5 versions 1.12 and up.
+  _  _ ___  ____    ____ ____ _  _ ___  ____ ___ _ ___  _ _    _ ___ _   _ 
+  |__| |  \ |___    |    |  | |\/| |__] |__|  |  | |__] | |    |  |   \_/  
+  |  | |__/ |       |___ |__| |  | |    |  |  |  | |__] | |___ |  |    |  
 
- ************************************************************/
+  This example is intended for HDF5 versions 1.12 and up.
+
+****************************************************************************/
 
 #include "hdf5.h"
 #include <stdio.h>

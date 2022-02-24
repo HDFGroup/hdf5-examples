@@ -507,6 +507,7 @@ EXEEXT = @EXEEXT@
 FC = @FC@
 FCFLAGS = @FCFLAGS@
 H5_LIBVER = @H5_LIBVER@
+HDF5_GE110 = @HDF5_GE110@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -594,7 +595,6 @@ testfiles/h5ex_t_cpxcmpdatt.ddl testfiles/h5ex_t_objref.ddl testfiles/h5ex_t_obj
 testfiles/h5ex_t_regref.ddl testfiles/h5ex_t_regrefatt.ddl testfiles/h5ex_t_commit.ddl \
 testfiles/h5ex_t_convert.ddl test.sh
 
-AM_CPPFLAGS = '-D H5_USE_110_API'
 TESTS = test.sh
 all: all-am
 

@@ -25,8 +25,6 @@ testfiles/h5ex_g_intermediate.tst testfiles/h5ex_g_phase.tst testfiles/h5ex_g_vi
 h5ex_g_iterate.h5 h5ex_g_traverse.h5 h5ex_g_visit.h5 \
 test.sh
 
-AM_CPPFLAGS = '-D H5_USE_18_API'
-
 TEST_EXTENSIONS = .sh
 SH_LOG_COMPILER = $(SHELL)
 AM_SH_LOG_FLAGS =
