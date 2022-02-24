@@ -8,18 +8,23 @@ on:
   pull_request:
     branches: [ master ]
 
+
 # A workflow run is made up of one or more jobs that
 # can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  linux-build:
+  build:
     strategy:
       matrix:
-        name: ["Ubuntu Latest GCC"]
+        name: ["macOS Latest"]
         include:
-          - name: "Ubuntu Latest GCC"
-            artifact: "Linux.tar.xz"
-            os: ubuntu-latest
+          - name: "macOS Latest"
+            artifact: "macOS.tar.xz"
+            os: macos-latest
+            parallel: disable
+            fortran: with
+            hdf5: with
+            tools: with
 
     name: ${{ matrix.name }}
     # The type of runner that the job will run on.
@@ -29,18 +34,20 @@ jobs:
     # Steps represent a sequence of tasks that will be executed 
     # as part of the job.
     steps:
-    - name: Install Dependencies (Linux)
-      if: matrix.os == 'ubuntu-latest'
+
+    - name: Install Dependencies (macOS)
+      if: matrix.os == 'macos-latest'
       run: |
-        sudo apt-get install -qq libhdf5-dev
-        sudo apt-get install -qq hdf5-tools
-        cat /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.settings
-        echo  "HDF5_HOME=/usr/include/hdf5/serial,/usr/lib/x86_64-linux-gnu/hdf5/serial,/usr/bin" >> $GITHUB_ENV
         # Set env vars
-        #echo "PATH=":$PATH"
-        echo "CC=h5cc" >> $GITHUB_ENV
-        echo "FC=h5fc" >> $GITHUB_ENV
-        
+        echo "OS_NAME=macOS" >> $GITHUB_ENV
+        # Use the newest stable gcc compiler
+        brew update
+        brew upgrade gcc
+        brew install gcc
+        brew unlink gcc && brew link gcc
+        brew install hdf5
+        brew install cmake
+
  # Checks-out the repository under $GITHUB_WORKSPACE so the job can access it.
     - name: Get Sources
       uses: actions/checkout@v2
@@ -62,3 +69,4 @@ jobs:
 #        cmake -D FORTRAN_INTERFACE=ON -D CMAKE_BUILD_TYPE=Release ..
 #        make
 #      shell: bash
+h
