@@ -157,6 +157,9 @@ if (BUILD_TESTING)
     set_tests_properties (${EXAMPLE_VARNAME}_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname}-clearall)
   endmacro ()
 
+  # Remove everything after "-"
+  STRING( REGEX REPLACE "(\-[0-9]+)" "" HDF5_VERSION ${HDF5_VERSION})
+
   macro( THREE_PART_VERSION_TO_VARS version major minor patch )
 
     STRING( REGEX REPLACE "([0-9]+).[0-9]+.[0-9]+" "\\1" ${major} ${version} )
@@ -166,6 +169,13 @@ if (BUILD_TESTING)
   endmacro( THREE_PART_VERSION_TO_VARS )
 
   three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers)
+
+  math(EXPR rem "${minor_vers}%2")
+
+  if( NOT ${rem} STREQUAL "0" )
+    math(EXPR minor_vers "${minor_vers} + 1")
+  endif ()
+
   set (H5_LIBVER_DIR "${major_vers}_${minor_vers}")
 
   #message (STATUS " Copying h5ex_g_compact.test")
