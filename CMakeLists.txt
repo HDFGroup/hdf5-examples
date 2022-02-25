@@ -4,7 +4,7 @@ project (H5EXAMPLES C CXX)
 #-----------------------------------------------------------------------------
 # Basic HDF5Examples stuff here
 #-----------------------------------------------------------------------------
-include (${H5EXAMPLES_SOURCE_DIR}/config/cmake/HDFMacros.cmake)
+#include (${H5EXAMPLES_SOURCE_DIR}/config/cmake/HDFMacros.cmake)
 include (${H5EXAMPLES_SOURCE_DIR}/config/cmake/HDFExampleMacros.cmake)
 set (CMAKE_JAVA_INCLUDE_PATH "")
 
@@ -21,26 +21,8 @@ message (STATUS "HDF5 link libs: ${LINK_LIBS}")
 #-----------------------------------------------------------------------------
 # Build examples
 #-----------------------------------------------------------------------------
-option (BUILD_1_6 "Build HDF5 1.6 Example Testing" ON)
-if (BUILD_1_6 AND HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL 1.6)
-  add_subdirectory (1_6)
-endif ()
-option (BUILD_1_8 "Build HDF5 1.8 Example Testing" ON)
-if (BUILD_1_8 AND HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL 1.8)
-  add_subdirectory (1_8)
-endif ()
-option (BUILD_1_10 "Build HDF5 1.10 Example Testing" ON)
-if (BUILD_1_10 AND HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL 1.10)
-  add_subdirectory (1_10)
-endif ()
-option (BUILD_1_12 "Build HDF5 1.12 Example Testing" ON)
-if (BUILD_1_12 AND HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL 1.12)
-  add_subdirectory (1_12)
-endif ()
-option (BUILD_1_14 "Build HDF5 develop Example Testing" ON)
-if (BUILD_1_14 AND HDF5_VERSION_MAJOR VERSION_GREATER 1.12)
-  add_subdirectory (1_14)
-endif ()
+
+add_subdirectory (examples)
 
 #-----------------------------------------------------------------------------
 # Dashboard and Testing Settings

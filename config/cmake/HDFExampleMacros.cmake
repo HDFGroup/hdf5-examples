@@ -363,3 +363,33 @@ macro (ADD_H5_FLAGS h5_flag_var infile)
   endif ()
   #message (TRACE "h5_flag_var=${${h5_flag_var}}")
 endmacro ()
+
+# Purpose:
+# Breaking down three numbered versions (x.y.z) into their components, and
+# returning a major and minor underscored version (x_y).
+#
+# Parameters:
+#     version  [in]  The version string.
+#     major    [out] The major version.
+#     minor    [out] The minor version.
+#     patch    [out] The patch version.
+#     x_y      [out] A "major_minor" version.
+#     
+macro( THREE_PART_VERSION_TO_VARS version major minor patch x_y)
+  
+  STRING( REGEX REPLACE "(\-[0-9]+)" "" xyz ${version})
+  
+  STRING( REGEX REPLACE "([0-9]+).[0-9]+.[0-9]+" "\\1" ${major} ${xyz} )
+  STRING( REGEX REPLACE "[0-9]+.([0-9]+).[0-9]+" "\\1" ${minor} ${xyz} )
+  STRING( REGEX REPLACE "[0-9]+.[0-9]+.([0-9]+)" "\\1" ${patch} ${xyz} )
+  
+  # Round up to the next major release if minor is odd-numbered
+  math(EXPR rem "${${minor}}%2")
+  if( NOT ${rem} STREQUAL "0" )
+    math(EXPR ${minor} "${${minor}} + 1")
+  endif ()
+  
+  set (${x_y} "${major_vers}_${minor_vers}")
+  
+endmacro( THREE_PART_VERSION_TO_VARS )
+
