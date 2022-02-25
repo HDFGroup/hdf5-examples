@@ -63,9 +63,10 @@ jobs:
         make check
       shell: bash
 
-#    - name: build (cmake)
-#      run: |
-#        mkdir build; cd build
-#        cmake -D FORTRAN_INTERFACE=ON -D CMAKE_BUILD_TYPE=Release ..
-#        make
-#      shell: bash
+    - name: build (cmake)
+      run: |
+        mkdir build; cd build
+        cmake -D BUILD_TESTING:BOOL=ON ..
+        make
+        ctest .
+      shell: bash

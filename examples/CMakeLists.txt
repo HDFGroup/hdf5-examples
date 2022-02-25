@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.12)
-project (H5EX C CXX)
+project (H5EX C CXX Fortran)
 
 #-----------------------------------------------------------------------------
 # Basic H5EX stuff here
@@ -114,9 +114,12 @@ set (H5_FC_FUNC  "H5_FC_FUNC(name,NAME) name ## _")
 set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
 if (EXISTS "${H5EX_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H5EX_SOURCE_DIR}/FORTRAN")
   option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
-  if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
+#MSB  if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
+  if (HDF_BUILD_FORTRAN)
+    message (STATUS " asddsfsublksdfsdfjdf")
     include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDFUseFortran.cmake)
-    include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDF5UseFortran.cmake)
+    message (STATUS " sublksdfsdfjdf")
+    #include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDF5UseFortran.cmake)
     set (LINK_Fortran_LIBS ${LINK_LIBS})
 
     # Parallel IO usage requires MPI to be Linked and Included
@@ -126,7 +129,6 @@ if (EXISTS "${H5EX_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H5EX_SOURCE_DIR}/FOR
         set (CMAKE_Fortran_EXE_LINKER_FLAGS "${MPI_Fortran_LINK_FLAGS} ${CMAKE_EXE_LINKER_FLAGS}")
       endif ()
     endif ()
-
     add_subdirectory (FORTRAN)
   endif ()
 endif ()
