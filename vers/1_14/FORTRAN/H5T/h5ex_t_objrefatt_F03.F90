@@ -1,1 +1,0 @@
-../../../../examples/FORTRAN/H5T/h5ex_t_objrefatt_F03.F90

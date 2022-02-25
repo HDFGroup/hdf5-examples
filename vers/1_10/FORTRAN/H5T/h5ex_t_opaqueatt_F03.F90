@@ -1,1 +1,0 @@
-../../../../examples/FORTRAN/H5T/h5ex_t_opaqueatt_F03.F90

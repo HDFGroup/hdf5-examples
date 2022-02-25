@@ -1,1 +1,0 @@
-../../../../examples/FORTRAN/H5D/h5ex_d_checksum.F90
