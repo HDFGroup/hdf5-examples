@@ -116,9 +116,7 @@ if (EXISTS "${H5EX_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H5EX_SOURCE_DIR}/FOR
   option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
 #MSB  if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
   if (HDF_BUILD_FORTRAN)
-    message (STATUS " asddsfsublksdfsdfjdf")
     include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDFUseFortran.cmake)
-    message (STATUS " sublksdfsdfjdf")
     #include (${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/HDF5UseFortran.cmake)
     set (LINK_Fortran_LIBS ${LINK_LIBS})
 

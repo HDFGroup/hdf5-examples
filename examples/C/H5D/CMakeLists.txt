@@ -63,6 +63,12 @@ if (BUILD_TESTING)
   endmacro( THREE_PART_VERSION_TO_VARS )
 
   three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers)
+
+  math(EXPR rem "${minor_vers}%2")
+  if( NOT ${rem} STREQUAL "0" )
+    math(EXPR ${minor_vers} "${minor_vers} + 1")
+  endif ()
+
   set (H5_LIBVER_DIR "${major_vers}_${minor_vers}")
 
   foreach (example ${examples})
