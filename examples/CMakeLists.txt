@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.12)
-project (H5EX C CXX Fortran)
+project (H5EX C CXX)
 
 #-----------------------------------------------------------------------------
 # Basic H5EX stuff here

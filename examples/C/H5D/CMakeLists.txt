@@ -9,6 +9,7 @@ include (C_sourcefiles.cmake)
 foreach (example ${examples})
   get_filename_component (example_name ${example} NAME_WE)
   add_executable (${EXAMPLE_VARNAME}_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+#  target_compile_options(${EXAMPLE_VARNAME}_${example_name})
   target_include_directories (${EXAMPLE_VARNAME}_${example_name} PUBLIC ${HDF5_INCLUDE_DIRS})
   if (H5_HAVE_PARALLEL)
     target_include_directories (${EXAMPLE_VARNAME}_${example_name} PUBLIC ${MPI_C_INCLUDE_DIRS})
@@ -54,26 +55,7 @@ if (BUILD_TESTING)
     endif ()
   endmacro ()
 
-  # Remove everything after "-"
-  STRING( REGEX REPLACE "(\-[0-9]+)" "" HDF5_VERSION ${HDF5_VERSION})
-
-  macro( THREE_PART_VERSION_TO_VARS version major minor patch )
-
-    STRING( REGEX REPLACE "([0-9]+).[0-9]+.[0-9]+" "\\1" ${major} ${version} )
-    STRING( REGEX REPLACE "[0-9]+.([0-9]+).[0-9]+" "\\1" ${minor} ${version} )
-    STRING( REGEX REPLACE "[0-9]+.[0-9]+.([0-9]+)" "\\1" ${patch} ${version} )
-
-  endmacro( THREE_PART_VERSION_TO_VARS )
-
-  three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers)
-
-  math(EXPR rem "${minor_vers}%2")
-
-  if( NOT ${rem} STREQUAL "0" )
-    math(EXPR minor_vers "${minor_vers} + 1")
-  endif ()
-
-  set (H5_LIBVER_DIR "${major_vers}_${minor_vers}")
+  three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers H5_LIBVER_DIR)
 
   foreach (example ${examples})
     get_filename_component (example_name ${example} NAME_WE)
