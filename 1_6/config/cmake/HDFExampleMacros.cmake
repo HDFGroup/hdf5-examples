@@ -27,9 +27,6 @@ macro (BASIC_SETTINGS varname)
     set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
         ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all static libraries."
     )
-    set (CMAKE_Fortran_MODULE_DIRECTORY
-        ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
-    )
     get_property(_isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
     if(_isMultiConfig)
       set (CMAKE_TEST_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
@@ -170,7 +167,7 @@ macro (HDF5_SUPPORT)
         message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
 
         find_package (HDF5 NAMES ${SEARCH_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
-        message (STATUS "HDF5 libs:${HDF5_FOUND} C:${HDF5_C_FOUND} Fortran:${HDF5_Fortran_FOUND} Java:${HDF5_Java_FOUND}")
+        message (STATUS "HDF5 libs:${HDF5_FOUND} C:${HDF5_C_FOUND}")
         set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
         if (HDF5_BUILD_SHARED_LIBS)
           add_definitions (-DH5_BUILT_AS_DYNAMIC_LIB)

@@ -2,7 +2,7 @@
 # Define Sources, one file per application
 #-----------------------------------------------------------------------------
 set (examples
-  h5ex_d_alloc.f90
+#  h5ex_d_alloc.f90
   h5ex_d_checksum.f90
   h5ex_d_chunk.f90
   h5ex_d_compact.f90

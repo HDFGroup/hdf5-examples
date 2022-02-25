@@ -5,7 +5,6 @@ project (H516EX C CXX)
 # Basic H516EX stuff here
 #-----------------------------------------------------------------------------
 if (NOT H5EXAMPLES_RESOURCES_DIR)
-  include (${H516EX_SOURCE_DIR}/config/cmake/HDFMacros.cmake)
   include (${H516EX_SOURCE_DIR}/config/cmake/HDFExampleMacros.cmake)
 
   SET_HDF_BUILD_TYPE()

@@ -4,7 +4,6 @@ project (H5EXAMPLES C CXX)
 #-----------------------------------------------------------------------------
 # Basic HDF5Examples stuff here
 #-----------------------------------------------------------------------------
-include (${H5EXAMPLES_SOURCE_DIR}/config/cmake/HDFMacros.cmake)
 include (${H5EXAMPLES_SOURCE_DIR}/config/cmake/HDFExampleMacros.cmake)
 set (CMAKE_JAVA_INCLUDE_PATH "")
 
