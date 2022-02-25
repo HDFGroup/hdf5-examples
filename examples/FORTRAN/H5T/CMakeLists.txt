@@ -90,6 +90,8 @@ if (BUILD_TESTING)
     set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
   endmacro ()
 
+  three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers H5_LIBVER_DIR)
+
   macro (TEST_EXAMPLE example)
     if (${example} STREQUAL "h5ex_t_cpxcmpd" OR ${example} STREQUAL "h5ex_t_cpxcmpdatt")
       set (testdest "${PROJECT_BINARY_DIR}/${example}")
@@ -98,14 +100,14 @@ if (BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_f90_${example}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example}.tst ${testdest}.tst
       )
       if (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
         add_custom_command (
             TARGET     ${EXAMPLE_VARNAME}_f90_${example}
             POST_BUILD
             COMMAND    ${CMAKE_COMMAND}
-            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example}.ddl ${testdest}.ddl
         )
       endif (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
       ADD_H5_TEST (${example} -n)
@@ -114,7 +116,7 @@ if (BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_f90_${example}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
       )
       ADD_H5_CMP_TEST (${example})
     else ()
@@ -124,14 +126,14 @@ if (BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_f90_${example}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.tst ${testdest}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example}.tst ${testdest}.tst
       )
       if (HDF5_BUILD_TOOLS AND NOT ${example} STREQUAL "h5ex_t_convert")
         add_custom_command (
             TARGET     ${EXAMPLE_VARNAME}_f90_${example}
             POST_BUILD
             COMMAND    ${CMAKE_COMMAND}
-            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example}.ddl ${testdest}.ddl
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example}.ddl ${testdest}.ddl
         )
       endif ()
       ADD_H5_TEST (${example})

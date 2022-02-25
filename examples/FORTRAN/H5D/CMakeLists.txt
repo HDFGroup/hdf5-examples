@@ -69,6 +69,8 @@ if (BUILD_TESTING)
     endif ()
   endmacro ()
 
+  three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers H5_LIBVER_DIR)
+
   foreach (example ${examples})
     get_filename_component (example_name ${example} NAME_WE)
     set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
@@ -77,14 +79,14 @@ if (BUILD_TESTING)
         TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.tst ${testdest}.tst
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
     )
     if (HDF5_BUILD_TOOLS)
       add_custom_command (
           TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.ddl ${testdest}.ddl
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
       )
     endif ()
 
