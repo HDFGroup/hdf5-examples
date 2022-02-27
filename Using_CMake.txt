@@ -29,8 +29,8 @@ I. Preconditions
 ========================================================================
 
    1. We suggest you obtain the latest CMake for windows from the Kitware
-      web site. The HDF5 1.8.x product requires a minimum CMake version
-      of 3.1.0.
+      web site. The HDF5 product requires a minimum CMake version
+      of 3.12.
 
    2. You have installed the HDF5 library built with CMake, by executing
       the HDF Install Utility (the *.msi file in the binary package for
@@ -40,7 +40,7 @@ I. Preconditions
 
    3. Set the environment variable HDF5_DIR to the installed location of
       the config files for HDF5. On Windows:
-            HDF5_DIR=C:/Program Files/HDF_Group/HDF5/1.8.x/cmake
+            HDF5_DIR=C:/Program Files/HDF_Group/HDF5/1.y.x/cmake
 
       (Note there are no quote characters used on Windows and all platforms
       use forward slashes)
@@ -90,10 +90,11 @@ These steps are described in more detail below.
             * MinGW Makefiles
             * NMake Makefiles
             * Unix Makefiles
-            * Visual Studio 11
-            * Visual Studio 11 Win64
-            * Visual Studio 10
-            * Visual Studio 10 Win64
+            * Visual Studio 15
+            * Visual Studio 15 Win64
+            * Visual Studio 17
+            * Visual Studio 17 Win64
+            * Visual Studio 19
 
         <options> is:
             * BUILD_TESTING:BOOL=ON
@@ -108,7 +109,7 @@ These steps are described in more detail below.
 
       2.1  Visual CMake users, click the Configure button. If this is the first time you are
            running cmake-gui in this directory, you will be prompted for the
-           generator you wish to use (for example on Windows, Visual Studio 10).
+           generator you wish to use (for example on Windows, Visual Studio 15).
            CMake will read in the CMakeLists.txt files from the source directory and
            display options for the HDF5 Examples project. After the first configure you
            can adjust the cache settings and/or specify locations of other programs.
@@ -126,7 +127,7 @@ These steps are described in more detail below.
 
       2.2  Alternative command line example on Windows in c:\MyHDFstuff\hdf5ex\build directory:
 
-           cmake -G "Visual Studio 10" -DBUILD_TESTING:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON ..
+           cmake -G "Visual Studio 19" -DBUILD_TESTING:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON ..
 
    3. Build HDF5 examples
 
@@ -167,7 +168,7 @@ These steps are described in more detail below.
 
 
 ========================================================================
-III. Using HDF5 Libraries with Visual Studio 2008
+III. Using HDF5 Libraries with Visual Studio 2008 (no longer supported)
 ========================================================================
 
    8. Set up path for external libraries and headers
