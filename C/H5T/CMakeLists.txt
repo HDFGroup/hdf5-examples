@@ -92,14 +92,14 @@ if (BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.tst ${testdest}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
       )
       if (HDF5_BUILD_TOOLS AND NOT ${example_name} STREQUAL "h5ex_t_convert")
         add_custom_command (
             TARGET     ${EXAMPLE_VARNAME}_${example_name}
             POST_BUILD
             COMMAND    ${CMAKE_COMMAND}
-            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.ddl ${testdest}.ddl
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
         )
       endif ()
       ADD_H5_TEST (${example_name} -n)
@@ -108,7 +108,7 @@ if (BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
       )
       ADD_H5_CMP_TEST (${example_name})
     else ()
@@ -118,14 +118,14 @@ if (BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.tst ${testdest}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
       )
       if (HDF5_BUILD_TOOLS AND NOT ${example_name} STREQUAL "h5ex_t_convert")
         add_custom_command (
             TARGET     ${EXAMPLE_VARNAME}_${example_name}
             POST_BUILD
             COMMAND    ${CMAKE_COMMAND}
-            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${example_name}.ddl ${testdest}.ddl
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
         )
       endif ()
       ADD_H5_TEST (${example_name})

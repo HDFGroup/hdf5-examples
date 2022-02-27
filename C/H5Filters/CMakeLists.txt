@@ -138,7 +138,7 @@ if (BUILD_TESTING)
           NAME ${EXAMPLE_VARNAME}_${testname}
           COMMAND "${CMAKE_COMMAND}"
               -E copy_if_different
-              "${PROJECT_SOURCE_DIR}/testfiles/${testname}.h5" "${PROJECT_BINARY_DIR}/${testname}.h5"
+              "${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${testname}.h5" "${PROJECT_BINARY_DIR}/${testname}.h5"
       )
       set_tests_properties (${EXAMPLE_VARNAME}_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname}-ERR)
     else ()
@@ -198,15 +198,15 @@ if (BUILD_TESTING)
   # Copy all the HDF5 files from the source directory into the test directory
   # --------------------------------------------------------------------
   foreach (h5_file ${dyn_examples})
-    HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${h5_file}.tst" "${PROJECT_BINARY_DIR}/${h5_file}.tst" "example_files")
+    HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${h5_file}.tst" "${PROJECT_BINARY_DIR}/${h5_file}.tst" "example_files")
     if (WIN32 AND MSVC_VERSION LESS 1900 AND ${h5_file} MATCHES "h5ex_d_zfp")
-      HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/h5ex_d_zfp.wddl" "${PROJECT_BINARY_DIR}/h5ex_d_zfp.ddl" "example_files")
+      HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_d_zfp.wddl" "${PROJECT_BINARY_DIR}/h5ex_d_zfp.ddl" "example_files")
     else ()
-      HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${h5_file}.ddl" "${PROJECT_BINARY_DIR}/${h5_file}.ddl" "example_files")
+      HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${h5_file}.ddl" "${PROJECT_BINARY_DIR}/${h5_file}.ddl" "example_files")
     endif()
   endforeach ()
   foreach (h5_file ${LIST_HDF5_TEST_FILES} ${LIST_OTHER_TEST_FILES})
-    HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${h5_file}" "${PROJECT_BINARY_DIR}/${h5_file}" "example_files")
+    HDFTEST_COPY_FILE("${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${h5_file}" "${PROJECT_BINARY_DIR}/${h5_file}" "example_files")
   endforeach ()
   add_custom_target(${EXAMPLE_VARNAME}_example_files ALL COMMENT "Copying files needed by example tests" DEPENDS ${example_files_list})
 
