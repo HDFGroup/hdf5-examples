@@ -8,8 +8,6 @@
   dereferences the references, and outputs the referenced
   regions to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -48,8 +46,8 @@ main (void)
                                                     "the 5 lazy dogs"},
                         *rdata2,
                         *name;
-    int                 ndims,
-                        i;
+    int                 ndims;
+    hsize_t             i;
 
     /*
      * Create a new file using the default properties.
@@ -133,13 +131,17 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n  ->", DATASET, i);
+        printf ("%s[%llu]:\n  ->", DATASET, i);
 
         /*
          * Open the referenced object, retrieve its region as a
          * dataspace selection.
          */
+#if H5_VERSION_GE(1,10,0)
         dset2 = H5Rdereference (dset, H5P_DEFAULT, H5R_DATASET_REGION, &rdata[i]);
+#else
+        dset2 = H5Rdereference (dset, H5R_DATASET_REGION, &rdata[i]);
+#endif
         space = H5Rget_region (dset, H5R_DATASET_REGION, &rdata[i]);
 
         /*

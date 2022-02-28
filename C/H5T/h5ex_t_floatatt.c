@@ -6,8 +6,6 @@
   DIM0xDIM1, then closes the file.  Next, it reopens the
   file, reads back the data, and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -28,8 +26,8 @@ main (void)
     hsize_t     dims[2] = {DIM0, DIM1};
     double      wdata[DIM0][DIM1],                  /* Write buffer */
                 **rdata;                            /* Read buffer */
-    int         ndims,
-                i, j;
+    int         ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize data.

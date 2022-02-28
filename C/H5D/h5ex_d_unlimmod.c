@@ -9,8 +9,6 @@
   reopens the file again, reads back the data, and utputs it
   to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -39,8 +37,8 @@ main (void)
                     wdata2[EDIM0][EDIM1],       /* Write buffer for
                                                    extension */
                     **rdata,                    /* Read buffer */
-                    ndims,
-                    i, j;
+                    ndims;
+    hsize_t         i, j;
 
     /*
      * Initialize data.

@@ -6,8 +6,6 @@
   closes the file.  Next, it reopens the file, reads back
   the data, and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -27,8 +25,8 @@ main (void)
     hsize_t         dims[2] = {DIM0, DIM1};
     unsigned char   wdata[DIM0][DIM1],          /* Write buffer */
                     **rdata;                    /* Read buffer */
-    int             ndims, A, B, C, D,
-                    i, j;
+    int             ndims, A, B, C, D;
+    hsize_t         i, j;
 
     /*
      * Initialize data.  We will manually pack 4 2-bit integers into

@@ -6,8 +6,6 @@
   closes the file.  Next, it reopens the file, reads back
   the data, and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -27,8 +25,8 @@ main (void)
     H5D_layout_t    layout;
     hsize_t     dims[2] = {DIM0, DIM1};
     int         wdata[DIM0][DIM1],          /* Write buffer */
-                rdata[DIM0][DIM1],          /* Read buffer */
-                i, j;
+                rdata[DIM0][DIM1];          /* Read buffer */
+    hsize_t     i, j;
 
     /*
      * Initialize data.
@@ -104,9 +102,11 @@ main (void)
         case H5D_CHUNKED:
             printf ("H5D_CHUNKED\n");
             break;
+#if H5_VERSION_GE(1,10,0)
         case H5D_VIRTUAL:
             printf ("H5D_VIRTUAL\n");
             break;
+#endif
         case H5D_LAYOUT_ERROR:
         case H5D_NLAYOUTS:
             printf ("H5D_LAYOUT_ERROR\n");

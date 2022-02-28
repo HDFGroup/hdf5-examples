@@ -6,8 +6,6 @@
   Next, it reopens the file, reads back the data, and
   outputs it to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -30,8 +28,8 @@ main (void)
                 *rdata,                     /* Read buffer */
                 str[LEN] = "OPAQUE",
                 *tag;
-    int         ndims,
-                i, j;
+    int         ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize data.
@@ -92,7 +90,7 @@ main (void)
 
     /*
      * Get datatype and properties for the datatype.  Note that H5Tget_tag
-     * allocates space for the string in tag, so we must remember to H5free_memory() it
+     * allocates space for the string in tag, so we must remember to release it
      * later.
      */
     dtype = H5Dget_type (dset);
@@ -126,7 +124,11 @@ main (void)
      * Close and release resources.
      */
     free (rdata);
+#if H5_VERSION_GE(1,8,16)
     H5free_memory (tag);
+#else
+    free (tag);
+#endif
     status = H5Dclose (dset);
     status = H5Sclose (space);
     status = H5Tclose (dtype);

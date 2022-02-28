@@ -9,8 +9,6 @@
   screen.  Finally it extends the dataset, reads from it,
   and outputs the result to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -40,8 +38,8 @@ main (void)
                     rdata[DIM0][DIM1],          /* Read buffer */
                     rdata2[EDIM0][EDIM1],       /* Read buffer for
                                                    extenstion */
-                    fillval,
-                    i, j;
+                    fillval;
+    hsize_t         i, j;
 
     /*
      * Initialize data.

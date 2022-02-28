@@ -21,8 +21,6 @@
   compound type contains an int, variable-length string and
   two doubles.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -82,8 +80,8 @@ main (void)
     color_t     val;
     sensor_t    *ptr;
     double      wdata2[32][32];
-    int         ndims,
-                i, j;
+    int         ndims;
+    hsize_t     i, j;
 
     /*
      * Create a new file using the default properties.
@@ -337,7 +335,7 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n", ATTRIBUTE, i);
+        printf ("%s[%llu]:\n", ATTRIBUTE, i);
         printf ("   Vehicle name :\n      %s\n", rdata[i].name);
         printf ("   Sensor locations :\n");
         for (j=0; j<rdata[i].sensors.len; j++)

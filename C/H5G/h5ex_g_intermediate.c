@@ -3,8 +3,6 @@
   This example shows how to create intermediate groups with
   a single call to H5Gcreate.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -48,7 +46,11 @@ main(void)
      * on how to use H5Ovisit.
      */
     printf ("Objects in the file:\n");
+#if H5_VERSION_GE(1,12,0)
     status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL, H5O_INFO_ALL);
+#else
+    status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL);
+#endif
 
     /*
      * Close and release resources.

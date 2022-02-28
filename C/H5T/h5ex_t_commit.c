@@ -7,8 +7,6 @@
   datatype, and outputs the names of its fields to the
   screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -101,11 +99,15 @@ main (void)
             /*
              * Get the member name and print it.  Note that
              * H5Tget_member_name allocates space for the string in
-             * name, so we must H5free_memory() it after use.
+             * name, so we must release it after use.
              */
             name = H5Tget_member_name (filetype, i);
             printf ("   %s\n", name);
+#if H5_VERSION_GE(1,8,16)
             H5free_memory (name);
+#else
+            free (name);
+#endif
         }
     }
 

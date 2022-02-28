@@ -7,8 +7,6 @@
   reopens the file, dereferences the references, and outputs
   the names of their targets to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -30,8 +28,8 @@ main (void)
     H5O_type_t  objtype;
     ssize_t     size;
     char        *name;
-    int         ndims,
-                i;
+    int         ndims;
+    hsize_t     i;
 
     /*
      * Create a new file using the default properties.
@@ -113,13 +111,17 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n  ->", DATASET, i);
+        printf ("%s[%llu]:\n  ->", DATASET, i);
 
         /*
          * Open the referenced object, get its name and type.
          */
+#if H5_VERSION_GE(1,10,0)
         obj = H5Rdereference (dset, H5P_DEFAULT, H5R_OBJECT, &rdata[i]);
         status = H5Rget_obj_type (dset, H5R_OBJECT, &rdata[i], &objtype);
+#else
+        obj = H5Rdereference (dset, H5R_OBJECT, &rdata[i]);
+#endif
 
         /*
          * Get the length of the name, allocate space, then retrieve

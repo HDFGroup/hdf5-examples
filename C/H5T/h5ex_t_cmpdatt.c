@@ -6,8 +6,6 @@
   DIM0, then closes the file.  Next, it reopens the file,
   reads back the data, and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -35,8 +33,8 @@ main (void)
     hsize_t     dims[1] = {DIM0};
     sensor_t    wdata[DIM0],                /* Write buffer */
                 *rdata;                     /* Read buffer */
-    int         ndims,
-                i;
+    int         ndims;
+    hsize_t     i;
 
     /*
      * Initialize data.
@@ -157,7 +155,7 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n", ATTRIBUTE, i);
+        printf ("%s[%llu]:\n", ATTRIBUTE, i);
         printf ("Serial number   : %d\n", rdata[i].serial_no);
         printf ("Location        : %s\n", rdata[i].location);
         printf ("Temperature (F) : %f\n", rdata[i].temperature);

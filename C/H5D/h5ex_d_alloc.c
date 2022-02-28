@@ -8,8 +8,6 @@
   to the datasets, and again displays whether each has been
   allocated and their allocation size.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -32,8 +30,8 @@ main (void)
     H5D_space_status_t      space_status;
     hsize_t                 dims[2] = {DIM0, DIM1},
                             storage_size;
-    int                     wdata[DIM0][DIM1],      /* Write buffer */
-                            i, j;
+    int                     wdata[DIM0][DIM1];      /* Write buffer */
+    hsize_t                 i, j;
 
     /*
      * Initialize data.

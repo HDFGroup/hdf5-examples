@@ -8,8 +8,6 @@
   back the data, and outputs the type of compression and the
   maximum value in the dataset to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -37,8 +35,8 @@ main (void)
                     filter_info;
     int             wdata[DIM0][DIM1],          /* Write buffer */
                     rdata[DIM0][DIM1],          /* Read buffer */
-                    max,
-                    i, j;
+                    max;
+    hsize_t         i, j;
 
     /*
      * Check if gzip compression is available and can be used for both

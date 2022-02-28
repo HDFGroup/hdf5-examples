@@ -7,8 +7,6 @@
   to fill in the elements of desttype that are not in
   sourcetype.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -39,7 +37,7 @@ main (void)
     reading_t   *reading;                   /* Conversion buffer */
     sensor_t    *sensor,                    /* Conversion buffer */
                 bkgrd[DIM0];                /* Background buffer */
-    int         i;
+    hsize_t     i;
 
     /*
      * Allocate memory for conversion buffer.  We will allocate space

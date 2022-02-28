@@ -27,9 +27,11 @@ macro (BASIC_SETTINGS varname)
     set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY
         ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all static libraries."
     )
-    set (CMAKE_Fortran_MODULE_DIRECTORY
-        ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
-    )
+    if (H5_LIBVER_DIR GREATER 16)
+      set (CMAKE_Fortran_MODULE_DIRECTORY
+          ${PROJECT_BINARY_DIR}/bin CACHE PATH "Single Directory for all fortran modules."
+      )
+    endif ()
     get_property(_isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
     if(_isMultiConfig)
       set (CMAKE_TEST_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE})
@@ -139,7 +141,7 @@ macro (BASIC_SETTINGS varname)
   # Option to build JAVA examples
   #-----------------------------------------------------------------------------
   option (HDF_BUILD_JAVA "Build JAVA support" OFF)
-  if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+  if (HDF_BUILD_JAVA AND H5_LIBVER_DIR GREATER 18)
     find_package (Java)
     INCLUDE_DIRECTORIES (
         ${JAVA_INCLUDE_PATH}
@@ -160,10 +162,10 @@ macro (HDF5_SUPPORT)
     else ()
       set (FIND_HDF_COMPONENTS C static)
     endif ()
-    if (HDF_BUILD_FORTRAN)
+    if (HDF_BUILD_FORTRAN AND H5_LIBVER_DIR GREATER 16)
       set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
     endif ()
-    if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+    if (HDF_BUILD_JAVA AND H5_LIBVER_DIR GREATER 18)
       set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
       set (HDF5_Java_FOUND 1) #default setting for 1.10.1 and earlier
     endif ()
@@ -190,10 +192,10 @@ macro (HDF5_SUPPORT)
       if (NOT HDF5_static_C_FOUND AND NOT HDF5_shared_C_FOUND)
         #find library from non-dual-binary package
         set (FIND_HDF_COMPONENTS C)
-        if (HDF_BUILD_FORTRAN)
+        if (HDF_BUILD_FORTRAN AND H5_LIBVER_DIR GREATER 16)
           set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
         endif ()
-        if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+        if (HDF_BUILD_JAVA AND H5_LIBVER_DIR GREATER 18)
           set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
         endif ()
         message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
@@ -211,7 +213,7 @@ macro (HDF5_SUPPORT)
         else ()
           set_property (TARGET ${HDF5_NAMESPACE}h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
         endif ()
-        if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+        if (HDF_BUILD_JAVA AND H5_LIBVER_DIR GREATER 18)
           set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
           message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}")
         endif ()
@@ -225,7 +227,7 @@ macro (HDF5_SUPPORT)
           set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_STATIC_LIBRARY})
           set_property (TARGET ${HDF5_NAMESPACE}h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
         endif ()
-        if (HDF_BUILD_FORTRAN AND ${HDF5_BUILD_FORTRAN})
+        if (HDF_BUILD_FORTRAN AND ${HDF5_BUILD_FORTRAN} AND H5_LIBVER_DIR GREATER 16)
           if (BUILD_SHARED_LIBS AND HDF5_shared_Fortran_FOUND)
             set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_SHARED_LIBRARY})
           elseif (HDF5_static_Fortran_FOUND)
@@ -238,7 +240,7 @@ macro (HDF5_SUPPORT)
           set (HDF_BUILD_FORTRAN OFF CACHE BOOL "Build FORTRAN support" FORCE)
           message (STATUS "HDF5 Fortran libs not found - disable build of Fortran examples")
         endif ()
-        if (HDF_BUILD_JAVA  AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+        if (HDF_BUILD_JAVA AND H5_LIBVER_DIR GREATER 18)
           if (${HDF5_BUILD_JAVA} AND HDF5_Java_FOUND)
             set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
             message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}}")
@@ -285,7 +287,7 @@ macro (HDF5_SUPPORT)
     set (LINK_LIBS ${LINK_LIBS} ${HDF5_LINK_LIBS})
   endif ()
   set (H5EX_INCLUDE_DIRS ${HDF5_INCLUDE_DIR})
-  if (HDF_BUILD_FORTRAN)
+  if (HDF_BUILD_FORTRAN AND H5_LIBVER_DIR GREATER 16)
     list (APPEND H5EX_INCLUDE_DIRS ${HDF5_INCLUDE_DIR_FORTRAN})
   endif ()
   message (STATUS "HDF5 link libs: ${HDF5_LINK_LIBS} Includes: ${H5EX_INCLUDE_DIRS}")
@@ -370,14 +372,14 @@ endmacro ()
 
 # Purpose:
 # Breaking down three numbered versions (x.y.z) into their components, and
-# returning a major and minor underscored version (x_y).
+# returning a major and minor version (xy).
 #
 # Parameters:
 #     version  [in]  The version string.
 #     major    [out] The major version.
 #     minor    [out] The minor version.
 #     patch    [out] The patch version.
-#     x_y      [out] A "major_minor" version.
+#     xy       [out] A "majorminor" version.
 #     
 macro (THREE_PART_VERSION_TO_VARS version major minor patch x_y)
   string (REGEX REPLACE "(\-[0-9]+)" "" xyz ${version})
@@ -392,6 +394,6 @@ macro (THREE_PART_VERSION_TO_VARS version major minor patch x_y)
     math (EXPR ${minor} "${${minor}} + 1")
   endif ()
   
-  set (${x_y} "${major_vers}_${minor_vers}")
+  set (${xy} "${major_vers}${minor_vers}")
   
 endmacro ()

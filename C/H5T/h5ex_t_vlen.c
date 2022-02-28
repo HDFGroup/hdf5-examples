@@ -6,8 +6,6 @@
   the file.  Next, it reopens the file, reads back the data,
   and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -29,8 +27,8 @@ main (void)
                 *rdata;             /* Pointer to vlen structures */
     hsize_t     dims[1] = {2};
     int         *ptr,
-                ndims,
-                i, j;
+                ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize variable-length data.  wdata[0] is a countdown of
@@ -123,7 +121,7 @@ main (void)
      * Output the variable-length data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%u]:\n  {",DATASET,i);
+        printf ("%s[%llu]:\n  {",DATASET,i);
         ptr = rdata[i].p;
         for (j=0; j<rdata[i].len; j++) {
             printf (" %d", ptr[j]);

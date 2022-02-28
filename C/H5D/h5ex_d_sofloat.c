@@ -8,8 +8,6 @@
   file, reads back the data, and outputs the type of filter
   and the maximum value in the dataset to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -40,7 +38,7 @@ main (void)
                     rdata[DIM0][DIM1],          /* Read buffer */
                     max,
                     min;
-    int             i, j;
+    hsize_t         i, j;
 
     /*
      * Check if Scale-Offset compression is available and can be used

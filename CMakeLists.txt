@@ -128,44 +128,46 @@ endif ()
 #-----------------------------------------------------------------------------
 add_subdirectory (C)
 
-#-----------------------------------------------------------------------------
-# Option to build Fortran examples
-# Make sure this appears before the CONFIGURE_FILE step
-# so that fortran name mangling is detected before writing H5pubconf.h
-#-----------------------------------------------------------------------------
-# Set default name mangling : overridden by Fortran detection in fortran dir
-set (H5_FC_FUNC  "H5_FC_FUNC(name,NAME) name ## _")
-set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
-if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/FORTRAN")
-  option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
-  if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
-    set (LINK_Fortran_LIBS ${LINK_LIBS})
+if (H5_LIBVER_DIR GREATER 16)
+  #-----------------------------------------------------------------------------
+  # Option to build Fortran examples
+  # Make sure this appears before the CONFIGURE_FILE step
+  # so that fortran name mangling is detected before writing H5pubconf.h
+  #-----------------------------------------------------------------------------
+  # Set default name mangling : overridden by Fortran detection in fortran dir
+  set (H5_FC_FUNC  "H5_FC_FUNC(name,NAME) name ## _")
+  set (H5_FC_FUNC_ "H5_FC_FUNC_(name,NAME) name ## _")
+  if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/FORTRAN")
+    option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
+    if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
+      set (LINK_Fortran_LIBS ${LINK_LIBS})
 
-    # Parallel IO usage requires MPI to be Linked and Included
-    if (H5_HAVE_PARALLEL)
-      set (LINK_Fortran_LIBS ${LINK_Fortran_LIBS} ${MPI_Fortran_LIBRARIES})
-      if (MPI_Fortran_LINK_FLAGS)
-        set (CMAKE_Fortran_EXE_LINKER_FLAGS "${MPI_Fortran_LINK_FLAGS} ${CMAKE_EXE_LINKER_FLAGS}")
+      # Parallel IO usage requires MPI to be Linked and Included
+      if (H5_HAVE_PARALLEL)
+        set (LINK_Fortran_LIBS ${LINK_Fortran_LIBS} ${MPI_Fortran_LIBRARIES})
+        if (MPI_Fortran_LINK_FLAGS)
+          set (CMAKE_Fortran_EXE_LINKER_FLAGS "${MPI_Fortran_LINK_FLAGS} ${CMAKE_EXE_LINKER_FLAGS}")
+        endif ()
       endif ()
+
+      add_subdirectory (FORTRAN)
     endif ()
-
-    add_subdirectory (FORTRAN)
   endif ()
-endif ()
 
-#-----------------------------------------------------------------------------
-# Option to build JAVA examples
-#-----------------------------------------------------------------------------
-if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/JAVA")
-  option (HDF_BUILD_JAVA "Build JAVA support" OFF)
-  if (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
-    add_subdirectory (JAVA)
+  #-----------------------------------------------------------------------------
+  # Option to build JAVA examples
+  #-----------------------------------------------------------------------------
+  if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/JAVA")
+    option (HDF_BUILD_JAVA "Build JAVA support" OFF)
+    if (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
+      add_subdirectory (JAVA)
+    endif ()
   endif ()
-endif ()
 
-#-----------------------------------------------------------------------------
-# Option to build filter examples
-#-----------------------------------------------------------------------------
-if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/C/H5Filters" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/C/H5Filters")
-  option (HDF_BUILD_FILTERS "Test filter support" OFF)
+  #-----------------------------------------------------------------------------
+  # Option to build filter examples
+  #-----------------------------------------------------------------------------
+  if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/C/H5Filters" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/C/H5Filters")
+    option (HDF_BUILD_FILTERS "Test filter support" OFF)
+  endif ()
 endif ()

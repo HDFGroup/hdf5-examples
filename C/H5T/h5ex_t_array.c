@@ -6,8 +6,6 @@
   DIM0, then closes the  file.  Next, it reopens the file,
   reads back the data, and outputs it to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -30,8 +28,8 @@ main (void)
                 adims[2] = {ADIM0, ADIM1};
     int         wdata[DIM0][ADIM0][ADIM1],      /* Write buffer */
                 ***rdata,                       /* Read buffer */
-                ndims,
-                i, j, k;
+                ndims;
+    hsize_t     i, j, k;
 
     /*
      * Initialize data.  i is the element in the dataspace, j and k the
@@ -147,7 +145,7 @@ main (void)
      * Output the data to the screen.
      */
     for (i=0; i<dims[0]; i++) {
-        printf ("%s[%d]:\n", DATASET, i);
+        printf ("%s[%llu]:\n", DATASET, i);
         for (j=0; j<adims[0]; j++) {
             printf (" [");
             for (k=0; k<adims[1]; k++)

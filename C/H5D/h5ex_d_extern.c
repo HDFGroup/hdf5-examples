@@ -7,8 +7,6 @@
   back the data, and outputs the name of the external data
   file and the data to the screen.
 
-  This file is intended for use with HDF5 Library version 1.8
-
  ************************************************************/
 
 #include "hdf5.h"
@@ -30,8 +28,8 @@ main (void)
     hsize_t     dims[2] = {DIM0, DIM1};
     char        name[NAME_BUF_SIZE];
     int         wdata[DIM0][DIM1],          /* Write buffer */
-                rdata[DIM0][DIM1],          /* Read buffer */
-                i, j;
+                rdata[DIM0][DIM1];          /* Read buffer */
+    hsize_t     i, j;
 
     /*
      * Initialize data.

@@ -1,12 +1,10 @@
 /************************************************************
 
-  This example shows how to read and write integer datatypes
-  to a dataset.  The program first writes integers to a
+  This example shows how to read and write float datatypes
+  to a dataset.  The program first writes floats to a
   dataset with a dataspace of DIM0xDIM1, then closes the
   file.  Next, it reopens the file, reads back the data, and
   outputs it to the screen.
-
-  This file is intended for use with HDF5 Library version 1.8
 
  ************************************************************/
 
@@ -27,8 +25,8 @@ main (void)
     hsize_t     dims[2] = {DIM0, DIM1};
     double      wdata[DIM0][DIM1],          /* Write buffer */
                 **rdata;                    /* Read buffer */
-    int         ndims,
-                i, j;
+    int         ndims;
+    hsize_t     i, j;
 
     /*
      * Initialize data.
