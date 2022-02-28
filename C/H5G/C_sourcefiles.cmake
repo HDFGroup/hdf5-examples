@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------
 # Define Sources, one file per application
 #-----------------------------------------------------------------------------
-if (H5_LIBVER_DIR EQUAL 16)
+if (${H5_LIBVER_DIR} EQUAL 16)
   set (examples
       16/h5ex_g_create.c
       16/h5ex_g_iterate.c

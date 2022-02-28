@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------
 # Define Sources, one file per application
 #-----------------------------------------------------------------------------
-if (H5_LIBVER_DIR EQUAL 18)
+if (${H5_LIBVER_DIR} EQUAL 18)
   set (examples
       h5ex_d_checksum.F90
       h5ex_d_chunk.F90

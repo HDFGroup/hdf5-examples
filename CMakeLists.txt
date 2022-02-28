@@ -24,6 +24,7 @@ set (HDF5EX_JAVA_DIR           ${H5EXAMPLES_SOURCE_DIR}/JAVA)
 HDF5_SUPPORT (TRUE)
 message (STATUS "HDF5 link libs: ${LINK_LIBS}")
 three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers H5_LIBVER_DIR)
+message (STATUS "HDF5 H5_LIBVER_DIR: ${H5_LIBVER_DIR}")
 
 if (WIN32)
   set(CMAKE_TEST_LIB_DIRECTORY "${HDF5_TOOLS_DIR}")
@@ -128,7 +129,7 @@ endif ()
 #-----------------------------------------------------------------------------
 add_subdirectory (C)
 
-if (H5_LIBVER_DIR GREATER 16)
+if (${H5_LIBVER_DIR} GREATER 16)
   #-----------------------------------------------------------------------------
   # Option to build Fortran examples
   # Make sure this appears before the CONFIGURE_FILE step

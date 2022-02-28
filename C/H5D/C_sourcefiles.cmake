@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------
 # Define Sources, one file per application
 #-----------------------------------------------------------------------------
-if (H5_LIBVER_DIR EQUAL 16)
+if (${H5_LIBVER_DIR} EQUAL 16)
   set (examples
       16/h5ex_d_alloc.c
       16/h5ex_d_checksum.c
@@ -34,7 +34,7 @@ else ()
 endif ()
 
 if (HDF5_ENABLE_Z_LIB_SUPPORT)
-  if (H5_LIBVER_DIR EQUAL 16)
+  if (${H5_LIBVER_DIR} EQUAL 16)
     set (examples ${examples}
         16/h5ex_d_gzip.c
         16/h5ex_d_shuffle.c
@@ -49,7 +49,7 @@ if (HDF5_ENABLE_Z_LIB_SUPPORT)
   endif ()
 endif ()
 if (HDF5_ENABLE_SZIP_SUPPORT)
-  if (H5_LIBVER_DIR EQUAL 16)
+  if (${H5_LIBVER_DIR} EQUAL 16)
     set (examples ${examples} 16/h5ex_d_szip.c)
   else ()
     set (examples ${examples} h5ex_d_szip.c)

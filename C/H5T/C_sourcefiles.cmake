@@ -1,10 +1,10 @@
 #-----------------------------------------------------------------------------
 # Define Sources, one file per application
 #-----------------------------------------------------------------------------
-if (H5_LIBVER_DIR EQUAL 16)
+if (${H5_LIBVER_DIR} EQUAL 16)
   set (16DIR "16/")
 else ()
-  set (16DIR "16/")
+  set (16DIR "")
 endif ()
 set (examples
     ${16DIR}h5ex_t_array.c
