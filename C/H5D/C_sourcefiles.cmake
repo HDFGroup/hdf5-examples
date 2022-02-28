@@ -13,7 +13,7 @@ if (H5_LIBVER_DIR EQUAL 16)
       16/h5ex_d_rdwr.c
       16/h5ex_d_unlimadd.c
       16/h5ex_d_unlimmod.c
-)
+  )
 else ()
   set (examples
       h5ex_d_alloc.c
