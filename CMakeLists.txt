@@ -23,7 +23,7 @@ set (HDF5EX_JAVA_DIR           ${H5EXAMPLES_SOURCE_DIR}/JAVA)
 #-----------------------------------------------------------------------------
 HDF5_SUPPORT (TRUE)
 message (STATUS "HDF5 link libs: ${LINK_LIBS}")
-three_part_version_to_vars(${HDF5_VERSION} major_vers minor_vers patch_vers H5_LIBVER_DIR)
+APIVersion(${HDF5_VERSION} H5_LIBVER_DIR)
 message (STATUS "HDF5 H5_LIBVER_DIR: ${H5_LIBVER_DIR}")
 
 if (WIN32)
@@ -31,31 +31,6 @@ if (WIN32)
 else ()
   set(CMAKE_TEST_LIB_DIRECTORY "${HDF5_LIBRARY_PATH}")
 endif ()
-
-#-----------------------------------------------------------------------------
-# Option to use 1.6.x API
-#-----------------------------------------------------------------------------
-option (${EXAMPLE_VARNAME}_USE_16_API "Use the HDF5 1.6.x API" OFF)
-
-#-----------------------------------------------------------------------------
-# Option to use 1.8.x API
-#-----------------------------------------------------------------------------
-option (${EXAMPLE_VARNAME}_USE_18_API "Use the HDF5 1.8.x API" OFF)
-
-#-----------------------------------------------------------------------------
-# Option to use 1.10.x API
-#-----------------------------------------------------------------------------
-option (${EXAMPLE_VARNAME}_USE_110_API "Use the HDF5 1.10.x API" OFF)
-
-#-----------------------------------------------------------------------------
-# Option to use 1.12.x API
-#-----------------------------------------------------------------------------
-option (${EXAMPLE_VARNAME}_USE_112_API "Use the HDF5 1.12.x API" OFF)
-
-#-----------------------------------------------------------------------------
-# Option to use 1.14.x API
-#-----------------------------------------------------------------------------
-option (${EXAMPLE_VARNAME}_USE_114_API "Use the HDF5 1.14.x API" ON)
 
 #-----------------------------------------------------------------------------
 # Option to Enable MPI Parallel

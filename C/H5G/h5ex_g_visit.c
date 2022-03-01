@@ -41,7 +41,7 @@ main (void)
      * Begin iteration using H5Ovisit
      */
     printf ("Objects in the file:\n");
-#if H5_VERSION_GE(1,12,0)
+#if H5_VERSION_GE(1,12,0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
     status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL, H5O_INFO_ALL);
 #else
     status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL);
@@ -116,7 +116,7 @@ herr_t op_func_L (hid_t loc_id, const char *name, const H5L_info_t *info,
      * The name of the object is passed to this function by
      * the Library.
      */
-#if H5_VERSION_GE(1,12,0)
+#if H5_VERSION_GE(1,12,0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
     status = H5Oget_info_by_name (loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
 #else
     status = H5Oget_info_by_name (loc_id, name, &infobuf, H5P_DEFAULT);

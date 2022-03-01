@@ -147,7 +147,7 @@ main (void)
          * Open the referenced object, retrieve its region as a
          * dataspace selection.
          */
-#if H5_VERSION_GE(1,10,0)
+#if H5_VERSION_GE(1,10,0) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
         dset2 = H5Rdereference (dset, H5P_DEFAULT, H5R_DATASET_REGION, &rdata[i]);
 #else
         dset2 = H5Rdereference (dset, H5R_DATASET_REGION, &rdata[i]);

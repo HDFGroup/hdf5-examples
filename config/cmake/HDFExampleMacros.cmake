@@ -379,20 +379,60 @@ endmacro ()
 #     patch    [out] The patch version.
 #     xy       [out] A "majorminor" version.
 #     
-macro (THREE_PART_VERSION_TO_VARS version major minor patch x_y)
+macro (APIVersion version xyapi)
   string (REGEX REPLACE "(\-[0-9]+)" "" xyz ${version})
   message (VERBOSE "version=${version}")
 
-  string (REGEX REPLACE "([0-9]+).[0-9]+.[0-9]+" "\\1" ${major} ${xyz})
-  string (REGEX REPLACE "[0-9]+.([0-9]+).[0-9]+" "\\1" ${minor} ${xyz})
-  string (REGEX REPLACE "[0-9]+.[0-9]+.([0-9]+)" "\\1" ${patch} ${xyz})
-  message (VERBOSE "major=${${major}} minor=${${minor}}")
+  string (REGEX REPLACE "([0-9]+).[0-9]+.[0-9]+" "\\1" major ${xyz})
+  string (REGEX REPLACE "[0-9]+.([0-9]+).[0-9]+" "\\1" minor ${xyz})
+  string (REGEX REPLACE "[0-9]+.[0-9]+.([0-9]+)" "\\1" patch ${xyz})
+  message (VERBOSE "major=${major} minor=${minor}")
 
   # Round up to the next major release if minor is odd-numbered
-  math (EXPR rem "${${minor}}%2")
+  math (EXPR rem "${minor}%2")
   if (NOT ${rem} STREQUAL "0")
-    math (EXPR ${minor} "${${minor}} + 1")
+    math (EXPR minor "${minor} + 1")
   endif ()
 
-  set (${x_y} "${${major}}${${minor}}")
+  set (${xyapi} "${major}${minor}")
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.6.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_16_API "Use the HDF5 1.6.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_16_API AND ${xyapi} GREATER 16)
+    set (${xyapi} "16")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.8.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_18_API "Use the HDF5 1.8.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_18_API AND ${xyapi} GREATER 18)
+    set (${xyapi} "18")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.10.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_110_API "Use the HDF5 1.10.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_110_API AND ${xyapi} GREATER 110)
+    set (${xyapi} "110")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.12.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_112_API "Use the HDF5 1.12.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_112_API AND ${xyapi} GREATER 112)
+    set (${xyapi} "112")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.14.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_114_API "Use the HDF5 1.14.x API" ON)
+  if (${EXAMPLE_VARNAME}_USE_114_API AND ${xyapi} GREATER 114)
+    set (${xyapi} "114")
+  endif ()
 endmacro ()

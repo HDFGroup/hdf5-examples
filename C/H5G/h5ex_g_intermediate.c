@@ -46,7 +46,7 @@ main(void)
      * on how to use H5Ovisit.
      */
     printf ("Objects in the file:\n");
-#if H5_VERSION_GE(1,12,0)
+#if H5_VERSION_GE(1,12,0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
     status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL, H5O_INFO_ALL);
 #else
     status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL);

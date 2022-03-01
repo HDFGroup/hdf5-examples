@@ -146,7 +146,7 @@ main (void)
         case H5D_CHUNKED:
             printf ("H5D_CHUNKED\n");
             break;
-#if H5_VERSION_GE(1,10,0)
+#if H5_VERSION_GE(1,10,0) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
         case H5D_VIRTUAL:
             printf ("H5D_VIRTUAL\n");
             break;

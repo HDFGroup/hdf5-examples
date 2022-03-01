@@ -103,7 +103,7 @@ main (void)
              */
             name = H5Tget_member_name (filetype, i);
             printf ("   %s\n", name);
-#if H5_VERSION_GE(1,8,16)
+#if H5_VERSION_GE(1,10,0) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
             H5free_memory (name);
 #else
             free (name);
