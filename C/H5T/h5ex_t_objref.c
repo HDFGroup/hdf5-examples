@@ -118,10 +118,10 @@ main (void)
          */
 #if H5_VERSION_GE(1,10,0) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
         obj = H5Rdereference (dset, H5P_DEFAULT, H5R_OBJECT, &rdata[i]);
-        status = H5Rget_obj_type (dset, H5R_OBJECT, &rdata[i], &objtype);
 #else
         obj = H5Rdereference (dset, H5R_OBJECT, &rdata[i]);
 #endif
+        status = H5Rget_obj_type (dset, H5R_OBJECT, &rdata[i], &objtype);
 
         /*
          * Get the length of the name, allocate space, then retrieve
