@@ -13,6 +13,8 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+srcdir=@srcdir@
+
 case $CC in
 */*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
         test -x $H5DUMP || H5DUMP=h5dump;;
@@ -27,27 +29,35 @@ dumpout() {
     $H5DUMP $*
 }
 
+H5_LIBVER=@H5_LIBVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
+
+if [ ! -d "testfiles/$H5_LIBVER_DIR" ]; then
+  mkdir testfiles/$H5_LIBVER_DIR
+fi
+echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_LIBVER_DIR/README.md
+
 ./h5ex_g_create
-dumpout h5ex_g_create.h5 >testfiles/h5ex_g_create.ddl
+dumpout h5ex_g_create.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_create.ddl
 rm -f h5ex_g_create.h5
 
-exout ./h5ex_g_iterate >testfiles/h5ex_g_iterate.tst
+exout ./h5ex_g_iterate >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_iterate.tst
 
-exout ./h5ex_g_traverse >testfiles/h5ex_g_traverse.tst
+exout ./h5ex_g_traverse >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_traverse.tst
 
-exout ./h5ex_g_visit >testfiles/h5ex_g_visit.tst
+exout ./h5ex_g_visit >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_visit.tst
 
-exout ./h5ex_g_compact >testfiles/h5ex_g_compact.tst
-dumpout h5ex_g_compact1.h5 >testfiles/h5ex_g_compact1.ddl
-dumpout h5ex_g_compact2.h5 >testfiles/h5ex_g_compact2.ddl
+exout ./h5ex_g_compact >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_compact.tst
+dumpout h5ex_g_compact1.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_compact1.ddl
+dumpout h5ex_g_compact2.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_compact2.ddl
 rm -f h5ex_g_compact1.h5
 rm -f h5ex_g_compact2.h5
 
-exout ./h5ex_g_phase >testfiles/h5ex_g_phase.tst
+exout ./h5ex_g_phase >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_phase.tst
 rm -f h5ex_g_phase.h5
 
-exout ./h5ex_g_corder >testfiles/h5ex_g_corder.tst
+exout ./h5ex_g_corder >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_corder.tst
 rm -f h5ex_g_corder.h5
 
-exout ./h5ex_g_intermediate >testfiles/h5ex_g_intermediate.tst
+exout ./h5ex_g_intermediate >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_intermediate.tst
 rm -f h5ex_g_intermediate.h5

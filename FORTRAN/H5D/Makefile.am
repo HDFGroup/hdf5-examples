@@ -48,6 +48,11 @@ h5ex_d_szip_SOURCES      = h5ex_d_szip.F90
 h5ex_d_transform_SOURCES = h5ex_d_transform.F90
 h5ex_d_unlimmod_SOURCES  = h5ex_d_unlimmod.F90
 
+if FORTRAN_2003_CONDITIONAL_F
+  noinst_PROGRAMS +=  h5ex_d_rdwr_kind
+  h5ex_d_rdwr_kind_SOURCES = h5ex_d_rdwr_kind.F90
+endif
+
 
 EXTRA_DIST = testfiles/h5ex_d_rdwr.tst testfiles/h5ex_d_hyper.tst testfiles/h5ex_d_chunk.tst \
 testfiles/h5ex_d_gzip.tst testfiles/h5ex_d_extern.tst testfiles/h5ex_d_compact.tst \
@@ -65,6 +70,14 @@ testfiles/h5ex_d_unlimmod.tst testfiles/h5ex_d_unlimmod.dll \
 testfiles/h5ex_d_fillval.ddl testfiles/h5ex_d_alloc.ddl \
 testfiles/h5ex_d_rdwr_kind.tst testfiles/h5ex_d_rdwr_kind.dll \
 test.sh
+
+if FORTRAN_2003_CONDITIONAL_F
+  EXTRA_DIST += testfiles/h5ex_d_rdwr_kind.tst testfiles/h5ex_d_rdwr_kind.dll
+endif
+
+if H5_LIBVER_DIR
+AM_CPPFLAGS = "-D H5_LIBVER_DIR"
+endif
 
 TESTS = test.sh
 

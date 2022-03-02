@@ -13,8 +13,10 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
-case $CC in
-*/*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
+srcdir=@srcdir@
+
+case $FC in
+*/*)    H5DUMP=`echo $FC | sed -e 's/\/[^/]*$/\/h5dump/'`;
         test -x $H5DUMP || H5DUMP=h5dump;;
 *)      H5DUMP=h5dump;;
 esac
@@ -35,15 +37,36 @@ dumpout() {
     $H5DUMP $*
 }
 
-topics="rdwr hyper chunk gzip szip nbit soint sofloat extern compact unlimadd \
-unlimmod unlimgzip checksum shuffle fillval alloc"
+H5_LIBVER=@H5_LIBVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
+
+if [ ! -d "testfiles/$H5_LIBVER_DIR" ]; then
+  mkdir testfiles/$H5_LIBVER_DIR
+fi
+echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_LIBVER_DIR/README.md
+
+topics="alloc \
+  checksum \
+  chunk \
+  compact \
+  extern  \
+  fillval \
+  gzip \
+  hyper \
+  nbit \
+  rdwr \
+  rdwr_kind \
+  soint \
+  szip \
+  transform \
+  unlimmod"
 
 for topic in $topics
 do
     fname=h5ex_d_$topic
-    $ECHO_N "Creating test reference file for 1.8/C/H5D/$fname...$ECHO_C"
-    exout ./$fname >testfiles/$fname.tst
-    dumpout $fname.h5 >testfiles/$fname.ddl
+    $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+    exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -54,8 +77,8 @@ done
 rm -f h5ex_d_extern.data
 
 fname=h5ex_d_transform
-$ECHO_N "Creating test reference file for 1.8/C/H5D/$fname...$ECHO_C"
-exout ./$fname >testfiles/$fname.tst
-dumpout -n $fname.h5 >testfiles/$fname.ddl
+$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
 rm -f $fname.h5
 echo "  Done."

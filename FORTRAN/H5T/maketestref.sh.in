@@ -13,6 +13,8 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+srcdir=@srcdir@
+
 case $FC in
 */*)    H5DUMP=`echo $FC | sed -e 's/\/[^/]*$/\/h5dump/'`;
         test -x $H5DUMP || H5DUMP=h5dump;;
@@ -35,6 +37,8 @@ dumpout() {
     $H5DUMP $*
 }
 
+H5_LIBVER=@H5_LIBVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
 
 topics="arrayatt_F03 array_F03 bitatt_F03 bit_F03 \
   cmpdatt_F03 cmpd_F03 Cstring_F03 enumatt_F03 \
@@ -46,9 +50,9 @@ topics="arrayatt_F03 array_F03 bitatt_F03 bit_F03 \
 for topic in $topics
 do
     fname=h5ex_t_$topic
-    $ECHO_N "Creating test reference file for 1.8/FORTRAN/H5T/$fname...$ECHO_C"
-    exout ./$fname >testfiles/$fname.tst
-    dumpout $fname.h5 >testfiles/$fname.ddl
+    $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+    exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -56,20 +60,20 @@ done
 #######Non-standard tests#######
 
 #fname=h5ex_t_cpxcmpd
-#$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-#exout ./$fname >testfiles/$fname.tst
-#dumpout -n $fname.h5 >testfiles/$fname.ddl
+#$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+#exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+#dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
 #rm -f $fname.h5
 #echo "  Done."
 #
 #fname=h5ex_t_cpxcmpdatt
-#$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-#exout ./$fname >testfiles/$fname.tst
-#dumpout -n $fname.h5 >testfiles/$fname.ddl
+#$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+#exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+#dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
 #rm -f $fname.h5
 #echo "  Done."
 
 #fname=h5ex_t_convert
-#$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-#exout ./$fname >$fname.test
+#$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+#exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.test
 #echo "  Done."

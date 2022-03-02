@@ -43,7 +43,6 @@ testfiles/h5ex_t_regref.ddl testfiles/h5ex_t_regrefatt.ddl testfiles/h5ex_t_comm
 testfiles/h5ex_t_convert.ddl test.sh
 
 
-AM_CPPFLAGS = '-D H5_USE_112_API'
 TESTS = test.sh
 
 CLEANFILES = Makefile test.sh maketestref.sh

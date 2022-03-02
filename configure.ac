@@ -60,7 +60,7 @@ else
      H5FC="h5pfc"
   fi
 fi
-AC_PROG_FC([$H5FC]
+AC_PROG_FC([$H5FC])
 
 # Add the suffix to CC for shared linking.  Can't just set as an option
 # because it must be first.
@@ -93,6 +93,7 @@ if test "$rem" != "0";then
  H5_MINORVER=$(($H5_MINORVER+1))
 fi
 H5_LIBVER_DIR=${H5_MAJORVER}${H5_MINORVER}
+AC_SUBST([H5_LIBVER_DIR])
 
 # Test whether one version ($1) is greater than or equal to other ($2).
 function version_gt {
@@ -146,18 +147,6 @@ fi
 
 AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
 AM_CONDITIONAL([FORTRAN_2003_NOTINTEL_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"])
-HDF5_GE112="no"
-if version_gt "$H5_LIBVER" "1.11"; then
-  HDF5_GE112="yes"
-fi
-AM_CONDITIONAL([HDF5_GE112], [test "X$HDF5_GE112" = "Xyes"])
-
-HDF5_GE110="no"
-if version_gt "$H5_LIBVER" "1.9"; then
-  HDF5_GE110="yes"
-fi
-AM_CONDITIONAL([HDF5_GE110], [test "X$HDF5_GE110" = "Xyes"])
-AC_SUBST([HDF5_GE110])
 
 # Set subdirectories
 AC_CONFIG_FILES([Makefile

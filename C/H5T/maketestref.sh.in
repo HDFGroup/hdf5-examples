@@ -13,6 +13,8 @@
 # http://hdfgroup.org/HDF5/doc/Copyright.html.  If you do not have
 # access to either file, you may request a copy from help@hdfgroup.org.
 
+srcdir=@srcdir@
+
 case $CC in
 */*)    H5DUMP=`echo $CC | sed -e 's/\/[^/]*$/\/h5dump/'`;
         test -x $H5DUMP || H5DUMP=h5dump;;
@@ -35,6 +37,14 @@ dumpout() {
     $H5DUMP $*
 }
 
+H5_LIBVER=@H5_LIBVER@
+H5_LIBVER_DIR=@H5_LIBVER_DIR@
+
+if [ ! -d "testfiles/$H5_LIBVER_DIR" ]; then
+  mkdir testfiles/$H5_LIBVER_DIR
+fi
+echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_LIBVER_DIR/README.md
+
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
 cmpd cmpdatt objref objrefatt regref regrefatt commit"
@@ -42,9 +52,9 @@ cmpd cmpdatt objref objrefatt regref regrefatt commit"
 for topic in $topics
 do
     fname=h5ex_t_$topic
-    $ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-    exout ./$fname >testfiles/$fname.tst
-    dumpout $fname.h5 >testfiles/$fname.ddl
+    $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+    exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -52,20 +62,20 @@ done
 #######Non-standard tests#######
 
 fname=h5ex_t_cpxcmpd
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >testfiles/$fname.tst
-dumpout -n $fname.h5 >testfiles/$fname.ddl
+$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_cpxcmpdatt
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >testfiles/$fname.tst
-dumpout -n $fname.h5 >testfiles/$fname.ddl
+$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
 rm -f $fname.h5
 echo "  Done."
 
 fname=h5ex_t_convert
-$ECHO_N "Creating test reference file for 1.8/C/H5T/$fname...$ECHO_C"
-exout ./$fname >testfiles/$fname.tst
+$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
 echo "  Done."
