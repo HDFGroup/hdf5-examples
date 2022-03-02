@@ -25,6 +25,7 @@ foreach (example ${examples})
   add_executable (${EXAMPLE_VARNAME}_f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
   target_compile_options(${EXAMPLE_VARNAME}_f90_${example_name}
       PRIVATE
+          "-DH5_LIBVER_DIR=${H5_LIBVER_DIR}"
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_18_API}>:-DH5_USE_18_API>"
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_110_API}>:-DH5_USE_110_API>"

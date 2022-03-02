@@ -93,7 +93,7 @@ PROGRAM main
      WRITE(*,'("H5D_CONTIGUOUS_F",/)')
   ELSE IF (layout.EQ.H5D_CHUNKED_F)THEN
      WRITE(*,'("H5D_CHUNKED_F",/)')
-#ifdef HDF5_GE112
+#if H5_LIBVER_DIR>=112
   ELSE IF (layout.EQ.H5D_VIRTUAL_F)THEN
      WRITE(*,'("H5D_VIRTUAL_F",/)')
 #endif

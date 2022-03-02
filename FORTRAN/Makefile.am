@@ -16,12 +16,16 @@
 ## Run automake to generate a Makefile.in from this file.
 ##
 
-if H5G
-DO_H5G=H5G
-endif
-
 if H5D
 DO_H5D=H5D
 endif
 
-SUBDIRS = $(DO_H5G) $(DO_H5D) 
+if H5G
+DO_H5G=H5G
+endif
+
+if H5T
+DO_H5T=H5T
+endif
+
+SUBDIRS = $(DO_H5D) $(DO_H5G) $(DO_H5T)

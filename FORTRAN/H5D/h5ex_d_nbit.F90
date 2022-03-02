@@ -26,7 +26,7 @@ PROGRAM main
 
   INTEGER :: hdferr
   INTEGER(HID_T)  :: file, space, dset, dtype, dcpl ! Handles
-#ifdef HDF5_GE110
+#if H5_LIBVER_DIR>=110
   INTEGER, DIMENSION(1:50) :: cd_values
 #else
   INTEGER, DIMENSION(1:1) :: cd_values
@@ -87,7 +87,7 @@ PROGRAM main
   ! after being packed by the N-Bit filter.
   !
   CALL h5tcopy_f (H5T_STD_I32LE, dtype, hdferr)
-#ifdef HDF5_GE110
+#if H5_LIBVER_DIR>=110
   CALL h5tset_precision_f (dtype, INT(16,SIZE_T), hdferr)
   CALL h5tset_offset_f (dtype, INT(5,SIZE_T), hdferr)
 #else
@@ -133,7 +133,7 @@ PROGRAM main
   ! first filter because we know that we only added one filter.
   !
   nelmts = 0
-#ifdef HDF5_GE110
+#if H5_LIBVER_DIR>=110
   CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, INT(MaxChrLen, SIZE_T), name, filter_id, hdferr)
 #else
   CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, MaxChrLen, name, filter_id, hdferr)
