@@ -165,26 +165,30 @@ if (BUILD_TESTING)
   endmacro ()
 
   #message (STATUS " Copying h5ex_g_compact.test")
-  add_custom_command (
-      TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
-      POST_BUILD
-      COMMAND    ${CMAKE_COMMAND}
-      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact.tst ${PROJECT_BINARY_DIR}/h5ex_g_compact.tst
-  )
+  if (NOT ${H5_LIBVER_DIR} EQUAL 16)
+    add_custom_command (
+        TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
+        POST_BUILD
+        COMMAND    ${CMAKE_COMMAND}
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact.tst ${PROJECT_BINARY_DIR}/h5ex_g_compact.tst
+    )
+  endif ()
 
   if (HDF5_BUILD_TOOLS)
-    add_custom_command (
-        TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
-        POST_BUILD
-        COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl
-    )
-    add_custom_command (
-        TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
-        POST_BUILD
-        COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl
-    )
+    if (NOT ${H5_LIBVER_DIR} EQUAL 16)
+      add_custom_command (
+          TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
+          POST_BUILD
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl
+      )
+      add_custom_command (
+          TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
+          POST_BUILD
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl
+      )
+    endif ()
     add_custom_command (
         TARGET     ${EXAMPLE_VARNAME}_h5ex_g_create
         POST_BUILD
@@ -194,13 +198,17 @@ if (BUILD_TESTING)
   endif ()
 
   set (exrefs
-      h5ex_g_corder
-      h5ex_g_phase
       h5ex_g_iterate
       h5ex_g_traverse
-      h5ex_g_intermediate
-      h5ex_g_visit
   )
+  if (NOT ${H5_LIBVER_DIR} EQUAL 16)
+    set (exrefs ${exrefs}
+        h5ex_g_corder
+        h5ex_g_phase
+        h5ex_g_intermediate
+        h5ex_g_visit
+    )
+  endif ()
   foreach (example ${exrefs})
     add_custom_command (
         TARGET     ${EXAMPLE_VARNAME}_${example}
@@ -213,8 +221,12 @@ if (BUILD_TESTING)
   set (exfiles
       h5ex_g_iterate
       h5ex_g_traverse
-      h5ex_g_visit
   )
+  if (NOT ${H5_LIBVER_DIR} EQUAL 16)
+    set (exfiles ${exfiles}
+        h5ex_g_visit
+    )
+  endif ()
   foreach (example ${exfiles})
     add_custom_command (
         TARGET     ${EXAMPLE_VARNAME}_${example}
@@ -224,13 +236,15 @@ if (BUILD_TESTING)
     )
   endforeach ()
 
-  ADD_H5_DUMP2_TEST (h5ex_g_compact)
   ADD_DUMP_TEST (h5ex_g_create)
-  ADD_H5_CMP_TEST (h5ex_g_corder)
-  ADD_H5_CMP_TEST (h5ex_g_phase)
   ADD_H5_CMP_TEST (h5ex_g_iterate)
   ADD_H5_CMP_TEST (h5ex_g_traverse)
-  ADD_H5_CMP_TEST (h5ex_g_intermediate)
-  ADD_H5_CMP_TEST (h5ex_g_visit)
+  if (NOT ${H5_LIBVER_DIR} EQUAL 16)
+    ADD_H5_DUMP2_TEST (h5ex_g_compact)
+    ADD_H5_CMP_TEST (h5ex_g_corder)
+    ADD_H5_CMP_TEST (h5ex_g_phase)
+    ADD_H5_CMP_TEST (h5ex_g_intermediate)
+    ADD_H5_CMP_TEST (h5ex_g_visit)
+  endif ()
 
 endif ()
