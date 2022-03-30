@@ -40,7 +40,7 @@ I. Preconditions
 
    3. Set the environment variable HDF5_DIR to the installed location of
       the config files for HDF5. On Windows:
-            HDF5_DIR=C:/Program Files/HDF_Group/HDF5/1.y.x/cmake
+            HDF5_ROOT=C:/Program Files/HDF_Group/HDF5/1.y.x/1
 
       (Note there are no quote characters used on Windows and all platforms
       use forward slashes)
@@ -171,23 +171,23 @@ These steps are described in more detail below.
 III. Using HDF5 Libraries with Visual Studio 2008 (no longer supported)
 ========================================================================
 
-   8. Set up path for external libraries and headers
+   1. Set up path for external libraries and headers
 
       Invoke Microsoft Visual Studio and go to "Tools" and select "Options",
       find "Projects", and then "VC++ Directories".
 
-      8.1 If you are building on 64-bit Windows, find the "Platform" dropdown
+      1.1 If you are building on 64-bit Windows, find the "Platform" dropdown
           and select "x64".
 
-      8.2 Find the box "Show directories for", choose "Include files", add the
+      1.2 Find the box "Show directories for", choose "Include files", add the
           header path (i.e. c:\Program Files\HDF Group\HDF5\hdf5-1.8.x\include)
           to the included directories.
 
-      8.3 Find the box "Show directories for", choose "Library files", add the
+      1.3 Find the box "Show directories for", choose "Library files", add the
           library path (i.e. c:\Program Files\HDF Group\HDF5\hdf5-1.8.x\lib)
           to the library directories.
 
-      8.4 If using Fortran libraries, you will also need to setup the path
+      1.4 If using Fortran libraries, you will also need to setup the path
           for the Intel Fortran compiler.
 
 
