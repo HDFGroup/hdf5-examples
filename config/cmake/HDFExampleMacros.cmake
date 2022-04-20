@@ -139,7 +139,7 @@ macro (BASIC_SETTINGS varname)
   # Option to build JAVA examples
   #-----------------------------------------------------------------------------
   option (HDF_BUILD_JAVA "Build JAVA support" OFF)
-  if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+  if (HDF_BUILD_JAVA)
     find_package (Java)
     INCLUDE_DIRECTORIES (
         ${JAVA_INCLUDE_PATH}
@@ -163,7 +163,7 @@ macro (HDF5_SUPPORT)
     if (HDF_BUILD_FORTRAN)
       set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
     endif ()
-    if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+    if (HDF_BUILD_JAVA)
       set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
       set (HDF5_Java_FOUND 1) #default setting for 1.10.1 and earlier
     endif ()
@@ -193,7 +193,7 @@ macro (HDF5_SUPPORT)
         if (HDF_BUILD_FORTRAN)
           set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)
         endif ()
-        if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+        if (HDF_BUILD_JAVA)
           set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Java)
         endif ()
         message (STATUS "HDF5 find comps: ${FIND_HDF_COMPONENTS}")
@@ -211,7 +211,7 @@ macro (HDF5_SUPPORT)
         else ()
           set_property (TARGET ${HDF5_NAMESPACE}h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
         endif ()
-        if (HDF_BUILD_JAVA AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+        if (HDF_BUILD_JAVA)
           set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
           message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}")
         endif ()
@@ -238,7 +238,7 @@ macro (HDF5_SUPPORT)
           set (HDF_BUILD_FORTRAN OFF CACHE BOOL "Build FORTRAN support" FORCE)
           message (STATUS "HDF5 Fortran libs not found - disable build of Fortran examples")
         endif ()
-        if (HDF_BUILD_JAVA  AND NOT BUILD_1_6 AND NOT BUILD_1_8)
+        if (HDF_BUILD_JAVA)
           if (${HDF5_BUILD_JAVA} AND HDF5_Java_FOUND)
             set (CMAKE_JAVA_INCLUDE_PATH "${CMAKE_JAVA_INCLUDE_PATH};${HDF5_JAVA_INCLUDE_DIRS}")
             message (STATUS "HDF5 jars:${HDF5_JAVA_INCLUDE_DIRS}}")
@@ -366,4 +366,73 @@ macro (ADD_H5_FLAGS h5_flag_var infile)
     endforeach ()
   endif ()
   #message (TRACE "h5_flag_var=${${h5_flag_var}}")
+endmacro ()
+
+# Purpose:
+# Breaking down three numbered versions (x.y.z) into their components, and
+# returning a major and minor version (xy).
+#
+# Parameters:
+#     version  [in]  The version string.
+#     major    [out] The major version.
+#     minor    [out] The minor version.
+#     patch    [out] The patch version.
+#     xy       [out] A "majorminor" version.
+#     
+macro (APIVersion version xyapi)
+  string (REGEX REPLACE "(\-[0-9]+)" "" xyz ${version})
+  message (VERBOSE "version=${version}")
+
+  string (REGEX REPLACE "([0-9]+).[0-9]+.[0-9]+" "\\1" major ${xyz})
+  string (REGEX REPLACE "[0-9]+.([0-9]+).[0-9]+" "\\1" minor ${xyz})
+  string (REGEX REPLACE "[0-9]+.[0-9]+.([0-9]+)" "\\1" patch ${xyz})
+  message (VERBOSE "major=${major} minor=${minor}")
+
+  # Round up to the next major release if minor is odd-numbered
+  math (EXPR rem "${minor}%2")
+  if (NOT ${rem} STREQUAL "0")
+    math (EXPR minor "${minor} + 1")
+  endif ()
+
+  set (${xyapi} "${major}${minor}")
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.6.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_16_API "Use the HDF5 1.6.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_16_API AND ${xyapi} GREATER 16)
+    set (${xyapi} "16")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.8.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_18_API "Use the HDF5 1.8.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_18_API AND ${xyapi} GREATER 18)
+    set (${xyapi} "18")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.10.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_110_API "Use the HDF5 1.10.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_110_API AND ${xyapi} GREATER 110)
+    set (${xyapi} "110")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.12.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_112_API "Use the HDF5 1.12.x API" OFF)
+  if (${EXAMPLE_VARNAME}_USE_112_API AND ${xyapi} GREATER 112)
+    set (${xyapi} "112")
+  endif ()
+
+  #-----------------------------------------------------------------------------
+  # Option to use 1.14.x API
+  #-----------------------------------------------------------------------------
+  option (${EXAMPLE_VARNAME}_USE_114_API "Use the HDF5 1.14.x API" ON)
+  if (${EXAMPLE_VARNAME}_USE_114_API AND ${xyapi} GREATER 114)
+    set (${xyapi} "114")
+  endif ()
 endmacro ()

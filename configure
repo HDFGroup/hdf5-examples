@@ -3738,7 +3738,7 @@ fi
 
 echo $HAVE_FORTRAN_2003
 
-# Check if we have Fortran 2003 and Intel compiler; Intel doesn't work with RECURSIVE used by h5ex_g_traverse.f90
+# Check if we have Fortran 2003 and Intel compiler; Intel doesn't work with RECURSIVE used by h5ex_g_traverse.F90
 # The example will not be built when Intel compiler is used (EIP 2011/10/14)
 
 if test "X$HAVE_FORTRAN_2003" = "Xyes"; then
