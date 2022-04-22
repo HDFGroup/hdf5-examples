@@ -53,11 +53,15 @@ topics="alloc \
   hyper \
   nbit \
   rdwr \
-  rdwr_kind \
   soint \
   szip \
-  transform \
   unlimmod"
+
+FORTRAN_2003_CONDITIONAL_F="@FORTRAN_2003_CONDITIONAL_F@"
+
+if [ "$FORTRAN_2003_CONDITIONAL_F" = "Xyes" ]; then
+   topics="$topics rdwr_kind"
+fi
 
 return_val=0
 
@@ -67,7 +71,7 @@ rm -f h5ex_d_extern.data
 for topic in $topics
 do
     fname=h5ex_d_$topic
-    $ECHO_N "Testing C/H5D/$fname...$ECHO_C"
+    $ECHO_N "Testing FORTRAN/H5D/$fname...$ECHO_C"
     exout ./$fname >tmp.test
     status=$?
     if test $status -eq 1
@@ -80,6 +84,7 @@ do
         if test $status -ne 0
         then
             echo "  FAILED!"
+	    return_val=`expr $status + $return_val`
         else
           dumpout $fname.h5 >tmp.test
           rm -f $fname.h5

@@ -32,10 +32,9 @@ dumpout() {
 H5_LIBVER=@H5_LIBVER@
 H5_LIBVER_DIR=@H5_LIBVER_DIR@
 
-if [ ! -d "testfiles/$H5_LIBVER_DIR" ]; then
-  mkdir testfiles/$H5_LIBVER_DIR
+if [ ! -d "$srcdir/testfiles/$H5_LIBVER_DIR" ]; then
+  mkdir $srcdir/testfiles/$H5_LIBVER_DIR
 fi
-echo "References generated with HDF5 version: $H5_LIBVER" > testfiles/$H5_LIBVER_DIR/README.md
 
 ./h5ex_g_create
 dumpout h5ex_g_create.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_create.ddl
