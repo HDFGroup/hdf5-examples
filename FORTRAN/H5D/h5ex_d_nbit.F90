@@ -11,6 +11,7 @@
 !  This file is intended for use with HDF5 Library verion 1.8
 !
 ! ************************************************************
+
 PROGRAM main
 
   USE HDF5
@@ -26,17 +27,13 @@ PROGRAM main
 
   INTEGER :: hdferr
   INTEGER(HID_T)  :: file, space, dset, dtype, dcpl ! Handles
-#if H5_LIBVER_DIR>=110
+  INTEGER(SIZE_T) :: nelmts = 50
   INTEGER, DIMENSION(1:50) :: cd_values
-#else
-  INTEGER, DIMENSION(1:1) :: cd_values
-#endif
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: dims = (/dim0, dim1/), chunk = (/chunk0,chunk1/)
   INTEGER(HSIZE_T), DIMENSION(1:2)   :: start, stride, count, block
   LOGICAL :: avail
   INTEGER :: filter_id
   INTEGER :: filter_info_both
-  INTEGER(SIZE_T) :: nelmts
   INTEGER :: flags, filter_info
   INTEGER, DIMENSION(1:dim0, 1:dim1) :: wdata, & ! Write buffer 
                                         rdata    ! Read buffer
@@ -87,13 +84,8 @@ PROGRAM main
   ! after being packed by the N-Bit filter.
   !
   CALL h5tcopy_f (H5T_STD_I32LE, dtype, hdferr)
-#if H5_LIBVER_DIR>=110
   CALL h5tset_precision_f (dtype, INT(16,SIZE_T), hdferr)
   CALL h5tset_offset_f (dtype, INT(5,SIZE_T), hdferr)
-#else
-  CALL h5tset_precision_f (dtype, 16, hdferr)
-  CALL h5tset_offset_f (dtype, 5, hdferr)
-#endif
   !
   ! Create the dataset creation property list, add the N-Bit filter
   ! and set the chunk size.
@@ -132,12 +124,7 @@ PROGRAM main
   ! Retrieve and print the filter type.  Here we only retrieve the
   ! first filter because we know that we only added one filter.
   !
-  nelmts = 0
-#if H5_LIBVER_DIR>=110
   CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, INT(MaxChrLen, SIZE_T), name, filter_id, hdferr)
-#else
-  CALL H5Pget_filter_f(dcpl, 0, flags, nelmts, cd_values, MaxChrLen, name, filter_id, hdferr)
-#endif
   WRITE(*,'("Filter type is: ")', ADVANCE='NO')
   IF(filter_id.EQ.H5Z_FILTER_DEFLATE_F)THEN
      WRITE(*,'(T2,"H5Z_FILTER_DEFLATE_F")')

@@ -13,6 +13,11 @@
 !
 ! ************************************************************
 
+! An optional example for determining the correct HDF5 version 
+! for picking the correct HDF5 API parameters. This is not 
+! part of the HDF5 library.
+#include "h5_version.h"
+
 PROGRAM main
 
   USE HDF5
@@ -118,7 +123,7 @@ PROGRAM main
      WRITE(*,'("H5D_CONTIGUOUS_F",/)')
   ELSE IF (layout.EQ.H5D_CHUNKED_F)THEN
      WRITE(*,'("H5D_CHUNKED_F",/)')
-#if H5_LIBVER_DIR>=112
+#if H5_VERSION_GE(1,12,0)
   ELSE IF (layout.EQ.H5D_VIRTUAL_F)THEN
      WRITE(*,'("H5D_VIRTUAL_F",/)')
 #endif

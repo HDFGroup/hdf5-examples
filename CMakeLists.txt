@@ -26,6 +26,28 @@ message (STATUS "HDF5 link libs: ${LINK_LIBS}")
 APIVersion(${HDF5_VERSION} H5_LIBVER_DIR)
 message (STATUS "HDF5 H5_LIBVER_DIR: ${H5_LIBVER_DIR}")
 
+#-----------------------------------------------------------------------------
+# parse the full version number from H5public.h and include in H5_VERS_INFO
+#-----------------------------------------------------------------------------
+if (DEFINED ENV{HDF5_DIR})
+  set(HDF5_INCLUDE_DIR "$ENV{HDF5_DIR}/include")
+elseif (DEFINED ENV{HDF5_ROOT})
+  set(HDF5_INCLUDE_DIR "$ENV{HDF5_ROOT}/include")
+else ()
+  message(FATAL_ERROR "HDF5_DIR or HDF5_ROOT was not set.")
+endif()
+
+file (READ ${HDF5_INCLUDE_DIR}/H5public.h _h5public_h_contents)
+
+string (REGEX REPLACE ".*#define[ \t]+H5_VERS_MAJOR[ \t]+([0-9]*).*$"
+    "\\1" H5_VERS_MAJOR ${_h5public_h_contents})
+string (REGEX REPLACE ".*#define[ \t]+H5_VERS_MINOR[ \t]+([0-9]*).*$"
+    "\\1" H5_VERS_MINOR ${_h5public_h_contents})
+string (REGEX REPLACE ".*#define[ \t]+H5_VERS_RELEASE[ \t]+([0-9]*).*$"
+    "\\1" H5_VERS_RELEASE ${_h5public_h_contents})
+string (REGEX REPLACE ".*#define[ \t]+H5_VERS_SUBRELEASE[ \t]+\"([0-9A-Za-z._-]*)\".*$"
+    "\\1" H5_VERS_SUBRELEASE ${_h5public_h_contents})
+
 if (WIN32)
   set(CMAKE_TEST_LIB_DIRECTORY "${HDF5_TOOLS_DIR}")
 else ()
@@ -127,6 +149,7 @@ if (${H5_LIBVER_DIR} GREATER 16)
       endif ()
 
       add_subdirectory (FORTRAN)
+      configure_file (${HDF5EX_F90_SRC_DIR}/H5D/h5_version.h.in ${PROJECT_BINARY_DIR}/FORTRAN/H5D/h5_version.h @ONLY)
     endif ()
   endif ()
 

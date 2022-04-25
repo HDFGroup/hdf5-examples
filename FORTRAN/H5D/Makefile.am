@@ -26,7 +26,6 @@ noinst_PROGRAMS = \
   h5ex_d_hyper \
   h5ex_d_nbit \
   h5ex_d_rdwr \
-  h5ex_d_rdwr_kind \
   h5ex_d_soint \
   h5ex_d_szip \
   h5ex_d_transform \
@@ -41,8 +40,7 @@ h5ex_d_fillval_SOURCES   = h5ex_d_fillval.F90
 h5ex_d_gzip_SOURCES      = h5ex_d_gzip.F90
 h5ex_d_hyper_SOURCES     = h5ex_d_hyper.F90
 h5ex_d_nbit_SOURCES      = h5ex_d_nbit.F90
-h5ex_d_rdwr_SOURCES      = h5ex_d_rdwr.F90  
-h5ex_d_rdwr_kind_SOURCES = h5ex_d_rdwr_kind.F90
+h5ex_d_rdwr_SOURCES      = h5ex_d_rdwr.F90
 h5ex_d_soint_SOURCES     = h5ex_d_soint.F90
 h5ex_d_szip_SOURCES      = h5ex_d_szip.F90
 h5ex_d_transform_SOURCES = h5ex_d_transform.F90
@@ -68,15 +66,10 @@ testfiles/h5ex_d_szip.tst testfiles/h5ex_d_szip.dll \
 testfiles/h5ex_d_nbit.tst testfiles/h5ex_d_nbit.dll \
 testfiles/h5ex_d_unlimmod.tst testfiles/h5ex_d_unlimmod.dll \
 testfiles/h5ex_d_fillval.ddl testfiles/h5ex_d_alloc.ddl \
-testfiles/h5ex_d_rdwr_kind.tst testfiles/h5ex_d_rdwr_kind.dll \
 test.sh
 
 if FORTRAN_2003_CONDITIONAL_F
   EXTRA_DIST += testfiles/h5ex_d_rdwr_kind.tst testfiles/h5ex_d_rdwr_kind.dll
-endif
-
-if H5_LIBVER_DIR
-AM_CPPFLAGS = "-D H5_LIBVER_DIR"
 endif
 
 TESTS = test.sh

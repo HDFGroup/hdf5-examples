@@ -7,12 +7,16 @@
 !  back the data, and outputs the name of the external data
 !  file and the data to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
 !
 ! ************************************************************/
+ 
+! An optional example for determining the correct HDF5 version 
+! for picking the correct HDF5 API parameters. This is not 
+! part of the HDF5 library.
+#include "h5_version.h"
 
 PROGRAM main
-
   USE HDF5
 
   IMPLICIT NONE
@@ -34,8 +38,13 @@ PROGRAM main
                                         rdata    ! Read buffer
   CHARACTER(LEN=name_buf_size) :: name
   INTEGER :: i, j
-  INTEGER(OFF_T) :: offset ! Offset, in bytes, from thebeginning of the file to the 
-                           ! location in the file where the data starts.
+  ! This change was introduced in the 1.8.12 release
+#if H5_VERSION_GE(1,8,12)
+  INTEGER(OFF_T) :: offset = 0 ! Offset, in bytes, from thebeginning of the file to the 
+                               ! location in the file where the data starts.
+#else
+  INTEGER :: offset = 0
+#endif
   INTEGER(HSIZE_T) :: bytes ! Number of bytes reserved in the file for the data
   INTEGER(SIZE_T) :: int_size ! size of integer
   !
@@ -69,7 +78,8 @@ PROGRAM main
   bytes = int_size*dim0*dim1
   ! else use:
   !   bytes = INT(H5F_UNLIMITED_F,HSIZE_T)
-  CALL h5pset_external_f(dcpl, externalname, INT(0,OFF_T), bytes, hdferr)
+
+  CALL h5pset_external_f(dcpl, externalname, offset, bytes, hdferr)
   !
   ! Create the external dataset.
   !

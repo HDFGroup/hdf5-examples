@@ -58,6 +58,8 @@ else
   H5FC_exists=`h5pfc --version  > /dev/null 2>&1; echo $?`
   if test "x0" = "x$H5FC_exists"; then
      H5FC="h5pfc"
+  else
+     AC_MSG_ERROR(failed to find h5fc or h5pfc)
   fi
 fi
 AC_PROG_FC([$H5FC])
@@ -84,16 +86,25 @@ AC_MSG_RESULT([$H5_APIVER])
 
 #if version is unreleased then bump to next official release.
 
-AC_SUBST([H5_LIBVER_DIR])
 H5_MAJORVER=$(echo $H5_LIBVER | cut -f1 -d'.'  | sed -r 's/\./_/g')
 H5_MINORVER=$(echo $H5_LIBVER | cut -f2 -d'.'  | sed -r 's/\./_/g')
+H5_RELEASEVER=$(echo $H5_LIBVER | cut -f3 -d'.'  | sed -r 's/\./_/g')
 
+#used in fortran version checks
+H5_VERS_MAJOR=$H5_MAJORVER
+H5_VERS_MINOR=$H5_MINORVER
+H5_VERS_RELEASE=$H5_RELEASEVER
+
+AC_SUBST([H5_VERS_MAJOR])
+AC_SUBST([H5_VERS_MINOR])
+AC_SUBST([H5_VERS_RELEASE])
+
+AC_SUBST([H5_LIBVER_DIR])
 rem=$(( $H5_MINORVER % 2 ))
 if test "$rem" != "0";then
  H5_MINORVER=$(($H5_MINORVER+1))
 fi
 H5_LIBVER_DIR=${H5_MAJORVER}${H5_MINORVER}
-AC_SUBST([H5_LIBVER_DIR])
 
 # Test whether one version ($1) is greater than or equal to other ($2).
 function version_gt {
@@ -126,6 +137,10 @@ fi
 
 AC_MSG_RESULT([$HAVE_FORTRAN_2003])
 
+FORTRAN_2003_CONDITIONAL_F="X$HAVE_FORTRAN_2003"
+AC_SUBST([FORTRAN_2003_CONDITIONAL_F])
+AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
+
 # Check if we have Fortran 2003 and Intel compiler; Intel doesn't work with RECURSIVE used by h5ex_g_traverse.F90
 # The example will not be built when Intel compiler is used (EIP 2011/10/14)
 
@@ -139,41 +154,38 @@ if test "X$HAVE_FORTRAN_2003" = "Xyes"; then
     echo "no"
   else
     echo "yes"
-  fi 
-else
-  echo "no"
+  fi
 fi
 # End check if we have Fortran 2003 and Intel compiler.
-
-AM_CONDITIONAL([FORTRAN_2003_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003" = "Xyes"])
 AM_CONDITIONAL([FORTRAN_2003_NOTINTEL_CONDITIONAL_F], [test "X$HAVE_FORTRAN_2003_NOTINTEL" = "Xyes"])
+
 
 # Set subdirectories
 AC_CONFIG_FILES([Makefile
-                 examples/Makefile
-                 examples/C/Makefile
-                 examples/C/H5D/Makefile
-                 examples/C/H5G/Makefile
-                 examples/C/H5T/Makefile
-                 examples/FORTRAN/Makefile
-                 examples/FORTRAN/H5D/Makefile
-                 examples/FORTRAN/H5G/Makefile
-                 examples/FORTRAN/H5T/Makefile
+                 C/Makefile
+                 C/H5D/Makefile
+                 C/H5G/Makefile
+                 C/H5T/Makefile
+                 FORTRAN/Makefile
+                 FORTRAN/H5D/h5_version.h
+                 FORTRAN/H5D/Makefile
+                 FORTRAN/H5G/Makefile
+                 FORTRAN/H5T/Makefile
         ])
 
-AC_CONFIG_FILES([examples/C/H5D/maketestref.sh], [chmod +x examples/C/H5D/maketestref.sh])
-AC_CONFIG_FILES([examples/C/H5G/maketestref.sh], [chmod +x examples/C/H5G/maketestref.sh])
-AC_CONFIG_FILES([examples/C/H5T/maketestref.sh], [chmod +x examples/C/H5T/maketestref.sh])
-AC_CONFIG_FILES([examples/FORTRAN/H5D/maketestref.sh], [chmod +x examples/FORTRAN/H5D/maketestref.sh])
-AC_CONFIG_FILES([examples/FORTRAN/H5G/maketestref.sh], [chmod +x examples/FORTRAN/H5G/maketestref.sh])
-AC_CONFIG_FILES([examples/FORTRAN/H5T/maketestref.sh], [chmod +x examples/FORTRAN/H5T/maketestref.sh])
+AC_CONFIG_FILES([C/H5D/maketestref.sh], [chmod +x C/H5D/maketestref.sh])
+AC_CONFIG_FILES([C/H5G/maketestref.sh], [chmod +x C/H5G/maketestref.sh])
+AC_CONFIG_FILES([C/H5T/maketestref.sh], [chmod +x C/H5T/maketestref.sh])
+AC_CONFIG_FILES([FORTRAN/H5D/maketestref.sh], [chmod +x FORTRAN/H5D/maketestref.sh])
+AC_CONFIG_FILES([FORTRAN/H5G/maketestref.sh], [chmod +x FORTRAN/H5G/maketestref.sh])
+AC_CONFIG_FILES([FORTRAN/H5T/maketestref.sh], [chmod +x FORTRAN/H5T/maketestref.sh])
 
-AC_CONFIG_FILES([examples/C/H5D/test.sh], [chmod +x examples/C/H5D/test.sh])
-AC_CONFIG_FILES([examples/C/H5G/test.sh], [chmod +x examples/C/H5G/test.sh])
-AC_CONFIG_FILES([examples/C/H5T/test.sh], [chmod +x examples/C/H5T/test.sh])
-AC_CONFIG_FILES([examples/FORTRAN/H5D/test.sh], [chmod +x examples/FORTRAN/H5D/test.sh])
-AC_CONFIG_FILES([examples/FORTRAN/H5G/test.sh], [chmod +x examples/FORTRAN/H5G/test.sh])
-AC_CONFIG_FILES([examples/FORTRAN/H5T/test.sh], [chmod +x examples/FORTRAN/H5T/test.sh])
+AC_CONFIG_FILES([C/H5D/test.sh], [chmod +x C/H5D/test.sh])
+AC_CONFIG_FILES([C/H5G/test.sh], [chmod +x C/H5G/test.sh])
+AC_CONFIG_FILES([C/H5T/test.sh], [chmod +x C/H5T/test.sh])
+AC_CONFIG_FILES([FORTRAN/H5D/test.sh], [chmod +x FORTRAN/H5D/test.sh])
+AC_CONFIG_FILES([FORTRAN/H5G/test.sh], [chmod +x FORTRAN/H5G/test.sh])
+AC_CONFIG_FILES([FORTRAN/H5T/test.sh], [chmod +x FORTRAN/H5T/test.sh])
 
 # Configure
 AC_OUTPUT
