@@ -374,10 +374,7 @@ endmacro ()
 #
 # Parameters:
 #     version  [in]  The version string.
-#     major    [out] The major version.
-#     minor    [out] The minor version.
-#     patch    [out] The patch version.
-#     xy       [out] A "majorminor" version.
+#     xyapi    [out] A "majorminor" API version.
 #     
 macro (APIVersion version xyapi)
   string (REGEX REPLACE "(\-[0-9]+)" "" xyz ${version})
