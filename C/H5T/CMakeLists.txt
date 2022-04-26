@@ -122,7 +122,7 @@ if (BUILD_TESTING)
       )
       if (HDF5_BUILD_TOOLS AND NOT ${example_name} STREQUAL "h5ex_t_convert")
         if (${${EXAMPLE_VARNAME}_USE_16_API} OR ${${EXAMPLE_VARNAME}_USE_18_API} OR ${${EXAMPLE_VARNAME}_USE_110_API})
-          if ((HDF5_VERSION_MAJOR VERSION_EQUAL "1.12") AND ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt")))
+          if ((HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12") AND ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt")))
             add_custom_command (
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
