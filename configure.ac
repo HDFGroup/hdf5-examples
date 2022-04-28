@@ -37,29 +37,63 @@ AC_ARG_ENABLE(shared,
     fi],
     [shared_suffix=" -shlib"])
 
-# Sets compiler.
-H5C_exists=`h5cc --version > /dev/null 2>&1; echo $?`
-if test "0" = "$H5C_exists"; then
-  H5C="h5cc"
-else
-  H5C_exists=`h5pcc --version > /dev/null 2>&1; echo $?`
-  if test "0" = "$H5C_exists"; then
-     H5C="h5pcc"
+# Checks and sets HDF5 compiler wrappers.
+if test "x$CC" = "x"; then
+  H5C_exists=`h5cc -help > /dev/null 2>&1; echo $?`
+  if test "x1" = "x$H5C_exists"; then
+    H5C_valid=`h5cc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+    if test "x1" = "x$H5C_valid"; then
+      H5C="h5cc"
+    fi
   else
-     AC_MSG_ERROR(failed to find h5cc or h5pcc)
+    H5C_exists=`h5pcc > /dev/null 2>&1; echo $?`
+    if test "x1" = "x$H5C_exists"; then
+      H5C_valid=`h5pcc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+      if test "x1" = "x$H5C_valid"; then
+        H5C="h5pcc"
+      else
+        AC_MSG_ERROR(failed to find h5cc or h5pcc)
+      fi
+    else
+      AC_MSG_ERROR(failed to find h5cc or h5pcc)
+    fi
   fi
-fi      
+else
+  H5C_exists=`$CC -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+  if test "x1" = "x$H5C_exists"; then
+     H5C="$CC"
+  else
+     AC_MSG_ERROR(CC is not set to h5cc or h5pcc)
+  fi
+fi
 AC_PROG_CC([$H5C])
 
-H5FC_exists=`h5fc --version > /dev/null 2>&1; echo $?`
-if test "x0" = "x$H5FC_exists"; then
-     H5FC="h5fc"
-else
-  H5FC_exists=`h5pfc --version  > /dev/null 2>&1; echo $?`
-  if test "x0" = "x$H5FC_exists"; then
-     H5FC="h5pfc"
+if test "x$FC" = "x"; then
+  H5FC_exists=`h5fc -help > /dev/null 2>&1; echo $?`
+  if test "x1" = "x$H5FC_exists"; then
+    H5FC_valid=`h5fc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+    if test "x1" = "x$H5FC_valid"; then
+      H5FC="h5fc"
+    fi
   else
-     AC_MSG_ERROR(failed to find h5fc or h5pfc)
+    H5FC_exists=`h5pfc > /dev/null 2>&1; echo $?`
+    if test "x1" = "x$H5FC_exists"; then
+      H5FC_valid=`h5pfc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+      if test "x1" = "x$H5FC_valid"; then
+        H5FC="h5pfc"
+      else
+        AC_MSG_ERROR(failed to find h5fc or h5pfc)
+      fi
+    else
+      AC_MSG_ERROR(failed to find h5fc or h5pfc)
+    fi
+  fi
+else
+  H5FC_exists=`$FC -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+  if test "1" = "$H5FC_exists"; then
+     H5FC="$FC"
+  else
+     AC_MSG_ERROR(FC is not set to h5fc or h5pfc)
   fi
 fi
 AC_PROG_FC([$H5FC])
