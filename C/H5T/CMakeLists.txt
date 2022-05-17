@@ -122,7 +122,7 @@ if (BUILD_TESTING)
       )
       if (HDF5_BUILD_TOOLS AND NOT ${example_name} STREQUAL "h5ex_t_convert")
         if (${${EXAMPLE_VARNAME}_USE_16_API} OR ${${EXAMPLE_VARNAME}_USE_18_API} OR ${${EXAMPLE_VARNAME}_USE_110_API})
-          if ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt"))
+          if ((HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12") AND ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt")))
             add_custom_command (
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
@@ -138,12 +138,30 @@ if (BUILD_TESTING)
             )
           endif ()
         else ()
-          add_custom_command (
-              TARGET     ${EXAMPLE_VARNAME}_${example_name}
-              POST_BUILD
-              COMMAND    ${CMAKE_COMMAND}
-              ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-          )
+          if ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt"))
+            if (HDF5_VERSION_MAJOR VERSION_EQUAL "1.8" AND HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.8.22")
+              add_custom_command (
+                  TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                  POST_BUILD
+                  COMMAND    ${CMAKE_COMMAND}
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}22.ddl ${testdest}.ddl
+              )
+            else ()
+              add_custom_command (
+                  TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                  POST_BUILD
+                  COMMAND    ${CMAKE_COMMAND}
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+              )
+            endif ()
+          else ()
+            add_custom_command (
+                TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                POST_BUILD
+                COMMAND    ${CMAKE_COMMAND}
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+            )
+          endif ()
         endif ()
       endif ()
       ADD_H5_TEST (${example_name})

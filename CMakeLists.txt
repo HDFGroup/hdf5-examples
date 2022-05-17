@@ -29,15 +29,8 @@ message (STATUS "HDF5 H5_LIBVER_DIR: ${H5_LIBVER_DIR}")
 #-----------------------------------------------------------------------------
 # parse the full version number from H5public.h and include in H5_VERS_INFO
 #-----------------------------------------------------------------------------
-if (DEFINED ENV{HDF5_DIR})
-  set(HDF5_INCLUDE_DIR "$ENV{HDF5_DIR}/include")
-elseif (DEFINED ENV{HDF5_ROOT})
-  set(HDF5_INCLUDE_DIR "$ENV{HDF5_ROOT}/include")
-else ()
-  message(FATAL_ERROR "HDF5_DIR or HDF5_ROOT was not set.")
-endif()
-
-file (READ ${HDF5_INCLUDE_DIR}/H5public.h _h5public_h_contents)
+find_file (_h5public_h H5public.h ${HDF5_INCLUDE_DIR})
+file (READ ${_h5public_h} _h5public_h_contents)
 
 string (REGEX REPLACE ".*#define[ \t]+H5_VERS_MAJOR[ \t]+([0-9]*).*$"
     "\\1" H5_VERS_MAJOR ${_h5public_h_contents})
