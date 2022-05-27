@@ -40,6 +40,15 @@ dumpout() {
     $H5DUMP $*
 }
 
+# compare current version, required version.
+# returns if cur_ver < req_ver is true.
+version_compare() {
+  version_lt=0
+  if [ ! "$(printf '%s\n' "$1" "$2" | sort -V | head -n1)" = "$2" ]; then
+          version_lt=1
+  fi
+}
+
 H5_LIBVER=@H5_LIBVER@
 H5_LIBVER_DIR=@H5_LIBVER_DIR@
 FORTRAN_2003_CONDITIONAL_F="@FORTRAN_2003_CONDITIONAL_F@"
@@ -49,8 +58,8 @@ topics="vlstring"
 if [ "$FORTRAN_2003_CONDITIONAL_F" = "Xyes" ]; then
     topics="arrayatt_F03 array_F03 bitatt_F03 bit_F03 cmpdatt_F03 cmpd_F03 \
             Cstring_F03 enumatt_F03 enum_F03 floatatt_F03 float_F03 \
-            intatt_F03 int_F03 objrefatt_F03 objref_F03 opaqueatt_F03 opaque_F03 regrefatt_F03 \
-            regref_F03 string_F03 vlenatt_F03 vlen_F03 $topics"
+            intatt_F03 int_F03 opaqueatt_F03 opaque_F03 \
+            string_F03 vlenatt_F03 vlen_F03 $topics"
 fi
 
 return_val=0
@@ -82,6 +91,43 @@ done
 
 
 #######Non-standard tests#######
+USE_ALT=""
+if [ "$H5_LIBVER_DIR" = "110" ]; then
+   # check if HDF5 version is < 1.10.7
+   version_compare "$H5_LIBVER" "1.10.7"
+   if [ "$version_lt" = 1 ]; then
+      USE_ALT="06"
+   fi
+fi
+
+if [ "$FORTRAN_2003_CONDITIONAL_F" = "Xyes" ]; then
+    topics="objrefatt_F03 objref_F03 regrefatt_F03 regref_F03"
+fi
+
+for topic in $topics
+do
+    fname=h5ex_t_$topic
+    $ECHO_N "Testing FORTRAN/H5T/$fname...$ECHO_C"
+    exout ./$fname >tmp.test
+    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    status=$?
+    if test $status -ne 0
+    then
+        echo "  FAILED!"
+    else
+      dumpout $fname.h5 >tmp.test
+      rm -f $fname.h5
+      cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
+      status=$?
+      if test $status -ne 0
+      then
+          echo "  FAILED!"
+      else
+          echo "  Passed"
+      fi
+    fi
+    return_val=`expr $status + $return_val`
+done
 
 #fname=h5ex_t_cpxcmpd
 #$ECHO_N "Testing FORTRAN/H5T/$fname...$ECHO_C"
