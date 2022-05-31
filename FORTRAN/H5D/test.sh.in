@@ -125,7 +125,6 @@ done
 
 
 #######Non-standard tests#######
-
 USE_ALT=""
 version_compare "$H5_LIBVER" "1.8.23"
 # check if HDF5 version is < 1.8.23

@@ -37,6 +37,15 @@ dumpout() {
     $H5DUMP $*
 }
 
+# compare current version, required version.
+# returns if cur_ver < req_ver is true.
+version_compare() {
+  version_lt=0
+  if [ ! "$(printf '%s\n' "$1" "$2" | sort -V | head -n1)" = "$2" ]; then
+          version_lt=1
+  fi
+}
+
 H5_LIBVER=@H5_LIBVER@
 H5_LIBVER_DIR=@H5_LIBVER_DIR@
 
@@ -46,7 +55,7 @@ fi
 
 topics="int intatt float floatatt enum enumatt bit bitatt opaque opaqueatt \
 array arrayatt vlen vlenatt string stringatt vlstring vlstringatt \
-cmpd cmpdatt objref objrefatt regref regrefatt commit"
+cmpd cmpdatt commit"
 
 for topic in $topics
 do
@@ -59,6 +68,25 @@ do
 done
 
 #######Non-standard tests#######
+USE_ALT=""
+if [ "$H5_LIBVER_DIR" = "110" ]; then
+   # check if HDF5 version is < 1.10.7
+   version_compare "$H5_LIBVER" "1.10.7"
+   if [ "$version_lt" = 1 ]; then
+      USE_ALT="06"
+    fi
+fi
+
+topics="objref objrefatt regref regrefatt"
+for topic in $topics
+do
+    fname=h5ex_t_$topic
+    $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
+    exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
+    rm -f $fname.h5
+    echo "  Done."
+done
 
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
