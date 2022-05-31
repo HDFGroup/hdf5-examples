@@ -74,7 +74,15 @@ if [ "$H5_LIBVER_DIR" = "110" ]; then
    version_compare "$H5_LIBVER" "1.10.7"
    if [ "$version_lt" = 1 ]; then
       USE_ALT="06"
-    fi
+   fi
+else 
+  if [ "$H5_LIBVER_DIR" = "18" ]; then
+   # check if HDF5 version is < 1.8.22
+   version_compare "$H5_LIBVER" "1.8.22"
+   if [ "$version_lt" = 1 ]; then
+      USE_ALT="21"
+   fi
+  fi
 fi
 
 topics="objref objrefatt regref regrefatt"
