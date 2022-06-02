@@ -87,7 +87,22 @@ do
         echo "  Unsupported feature"
         status=0
     else
-        cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+        if [ "$topic" = "alloc" ]; then
+            # Check if the only difference is the size of the unallocated space. This
+            # was fixed later in HDF5 to be of zero size.
+            status=0
+            diff tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst > tmp.diff
+            if [ $? -ne 0 ]; then
+               NumOfFinds=`grep -c "0 bytes" tmp.diff | wc -l`
+               rm -f tmp.diff
+               if [ "$NumOfFinds" -gt "1" ]; then
+                   status=1
+               fi
+            fi
+        else
+            cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+            status=$?
+        fi
         status=$?
         if test $status -ne 0
         then
