@@ -41,14 +41,14 @@ AC_ARG_ENABLE(shared,
 if test "x$CC" = "x"; then
   H5C_exists=`h5cc -help > /dev/null 2>&1; echo $?`
   if test "x1" = "x$H5C_exists"; then
-    H5C_valid=`h5cc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+    H5C_valid=`h5cc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l | sed 's/ //g'`
     if test "x1" = "x$H5C_valid"; then
       H5C="h5cc"
     fi
   else
     H5C_exists=`h5pcc > /dev/null 2>&1; echo $?`
     if test "x1" = "x$H5C_exists"; then
-      H5C_valid=`h5pcc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+      H5C_valid=`h5pcc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l | sed 's/ //g'`
       if test "x1" = "x$H5C_valid"; then
         H5C="h5pcc"
       else
@@ -59,7 +59,7 @@ if test "x$CC" = "x"; then
     fi
   fi
 else
-  H5C_exists=`$CC -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+  H5C_exists=`$CC -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l | sed 's/ //g'`
   if test "x1" = "x$H5C_exists"; then
      H5C="$CC"
   else
@@ -71,14 +71,14 @@ AC_PROG_CC([$H5C])
 if test "x$FC" = "x"; then
   H5FC_exists=`h5fc -help > /dev/null 2>&1; echo $?`
   if test "x1" = "x$H5FC_exists"; then
-    H5FC_valid=`h5fc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+    H5FC_valid=`h5fc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l | sed 's/ //g'`
     if test "x1" = "x$H5FC_valid"; then
       H5FC="h5fc"
     fi
   else
     H5FC_exists=`h5pfc > /dev/null 2>&1; echo $?`
     if test "x1" = "x$H5FC_exists"; then
-      H5FC_valid=`h5pfc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+      H5FC_valid=`h5pfc -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l | sed 's/ //g'`
       if test "x1" = "x$H5FC_valid"; then
         H5FC="h5pfc"
       else
@@ -89,7 +89,7 @@ if test "x$FC" = "x"; then
     fi
   fi
 else
-  H5FC_exists=`$FC -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l`
+  H5FC_exists=`$FC -help | sed -E -n '1p' | sed -n "/h5/p" | wc -l | sed 's/ //g'`
   if test "1" = "$H5FC_exists"; then
      H5FC="$FC"
   else
@@ -120,9 +120,9 @@ AC_MSG_RESULT([$H5_APIVER])
 
 #if version is unreleased then bump to next official release.
 
-H5_MAJORVER=$(echo $H5_LIBVER | cut -f1 -d'.'  | sed -r 's/\./_/g')
-H5_MINORVER=$(echo $H5_LIBVER | cut -f2 -d'.'  | sed -r 's/\./_/g')
-H5_RELEASEVER=$(echo $H5_LIBVER | cut -f3 -d'.'  | sed -r 's/\./_/g')
+H5_MAJORVER=$(echo $H5_LIBVER | cut -f1 -d'.'  | sed -E 's/\./_/g')
+H5_MINORVER=$(echo $H5_LIBVER | cut -f2 -d'.'  | sed -E 's/\./_/g')
+H5_RELEASEVER=$(echo $H5_LIBVER | cut -f3 -d'.'  | sed -E 's/\./_/g')
 
 #used in fortran version checks
 H5_VERS_MAJOR=$H5_MAJORVER
