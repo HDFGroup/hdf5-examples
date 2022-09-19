@@ -8,7 +8,7 @@ set (BUILD_SHARED_LIBS ON CACHE BOOL "Build Shared Libraries" FORCE)
 
 set (BUILD_TESTING ON CACHE BOOL "Build HDF5 Unit Testing" FORCE)
 
-set (HDF_ENABLE_PARALLEL OFF CACHE BOOL "Enable parallel build (requires MPI)" FORCE)
+#set (HDF_ENABLE_PARALLEL ON CACHE BOOL "Enable parallel build (requires MPI)" FORCE)
 
 #set (HDF_BUILD_FORTRAN ON CACHE BOOL "Build FORTRAN support" FORCE)
 
@@ -16,7 +16,7 @@ set (HDF_ENABLE_PARALLEL OFF CACHE BOOL "Enable parallel build (requires MPI)" F
 
 #set (HDF_ENABLE_F2003 ON CACHE BOOL "Enable FORTRAN 2003 Standard" FORCE)
 
-#set (HDF_ENABLE_THREADSAFE OFF CACHE BOOL "Enable Threadsafety" FORCE)
+#set (HDF_ENABLE_THREADSAFE ON CACHE BOOL "Enable Threadsafety" FORCE)
 
 #set (HDF_BUILD_JAVA ON CACHE BOOL "Build JAVA support" FORCE)
 
