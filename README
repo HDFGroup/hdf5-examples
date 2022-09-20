@@ -1,5 +1,9 @@
 Example programs for HDF5
 
+See the Using_CMake.txt file for instructions on building Examples with CMake.
+
+autotools method
+============================
 To build all examples type:
 ./configure
 make
