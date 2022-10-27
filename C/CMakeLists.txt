@@ -16,5 +16,5 @@ if (${H5_LIBVER_DIR} GREATER 16)
 endif ()
 
 if (H5_HAVE_PARALLEL)
-  add_subdirectory (${PROJECT_SOURCE_DIR}/PAR)
+  add_subdirectory (${PROJECT_SOURCE_DIR}/H5Parallel)
 endif ()
