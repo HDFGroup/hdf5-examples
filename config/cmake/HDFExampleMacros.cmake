@@ -154,7 +154,7 @@ macro (HDF5_SUPPORT)
   set (CMAKE_MODULE_PATH ${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR} ${CMAKE_MODULE_PATH})
   option (USE_SHARED_LIBS "Use Shared Libraries" ON)
 
-  if (NOT HDF5_HDF5_HEADER)
+  if (NOT H5EX_HDF5_HEADER)
     if (USE_SHARED_LIBS)
       set (FIND_HDF_COMPONENTS C shared)
     else ()
@@ -271,7 +271,7 @@ macro (HDF5_SUPPORT)
     if (HDF5_FOUND)
       set (HDF5_HAVE_H5PUBCONF_H 1)
       set (HDF5_HAVE_HDF5 1)
-      set (HDF5_HDF5_HEADER "h5pubconf.h")
+      set (H5EX_HDF5_HEADER "h5pubconf.h")
       set (HDF5_INCLUDE_DIR_GEN ${HDF5_INCLUDE_DIR})
       set (HDF5_INCLUDE_DIRS ${HDF5_INCLUDE_DIR})
       message (STATUS "HDF5-${HDF5_VERSION_STRING} found: INC=${HDF5_INCLUDE_DIR} TOOLS=${HDF5_TOOLS_DIR}")
@@ -332,8 +332,8 @@ endmacro ()
 #-------------------------------------------------------------------------------
 macro (TARGET_C_PROPERTIES wintarget libtype)
   target_compile_options(${wintarget} PRIVATE
-      $<$<C_COMPILER_ID:MSVC>:${WIN_COMPILE_FLAGS}>
-      $<$<CXX_COMPILER_ID:MSVC>:${WIN_COMPILE_FLAGS}>
+      "$<$<C_COMPILER_ID:MSVC>:${WIN_COMPILE_FLAGS}>"
+      "$<$<CXX_COMPILER_ID:MSVC>:${WIN_COMPILE_FLAGS}>"
   )
   if(MSVC)
     set_property(TARGET ${wintarget} APPEND PROPERTY LINK_FLAGS "${WIN_LINK_FLAGS}")
