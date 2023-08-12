@@ -178,11 +178,6 @@ if (BUILD_TESTING)
       set_tests_properties (${EXAMPLE_VARNAME}_${testname}-clearall PROPERTIES DEPENDS ${last_test})
     endif ()
     set (last_test "${EXAMPLE_VARNAME}_${testname}-clearall")
-    if (WIN32)
-      set(TESTLIBDIR "${HDF5_TOOLS_DIR}")
-    else ()
-      set(TESTLIBDIR "${HDF5_LIBRARY_PATH}")
-    endif ()
     if (DISABLE_H5PL_ENCODER)
       add_test (
           NAME ${EXAMPLE_VARNAME}_${testname}-ERR
@@ -229,7 +224,7 @@ if (BUILD_TESTING)
         add_test (
             NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}
             COMMAND "${CMAKE_COMMAND}"
-               -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
+               -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
                 -D "TEST_ARGS:STRING=--enable-error-stack;-p;${testname}.h5"
                 -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
                 -D "TEST_OUTPUT=${testname}.ddl.out"
@@ -244,7 +239,7 @@ if (BUILD_TESTING)
         add_test (
             NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}
             COMMAND "${CMAKE_COMMAND}"
-                -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
+                -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
                 -D "TEST_ARGS:STRING=--enable-error-stack;-p;${testname}.h5"
                 -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
                 -D "TEST_OUTPUT=${testname}.ddl.out"

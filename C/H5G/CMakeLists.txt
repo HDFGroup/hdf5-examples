@@ -48,7 +48,7 @@ if (BUILD_TESTING)
       add_test (
           NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
+              -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.out"
@@ -78,7 +78,7 @@ if (BUILD_TESTING)
       add_test (
           NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
+              -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
               -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}.ddl.out"
@@ -116,7 +116,7 @@ if (BUILD_TESTING)
       add_test (
           NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}1
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
+              -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
               -D "TEST_ARGS:STRING=${testname}1.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}1.ddl.out"
@@ -129,7 +129,7 @@ if (BUILD_TESTING)
       add_test (
           NAME ${EXAMPLE_VARNAME}_H5DUMP-${testname}2
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=${HDF5_DUMP_EXECUTABLE}"
+              -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
               -D "TEST_ARGS:STRING=${testname}2.h5"
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
               -D "TEST_OUTPUT=${testname}2.ddl.out"
