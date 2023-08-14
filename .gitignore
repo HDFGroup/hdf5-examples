@@ -6,3 +6,4 @@
 1_8/build*
 1_8/buildstatic
 1_8/cmake*.sh
+/CMakeUserPresets.json
