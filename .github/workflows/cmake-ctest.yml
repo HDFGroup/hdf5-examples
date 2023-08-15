@@ -4,7 +4,7 @@ name: hdf5 examples ctest runs
 on:
   workflow_call:
     inputs:
-      hdf5-name:
+      use_hdf:
         description: "The hdf5 base name of the binaries"
         required: true
         type: string
@@ -46,10 +46,10 @@ jobs:
           #version: 'tags/1.14.2'
           #file: 'hdf5-1_14_2-win_vs2022.zip'
           version: 'tags/snapshot'
-          file: '${{ needs.get-base-names.outputs.hdf5-name }}-win_vs2022.zip'
+          file: '${{ inputs.use_hdf }}-win_vs2022.zip'
 
       - name: Uncompress gh binary (Win)
-        run: 7z x ${{ github.workspace }}/${{ needs.get-base-names.outputs.hdf5-name }}-win_vs2022.zip
+        run: 7z x ${{ github.workspace }}/${{ inputs.use_hdf }}-win_vs2022.zip
 
       - name: Uncompress hdf5 binary (Win)
         working-directory: ${{ github.workspace }}/hdf5
@@ -143,7 +143,7 @@ jobs:
           #version: 'tags/1.14.2'
           #file: 'hdf5-1_14_2-ubuntu-2204.tar.gz'
           version: 'tags/snapshot'
-          file: '${{ needs.get-base-names.outputs.hdf5-name }}-ubuntu-2204.tar.gz'
+          file: '${{ inputs.use_hdf }}-ubuntu-2204.tar.gz'
 
       - name: List files for the space (Linux)
         run: |
@@ -151,7 +151,7 @@ jobs:
             ls ${{ runner.workspace }}
 
       - name: Uncompress gh binary (Linux)
-        run: tar -zxvf ${{ github.workspace }}/${{ needs.get-base-names.outputs.hdf5-name }}-ubuntu-2204.tar.gz
+        run: tar -zxvf ${{ github.workspace }}/${{ inputs.use_hdf }}-ubuntu-2204.tar.gz
 
       - name: Uncompress hdf5 binary (Linux)
         run:  |
