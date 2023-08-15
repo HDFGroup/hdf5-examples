@@ -80,7 +80,6 @@ jobs:
 
       - name: List files for the binaries (Win)
         run: |
-            ls -l ${{ github.workspace }}/HDF_Group/HDF
             ls -l ${{ github.workspace }}/HDF_Group/HDF5
 
       - name: Set file base name (Windows)
@@ -224,9 +223,9 @@ jobs:
         with:
           repo: 'HDFGroup/hdf5'
           #version: 'tags/1.14.2'
-          #file: 'hdf5-1_14_2-osx12-2204.tar.gz'
+          #file: 'hdf5-1_14_2-osx12.tar.gz'
           version: 'tags/snapshot'
-          file: '${{ inputs.use_hdf }}-osx12-2204.tar.gz'
+          file: '${{ inputs.use_hdf }}-osx12.tar.gz'
 
       - name: List files for the space (MacOS)
         run: |
@@ -239,7 +238,7 @@ jobs:
       - name: Uncompress hdf5 binary (MacOS)
         run:  |
             cd "${{ github.workspace }}/hdf5"
-            tar -zxvf ${{ github.workspace }}/hdf5/HDF5-*-Linux.tar.gz --strip-components 1
+            tar -zxvf ${{ github.workspace }}/hdf5/HDF5-*-Darwin.tar.gz --strip-components 1
 
       - name: set hdf5lib name
         id: set-hdf5lib-name
