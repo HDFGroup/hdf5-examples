@@ -116,7 +116,7 @@ jobs:
           HDF5_ROOT: ${{ steps.set-hdf5lib-name.outputs.HDF5_ROOT }}
           HDF5_PLUGIN_PATH: ${{ steps.set-hdf5lib-name.outputs.HDF5_PLUGIN_PATH }}
         run: |
-          cd "${{ runner.workspace }}/hdf-examples/hdfsrc"
+          cd "${{ runner.workspace }}/hdf5-examples/hdfsrc"
           cmake --workflow --preset=ci-StdShar-MSVC --fresh
         shell: bash
 
@@ -233,7 +233,7 @@ jobs:
             ls ${{ runner.workspace }}
 
       - name: Uncompress gh binary (MacOS)
-        run: tar -zxvf ${{ github.workspace }}/${{ inputs.use_hdf }}-ubuntu-2204.tar.gz
+        run: tar -zxvf ${{ github.workspace }}/${{ inputs.use_hdf }}-osx12.tar.gz
 
       - name: Uncompress hdf5 binary (MacOS)
         run:  |
