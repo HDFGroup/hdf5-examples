@@ -105,18 +105,17 @@ jobs:
           echo "FILE_BASE=$FILE_NAME_BASE" >> $GITHUB_OUTPUT
         shell: bash
 
-      - name: Create source file (tgz)
-        id: create-file-tgz
+      - name: List files in the repository
         run: |
-          cd "$GITHUB_WORKSPACE/hdfsrc"
-          tar -zxvf ${{ github.workspace }}/${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz
-        shell: bash
+              ls -l ${{ github.workspace }}
+              ls $GITHUB_WORKSPACE
 
-      - name: Create source file (zip)
-        id: create-file-zip
+      - name: Create source file (tgz and zip)
+        id: create-files
         run: |
-          cd "$GITHUB_WORKSPACE/hdfsrc"
-          zip -r ${{ steps.set-file-base.outputs.FILE_BASE }}.zip ./${{ steps.set-file-base.outputs.FILE_BASE }}
+        run: |
+              zip -r ${{ steps.set-file-base.outputs.FILE_BASE }}.zip ./hdfsrc
+              tar -zcvf ${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz ./hdfsrc
         shell: bash
 
       - name: List files in the repository
