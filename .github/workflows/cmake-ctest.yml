@@ -143,7 +143,7 @@ jobs:
           #version: 'tags/1.14.2'
           #file: 'hdf5-1_14_2-ubuntu-2204.tar.gz'
           version: 'tags/snapshot'
-         file: '${{ needs.get-base-names.outputs.hdf5-name }}-ubuntu-2204.tar.gz'
+          file: '${{ needs.get-base-names.outputs.hdf5-name }}-ubuntu-2204.tar.gz'
 
       - name: List files for the space (Linux)
         run: |
