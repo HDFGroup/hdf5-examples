@@ -113,7 +113,6 @@ jobs:
       - name: Create source file (tgz and zip)
         id: create-files
         run: |
-        run: |
               zip -r ${{ steps.set-file-base.outputs.FILE_BASE }}.zip ./hdfsrc
               tar -zcvf ${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz ./hdfsrc
         shell: bash
