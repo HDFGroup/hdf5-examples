@@ -10,7 +10,29 @@
       "cacheVariables": {
         "CPACK_PACKAGE_VERSION": "2.0.4",
         "HDF5_NAMESPACE": {"type": "STRING", "value": "hdf5::"},
-        "HDF5_PACKAGE_NAME": {"type": "STRING", "value": "hdf5"}
+        "HDF5_PACKAGE_NAME": {"type": "STRING", "value": "hdf5"},
+        "BUILD_TESTING": "ON"
+      }
+    },
+    {
+      "name": "ci-StdJava",
+      "hidden": true,
+      "cacheVariables": {
+        "HDF_BUILD_JAVA": "ON"
+      }
+    },
+    {
+      "name": "ci-StdFortran",
+      "hidden": true,
+      "cacheVariables": {
+        "HDF_BUILD_FORTRAN": "ON"
+      }
+    },
+    {
+      "name": "ci-StdPlugins",
+      "hidden": true,
+      "cacheVariables": {
+        "HDF_BUILD_FILTERS": "ON"
       }
     },
     {
@@ -97,31 +119,13 @@
       ]
     }
   ],
-  "packagePresets": [
-    {
-      "name": "ci-StdShar-MSVC",
-      "configurePreset": "ci-StdShar-MSVC",
-      "inherits": "ci-x64-Release-MSVC"
-    },
-    {
-      "name": "ci-StdShar-Clang",
-      "configurePreset": "ci-StdShar-Clang",
-      "inherits": "ci-x64-Release-Clang"
-    },
-    {
-      "name": "ci-StdShar-GNUC",
-      "configurePreset": "ci-StdShar-GNUC",
-      "inherits": "ci-x64-Release-GNUC"
-    }
-  ],
   "workflowPresets": [
     {
       "name": "ci-StdShar-MSVC",
       "steps": [
         {"type": "configure", "name": "ci-StdShar-MSVC"},
         {"type": "build", "name": "ci-StdShar-MSVC"},
-        {"type": "test", "name": "ci-StdShar-MSVC"},
-        {"type": "package", "name": "ci-StdShar-MSVC"}
+        {"type": "test", "name": "ci-StdShar-MSVC"}
       ]
     },
     {
@@ -129,8 +133,7 @@
       "steps": [
         {"type": "configure", "name": "ci-StdShar-Clang"},
         {"type": "build", "name": "ci-StdShar-Clang"},
-        {"type": "test", "name": "ci-StdShar-Clang"},
-        {"type": "package", "name": "ci-StdShar-Clang"}
+        {"type": "test", "name": "ci-StdShar-Clang"}
       ]
     },
     {
@@ -138,8 +141,7 @@
       "steps": [
         {"type": "configure", "name": "ci-StdShar-GNUC"},
         {"type": "build", "name": "ci-StdShar-GNUC"},
-        {"type": "test", "name": "ci-StdShar-GNUC"},
-        {"type": "package", "name": "ci-StdShar-GNUC"}
+        {"type": "test", "name": "ci-StdShar-GNUC"}
       ]
     }
   ]

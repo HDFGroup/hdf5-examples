@@ -59,7 +59,6 @@ jobs:
       - name: List files for the space (Win)
         run: |
               ls -l ${{ github.workspace }}/hdf5
-              ls ${{ runner.workspace }}/hdfview
 
       - name: create hdf5 location (Win)
         working-directory: ${{ github.workspace }}/hdf5
@@ -81,7 +80,6 @@ jobs:
 
       - name: List files for the binaries (Win)
         run: |
-            ls -l ${{ github.workspace }}/HDF_Group/HDF
             ls -l ${{ github.workspace }}/HDF_Group/HDF5
 
       - name: Set file base name (Windows)
@@ -114,8 +112,11 @@ jobs:
         shell: bash
 
       - name: Run ctest (Windows)
+        env:
+          HDF5_ROOT: ${{ steps.set-hdf5lib-name.outputs.HDF5_ROOT }}
+          HDF5_PLUGIN_PATH: ${{ steps.set-hdf5lib-name.outputs.HDF5_PLUGIN_PATH }}
         run: |
-          cd "${{ runner.workspace }}/hdf-examples/hdfsrc"
+          cd "${{ runner.workspace }}/hdf5-examples/hdfsrc"
           cmake --workflow --preset=ci-StdShar-MSVC --fresh
         shell: bash
 
@@ -192,8 +193,11 @@ jobs:
         run: tar -zxvf ${{ github.workspace }}/${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz
 
       - name: Run ctest (Linux)
+        env:
+          HDF5_ROOT: ${{ steps.set-hdf5lib-name.outputs.HDF5_ROOT }}
+          HDF5_PLUGIN_PATH: ${{ steps.set-hdf5lib-name.outputs.HDF5_PLUGIN_PATH }}
         run: |
-          cd "${{ runner.workspace }}/hdf-examples/hdfsrc"
+          cd "${{ runner.workspace }}/hdf5-examples/hdfsrc"
           cmake --workflow --preset=ci-StdShar-GNUC --fresh
         shell: bash
 
@@ -205,6 +209,48 @@ jobs:
     steps:
       - name: Install Dependencies (MacOS)
         run: brew install ninja doxygen
+
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 19
+        uses: actions/setup-java@v3
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+
+      - name: Get hdf5 release
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          repo: 'HDFGroup/hdf5'
+          #version: 'tags/1.14.2'
+          #file: 'hdf5-1_14_2-osx12.tar.gz'
+          version: 'tags/snapshot'
+          file: '${{ inputs.use_hdf }}-osx12.tar.gz'
+
+      - name: List files for the space (MacOS)
+        run: |
+            ls -l ${{ github.workspace }}
+            ls ${{ runner.workspace }}
+
+      - name: Uncompress gh binary (MacOS)
+        run: tar -zxvf ${{ github.workspace }}/${{ inputs.use_hdf }}-osx12.tar.gz
+
+      - name: Uncompress hdf5 binary (MacOS)
+        run:  |
+            cd "${{ github.workspace }}/hdf5"
+            tar -zxvf ${{ github.workspace }}/hdf5/HDF5-*-Darwin.tar.gz --strip-components 1
+
+      - name: set hdf5lib name
+        id: set-hdf5lib-name
+        run: |
+          HDF5DIR=${{ github.workspace }}/hdf5/HDF_Group/HDF5/
+          FILE_NAME_HDF5=$(ls ${{ github.workspace }}/hdf5/HDF_Group/HDF5)
+          echo "HDF5_ROOT=$HDF5DIR$FILE_NAME_HDF5" >> $GITHUB_OUTPUT
+          echo "HDF5_PLUGIN_PATH=$HDF5_ROOT/lib/plugin" >> $GITHUB_OUTPUT
+
+      - name: List files for the binaries (MacOS)
+        run: |
+            ls -l ${{ github.workspace }}/hdf5/HDF_Group/HDF5
 
       - name: Set file base name (MacOS)
         id: set-file-base
@@ -233,8 +279,11 @@ jobs:
   
       - name: Run ctest (MacOS)
         id: run-ctest
+        env:
+          HDF5_ROOT: ${{ steps.set-hdf5lib-name.outputs.HDF5_ROOT }}
+          HDF5_PLUGIN_PATH: ${{ steps.set-hdf5lib-name.outputs.HDF5_PLUGIN_PATH }}
         run: |
-          cd "${{ runner.workspace }}/hdf5/hdfsrc"
+          cd "${{ runner.workspace }}/hdf5-examples/hdfsrc"
           cmake --workflow --preset=ci-StdShar-Clang --fresh
         shell: bash
 

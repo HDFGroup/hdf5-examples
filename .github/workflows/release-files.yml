@@ -86,25 +86,6 @@ jobs:
               name: zip-tarball
               path: ${{ github.workspace }}
 
-      # Get files created by cmake-ctest script
-      - name: Get published binary (Windows)
-        uses: actions/download-artifact@v3
-        with:
-              name: zip-vs2022-binary
-              path: ${{ github.workspace }}
-
-      - name: Get published binary (MacOS)
-        uses: actions/download-artifact@v3
-        with:
-              name: tgz-osx12-binary
-              path: ${{ github.workspace }}
-
-      - name: Get published binary (Linux)
-        uses: actions/download-artifact@v3
-        with:
-              name: tgz-ubuntu-2204-binary
-              path: ${{ github.workspace }}
-
       - name: Store snapshot name
         run: |
           echo "${{ steps.get-file-base.outputs.FILE_BASE }}" > ./last-file.txt
@@ -120,9 +101,6 @@ jobs:
               last-file.txt
               ${{ steps.get-file-base.outputs.FILE_BASE }}.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}.zip
-              ${{ steps.get-file-base.outputs.FILE_BASE }}-osx12.tar.gz
-              ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2204.tar.gz
-              ${{ steps.get-file-base.outputs.FILE_BASE }}-win_vs2022.zip
               if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
 
       - name: Release tag
@@ -136,9 +114,6 @@ jobs:
           files: |
               ${{ steps.get-file-base.outputs.FILE_BASE }}.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}.zip
-              ${{ steps.get-file-base.outputs.FILE_BASE }}-osx12.tar.gz
-              ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2204.tar.gz
-              ${{ steps.get-file-base.outputs.FILE_BASE }}-win_vs2022.zip
               if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
 
       - name: List files for the space (Linux)
