@@ -7,3 +7,7 @@ PROJECT (HDF5Examples_F90 C CXX Fortran)
 add_subdirectory (${PROJECT_SOURCE_DIR}/H5D)
 add_subdirectory (${PROJECT_SOURCE_DIR}/H5G)
 add_subdirectory (${PROJECT_SOURCE_DIR}/H5T)
+
+if (H5_HAVE_PARALLEL AND HDF5_ENABLE_PARALLEL)
+  add_subdirectory (${PROJECT_SOURCE_DIR}/H5Parallel)
+endif ()

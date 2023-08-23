@@ -1,6 +1,5 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
@@ -47,23 +46,25 @@
 /* Define some handy debugging shorthands, routines, ... */
 /* debugging tools */
 #define MESG(x)                                                                                              \
-    if (verbose)                                                                                             \
-        printf("%s\n", x);
+    do {                                                                                                     \
+        if (verbose)                                                                                         \
+            printf("%s\n", x);                                                                               \
+    } while (0)
 
 #define MPI_BANNER(mesg)                                                                                     \
-    {                                                                                                        \
+    do {                                                                                                     \
         printf("--------------------------------\n");                                                        \
         printf("Proc %d: ", mpi_rank);                                                                       \
         printf("*** %s\n", mesg);                                                                            \
         printf("--------------------------------\n");                                                        \
-    }
+    } while (0)
 
 #define SYNC(comm)                                                                                           \
-    {                                                                                                        \
+    do {                                                                                                     \
         MPI_BANNER("doing a SYNC");                                                                          \
         MPI_Barrier(comm);                                                                                   \
         MPI_BANNER("SYNC DONE");                                                                             \
-    }
+    } while (0)
 /* End of Define some handy debugging shorthands, routines, ... */
 
 /* Constants definitions */

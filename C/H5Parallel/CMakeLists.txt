@@ -22,7 +22,7 @@ foreach (example ${examples})
 endforeach ()
 
 if (BUILD_TESTING)
-  macro (ADD_GREP_TEST testname)
+  macro (ADD_GREP_TEST testname mumprocs)
     add_test (
         NAME ${EXAMPLE_VARNAME}_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
@@ -33,7 +33,7 @@ if (BUILD_TESTING)
       set_tests_properties (${EXAMPLE_VARNAME}_${testname}-clearall PROPERTIES DEPENDS ${last_test})
     endif ()
     add_test (NAME ${EXAMPLE_VARNAME}_${testname} COMMAND "${CMAKE_COMMAND}"
-        -D "TEST_PROGRAM=${MPIEXEC_EXECUTABLE};${MPIEXEC_NUMPROC_FLAG};${NUMPROCS};${MPIEXEC_PREFLAGS};$<TARGET_FILE:${EXAMPLE_VARNAME}_${testname}>;${MPIEXEC_POSTFLAGS}"
+        -D "TEST_PROGRAM=${MPIEXEC_EXECUTABLE};${MPIEXEC_NUMPROC_FLAG};${mumprocs};${MPIEXEC_PREFLAGS};$<TARGET_FILE:${EXAMPLE_VARNAME}_${testname}>;${MPIEXEC_POSTFLAGS}"
         -D "TEST_ARGS:STRING="
         -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
         -D "TEST_EXPECT=0"
@@ -53,7 +53,13 @@ if (BUILD_TESTING)
 
   foreach (example ${examples})
     get_filename_component (example_name ${example} NAME_WE)
-    ADD_GREP_TEST (${example_name})
+    if (${example_name} STREQUAL "ph5_hyperslab_by_col")
+      ADD_GREP_TEST (${example_name} 2)
+    elseif (${example_name} STREQUAL "ph5_hyperslab_by_chunk" OR ${example_name} STREQUAL "ph5_hyperslab_by_pattern")
+      ADD_GREP_TEST (${example_name} 4)
+    else ()
+      ADD_GREP_TEST (${example_name} ${NUMPROCS})
+    endif ()
   endforeach ()
 
 endif ()
