@@ -10,11 +10,11 @@ add_subdirectory (${PROJECT_SOURCE_DIR}/H5T)
 
 if (${H5_LIBVER_DIR} GREATER 16)
 #  add_subdirectory (${PROJECT_SOURCE_DIR}/Performance)
-  if (USE_SHARED_LIBS AND HDF_BUILD_FILTERS)
+  if (USE_SHARED_LIBS AND HDF_BUILD_FILTERS AND HDF5_ENABLE_PLUGIN_SUPPORT)
     add_subdirectory (${PROJECT_SOURCE_DIR}/H5Filters)
   endif ()
 endif ()
 
-if (H5_HAVE_PARALLEL)
+if (H5_HAVE_PARALLEL AND HDF5_ENABLE_PARALLEL)
   add_subdirectory (${PROJECT_SOURCE_DIR}/H5Parallel)
 endif ()
