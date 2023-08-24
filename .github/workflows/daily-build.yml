@@ -59,6 +59,7 @@ jobs:
     - run: echo "use_environ is ${{ steps.getinputs.outputs.INPUTS_ENVIRON }}."
 
   call-workflow-tarball:
+    needs: get-base-names
     uses: ./.github/workflows/tarball.yml
     with:
       use_ignore: ${{ needs.get-base-names.outputs.run-ignore }}
