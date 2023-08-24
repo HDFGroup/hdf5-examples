@@ -46,7 +46,7 @@ jobs:
       id: gethdf5base
       run: echo "HDF5_NAME_BASE=$(cat last-file.txt)" >> $GITHUB_OUTPUT
 
-    - run: echo "hdf5 base name is ${{ steps.gethdf5base.HDF5_NAME_BASE }}."
+    - run: echo "hdf5 base name is ${{ steps.gethdf5base.outputs.HDF5_NAME_BASE }}."
 
     - name: Read inputs
       id: getinputs
@@ -54,9 +54,9 @@ jobs:
         echo "INPUTS_IGNORE=${{ ((github.event.inputs.use_ignore == '' && github.event.inputs.use_ignore)  || 'ignore') }}" >> $GITHUB_OUTPUT
         echo "INPUTS_ENVIRON=${{ ((github.event.inputs.use_environ == '' && github.event.inputs.use_environ)  || 'snapshots') }}" >> $GITHUB_OUTPUT
 
-    - run: echo "use_ignore is ${{ steps.getinputs.INPUTS_IGNORE }}."
+    - run: echo "use_ignore is ${{ steps.getinputs.outputs.INPUTS_IGNORE }}."
 
-    - run: echo "use_environ is ${{ steps.getinputs.INPUTS_ENVIRON }}."
+    - run: echo "use_environ is ${{ steps.getinputs.outputs.INPUTS_ENVIRON }}."
 
   call-workflow-tarball:
     uses: ./.github/workflows/tarball.yml
@@ -73,6 +73,7 @@ jobs:
       #use_tag: snapshot
       #use_environ: snapshots
     if: ${{ needs.call-workflow-tarball.outputs.has_changes == 'true' }}
+    if: ${{ ((needs.get-base-names.outputs.run-environ == 'snapshots') && ((needs.call-workflow-tarball.outputs.has_changes == 'true') || (needs.get-base-names.outputs.run-ignore == 'ignore'))) || (needs.get-base-names.outputs.run-environ  == 'release') }}
 
   call-workflow-release:
     needs: [call-workflow-tarball, call-workflow-ctest]
@@ -86,4 +87,5 @@ jobs:
       use_tag: ${{ needs.get-base-names.outputs.run-environ }}
       use_environ: ${{ needs.get-base-names.outputs.run-environ }}
     if: ${{ needs.call-workflow-tarball.outputs.has_changes == 'true' }}
+    if: ${{ ((needs.get-base-names.outputs.run-environ == 'snapshots') && ((needs.call-workflow-tarball.outputs.has_changes == 'true') || (needs.get-base-names.outputs.run-ignore == 'ignore'))) || (needs.get-base-names.outputs.run-environ  == 'release') }}
 
