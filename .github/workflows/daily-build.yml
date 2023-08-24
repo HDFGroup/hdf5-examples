@@ -50,9 +50,9 @@ jobs:
       id: getinputs
       run: |
         IN_IGNORE=${{ github.event.inputs.use_ignore }}
-        echo "INPUTS_IGNORE=${IN_IGNORE:-"ignore"}" >> $GITHUB_OUTPUT
+        echo "INPUTS_IGNORE=${IN_IGNORE:-'ignore'}" >> $GITHUB_OUTPUT
         IN_ENVIRON=${{ github.event.inputs.use_environ }}
-        echo "INPUTS_ENVIRON=${IN_ENVIRON:-"snapshots"}" >> $GITHUB_OUTPUT
+        echo "INPUTS_ENVIRON=${IN_ENVIRON:-'snapshots'}" >> $GITHUB_OUTPUT
 
   call-workflow-tarball:
     uses: ./.github/workflows/tarball.yml
