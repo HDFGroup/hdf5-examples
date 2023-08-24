@@ -46,11 +46,17 @@ jobs:
       id: gethdf5base
       run: echo "HDF5_NAME_BASE=$(cat last-file.txt)" >> $GITHUB_OUTPUT
 
+    - run: echo "hdf5 base name is ${{ steps.gethdf5base.HDF5_NAME_BASE }}."
+
     - name: Read inputs
       id: getinputs
       run: |
         echo "INPUTS_IGNORE=${{ ((github.event.inputs.use_ignore == '' && github.event.inputs.use_ignore)  || 'ignore') }}" >> $GITHUB_OUTPUT
         echo "INPUTS_ENVIRON=${{ ((github.event.inputs.use_environ == '' && github.event.inputs.use_environ)  || 'snapshots') }}" >> $GITHUB_OUTPUT
+
+    - run: echo "use_ignore is ${{ steps.getinputs.INPUTS_IGNORE }}."
+
+    - run: echo "use_environ is ${{ steps.getinputs.INPUTS_ENVIRON }}."
 
   call-workflow-tarball:
     uses: ./.github/workflows/tarball.yml
