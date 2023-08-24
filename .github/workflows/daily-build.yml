@@ -57,8 +57,8 @@ jobs:
   call-workflow-tarball:
     uses: ./.github/workflows/tarball.yml
     with:
-      #use_tag: snapshot
-      use_environ: snapshots
+      use_ignore: ${{ needs.get-base-names.outputs.run-ignore }}
+      use_environ: ${{ needs.get-base-names.outputs.run-environ }}
 
   call-workflow-ctest:
     needs: [get-base-names, call-workflow-tarball]
@@ -79,7 +79,7 @@ jobs:
       file_base: ${{ needs.call-workflow-tarball.outputs.file_base }}
       file_branch: ${{ needs.call-workflow-tarball.outputs.file_branch }}
       file_sha: ${{ needs.call-workflow-tarball.outputs.file_sha }}
-      use_tag: snapshot
-      use_environ: snapshots
+      use_tag: ${{ needs.get-base-names.outputs.run-environ }}
+      use_environ: ${{ needs.get-base-names.outputs.run-environ }}
     if: ${{ needs.call-workflow-tarball.outputs.has_changes == 'true' }}
 
