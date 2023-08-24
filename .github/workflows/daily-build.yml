@@ -29,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       hdf5-name: ${{ steps.gethdf5base.outputs.HDF5_NAME_BASE }}
+      run-ignore: ${{ steps.getinputs.outputs.INPUTS_IGNORE }}
+      run-environ: ${{ steps.getinputs.outputs.INPUTS_ENVIRON }}
 
     steps:
     - uses: actions/checkout@v3
@@ -43,6 +45,14 @@ jobs:
     - name: Read base-name file
       id: gethdf5base
       run: echo "HDF5_NAME_BASE=$(cat last-file.txt)" >> $GITHUB_OUTPUT
+
+    - name: Read inputs
+      id: getinputs
+      run: |
+        IN_IGNORE=${{ github.event.inputs.use_ignore }}
+        echo "INPUTS_IGNORE=${IN_IGNORE:-"ignore"}" >> $GITHUB_OUTPUT
+        IN_ENVIRON=${{ github.event.inputs.use_environ }}
+        echo "INPUTS_ENVIRON=${IN_ENVIRON:-"snapshots"}" >> $GITHUB_OUTPUT
 
   call-workflow-tarball:
     uses: ./.github/workflows/tarball.yml
