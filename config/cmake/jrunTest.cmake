@@ -36,7 +36,7 @@ else ()
   set (LOG_LEVEL "${TEST_LOG_LEVEL}")
 endif ()
 
-message (STATUS "COMMAND: ${TEST_TESTER} -Xmx1024M -Dorg.slf4j.simpleLogger.defaultLog=${LOG_LEVEL} -Djava.library.path=\"${TEST_LIBRARY_DIRECTORY}\" -cp \"${TEST_CLASSPATH}\" ${TEST_ARGS} ${TEST_PROGRAM} ${ARGN}")
+message (STATUS "COMMAND: ${TEST_TESTER} -Xmx1024M -Djava.library.path=\"${TEST_LIBRARY_DIRECTORY}\" -cp \"${TEST_CLASSPATH}\" ${TEST_ARGS} ${TEST_PROGRAM} ${ARGN}")
 
 if (WIN32)
   set (ENV{PATH} "$ENV{PATH}\\;${TEST_LIBRARY_DIRECTORY}")
@@ -49,7 +49,6 @@ endif ()
 # run the test program, capture the stdout/stderr and the result var
 execute_process (
     COMMAND ${TEST_TESTER} -Xmx1024M
-    -Dorg.slf4j.simpleLogger.defaultLogLevel=${LOG_LEVEL}
     -Djava.library.path=${TEST_LIBRARY_DIRECTORY}
     -cp "${TEST_CLASSPATH}" ${TEST_ARGS} ${TEST_PROGRAM}
     ${ARGN}
