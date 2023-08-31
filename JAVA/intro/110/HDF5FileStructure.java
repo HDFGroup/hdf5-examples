@@ -40,10 +40,11 @@ import hdf.hdf5lib.structs.H5G_info_t;
  */
 public class HDF5FileStructure {
     private static String fname  = "HDF5FileStructure.h5";
-    private static long[] dims2D = { 20, 10 };
-    private static long[] dims3D = { 20, 10, 5 };
+    private static long[] dims2D = {20, 10};
+    private static long[] dims3D = {20, 10, 5};
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[]) throws Exception
+    {
         long file_id  = HDF5Constants.H5I_INVALID_HID;
         long group_id = HDF5Constants.H5I_INVALID_HID;
 
@@ -98,18 +99,20 @@ public class HDF5FileStructure {
      *
      * @throws Exception
      */
-    private static void printGroup(long g_id, String gname, String indent) throws Exception {
-        if (g_id < 0) return;
+    private static void printGroup(long g_id, String gname, String indent) throws Exception
+    {
+        if (g_id < 0)
+            return;
 
         H5G_info_t members = H5.H5Gget_info(g_id);
-        String objNames[] = new String[(int) members.nlinks];
-        int objTypes[] = new int[(int) members.nlinks];
-        int lnkTypes[] = new int[(int) members.nlinks];
-        long objRefs[] = new long[(int) members.nlinks];
-        int names_found = 0;
+        String objNames[]  = new String[(int)members.nlinks];
+        int objTypes[]     = new int[(int)members.nlinks];
+        int lnkTypes[]     = new int[(int)members.nlinks];
+        long objRefs[]     = new long[(int)members.nlinks];
+        int names_found    = 0;
         try {
-            names_found = H5.H5Gget_obj_info_all(g_id, null, objNames,
-                    objTypes, lnkTypes, objRefs, HDF5Constants.H5_INDEX_NAME);
+            names_found = H5.H5Gget_obj_info_all(g_id, null, objNames, objTypes, lnkTypes, objRefs,
+                                                 HDF5Constants.H5_INDEX_NAME);
         }
         catch (Throwable err) {
             err.printStackTrace();
@@ -119,7 +122,7 @@ public class HDF5FileStructure {
         for (int i = 0; i < names_found; i++) {
             System.out.println(indent + objNames[i]);
             long group_id = -1;
-            if (objTypes[i]==HDF5Constants.H5O_TYPE_GROUP) {
+            if (objTypes[i] == HDF5Constants.H5O_TYPE_GROUP) {
                 // Open the group, obtaining a new handle.
                 try {
                     if (g_id >= 0)
@@ -151,7 +154,8 @@ public class HDF5FileStructure {
      * @see javaExample.HDF5DatasetCreate
      * @throws Exception
      */
-    private static void createFile() throws Exception {
+    private static void createFile() throws Exception
+    {
         long file_id       = HDF5Constants.H5I_INVALID_HID;
         long dataset_id    = HDF5Constants.H5I_INVALID_HID;
         long dataspace_id1 = HDF5Constants.H5I_INVALID_HID;
@@ -161,8 +165,8 @@ public class HDF5FileStructure {
 
         // Create a new file using default properties.
         try {
-            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC,
-                    HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
+                                   HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -171,10 +175,16 @@ public class HDF5FileStructure {
         // Create groups in the file.
         try {
             if (file_id >= 0) {
-                group_id1 = H5.H5Gcreate(file_id, "/" + "integer arrays",
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
-                group_id1 = H5.H5Gcreate(file_id, "/" + "float arrays",
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                group_id1 = H5.H5Gcreate(file_id,
+                                         "/"
+                                             + "integer arrays",
+                                         HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                         HDF5Constants.H5P_DEFAULT);
+                group_id1 = H5.H5Gcreate(file_id,
+                                         "/"
+                                             + "float arrays",
+                                         HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                         HDF5Constants.H5P_DEFAULT);
             }
         }
         catch (Exception e) {
@@ -193,9 +203,14 @@ public class HDF5FileStructure {
         // create 2D 32-bit (4 bytes) integer dataset of 20 by 10
         try {
             if ((file_id >= 0) && (dataspace_id1 >= 0))
-                dataset_id = H5.H5Dcreate(file_id,
-                        "/" + "integer arrays" + "/" + "2D 32-bit integer 20x10", HDF5Constants.H5T_STD_I32LE,
-                        dataspace_id1, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id =
+                    H5.H5Dcreate(file_id,
+                                 "/"
+                                     + "integer arrays"
+                                     + "/"
+                                     + "2D 32-bit integer 20x10",
+                                 HDF5Constants.H5T_STD_I32LE, dataspace_id1, HDF5Constants.H5P_DEFAULT,
+                                 HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -214,9 +229,14 @@ public class HDF5FileStructure {
         // create 3D 8-bit (1 byte) unsigned integer dataset of 20 by 10 by 5
         try {
             if ((file_id >= 0) && (dataspace_id2 >= 0))
-                dataset_id = H5.H5Dcreate(file_id,
-                        "/" + "integer arrays" + "/" + "3D 8-bit unsigned integer 20x10x5", HDF5Constants.H5T_STD_I64LE,
-                        dataspace_id2, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id =
+                    H5.H5Dcreate(file_id,
+                                 "/"
+                                     + "integer arrays"
+                                     + "/"
+                                     + "3D 8-bit unsigned integer 20x10x5",
+                                 HDF5Constants.H5T_STD_I64LE, dataspace_id2, HDF5Constants.H5P_DEFAULT,
+                                 HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -235,9 +255,14 @@ public class HDF5FileStructure {
         // create 2D 64-bit (8 bytes) double dataset of 20 by 10
         try {
             if ((file_id >= 0) && (dataspace_id1 >= 0))
-                dataset_id = H5.H5Dcreate(file_id,
-                        "/" + "float arrays" + "/" + "2D 64-bit double 20x10", HDF5Constants.H5T_NATIVE_DOUBLE,
-                        dataspace_id1, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id =
+                    H5.H5Dcreate(file_id,
+                                 "/"
+                                     + "float arrays"
+                                     + "/"
+                                     + "2D 64-bit double 20x10",
+                                 HDF5Constants.H5T_NATIVE_DOUBLE, dataspace_id1, HDF5Constants.H5P_DEFAULT,
+                                 HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -256,9 +281,14 @@ public class HDF5FileStructure {
         // create 3D 32-bit (4 bytes) float dataset of 20 by 10 by 5
         try {
             if ((file_id >= 0) && (dataspace_id2 >= 0))
-                dataset_id = H5.H5Dcreate(file_id,
-                        "/" + "float arrays" + "/" + "3D 32-bit float  20x10x5", HDF5Constants.H5T_NATIVE_FLOAT,
-                        dataspace_id2, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id =
+                    H5.H5Dcreate(file_id,
+                                 "/"
+                                     + "float arrays"
+                                     + "/"
+                                     + "3D 32-bit float  20x10x5",
+                                 HDF5Constants.H5T_NATIVE_FLOAT, dataspace_id2, HDF5Constants.H5P_DEFAULT,
+                                 HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();

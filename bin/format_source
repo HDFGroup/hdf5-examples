@@ -21,7 +21,7 @@ echo "installed version of clang-format to be used."
 echo ""
 
 find . \( -type d -path ./config -prune -and -not -path ./config \) \
-    -and \( -iname *.h -or -iname *.c -or -iname *.cpp -or -iname *.hpp -or -iname *.java \) \
-    | xargs -P0 -n1 ${COMMAND} -style=file -fallback-style=none
+    -or \( -iname *.h -or -iname *.c -or -iname *.cpp -or -iname *.hpp -or -iname *.java \) \
+    | xargs -P0 -n1 ${COMMAND} -style=file -i -fallback-style=none
 
 exit 0

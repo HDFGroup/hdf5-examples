@@ -12,55 +12,52 @@
 #include "hdf5.h"
 #include <stdio.h>
 
-#define FILE       "h5ex_g_visit.h5"
+#define FILE "h5ex_g_visit.h5"
 
 /*
  * Operator function to be called by H5Ovisit.
  */
-herr_t op_func (hid_t loc_id, const char *name, const H5O_info_t *info,
-            void *operator_data);
+herr_t op_func(hid_t loc_id, const char *name, const H5O_info_t *info, void *operator_data);
 
 /*
  * Operator function to be called by H5Lvisit.
  */
-herr_t op_func_L (hid_t loc_id, const char *name, const H5L_info_t *info,
-            void *operator_data);
+herr_t op_func_L(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_data);
 
 int
-main (void)
+main(void)
 {
-    hid_t           file;           /* Handle */
-    herr_t          status;
+    hid_t  file; /* Handle */
+    herr_t status;
 
     /*
      * Open file
      */
-    file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
+    file = H5Fopen(FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
 
     /*
      * Begin iteration using H5Ovisit
      */
-    printf ("Objects in the file:\n");
-#if H5_VERSION_GE(1,12,0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-    status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL, H5O_INFO_ALL);
+    printf("Objects in the file:\n");
+#if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
+    status = H5Ovisit(file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL, H5O_INFO_ALL);
 #else
-    status = H5Ovisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL);
+    status = H5Ovisit(file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func, NULL);
 #endif
 
     /*
      * Repeat the same process using H5Lvisit
      */
-    printf ("\nLinks in the file:\n");
-    status = H5Lvisit (file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func_L, NULL);
+    printf("\nLinks in the file:\n");
+    status = H5Lvisit(file, H5_INDEX_NAME, H5_ITER_NATIVE, op_func_L, NULL);
 
     /*
      * Close and release resources.
      */
-    status = H5Fclose (file);
+    status = H5Fclose(file);
 
     return 0;
 }
-
 
 /************************************************************
 
@@ -68,35 +65,34 @@ main (void)
   name and type of the object passed to it.
 
  ************************************************************/
-herr_t op_func (hid_t loc_id, const char *name, const H5O_info_t *info,
-            void *operator_data)
+herr_t
+op_func(hid_t loc_id, const char *name, const H5O_info_t *info, void *operator_data)
 {
-    printf ("/");               /* Print root group in object path */
+    printf("/"); /* Print root group in object path */
 
     /*
      * Check if the current object is the root group, and if not print
      * the full path name and type.
      */
-    if (name[0] == '.')         /* Root group, do not print '.' */
-        printf ("  (Group)\n");
+    if (name[0] == '.') /* Root group, do not print '.' */
+        printf("  (Group)\n");
     else
         switch (info->type) {
             case H5O_TYPE_GROUP:
-                printf ("%s  (Group)\n", name);
+                printf("%s  (Group)\n", name);
                 break;
             case H5O_TYPE_DATASET:
-                printf ("%s  (Dataset)\n", name);
+                printf("%s  (Dataset)\n", name);
                 break;
             case H5O_TYPE_NAMED_DATATYPE:
-                printf ("%s  (Datatype)\n", name);
+                printf("%s  (Datatype)\n", name);
                 break;
             default:
-                printf ("%s  (Unknown)\n", name);
+                printf("%s  (Unknown)\n", name);
         }
 
     return 0;
 }
-
 
 /************************************************************
 
@@ -105,21 +101,21 @@ herr_t op_func (hid_t loc_id, const char *name, const H5O_info_t *info,
   to, and calls the operator function for H5Ovisit.
 
  ************************************************************/
-herr_t op_func_L (hid_t loc_id, const char *name, const H5L_info_t *info,
-            void *operator_data)
+herr_t
+op_func_L(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_data)
 {
-    herr_t          status;
-    H5O_info_t      infobuf;
+    herr_t     status;
+    H5O_info_t infobuf;
 
     /*
      * Get type of the object and display its name and type.
      * The name of the object is passed to this function by
      * the Library.
      */
-#if H5_VERSION_GE(1,12,0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-    status = H5Oget_info_by_name (loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
+#if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
+    status = H5Oget_info_by_name(loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
 #else
-    status = H5Oget_info_by_name (loc_id, name, &infobuf, H5P_DEFAULT);
+    status = H5Oget_info_by_name(loc_id, name, &infobuf, H5P_DEFAULT);
 #endif
-    return op_func (loc_id, name, &infobuf, operator_data);
+    return op_func(loc_id, name, &infobuf, operator_data);
 }

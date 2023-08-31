@@ -13,32 +13,32 @@
 int
 main(void)
 {
-    hid_t       file, group;         /* Handles */
-    herr_t      status;
+    hid_t  file, group; /* Handles */
+    herr_t status;
 
     /*
      * Create a new file using the default properties.
      */
-    file = H5Fcreate (FILE, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+    file = H5Fcreate(FILE, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 
     /*
      * Create a group named "G1" in the file.
      */
-    group = H5Gcreate (file, "/G1", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+    group = H5Gcreate(file, "/G1", H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 
     /*
      * Close the group.  The handle "group" can no longer be used.
      */
-    status = H5Gclose (group);
+    status = H5Gclose(group);
 
     /*
      * Re-open the group, obtaining a new handle.
      */
-    group = H5Gopen (file, "/G1", H5P_DEFAULT);
+    group = H5Gopen(file, "/G1", H5P_DEFAULT);
 
     /*
      * Close and release resources.
      */
-    status = H5Gclose (group);
-    status = H5Fclose (file);
+    status = H5Gclose(group);
+    status = H5Fclose(file);
 }

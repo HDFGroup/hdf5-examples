@@ -32,10 +32,10 @@ import hdf.hdf5lib.HDF5Constants;
  * </p>
  */
 public class HDF5AttributeCreate {
-    private static String fname  = "HDF5AttributeCreate.h5";
-    private static String dsname  = "2D 32-bit integer 20x10";
-    private static String attrname  = "data range";
-    private static long[] dims2D = { 20, 10 };
+    private static String fname    = "HDF5AttributeCreate.h5";
+    private static String dsname   = "2D 32-bit integer 20x10";
+    private static String attrname = "data range";
+    private static long[] dims2D   = {20, 10};
 
     private static void CreateDatasetAttribute()
     {
@@ -69,8 +69,8 @@ public class HDF5AttributeCreate {
             e.printStackTrace();
         }
 
-        long[] attrDims = { 2 }; // 1D of size two
-        int[] attrValue = { 0, 10000 }; // attribute value
+        long[] attrDims = {2};        // 1D of size two
+        int[] attrValue = {0, 10000}; // attribute value
 
         // Create the data space for the attribute.
         try {
@@ -83,9 +83,8 @@ public class HDF5AttributeCreate {
         // Create a dataset attribute.
         try {
             if ((dataset_id >= 0) && (dataspace_id >= 0))
-                attribute_id = H5.H5Acreate(dataset_id, attrname,
-                        HDF5Constants.H5T_STD_I32BE, dataspace_id,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                attribute_id = H5.H5Acreate(dataset_id, attrname, HDF5Constants.H5T_STD_I32BE, dataspace_id,
+                                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -119,8 +118,8 @@ public class HDF5AttributeCreate {
 
         try {
             if (dataset_id >= 0)
-                attribute_id = H5.H5Aopen_by_name(dataset_id, ".", attrname,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                attribute_id = H5.H5Aopen_by_name(dataset_id, ".", attrname, HDF5Constants.H5P_DEFAULT,
+                                                  HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -145,7 +144,7 @@ public class HDF5AttributeCreate {
 
         // Allocate array of pointers to two-dimensional arrays (the
         // elements of the dataset.
-        int[] attrData = new int[(int) attrDims[0]];
+        int[] attrData = new int[(int)attrDims[0]];
 
         // Read data.
         try {
@@ -195,15 +194,16 @@ public class HDF5AttributeCreate {
      * @see javaExample.HDF5DatasetCreate
      * @throws Exception
      */
-    private static void createFile() throws Exception {
+    private static void createFile() throws Exception
+    {
         long file_id      = HDF5Constants.H5I_INVALID_HID;
         long dataspace_id = HDF5Constants.H5I_INVALID_HID;
         long dataset_id   = HDF5Constants.H5I_INVALID_HID;
 
         // Create a new file using default properties.
         try {
-            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC,
-                    HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
+                                   HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -220,9 +220,9 @@ public class HDF5AttributeCreate {
         // Create the dataset.
         try {
             if ((file_id >= 0) && (dataspace_id >= 0))
-                dataset_id = H5.H5Dcreate(file_id, dsname,
-                        HDF5Constants.H5T_STD_I32LE, dataspace_id,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id = H5.H5Dcreate(file_id, dsname, HDF5Constants.H5T_STD_I32LE, dataspace_id,
+                                          HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                          HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -248,9 +248,8 @@ public class HDF5AttributeCreate {
         // Write the data to the dataset.
         try {
             if (dataset_id >= 0)
-                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_INT,
-                        HDF5Constants.H5S_ALL, HDF5Constants.H5S_ALL,
-                        HDF5Constants.H5P_DEFAULT, dataIn);
+                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_INT, HDF5Constants.H5S_ALL,
+                            HDF5Constants.H5S_ALL, HDF5Constants.H5P_DEFAULT, dataIn);
         }
         catch (Exception e) {
             e.printStackTrace();

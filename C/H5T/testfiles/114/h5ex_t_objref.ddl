@@ -1,7 +1,7 @@
 HDF5 "h5ex_t_objref.h5" {
 GROUP "/" {
    DATASET "DS1" {
-      DATATYPE  H5T_REFERENCE { H5T_STD_REF_OBJECT }
+      DATATYPE  H5T_REFERENCE { H5T_STD_REF }
       DATASPACE  SIMPLE { ( 2 ) / ( 2 ) }
       DATA {
          GROUP "h5ex_t_objref.h5/G1"
