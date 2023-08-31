@@ -67,8 +67,8 @@ main(void)
     /*
      * Create a dataset with character data.
      */
-    space  = H5Screate_simple(2, dims2, NULL);
-    dset2  = H5Dcreate(file, DATASET2, H5T_STD_I8LE, space, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+    space = H5Screate_simple(2, dims2, NULL);
+    dset2 = H5Dcreate(file, DATASET2, H5T_STD_I8LE, space, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
     if (dset2 < 0)
         goto done;
     status = H5Dwrite(dset2, H5T_NATIVE_CHAR, H5S_ALL, H5S_ALL, H5P_DEFAULT, wdata2);

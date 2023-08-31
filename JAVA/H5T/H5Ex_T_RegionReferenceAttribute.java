@@ -39,18 +39,18 @@ public class H5Ex_T_RegionReferenceAttribute {
 
     private static void writeRegRef()
     {
-        long file_id       = HDF5Constants.H5I_INVALID_HID;
-        long dataspace_id  = HDF5Constants.H5I_INVALID_HID;
-        long filespace_id  = HDF5Constants.H5I_INVALID_HID;
-        long group_id      = HDF5Constants.H5I_INVALID_HID;
-        long dataset_id    = HDF5Constants.H5I_INVALID_HID;
-        long attribute_id  = HDF5Constants.H5I_INVALID_HID;
-        long[] dims        = {DIM0};
-        long[] dims2       = {DS2DIM0, DS2DIM1};
+        long file_id      = HDF5Constants.H5I_INVALID_HID;
+        long dataspace_id = HDF5Constants.H5I_INVALID_HID;
+        long filespace_id = HDF5Constants.H5I_INVALID_HID;
+        long group_id     = HDF5Constants.H5I_INVALID_HID;
+        long dataset_id   = HDF5Constants.H5I_INVALID_HID;
+        long attribute_id = HDF5Constants.H5I_INVALID_HID;
+        long[] dims       = {DIM0};
+        long[] dims2      = {DS2DIM0, DS2DIM1};
         // data buffer for writing region reference
         byte[][] dset_data = new byte[DIM0][HDF5Constants.H5R_REF_BUF_SIZE];
         // data buffer for writing dataset
-        byte[][] write_data      = new byte[DS2DIM0][DS2DIM1];
+        byte[][] write_data     = new byte[DS2DIM0][DS2DIM1];
         StringBuffer[] str_data = {new StringBuffer("The quick brown"), new StringBuffer("fox jumps over "),
                                    new StringBuffer("the 5 lazy dogs")};
 
@@ -78,7 +78,8 @@ public class H5Ex_T_RegionReferenceAttribute {
                             write_data[indx][jndx] = 0;
                     }
                 }
-                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_CHAR, HDF5Constants.H5S_ALL, HDF5Constants.H5S_ALL, HDF5Constants.H5P_DEFAULT, write_data);
+                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_CHAR, HDF5Constants.H5S_ALL,
+                            HDF5Constants.H5S_ALL, HDF5Constants.H5P_DEFAULT, write_data);
             }
         }
         catch (Exception e) {
@@ -91,7 +92,8 @@ public class H5Ex_T_RegionReferenceAttribute {
 
             H5.H5Sselect_elements(dataspace_id, HDF5Constants.H5S_SELECT_SET, 4, coords);
             if (file_id >= 0)
-                dset_data[0] = H5.H5Rcreate_region(file_id, DATASETNAME2, dataspace_id, HDF5Constants.H5P_DEFAULT);
+                dset_data[0] =
+                    H5.H5Rcreate_region(file_id, DATASETNAME2, dataspace_id, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception ex) {
             ex.printStackTrace();
@@ -99,14 +101,16 @@ public class H5Ex_T_RegionReferenceAttribute {
 
         // Create reference to a hyperslab in dset2.
         try {
-            long[] start  = {0, 0}; // Starting location of hyperslab
+            long[] start  = {0, 0};  // Starting location of hyperslab
             long[] stride = {2, 11}; // Stride of hyperslab
-            long[] count  = {2, 2}; // Element count of hyperslab
-            long[] block  = {1, 3}; // Block size of hyperslab
+            long[] count  = {2, 2};  // Element count of hyperslab
+            long[] block  = {1, 3};  // Block size of hyperslab
 
             H5.H5Sselect_hyperslab(dataspace_id, HDF5Constants.H5S_SELECT_SET, start, stride, count, block);
             if (file_id >= 0)
-                dset_data[1] = H5.H5Rcreate_region(file_id, DATASETNAME2, dataspace_id, HDF5Constants.H5P_DEFAULT);;
+                dset_data[1] =
+                    H5.H5Rcreate_region(file_id, DATASETNAME2, dataspace_id, HDF5Constants.H5P_DEFAULT);
+            ;
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -121,7 +125,9 @@ public class H5Ex_T_RegionReferenceAttribute {
         // Create dataset with a null dataspace to serve as the parent for the attribute.
         try {
             dataspace_id = H5.H5Screate(HDF5Constants.H5S_NULL);
-            dataset_id   = H5.H5Dcreate(file_id, DATASETNAME, HDF5Constants.H5T_STD_I32LE, space, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+            dataset_id =
+                H5.H5Dcreate(file_id, DATASETNAME, HDF5Constants.H5T_STD_I32LE, space,
+                             HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -138,8 +144,8 @@ public class H5Ex_T_RegionReferenceAttribute {
             dataspace_id = H5.H5Screate_simple(1, dims, null);
             if ((file_id >= 0) && (attribute_id >= 0)) {
                 attribute_id = H5.H5Acreate(file_id, ATTRIBUTENAME, HDF5Constants.H5T_STD_REF, dataspace_id,
-                                          HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
-                                          HDF5Constants.H5P_DEFAULT);
+                                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                            HDF5Constants.H5P_DEFAULT);
                 H5.H5Awrite(attribute_id, HDF5Constants.H5T_STD_REF, dset_data);
             }
         }
@@ -242,18 +248,18 @@ public class H5Ex_T_RegionReferenceAttribute {
                                 String obj_name = H5.H5Iget_name(object_id);
 
                                 region_id = H5.H5Ropen_region(dset_data[indx], HDF5Constants.H5P_DEFAULT,
-                                                           HDF5Constants.H5P_DEFAULT);
+                                                              HDF5Constants.H5P_DEFAULT);
                                 if ((object_id >= 0) && (region_id >= 0)) {
                                     try {
                                         long reg_npoints = H5.H5Sget_select_npoints(region_id);
-                                        long[] dims2  = new long[1];
-                                        dims2[0] = (int)reg_npoints;
-                                        dataspace_id = H5.H5Screate_simple(1, dims2, null);
+                                        long[] dims2     = new long[1];
+                                        dims2[0]         = (int)reg_npoints;
+                                        dataspace_id     = H5.H5Screate_simple(1, dims2, null);
 
                                         // Read data.
                                         byte[] refbuf = new byte[(int)reg_npoints + 1];
                                         H5.H5Dread(object_id, HDF5Constants.H5T_NATIVE_CHAR, dataspace_id,
-                                                region_id, HDF5Constants.H5P_DEFAULT, refbuf);
+                                                   region_id, HDF5Constants.H5P_DEFAULT, refbuf);
                                         refbuf[(int)reg_npoints] = 0;
                                         str_data = new StringBuffer(new String(refbuf).trim());
 
@@ -292,8 +298,8 @@ public class H5Ex_T_RegionReferenceAttribute {
                         }
                     } // end for
                 }
-                catch (Exception e4) { 
-                    e4.printStackTrace(); 
+                catch (Exception e4) {
+                    e4.printStackTrace();
                 }
                 finally {
                     try {

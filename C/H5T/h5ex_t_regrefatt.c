@@ -69,8 +69,8 @@ main(void)
     /*
      * Create a dataset with character data.
      */
-    space  = H5Screate_simple(2, dims2, NULL);
-    dset2  = H5Dcreate(file, DATASET2, H5T_STD_I8LE, space, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
+    space = H5Screate_simple(2, dims2, NULL);
+    dset2 = H5Dcreate(file, DATASET2, H5T_STD_I8LE, space, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
     if (dset2 < 0)
         goto done;
     status = H5Dwrite(dset2, H5T_NATIVE_CHAR, H5S_ALL, H5S_ALL, H5P_DEFAULT, wdata2);
@@ -120,7 +120,7 @@ main(void)
     /*
      * Create the attribute and write the region references to it.
      */
-    attr   = H5Acreate(dset, ATTRIBUTE, ref_type, space, H5P_DEFAULT, H5P_DEFAULT);
+    attr = H5Acreate(dset, ATTRIBUTE, ref_type, space, H5P_DEFAULT, H5P_DEFAULT);
     if (attr < 0)
         goto done;
     status = H5Awrite(attr, ref_type, wdata);
@@ -165,8 +165,8 @@ main(void)
     /*
      * Get dataspace and allocate memory for read buffer.
      */
-    space  = H5Aget_space(attr);
-    ndims  = H5Sget_simple_extent_dims(space, dims, NULL);
+    space = H5Aget_space(attr);
+    ndims = H5Sget_simple_extent_dims(space, dims, NULL);
 
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
     rdata = (H5R_ref_t *)malloc(dims[0] * sizeof(H5R_ref_t));
