@@ -152,11 +152,9 @@ main(void)
     if (file < 0)
         goto done;
 
-#if H5_VERSION_LE(1, 11, 0)
     dset = H5Dopen(file, DATASET, H5P_DEFAULT);
     if (dset < 0)
         goto done;
-#endif
 
     attr = H5Aopen(dset, ATTRIBUTE, H5P_DEFAULT);
     if (attr < 0)

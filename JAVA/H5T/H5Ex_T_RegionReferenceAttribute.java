@@ -126,7 +126,7 @@ public class H5Ex_T_RegionReferenceAttribute {
         try {
             dataspace_id = H5.H5Screate(HDF5Constants.H5S_NULL);
             dataset_id =
-                H5.H5Dcreate(file_id, DATASETNAME, HDF5Constants.H5T_STD_I32LE, space,
+                H5.H5Dcreate(file_id, DATASETNAME, HDF5Constants.H5T_STD_I32LE, dataspace_id,
                              HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
@@ -144,8 +144,7 @@ public class H5Ex_T_RegionReferenceAttribute {
             dataspace_id = H5.H5Screate_simple(1, dims, null);
             if ((file_id >= 0) && (attribute_id >= 0)) {
                 attribute_id = H5.H5Acreate(file_id, ATTRIBUTENAME, HDF5Constants.H5T_STD_REF, dataspace_id,
-                                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
-                                            HDF5Constants.H5P_DEFAULT);
+                                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
                 H5.H5Awrite(attribute_id, HDF5Constants.H5T_STD_REF, dset_data);
             }
         }
@@ -233,8 +232,7 @@ public class H5Ex_T_RegionReferenceAttribute {
                     H5.H5Sget_simple_extent_dims(attribute_id, dims, null);
 
                     // Read data.
-                    H5.H5Aread(attribute_id, HDF5Constants.H5T_STD_REF, HDF5Constants.H5S_ALL,
-                               HDF5Constants.H5S_ALL, HDF5Constants.H5P_DEFAULT, dset_data);
+                    H5.H5Aread(attribute_id, HDF5Constants.H5T_STD_REF, dset_data);
 
                     // Output the data to the screen.
                     for (int indx = 0; indx < dims[0]; indx++) {
