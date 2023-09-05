@@ -6,7 +6,7 @@ GROUP "/" {
       DATA {
       }
       ATTRIBUTE "A1" {
-         DATATYPE  H5T_REFERENCE { H5T_STD_REF_OBJECT }
+         DATATYPE  H5T_REFERENCE { H5T_STD_REF }
          DATASPACE  SIMPLE { ( 2 ) / ( 2 ) }
          DATA {
             GROUP "h5ex_t_objrefatt.h5/G1"

@@ -72,8 +72,8 @@ import hdf.hdf5lib.HDF5Constants;
  */
 public class HDF5SubsetSelect {
     private static String fname  = "HDF5SubsetSelect.h5";
-    private static String dsname  = "2D 32-bit integer 20x10";
-    private static long[] dims2D = { 20, 10 };
+    private static String dsname = "2D 32-bit integer 20x10";
+    private static long[] dims2D = {20, 10};
 
     private static void SubsetSelect()
     {
@@ -116,21 +116,20 @@ public class HDF5SubsetSelect {
             if (dataset_id >= 0) {
                 filespace_id = H5.H5Dget_space(dataset_id);
 
-                long[] start = { 4, 2 };
-                long[] stride = { 3, 2 };
-                long[] count = { 5, 3 };
-                long[] block = null;
+                long[] start  = {4, 2};
+                long[] stride = {3, 2};
+                long[] count  = {5, 3};
+                long[] block  = null;
 
                 if (filespace_id >= 0) {
-                    H5.H5Sselect_hyperslab(filespace_id, HDF5Constants.H5S_SELECT_SET,
-                            start, stride, count, block);
+                    H5.H5Sselect_hyperslab(filespace_id, HDF5Constants.H5S_SELECT_SET, start, stride, count,
+                                           block);
 
                     memspace_id = H5.H5Screate_simple(2, count, null);
                     // Read the data using the previously defined hyperslab.
                     if ((dataset_id >= 0) && (filespace_id >= 0) && (memspace_id >= 0))
-                        H5.H5Dread(dataset_id, HDF5Constants.H5T_NATIVE_INT,
-                                memspace_id, filespace_id, HDF5Constants.H5P_DEFAULT,
-                                dataRead);
+                        H5.H5Dread(dataset_id, HDF5Constants.H5T_NATIVE_INT, memspace_id, filespace_id,
+                                   HDF5Constants.H5P_DEFAULT, dataRead);
                 }
             }
         }
@@ -181,15 +180,16 @@ public class HDF5SubsetSelect {
      * @see javaExample.HDF5DatasetCreate
      * @throws Exception
      */
-    private static void createFile() throws Exception {
+    private static void createFile() throws Exception
+    {
         long file_id      = HDF5Constants.H5I_INVALID_HID;
         long dataspace_id = HDF5Constants.H5I_INVALID_HID;
         long dataset_id   = HDF5Constants.H5I_INVALID_HID;
 
         // Create a new file using default properties.
         try {
-            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC,
-                    HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
+                                   HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -206,9 +206,9 @@ public class HDF5SubsetSelect {
         // Create the dataset.
         try {
             if ((file_id >= 0) && (dataspace_id >= 0))
-                dataset_id = H5.H5Dcreate(file_id, dsname,
-                        HDF5Constants.H5T_STD_I32LE, dataspace_id,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id = H5.H5Dcreate(file_id, dsname, HDF5Constants.H5T_STD_I32LE, dataspace_id,
+                                          HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                          HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -234,9 +234,8 @@ public class HDF5SubsetSelect {
         // Write the data to the dataset.
         try {
             if (dataset_id >= 0)
-                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_INT,
-                        HDF5Constants.H5S_ALL, HDF5Constants.H5S_ALL,
-                        HDF5Constants.H5P_DEFAULT, dataIn);
+                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_INT, HDF5Constants.H5S_ALL,
+                            HDF5Constants.H5S_ALL, HDF5Constants.H5P_DEFAULT, dataIn);
         }
         catch (Exception e) {
             e.printStackTrace();

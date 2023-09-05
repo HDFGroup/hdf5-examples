@@ -2,7 +2,6 @@
 # Define Sources, one file per application
 #-----------------------------------------------------------------------------
 set (examples
-  ph5example.c
   ph5_filtered_writes.c
   ph5_filtered_writes_no_sel.c
   ph5_dataset.c

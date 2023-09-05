@@ -14,25 +14,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define FILE            "h5ex_t_opaque.h5"
-#define DATASET         "DS1"
-#define DIM0            4
-#define LEN             7
+#define FILE    "h5ex_t_opaque.h5"
+#define DATASET "DS1"
+#define DIM0    4
+#define LEN     7
 
 int
-main (void)
+main(void)
 {
-    hid_t       file, space, dtype, dset;   /* Handles */
-    herr_t      status;
-    hsize_t     dims[1] = {DIM0};
-    size_t      len;
-    char        wdata[DIM0*LEN],            /* Write buffer */
-                *rdata,                     /* Read buffer */
-                str[LEN] = "OPAQUE",
-                *tag;
-    int         ndims,
-                i, j;
-    unsigned    majnum, minnum, relnum;
+    hid_t   file, space, dtype, dset; /* Handles */
+    herr_t  status;
+    hsize_t dims[1] = {DIM0};
+    size_t  len;
+    char    wdata[DIM0 * LEN], /* Write buffer */
+        *rdata,                /* Read buffer */
+        str[LEN] = "OPAQUE", *tag;
+    int      ndims, i, j;
+    unsigned majnum, minnum, relnum;
 
     /* Get library version to differentiate between acceptable version methods
      * to free the tag returned by H5Tget_tag. */
@@ -41,45 +39,44 @@ main (void)
     /*
      * Initialize data.
      */
-    for (i=0; i<DIM0; i++) {
-        for (j=0; j<LEN-1; j++)
+    for (i = 0; i < DIM0; i++) {
+        for (j = 0; j < LEN - 1; j++)
             wdata[j + i * LEN] = str[j];
-        wdata[LEN - 1 + i * LEN] = (char) i + '0';
+        wdata[LEN - 1 + i * LEN] = (char)i + '0';
     }
 
     /*
      * Create a new file using the default properties.
      */
-    file = H5Fcreate (FILE, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+    file = H5Fcreate(FILE, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
 
     /*
      * Create opaque datatype and set the tag to something appropriate.
      * For this example we will write and view the data as a character
      * array.
      */
-    dtype = H5Tcreate (H5T_OPAQUE, LEN);
-    status = H5Tset_tag (dtype, "Character array");
+    dtype  = H5Tcreate(H5T_OPAQUE, LEN);
+    status = H5Tset_tag(dtype, "Character array");
 
     /*
      * Create dataspace.  Setting maximum size to NULL sets the maximum
      * size to be the current size.
      */
-    space = H5Screate_simple (1, dims, NULL);
+    space = H5Screate_simple(1, dims, NULL);
 
     /*
      * Create the dataset and write the opaque data to it.
      */
-    dset = H5Dcreate (file, DATASET, dtype, space, H5P_DEFAULT);
-    status = H5Dwrite (dset, dtype, H5S_ALL, H5S_ALL, H5P_DEFAULT, wdata);
+    dset   = H5Dcreate(file, DATASET, dtype, space, H5P_DEFAULT);
+    status = H5Dwrite(dset, dtype, H5S_ALL, H5S_ALL, H5P_DEFAULT, wdata);
 
     /*
      * Close and release resources.
      */
-    status = H5Dclose (dset);
-    status = H5Sclose (space);
-    status = H5Tclose (dtype);
-    status = H5Fclose (file);
-
+    status = H5Dclose(dset);
+    status = H5Sclose(space);
+    status = H5Tclose(dtype);
+    status = H5Fclose(file);
 
     /*
      * Now we begin the read section of this example.  Here we assume
@@ -91,55 +88,55 @@ main (void)
     /*
      * Open file and dataset.
      */
-    file = H5Fopen (FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
-    dset = H5Dopen (file, DATASET);
+    file = H5Fopen(FILE, H5F_ACC_RDONLY, H5P_DEFAULT);
+    dset = H5Dopen(file, DATASET);
 
     /*
      * Get datatype and properties for the datatype.  Note that H5Tget_tag
      * allocates space for the string in tag, so we must remember to free() it
      * later.
      */
-    dtype = H5Dget_type (dset);
-    len = H5Tget_size (dtype);
-    tag = H5Tget_tag (dtype);
+    dtype = H5Dget_type(dset);
+    len   = H5Tget_size(dtype);
+    tag   = H5Tget_tag(dtype);
 
     /*
      * Get dataspace and allocate memory for read buffer.
      */
-    space = H5Dget_space (dset);
-    ndims = H5Sget_simple_extent_dims (space, dims, NULL);
-    rdata = (char *) malloc (dims[0] * len);
+    space = H5Dget_space(dset);
+    ndims = H5Sget_simple_extent_dims(space, dims, NULL);
+    rdata = (char *)malloc(dims[0] * len);
 
     /*
      * Read the data.
      */
-    status = H5Dread (dset, dtype, H5S_ALL, H5S_ALL, H5P_DEFAULT, rdata);
+    status = H5Dread(dset, dtype, H5S_ALL, H5S_ALL, H5P_DEFAULT, rdata);
 
     /*
      * Output the data to the screen.
      */
-    printf ("Datatype tag for %s is: \"%s\"\n", DATASET, tag);
-    for (i=0; i<dims[0]; i++) {
-        printf ("%s[%u]: ", DATASET, i);
-        for (j=0; j<len; j++)
-            printf ("%c", rdata[j + i * len]);
-        printf ("\n");
+    printf("Datatype tag for %s is: \"%s\"\n", DATASET, tag);
+    for (i = 0; i < dims[0]; i++) {
+        printf("%s[%u]: ", DATASET, i);
+        for (j = 0; j < len; j++)
+            printf("%c", rdata[j + i * len]);
+        printf("\n");
     }
 
     /*
      * Close and release resources.
      */
-    free (rdata);
+    free(rdata);
     /* H5free_memory is available in 1.8.16 and above.
      * Last version for 1.6 was 1.6.10. */
     if (minnum > 8 || relnum > 15)
-        H5free_memory (tag);
+        H5free_memory(tag);
     else
-        free (tag);
-    status = H5Dclose (dset);
-    status = H5Sclose (space);
-    status = H5Tclose (dtype);
-    status = H5Fclose (file);
+        free(tag);
+    status = H5Dclose(dset);
+    status = H5Sclose(space);
+    status = H5Tclose(dtype);
+    status = H5Fclose(file);
 
     return 0;
 }

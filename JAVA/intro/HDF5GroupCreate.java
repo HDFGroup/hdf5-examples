@@ -46,8 +46,8 @@ public class HDF5GroupCreate {
 
         // Create a new file using default properties.
         try {
-            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC,
-                    HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+            file_id = H5.H5Fcreate(fname, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
+                                   HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -58,11 +58,11 @@ public class HDF5GroupCreate {
         // Create a group in the file.
         try {
             if (file_id >= 0) {
-                group_id1 = H5.H5Gcreate(file_id, "g1",
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                group_id1 = H5.H5Gcreate(file_id, "g1", HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                         HDF5Constants.H5P_DEFAULT);
                 if (group_id1 >= 0) {
-                    subgroup_id = H5.H5Gcreate(group_id1, "g11",
-                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                    subgroup_id = H5.H5Gcreate(group_id1, "g11", HDF5Constants.H5P_DEFAULT,
+                                               HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
                     try {
                         if (subgroup_id >= 0)
                             H5.H5Gclose(subgroup_id);
@@ -70,8 +70,8 @@ public class HDF5GroupCreate {
                     catch (Exception e) {
                         e.printStackTrace();
                     }
-                    subgroup_id = H5.H5Gcreate(group_id1, "g12",
-                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                    subgroup_id = H5.H5Gcreate(group_id1, "g12", HDF5Constants.H5P_DEFAULT,
+                                               HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
                     try {
                         if (subgroup_id >= 0)
                             H5.H5Gclose(subgroup_id);
@@ -80,11 +80,11 @@ public class HDF5GroupCreate {
                         e.printStackTrace();
                     }
                 }
-                group_id2 = H5.H5Gcreate(file_id, "g2",
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                group_id2 = H5.H5Gcreate(file_id, "g2", HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                         HDF5Constants.H5P_DEFAULT);
                 if (group_id2 >= 0) {
-                    subgroup_id = H5.H5Gcreate(group_id2, "g21",
-                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                    subgroup_id = H5.H5Gcreate(group_id2, "g21", HDF5Constants.H5P_DEFAULT,
+                                               HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
                     try {
                         if (subgroup_id >= 0)
                             H5.H5Gclose(subgroup_id);
@@ -92,8 +92,8 @@ public class HDF5GroupCreate {
                     catch (Exception e) {
                         e.printStackTrace();
                     }
-                    subgroup_id = H5.H5Gcreate(group_id2, "g22",
-                            HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                    subgroup_id = H5.H5Gcreate(group_id2, "g22", HDF5Constants.H5P_DEFAULT,
+                                               HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
                     try {
                         if (subgroup_id >= 0)
                             H5.H5Gclose(subgroup_id);

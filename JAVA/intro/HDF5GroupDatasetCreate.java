@@ -17,8 +17,8 @@
 import hdf.hdf5lib.H5;
 import hdf.hdf5lib.HDF5Constants;
 
-public class H5_CreateGroupDataset {
-    private static String FILENAME     = "H5_CreateGroupDataset.h5";
+public class HDF5GroupDatasetCreate {
+    private static String FILENAME     = "HDF5GroupDatasetCreate.h5";
     private static String GROUPNAME    = "MyGroup";
     private static String GROUPNAME_A  = "GroupA";
     private static String DATASETNAME1 = "dset1";
@@ -200,5 +200,5 @@ public class H5_CreateGroupDataset {
         }
     }
 
-    public static void main(String[] args) { H5_CreateGroupDataset.h5_crtgrpd(); }
+    public static void main(String[] args) { HDF5GroupDatasetCreate.h5_crtgrpd(); }
 }

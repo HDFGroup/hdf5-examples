@@ -7,6 +7,7 @@ set (HDF_JAVA_EXAMPLES
     HDF5DatasetCreate.java
     HDF5AttributeCreate.java
     HDF5DatasetRead.java
+    HDF5GroupDatasetCreate.java
     HDF5SubsetSelect.java
 )
 if (NOT ${${EXAMPLE_VARNAME}_USE_110_API} AND ${H5_LIBVER_DIR} EQUAL 110)

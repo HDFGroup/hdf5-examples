@@ -11,15 +11,15 @@
 #include <string.h>
 #include "hdf5.h"
 #if 1
-#define NX    65536  
-#define NY    65536       /* dataset dimensions */
-#define CX    256        /* height of hyperslab */
-#define CY    4096        /* width of hyperslab */
+#define NX 65536
+#define NY 65536 /* dataset dimensions */
+#define CX 256   /* height of hyperslab */
+#define CY 4096  /* width of hyperslab */
 #else
-#define NX    256  
-#define NY    256       /* dataset dimensions */
-#define CX    32        /* height of hyperslab */
-#define CY    16        /* width of hyperslab */
+#define NX 256
+#define NY 256 /* dataset dimensions */
+#define CX 32  /* height of hyperslab */
+#define CY 16  /* width of hyperslab */
 #endif
-#define RC    (NX/CX)
-#define CC    (NY/CY)
+#define RC (NX / CX)
+#define CC (NY / CY)

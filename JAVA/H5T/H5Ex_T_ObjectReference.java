@@ -317,11 +317,6 @@ public class H5Ex_T_ObjectReference {
 
     public static void main(String[] args)
     {
-        // Check if gzip compression is available and can be used for both
-        // compression and decompression. Normally we do not perform error
-        // checking in these examples for the sake of clarity, but in this
-        // case we will make an exception because this filter is an
-        // optional part of the hdf5 library.
         H5Ex_T_ObjectReference.writeObjRef();
         H5Ex_T_ObjectReference.readObjRef();
     }
