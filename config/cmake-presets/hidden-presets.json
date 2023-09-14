@@ -176,7 +176,8 @@
       "hidden": true,
       "inherits": [
         "ci-base"
-      ]
+      ],
+      "configuration": "Debug"
     },
     {
       "name": "ci-x64-Release-MSVC",
@@ -184,7 +185,8 @@
       "hidden": true,
       "inherits": [
         "ci-base"
-      ]
+      ],
+      "configuration": "RelWithDebInfo"
     },
     {
       "name": "ci-x64-Debug-Clang",
@@ -241,7 +243,8 @@
       "hidden": true,
       "inherits": [
         "ci-base"
-      ]
+      ],
+      "configuration": "Debug"
     },
     {
       "name": "ci-x64-Release-MSVC",
@@ -249,7 +252,8 @@
       "hidden": true,
       "inherits": [
         "ci-base"
-      ]
+      ],
+      "configuration": "RelWithDebInfo"
     },
     {
       "name": "ci-x64-Debug-Clang",
@@ -299,7 +303,8 @@
       "inherits": "ci-base",
       "generators": [
         "ZIP"
-      ]
+      ],
+      "configurations": ["Release"]
     },
     {
       "name": "ci-x64-Release-Clang",
