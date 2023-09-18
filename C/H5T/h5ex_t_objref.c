@@ -21,10 +21,10 @@
 int
 main(void)
 {
-    hid_t   file  = H5I_INVALID_HID;  /* File Handle */
+    hid_t   file  = H5I_INVALID_HID; /* File Handle */
     hid_t   space = H5I_INVALID_HID; /* Dataspace Handle */
-    hid_t   dset  = H5I_INVALID_HID;  /* Dataset Handle */
-    hid_t   obj   = H5I_INVALID_HID;   /* Object Handle */
+    hid_t   dset  = H5I_INVALID_HID; /* Dataset Handle */
+    hid_t   obj   = H5I_INVALID_HID; /* Object Handle */
     herr_t  status;
     hsize_t dims[1] = {DIM0};
     ssize_t size;

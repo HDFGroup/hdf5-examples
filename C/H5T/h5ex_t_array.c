@@ -21,9 +21,9 @@
 int
 main(void)
 {
-    hid_t file     = H5I_INVALID_HID;  /* File Handle */
+    hid_t file     = H5I_INVALID_HID; /* File Handle */
     hid_t space    = H5I_INVALID_HID; /* Dataspace Handle */
-    hid_t dset     = H5I_INVALID_HID;  /* Dataset Handle */
+    hid_t dset     = H5I_INVALID_HID; /* Dataset Handle */
     hid_t filetype = H5I_INVALID_HID;
     hid_t memtype  = H5I_INVALID_HID;
     /* Handles */
