@@ -27,7 +27,7 @@ herr_t op_func_L(hid_t loc_id, const char *name, const H5L_info_t *info, void *o
 int
 main(void)
 {
-    hid_t  file; /* Handle */
+    hid_t  file = H5I_INVALID_HID;
     herr_t status;
 
     /*

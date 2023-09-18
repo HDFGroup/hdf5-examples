@@ -21,7 +21,9 @@
 int
 main(void)
 {
-    hid_t      file, group, fapl; /* Handles */
+    hid_t      file  = H5I_INVALID_HID;
+    hid_t      group = H5I_INVALID_HID;
+    hid_t      fapl  = H5I_INVALID_HID;
     herr_t     status;
     H5G_info_t ginfo;
     hsize_t    size;

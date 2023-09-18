@@ -35,10 +35,10 @@
 int
 main(void)
 {
-    hid_t              file_id  = -1; /* Handles */
-    hid_t              space_id = -1; /* Handles */
-    hid_t              dset_id  = -1; /* Handles */
-    hid_t              dcpl_id  = -1; /* Handles */
+    hid_t              file_id  = H5I_INVALID_HID; /* Handles */
+    hid_t              space_id = H5I_INVALID_HID; /* Handles */
+    hid_t              dset_id  = H5I_INVALID_HID; /* Handles */
+    hid_t              dcpl_id  = H5I_INVALID_HID; /* Handles */
     herr_t             status;
     htri_t             avail;
     H5Z_filter_t       filter_id = 0;

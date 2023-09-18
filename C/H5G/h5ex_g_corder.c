@@ -18,12 +18,15 @@
 int
 main(void)
 {
-    hid_t      file, group, subgroup, gcpl; /* Handles */
+    hid_t      file     = H5I_INVALID_HID;
+    hid_t      group    = H5I_INVALID_HID;
+    hid_t      subgroup = H5I_INVALID_HID;
+    hid_t      gcpl     = H5I_INVALID_HID;
     herr_t     status;
     H5G_info_t ginfo;
-    ssize_t    size; /* Size of name */
-    hsize_t    i;    /* Index */
-    char      *name; /* Output buffer */
+    ssize_t    size;        /* Size of name */
+    hsize_t    i;           /* Index */
+    char      *name = NULL; /* Output buffer */
 
     /*
      * Create a new file using the default properties.
