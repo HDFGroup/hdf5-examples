@@ -25,12 +25,12 @@
 int
 main(void)
 {
-    hid_t    file;     /* File Handle */
-    hid_t    space;    /* Dataspace Handle */
-    hid_t    dset;     /* Dataset Handle */
-    hid_t    dset2;    /* Dataset Handle */
-    hid_t    memspace; /* Mem dataspace */
-    hid_t    attr;     /* Attribute dataspace */
+    hid_t    file     = H5I_INVALID_HID; /* File Handle */
+    hid_t    space    = H5I_INVALID_HID; /* Dataspace Handle */
+    hid_t    dset     = H5I_INVALID_HID; /* Dataset Handle */
+    hid_t    dset2    = H5I_INVALID_HID; /* Dataset Handle */
+    hid_t    memspace = H5I_INVALID_HID; /* Mem dataspace */
+    hid_t    attr     = H5I_INVALID_HID; /* Attribute dataspace */
     herr_t   status;
     hsize_t  dims[1]      = {DIM0};
     hsize_t  dims2[2]     = {DS2DIM0, DS2DIM1};
@@ -41,21 +41,21 @@ main(void)
     hsize_t  block[2]     = {1, 3};
     hssize_t npoints;
     ssize_t  size;
-    char    *name;
+    char    *name = NULL;
     int      ndims;
     hsize_t  i;
     char     wdata2[DS2DIM0][DS2DIM1] = {"The quick brown", "fox jumps over ", "the 5 lazy dogs"};
-    char    *rdata2;
+    char    *rdata2                   = NULL;
 
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
     hid_t      ref_type = H5T_STD_REF; /* Reference datatype */
     H5R_ref_t  wdata[DIM0];            /* buffer to write to disk */
-    H5R_ref_t *rdata;                  /* buffer to read into*/
+    H5R_ref_t *rdata = NULL;           /* buffer to read into*/
     H5R_type_t objtype;                /* Reference type */
 #else
     hid_t       ref_type = H5T_STD_REF_OBJ; /* Reference datatype */
     hobj_ref_t  wdata[DIM0];                /* Write buffer */
-    hobj_ref_t *rdata;                      /* Read buffer */
+    hobj_ref_t *rdata = NULL;               /* Read buffer */
     H5O_type_t  objtype;
 #endif
 

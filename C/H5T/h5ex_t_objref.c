@@ -21,27 +21,27 @@
 int
 main(void)
 {
-    hid_t   file;  /* File Handle */
-    hid_t   space; /* Dataspace Handle */
-    hid_t   dset;  /* Dataset Handle */
-    hid_t   obj;   /* Object Handle */
+    hid_t   file  = H5I_INVALID_HID;  /* File Handle */
+    hid_t   space = H5I_INVALID_HID; /* Dataspace Handle */
+    hid_t   dset  = H5I_INVALID_HID;  /* Dataset Handle */
+    hid_t   obj   = H5I_INVALID_HID;   /* Object Handle */
     herr_t  status;
     hsize_t dims[1] = {DIM0};
     ssize_t size;
-    char   *name;
+    char   *name = NULL;
     int     ndims;
     hsize_t i;
 
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
     hid_t      ref_type = H5T_STD_REF; /* Reference datatype */
     H5R_ref_t  wdata[DIM0];            /* buffer to write to disk */
-    H5R_ref_t *rdata;                  /* buffer to read into*/
+    H5R_ref_t *rdata = NULL;           /* buffer to read into*/
     H5R_type_t objtype;                /* Reference type */
 #else
-    hid_t           ref_type = H5T_STD_REF_OBJ; /* Reference datatype */
-    hobj_ref_t      wdata[DIM0],                /* Write buffer */
-        hobj_ref_t *rdata;                      /* Read buffer */
-    H5O_type_t      objtype;
+    hid_t       ref_type = H5T_STD_REF_OBJ; /* Reference datatype */
+    hobj_ref_t  wdata[DIM0];                /* Write buffer */
+    hobj_ref_t *rdata = NULL;               /* Read buffer */
+    H5O_type_t  objtype;
 #endif
 
     /*

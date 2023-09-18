@@ -22,13 +22,19 @@
 int
 main(void)
 {
-    hid_t file, filetype, memtype, space, dset, attr;
+    hid_t file     = H5I_INVALID_HID; /* File Handle */
+    hid_t space    = H5I_INVALID_HID; /* Dataspace Handle */
+    hid_t dset     = H5I_INVALID_HID; /* Dataset Handle */
+    hid_t filetype = H5I_INVALID_HID;
+    hid_t memtype  = H5I_INVALID_HID;
+    hid_t attr     = H5I_INVALID_HID; /* Attribute Handle */
     /* Handles */
     herr_t  status;
-    hsize_t dims[1] = {DIM0}, adims[2] = {ADIM0, ADIM1};
-    int     wdata[DIM0][ADIM0][ADIM1], /* Write buffer */
-        ***rdata,                      /* Read buffer */
-        ndims;
+    hsize_t dims[1]  = {DIM0};
+    hsize_t adims[2] = {ADIM0, ADIM1};
+    int     wdata[DIM0][ADIM0][ADIM1]; /* Write buffer */
+    int  ***rdata = NULL;              /* Read buffer */
+    int     ndims;
     hsize_t i, j, k;
 
     /*

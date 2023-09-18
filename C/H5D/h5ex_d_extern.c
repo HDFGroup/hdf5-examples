@@ -23,12 +23,15 @@
 int
 main(void)
 {
-    hid_t   file, space, dset, dcpl; /* Handles */
+    hid_t   file  = H5I_INVALID_HID;
+    hid_t   space = H5I_INVALID_HID;
+    hid_t   dset  = H5I_INVALID_HID;
+    hid_t   dcpl  = H5I_INVALID_HID;
     herr_t  status;
     hsize_t dims[2] = {DIM0, DIM1};
     char    name[NAME_BUF_SIZE];
-    int     wdata[DIM0][DIM1], /* Write buffer */
-        rdata[DIM0][DIM1];     /* Read buffer */
+    int     wdata[DIM0][DIM1]; /* Write buffer */
+    int     rdata[DIM0][DIM1]; /* Read buffer */
     hsize_t i, j;
 
     /*

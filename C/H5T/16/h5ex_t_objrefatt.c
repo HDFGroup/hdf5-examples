@@ -23,15 +23,19 @@
 int
 main(void)
 {
-    hid_t      file, space, dset, obj, attr; /* Handles */
-    herr_t     status;
-    hsize_t    dims[1] = {DIM0};
-    hobj_ref_t wdata[DIM0], /* Write buffer */
-        *rdata;             /* Read buffer */
-    H5G_obj_t objtype;
-    ssize_t   size;
-    char     *name;
-    int       ndims, i;
+    hid_t       file;  /* File Handle */
+    hid_t       space; /* Dataspace Handle */
+    hid_t       dset;  /* Dataset Handle */
+    hid_t       obj;   /* Object Handle */
+    herr_t      status;
+    hsize_t     dims[1] = {DIM0};
+    hobj_ref_t  wdata[DIM0];  /* Write buffer */
+    hobj_ref_t *rdata = NULL; /* Read buffer */
+    H5G_obj_t   objtype;
+    ssize_t     size;
+    char       *name = NULL;
+    int         ndims;
+    int         i;
 
     /*
      * Create a new file using the default properties.
