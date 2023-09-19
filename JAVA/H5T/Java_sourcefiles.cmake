@@ -19,16 +19,18 @@ set (HDF_JAVA_EXAMPLES
     H5Ex_T_StringAttribute.java
     H5Ex_T_VLString.java
 )
-if (${H5_LIBVER_DIR} EQUAL 110)
-  set (HDF_JAVA_EXAMPLES ${HDF_JAVA_EXAMPLES}
-      110/H5Ex_T_ObjectReference.java
-      110/H5Ex_T_ObjectReferenceAttribute.java
-  )
-else ()
-  set (HDF_JAVA_EXAMPLES ${HDF_JAVA_EXAMPLES}
-      H5Ex_T_ObjectReference.java
-      H5Ex_T_ObjectReferenceAttribute.java
-      H5Ex_T_RegionReference.java
-      H5Ex_T_RegionReferenceAttribute.java
-  )
+if (${H5_LIBVER_DIR} GREATER 18)
+  if (${H5_LIBVER_DIR} EQUAL 110)
+    set (HDF_JAVA_EXAMPLES ${HDF_JAVA_EXAMPLES}
+        110/H5Ex_T_ObjectReference.java
+        110/H5Ex_T_ObjectReferenceAttribute.java
+    )
+  else ()
+    set (HDF_JAVA_EXAMPLES ${HDF_JAVA_EXAMPLES}
+        H5Ex_T_ObjectReference.java
+        H5Ex_T_ObjectReferenceAttribute.java
+        H5Ex_T_RegionReference.java
+        H5Ex_T_RegionReferenceAttribute.java
+    )
+  endif ()
 endif ()
