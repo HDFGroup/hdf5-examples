@@ -53,10 +53,10 @@ main(void)
     H5R_ref_t *rdata = NULL;           /* buffer to read into*/
     H5R_type_t objtype;                /* Reference type */
 #else
-    hid_t       ref_type = H5T_STD_REF_DSETREG; /* Reference datatype */
-    hobj_ref_t  wdata[DIM0];                    /* Write buffer */
-    hobj_ref_t *rdata = NULL;                   /* Read buffer */
-    H5O_type_t  objtype;
+    hid_t            ref_type = H5T_STD_REF_DSETREG; /* Reference datatype */
+    hdset_reg_ref_t  wdata[DIM0];                    /* Write buffer */
+    hdset_reg_ref_t *rdata = NULL;                   /* Read buffer */
+    H5O_type_t       objtype;
 #endif
 
     /*
