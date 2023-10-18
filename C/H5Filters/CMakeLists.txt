@@ -144,7 +144,7 @@ endif ()
 #run-time loadable library examples
 foreach (example ${dyn_examples})
   add_executable (${EXAMPLE_VARNAME}_${example} ${PROJECT_SOURCE_DIR}/${example}.c)
-  TARGET_C_PROPERTIES (${EXAMPLE_VARNAME}_${example} ${LIB_TYPE} " " " ")
+  TARGET_C_PROPERTIES (${EXAMPLE_VARNAME}_${example} ${LIB_TYPE})
   target_compile_options(${EXAMPLE_VARNAME}_${example}
       PRIVATE
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
@@ -157,13 +157,13 @@ foreach (example ${dyn_examples})
   if (H5_HAVE_PARALLEL)
     target_include_directories (${EXAMPLE_VARNAME}_${example} PUBLIC ${MPI_C_INCLUDE_DIRS})
   endif ()
-  target_link_libraries (${EXAMPLE_VARNAME}_${example} PRIVATE ${LINK_LIBS})
+  target_link_libraries (${EXAMPLE_VARNAME}_${example} PRIVATE ${H5EX_HDF5_LINK_LIBS})
   if (NOT WIN32)
     target_link_libraries (${EXAMPLE_VARNAME}_${example} PRIVATE dl)
   endif ()
 endforeach ()
 
-if (BUILD_TESTING)
+if (H5EX_BUILD_TESTING)
   macro (ADD_H5_TEST testname)
     add_test (
         NAME ${EXAMPLE_VARNAME}_${testname}-clearall

@@ -46,7 +46,7 @@ foreach (example ${examples})
   set_target_properties (${EXAMPLE_VARNAME}_f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
 endforeach ()
 
-if (BUILD_TESTING)
+if (H5EX_BUILD_TESTING)
   macro (ADD_H5_TEST testname)
     add_test (
         NAME ${EXAMPLE_VARNAME}_f90_${testname}-clearall

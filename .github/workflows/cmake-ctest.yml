@@ -128,7 +128,7 @@ jobs:
           HDF5_ROOT: ${{ steps.set-hdf5lib-name.outputs.HDF5_ROOT }}
           HDF5_PLUGIN_PATH: ${{ steps.set-hdf5lib-name.outputs.HDF5_PLUGIN_PATH }}
         run: |
-          cd "${{ runner.workspace }}/hdf5-examples/hdfsrc"
+          cd "${{ runner.workspace }}/hdf5-examples/hdf5-examples-master"
           cmake --workflow --preset=ci-StdShar-MSVC --fresh
         shell: bash
 
@@ -216,7 +216,7 @@ jobs:
           HDF5_ROOT: ${{ steps.set-hdf5lib-name.outputs.HDF5_ROOT }}
           HDF5_PLUGIN_PATH: ${{ steps.set-hdf5lib-name.outputs.HDF5_PLUGIN_PATH }}
         run: |
-          cd "${{ runner.workspace }}/hdf5-examples/hdfsrc"
+          cd "${{ runner.workspace }}/hdf5-examples/hdf5-examples-master"
           cmake --workflow --preset=ci-StdShar-GNUC --fresh
         shell: bash
 
@@ -309,7 +309,7 @@ jobs:
           HDF5_ROOT: ${{ steps.set-hdf5lib-name.outputs.HDF5_ROOT }}
           HDF5_PLUGIN_PATH: ${{ steps.set-hdf5lib-name.outputs.HDF5_PLUGIN_PATH }}
         run: |
-          cd "${{ runner.workspace }}/hdf5-examples/hdfsrc"
+          cd "${{ runner.workspace }}/hdf5-examples/hdf5-examples-master"
           cmake --workflow --preset=ci-StdShar-Clang --fresh
         shell: bash
 

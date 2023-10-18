@@ -52,12 +52,12 @@ jobs:
       - name: Get Sources
         uses: actions/checkout@v3
         with:
-          path: hdfsrc
+          path: hdf5-examples-master
 
       - name: Zip Folder
         run: |
-              zip -r ${{ steps.set-file-base.outputs.FILE_BASE }}.zip ./hdfsrc
-              tar -zcvf ${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz ./hdfsrc
+              zip -r ${{ steps.set-file-base.outputs.FILE_BASE }}.zip ./hdf5-examples-master
+              tar -zcvf ${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz ./hdf5-examples-master
 
       - name: List files in the repository
         run: |

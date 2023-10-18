@@ -97,7 +97,7 @@ These steps are described in more detail below.
             * Visual Studio 19
 
         <options> is:
-            * BUILD_TESTING:BOOL=ON
+            * H5EX_BUILD_TESTING:BOOL=ON
             * BUILD_SHARED_LIBS:BOOL=[ON | OFF]
             * HDF_BUILD_FORTRAN:BOOL=[ON | OFF]
             * HDF_BUILD_JAVA:BOOL=[ON | OFF]
@@ -127,7 +127,7 @@ These steps are described in more detail below.
 
       2.2  Alternative command line example on Windows in c:\MyHDFstuff\hdf5ex\build directory:
 
-           cmake -G "Visual Studio 19" -DBUILD_TESTING:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON ..
+           cmake -G "Visual Studio 19" -DH5EX_BUILD_TESTING:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=ON ..
 
    3. Build HDF5 examples
 

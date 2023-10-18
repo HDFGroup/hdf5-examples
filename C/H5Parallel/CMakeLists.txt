@@ -19,10 +19,10 @@ foreach (example ${examples})
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_116_API}>:-DH5_USE_116_API>"
   )
   target_include_directories (${EXAMPLE_VARNAME}_${example_name} PUBLIC ${MPI_C_INCLUDE_DIRS})
-  target_link_libraries (${EXAMPLE_VARNAME}_${example_name} ${LINK_LIBS})
+  target_link_libraries (${EXAMPLE_VARNAME}_${example_name} ${H5EX_HDF5_LINK_LIBS})
 endforeach ()
 
-if (BUILD_TESTING)
+if (H5EX_BUILD_TESTING)
   macro (ADD_GREP_TEST testname mumprocs)
     add_test (
         NAME ${EXAMPLE_VARNAME}_${testname}-clearall

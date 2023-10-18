@@ -63,7 +63,7 @@ PROGRAM main
   CALL h5fcreate_f(filename, H5F_ACC_TRUNC_F, file, hdferr)
   !
   ! Create the enumerated datatypes for file and memory.  This
-  ! process is simplified IF native types are used for the file,
+  ! process is simplified if native types are used for the file,
   ! as only one type must be defined.
   !
   CALL h5tenum_create_f (F_BASET, filetype, hdferr)

@@ -11,7 +11,7 @@
         "CPACK_PACKAGE_VERSION": "2.0.4",
         "HDF5_NAMESPACE": {"type": "STRING", "value": "hdf5::"},
         "HDF5_PACKAGE_NAME": {"type": "STRING", "value": "hdf5"},
-        "BUILD_TESTING": "ON"
+        "H5EX_BUILD_TESTING": "ON"
       }
     },
     {

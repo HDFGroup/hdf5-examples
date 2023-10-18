@@ -1,11 +1,11 @@
 #-------------------------------------------------------------------------------
 macro (BASIC_SETTINGS varname)
-  string(TOUPPER ${varname} EXAMPLE_PACKAGE_VARNAME)
-  string(TOLOWER ${varname} EXAMPLE_VARNAME)
+  string (TOUPPER ${varname} EXAMPLE_PACKAGE_VARNAME)
+  string (TOLOWER ${varname} EXAMPLE_VARNAME)
   set (H5${EXAMPLE_PACKAGE_VARNAME}_PACKAGE "h5${EXAMPLE_VARNAME}")
   set (H5${EXAMPLE_PACKAGE_VARNAME}_PACKAGE_NAME "h5${EXAMPLE_VARNAME}")
-  string(TOUPPER ${H5${EXAMPLE_PACKAGE_VARNAME}_PACKAGE_NAME} EXAMPLE_PACKAGE_NAME)
-  string(TOLOWER ${H5${EXAMPLE_PACKAGE_VARNAME}_PACKAGE_NAME} EXAMPLE_NAME)
+  string (TOUPPER ${H5${EXAMPLE_PACKAGE_VARNAME}_PACKAGE_NAME} EXAMPLE_PACKAGE_NAME)
+  string (TOLOWER ${H5${EXAMPLE_PACKAGE_VARNAME}_PACKAGE_NAME} EXAMPLE_NAME)
   set (CMAKE_NO_SYSTEM_FROM_IMPORTED 1)
 
   #-----------------------------------------------------------------------------
@@ -60,12 +60,12 @@ macro (BASIC_SETTINGS varname)
     set (CMAKE_MFC_FLAG 0)
   endif ()
 
-  set(CMAKE_C_STANDARD 99)
-  set(CMAKE_C_STANDARD_REQUIRED TRUE)
+  set (CMAKE_C_STANDARD 99)
+  set (CMAKE_C_STANDARD_REQUIRED TRUE)
 
-  set(CMAKE_CXX_STANDARD 98)
-  set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
-  set(CMAKE_CXX_EXTENSIONS OFF)
+  set (CMAKE_CXX_STANDARD 98)
+  set (CMAKE_CXX_STANDARD_REQUIRED TRUE)
+  set (CMAKE_CXX_EXTENSIONS OFF)
 
   #-----------------------------------------------------------------------------
   # Compiler specific flags : Shouldn't there be compiler tests for these
@@ -190,7 +190,7 @@ macro (HDF5_SUPPORT)
 
         find_package (HDF5 NAMES ${SEARCH_PACKAGE_NAME} COMPONENTS ${FIND_HDF_COMPONENTS})
         message (STATUS "HDF5 libs:${HDF5_FOUND} C:${HDF5_C_FOUND} Fortran:${HDF5_Fortran_FOUND} Java:${HDF5_Java_FOUND}")
-        set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
+        set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} ${HDF5_LIBRARIES})
         if (HDF5_BUILD_SHARED_LIBS)
           add_definitions (-DH5_BUILT_AS_DYNAMIC_LIB)
         else ()
@@ -208,18 +208,18 @@ macro (HDF5_SUPPORT)
         set (H5EX_HDF5_DUMP_EXECUTABLE $<TARGET_FILE:${HDF5_NAMESPACE}h5dump>)
       else ()
         if (USE_SHARED_LIBS AND HDF5_shared_C_FOUND)
-          set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_SHARED_LIBRARY})
+          set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} ${HDF5_C_SHARED_LIBRARY})
           set (HDF5_LIBRARY_PATH ${PACKAGE_PREFIX_DIR}/lib)
           set_property (TARGET ${HDF5_NAMESPACE}h5dump-shared PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump-shared")
         else ()
-          set (LINK_LIBS ${LINK_LIBS} ${HDF5_C_STATIC_LIBRARY})
+          set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} ${HDF5_C_STATIC_LIBRARY})
           set_property (TARGET ${HDF5_NAMESPACE}h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
         endif ()
         if (HDF_BUILD_FORTRAN AND ${HDF5_BUILD_FORTRAN})
           if (BUILD_SHARED_LIBS AND HDF5_shared_Fortran_FOUND)
-            set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_SHARED_LIBRARY})
+            set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} ${HDF5_FORTRAN_SHARED_LIBRARY})
           elseif (HDF5_static_Fortran_FOUND)
-            set (LINK_LIBS ${LINK_LIBS} ${HDF5_FORTRAN_STATIC_LIBRARY})
+            set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} ${HDF5_FORTRAN_STATIC_LIBRARY})
           else ()
             set (HDF_BUILD_FORTRAN OFF CACHE BOOL "Build FORTRAN support" FORCE)
             message (STATUS "HDF5 Fortran libs not found - disable build of Fortran examples")
@@ -243,14 +243,14 @@ macro (HDF5_SUPPORT)
     else ()
       find_package (HDF5) # Legacy find
       #Legacy find_package does not set HDF5_TOOLS_DIR, so we set it here
-      set(HDF5_TOOLS_DIR ${HDF5_LIBRARY_DIRS}/../bin)
+      set (HDF5_TOOLS_DIR ${HDF5_LIBRARY_DIRS}/../bin)
       #Legacy find_package does not set HDF5_BUILD_SHARED_LIBS, so we set it here
       if (USE_SHARED_LIBS AND EXISTS "${HDF5_LIBRARY_DIRS}/libhdf5.so")
         set (HDF5_BUILD_SHARED_LIBS 1)
       else ()
         set (HDF5_BUILD_SHARED_LIBS 0)
       endif ()
-      set (LINK_LIBS ${LINK_LIBS} ${HDF5_LIBRARIES})
+      set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} ${HDF5_LIBRARIES})
       add_executable (${HDF5_NAMESPACE}h5dump IMPORTED)
       set_property (TARGET ${HDF5_NAMESPACE}h5dump PROPERTY IMPORTED_LOCATION "${HDF5_TOOLS_DIR}/h5dump")
       set (H5EX_HDF5_DUMP_EXECUTABLE $<TARGET_FILE:${HDF5_NAMESPACE}h5dump>)
@@ -259,10 +259,10 @@ macro (HDF5_SUPPORT)
     set (HDF5_PACKAGE_NAME ${SEARCH_PACKAGE_NAME})
 
     if (HDF5_FOUND)
+      set (H5EX_HDF5_INCLUDE_DIRS ${HDF5_INCLUDE_DIR})
       set (H5EX_HDF5_HAVE_H5PUBCONF_H 1)
-      set (H5EX_HAVE_HDF5 1)
+      set (H5EX_HDF5_HAVE_HDF5 1)
       set (H5EX_HDF5_HEADER "h5pubconf.h")
-      set (HDF5_INCLUDE_DIR_GEN ${HDF5_INCLUDE_DIR})
       message (STATUS "HDF5-${HDF5_VERSION_STRING} found: INC=${HDF5_INCLUDE_DIR} TOOLS=${HDF5_TOOLS_DIR}")
     else ()
       message (FATAL_ERROR " HDF5 is Required for HDF5 Examples")
@@ -270,14 +270,13 @@ macro (HDF5_SUPPORT)
   else ()
     # This project is being called from within another and HDF5 is already configured
     set (H5EX_HDF5_HAVE_H5PUBCONF_H 1)
-    set (H5EX_HAVE_HDF5 1)
-    set (LINK_LIBS ${LINK_LIBS} ${HDF5_LINK_LIBS})
+    set (H5EX_HDF5_HAVE_HDF5 1)
+    message (STATUS "HDF5-${HDF5_VERSION_STRING} used")
   endif ()
-  set (H5EX_INCLUDE_DIRS ${HDF5_INCLUDE_DIR})
   if (HDF_BUILD_FORTRAN)
-    list (APPEND H5EX_INCLUDE_DIRS ${HDF5_INCLUDE_DIR_FORTRAN})
+    list (APPEND H5EX_HDF5_INCLUDE_DIRS ${HDF5_INCLUDE_DIR_FORTRAN})
   endif ()
-  message (STATUS "HDF5 link libs: ${HDF5_LINK_LIBS} Includes: ${H5EX_INCLUDE_DIRS}")
+  message (STATUS "HDF5 link libs: ${H5EX_HDF5_LINK_LIBS} Includes: ${H5EX_HDF5_INCLUDE_DIRS}")
 
   if (USE_SHARED_LIBS)
     set (H5_LIB_TYPE SHARED)
@@ -290,68 +289,8 @@ macro (HDF5_SUPPORT)
   #-----------------------------------------------------------------------------
   option (HDF_BUILD_FILTERS "Test filter support" OFF)
 endmacro ()
-#-------------------------------------------------------------------------------
-macro (SET_HDF_BUILD_TYPE)
-  get_property (_isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-  if (_isMultiConfig)
-    # HDF_CFG_BUILD_TYPE is used in the Fortran install commands for the build location of the .mod files
-    set (HDF_CFG_BUILD_TYPE \${CMAKE_INSTALL_CONFIG_NAME})
-    if (CMAKE_BUILD_TYPE)
-      # set the default to the specified command line define
-      set (HDF_CFG_NAME ${CMAKE_BUILD_TYPE})
-    else ()
-      # set the default to the MultiConfig variable
-      set (HDF_CFG_NAME "$<CONFIG>")
-    endif ()
-  else ()
-    set (HDF_CFG_BUILD_TYPE ".")
-    if (CMAKE_BUILD_TYPE)
-      set (HDF_CFG_NAME ${CMAKE_BUILD_TYPE})
-    else ()
-      set (HDF_CFG_NAME "Release")
-    endif ()
-  endif ()
-endmacro ()
 
 #-------------------------------------------------------------------------------
-macro (TARGET_C_PROPERTIES wintarget libtype)
-  target_compile_options(${wintarget} PRIVATE
-      "$<$<C_COMPILER_ID:MSVC>:${WIN_COMPILE_FLAGS}>"
-      "$<$<CXX_COMPILER_ID:MSVC>:${WIN_COMPILE_FLAGS}>"
-  )
-  if(MSVC)
-    set_property(TARGET ${wintarget} APPEND PROPERTY LINK_FLAGS "${WIN_LINK_FLAGS}")
-  endif()
-endmacro ()
-
-macro (HDFTEST_COPY_FILE src dest target)
-    add_custom_command(
-        OUTPUT  "${dest}"
-        COMMAND "${CMAKE_COMMAND}"
-        ARGS     -E copy_if_different "${src}" "${dest}"
-        DEPENDS "${src}"
-    )
-    list (APPEND ${target}_list "${dest}")
-endmacro ()
-
-macro (ADD_H5_FLAGS h5_flag_var infile)
-  file (STRINGS ${infile} TEST_FLAG_STREAM)
-  #message (TRACE "TEST_FLAG_STREAM=${TEST_FLAG_STREAM}")
-  list (LENGTH TEST_FLAG_STREAM len_flag)
-  if (len_flag GREATER 0)
-    math (EXPR _FP_LEN "${len_flag} - 1")
-    foreach (line RANGE 0 ${_FP_LEN})
-      list (GET TEST_FLAG_STREAM ${line} str_flag)
-      string (REGEX REPLACE "^#.*" "" str_flag "${str_flag}")
-      #message (TRACE "str_flag=${str_flag}")
-      if (str_flag)
-        list (APPEND ${h5_flag_var} "${str_flag}")
-      endif ()
-    endforeach ()
-  endif ()
-  #message (TRACE "h5_flag_var=${${h5_flag_var}}")
-endmacro ()
-
 # Purpose:
 # Breaking down three numbered versions (x.y.z) into their components, and
 # returning a major and minor version (xy).

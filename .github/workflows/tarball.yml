@@ -85,12 +85,12 @@ jobs:
       - name: Get Sources
         uses: actions/checkout@v3
         with:
-          path: hdfsrc
+          path: hdf5-examples-master
 
       - name: Retrieve version
         id: version
         run: |
-          cd "$GITHUB_WORKSPACE/hdfsrc"
+          cd "$GITHUB_WORKSPACE/hdf5-examples-master"
           echo "TAG_VERSION=2.0.4" >> $GITHUB_OUTPUT
 
       - name: Set file base name
@@ -113,8 +113,8 @@ jobs:
       - name: Create source file (tgz and zip)
         id: create-files
         run: |
-              zip -r ${{ steps.set-file-base.outputs.FILE_BASE }}.zip ./hdfsrc
-              tar -zcvf ${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz ./hdfsrc
+              zip -r ${{ steps.set-file-base.outputs.FILE_BASE }}.zip ./hdf5-examples-master
+              tar -zcvf ${{ steps.set-file-base.outputs.FILE_BASE }}.tar.gz ./hdf5-examples-master
         shell: bash
 
       - name: List files in the repository

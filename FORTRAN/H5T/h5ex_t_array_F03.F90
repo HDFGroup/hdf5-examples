@@ -6,7 +6,7 @@
 !  DIM0, then closes the  file.  Next, it reopens the file,
 !  reads back the data, and outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
 !  with --enable-fortran2003 
 !
 !************************************************************
@@ -69,29 +69,29 @@ PROGRAM main
   !
   ! Close and release resources.
   !
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Tclose_f (filetype, hdferr)
-  CALL H5Tclose_f (memtype, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Tclose_f(filetype, hdferr)
+  CALL H5Tclose_f(memtype, hdferr)
+  CALL H5Fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example. 
   !
   ! Open file, dataset, and attribute.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
   !
   ! Get the datatype and its dimensions.
   !
   CALL h5dget_type_f(dset, filetype, hdferr)
-  CALL H5Tget_array_dims_f (filetype, adims, hdferr)
+  CALL H5Tget_array_dims_f(filetype, adims, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.  This is a
   ! three dimensional attribute when the array datatype is included.
   !
-  CALL H5Dget_space_f (dset, space, hdferr)
-  CALL H5Sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL H5Dget_space_f(dset, space, hdferr)
+  CALL H5Sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
   ALLOCATE(rdata(1:dims(1),1:adims(1),1:adims(2)))
   !
   ! Create the memory datatype.
@@ -101,7 +101,7 @@ PROGRAM main
   ! Read the data.
   !
   f_ptr = C_LOC(rdata)
-  CALL H5Dread_f (dset, memtype, f_ptr, hdferr)
+  CALL H5Dread_f(dset, memtype, f_ptr, hdferr)
   !
   ! Output the data to the screen.
   !
@@ -117,10 +117,10 @@ PROGRAM main
   ! Close and release resources.
   !
   DEALLOCATE(rdata)
-  CALL H5Dclose_f (dset, hdferr)
-  CALL H5Sclose_f (space, hdferr)
-  CALL H5Tclose_f (filetype, hdferr)
-  CALL H5Tclose_f (memtype, hdferr)
-  CALL H5Fclose_f (file, hdferr)
+  CALL H5Dclose_f(dset, hdferr)
+  CALL H5Sclose_f(space, hdferr)
+  CALL H5Tclose_f(filetype, hdferr)
+  CALL H5Tclose_f(memtype, hdferr)
+  CALL H5Fclose_f(file, hdferr)
 
 END PROGRAM main

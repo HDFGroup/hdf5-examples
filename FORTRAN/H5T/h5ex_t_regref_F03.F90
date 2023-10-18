@@ -8,7 +8,7 @@
 !  dereferences the references, and outputs the referenced
 !  regions to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
 !  with --enable-fortran2003 
 !
 !************************************************************
@@ -39,7 +39,7 @@ PROGRAM main
 
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
   INTEGER(hssize_t) :: npoints
-  TYPE(hdset_reg_ref_t_f), DIMENSION(1:dim0), TARGET :: wdata ! Write buffer
+  TYPE(hdset_reg_ref_t_f), DIMENSION(1:dim0), TARGET :: wdata  ! Write buffer
   TYPE(hdset_reg_ref_t_f), DIMENSION(:), ALLOCATABLE, TARGET :: rdata ! Read buffer
 
   INTEGER(size_t) :: size
@@ -71,6 +71,7 @@ PROGRAM main
   CALL h5screate_simple_f(2, dims2, space, hdferr)
   CALL h5dcreate_f(file,dataset2, H5T_STD_I8LE, space, dset2, hdferr)
   f_ptr = C_LOC(wdata2(1,1))
+
   CALL h5dwrite_f(dset2, h5kind_to_type(KIND(wdata2(1,1)),H5_INTEGER_KIND), f_ptr, hdferr)
   !
   ! Create reference to a list of elements in dset2.
@@ -113,6 +114,7 @@ PROGRAM main
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
   CALL h5dopen_f(file, dataset, dset, hdferr)
+
   !
   ! Get dataspace and allocate memory for read buffer.
   !
@@ -129,7 +131,6 @@ PROGRAM main
   ! Output the data to the screen.
   !
   DO i = 1, dims(1)
-     
      WRITE(*,'(A,"[",i1,"]:",/,2X,"->")', ADVANCE='NO') dataset, i-1
      !
      ! Open the referenced object, retrieve its region as a
@@ -137,7 +138,7 @@ PROGRAM main
      !
      CALL H5Rdereference_f(dset, rdata(i), dset2, hdferr)
      CALL H5Rget_region_f(dset, rdata(i), space, hdferr)
-  
+
      !
      ! Get the length of the object's name, allocate space, then
      ! retrieve the name.

@@ -41,7 +41,7 @@ Class-Path: ${HDFJAVA_CLASSJARS}
   get_target_property (${EXAMPLE_VARNAME}_${example_name}_JAR_FILE ${EXAMPLE_VARNAME}_${example_name} JAR_FILE)
 endforeach ()
 
-if (BUILD_TESTING)
+if (H5EX_BUILD_TESTING)
   macro (ADD_H5_TEST resultfile resultcode)
     add_test (
         NAME ${EXAMPLE_VARNAME}_jnative-h5-${resultfile}

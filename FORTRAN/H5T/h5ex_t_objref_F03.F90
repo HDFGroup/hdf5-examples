@@ -10,7 +10,7 @@
 !  This file is intended for use with HDF5 Library version 1.8
 !  with --enable-fortran2003
 !
-! ************************************************************/
+!************************************************************
 PROGRAM main
 
   USE HDF5
@@ -75,9 +75,9 @@ PROGRAM main
   !
   ! Close and release resources.
   !
-  CALL h5dclose_f(dset , hdferr)
+  CALL h5dclose_f(dset, hdferr)
   CALL h5sclose_f(space, hdferr)
-  CALL h5fclose_f(file , hdferr)
+  CALL h5fclose_f(file, hdferr)
   !
   ! Now we begin the read section of this example.
   !
@@ -96,7 +96,7 @@ PROGRAM main
   ! Read the data.
   !
   f_ptr = C_LOC(rdata(1))
-  CALL h5dread_f( dset, H5T_STD_REF_OBJ, f_ptr, hdferr)
+  CALL h5dread_f(dset, H5T_STD_REF_OBJ, f_ptr, hdferr)
   !
   ! Output the data to the screen.
   !
@@ -138,4 +138,4 @@ PROGRAM main
   CALL h5sclose_f(space, hdferr)
   CALL h5fclose_f(file , hdferr)
   !
-  END PROGRAM main
+END PROGRAM main
