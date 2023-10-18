@@ -6,7 +6,7 @@
 !  Next, it reopens the file, reads back the data, and
 !  outputs it to the screen.
 !
-!  This file is intended for use with HDF5 Library verion 1.8
+!  This file is intended for use with HDF5 Library version 1.8
 !  with --enable-fortran2003 
 !
 !************************************************************
@@ -27,7 +27,7 @@ PROGRAM main
   INTEGER :: hdferr
   INTEGER(hsize_t), DIMENSION(1:1) :: dims = (/dim0/)
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
-  
+
   CHARACTER(LEN=sdim), DIMENSION(1:dim0), TARGET :: &
        wdata = (/"Parting","is such", "sweet  ", "sorrow."/)
   CHARACTER(LEN=sdim), DIMENSION(:), ALLOCATABLE, TARGET :: rdata
@@ -95,13 +95,13 @@ PROGRAM main
   CALL H5Tget_size_f(filetype, size, hdferr)
 
   ! Make sure the declared length is large enough
-  IF(size.GT.sdim+1)THEN
+  IF(size.GT.sdim + 1)THEN
      PRINT*,'ERROR: Character LEN is to small'
      STOP
   ENDIF
   !
   ! Get dataspace and allocate memory for read buffer.
-  ! 
+  !
   CALL H5Aget_space_f(attr, space, hdferr)
   CALL H5Sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 

@@ -9,7 +9,7 @@
 !  This file is intended for use with HDF5 Library version 1.8
 !  with --enable-fortran2003 
 !
-! ************************************************************/
+!************************************************************
 PROGRAM main
 
   USE hdf5
@@ -24,7 +24,6 @@ PROGRAM main
 
   INTEGER(HID_T)  :: file, filetype, memtype, space, dset ! Handles
   INTEGER :: hdferr
-
   INTEGER(HSIZE_T), DIMENSION(1:1) :: dims = (/dim0/)
   INTEGER(HSIZE_T), DIMENSION(1:1) :: maxdims
 
@@ -42,6 +41,7 @@ PROGRAM main
   ! Create a new file using the default properties.
   !
   CALL h5fcreate_f(filename, H5F_ACC_TRUNC_F, file, hdferr)
+
   !
   ! Create file datatypes.  For this example we will save
   ! the strings as FORTRAN strings
@@ -58,7 +58,8 @@ PROGRAM main
   CALL h5dcreate_f(file, dataset, filetype, space, dset, hdferr)
 
   f_ptr = C_LOC(wdata(1)(1:1))
-  CALL H5Dwrite_f(dset, filetype, f_ptr, hdferr);
+  CALL H5Dwrite_f(dset, filetype, f_ptr, hdferr)
+
   !
   ! Close and release resources.
   !

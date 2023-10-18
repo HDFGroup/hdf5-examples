@@ -40,7 +40,6 @@ PROGRAM main
 
   CHARACTER(LEN=6), DIMENSION(1:4) :: &
        names = (/"SOLID ", "LIQUID", "GAS   ", "PLASMA"/)
-
   CHARACTER(LEN=NAME_BUF_SIZE) :: name
   INTEGER(HSIZE_T), DIMENSION(1:2) :: maxdims
   INTEGER(kind(SOLID)) :: i, j

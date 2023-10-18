@@ -115,6 +115,7 @@ PROGRAM main
   CALL h5dclose_f(dset2, hdferr)
   CALL h5sclose_f(space, hdferr)
   CALL h5fclose_f(file , hdferr)
+
   !
   ! Now we begin the read section of this example.
   !
@@ -129,7 +130,7 @@ PROGRAM main
   ! Get dataspace and allocate memory for read buffer.
   !
   CALL H5Aget_space_f(attr, space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
   ALLOCATE(rdata(1:dims(1)))
   CALL h5sclose_f(space, hdferr)
   !
@@ -146,8 +147,9 @@ PROGRAM main
      ! Open the referenced object, retrieve its region as a
      ! dataspace selection.
      !
-     CALL H5Rdereference_f(dset,  rdata(i), dset2, hdferr)
+     CALL H5Rdereference_f(dset, rdata(i), dset2, hdferr)
      CALL H5Rget_region_f(dset, rdata(i), space, hdferr)
+
      !
      ! Get the length of the object's name, allocate space, then
      ! retrieve the name.
@@ -169,7 +171,7 @@ PROGRAM main
      ! Print the name and region data, close and release resources.
      !
      WRITE(*,'(A,": ",A)') name(1:size),rdata2(1)(1:npoints) 
-     
+
      CALL H5Sclose_f(space, hdferr)
      CALL H5Sclose_f(memspace, hdferr)
      CALL H5Dclose_f(dset2, hdferr)

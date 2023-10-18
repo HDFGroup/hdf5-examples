@@ -21,8 +21,6 @@ PROGRAM main
   CHARACTER(LEN=2) , PARAMETER :: attribute = "A1"
   INTEGER          , PARAMETER :: dim0      = 4
   INTEGER(SIZE_T)  , PARAMETER :: size      = 7
-  
-
   INTEGER(HID_T)  :: file, space, dtype, dset, attr ! Handles
   INTEGER :: hdferr
   INTEGER(size_t) :: len
@@ -92,7 +90,7 @@ PROGRAM main
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
   CALL h5dopen_f(file, dataset, dset, hdferr)
   CALL h5aopen_f(dset, attribute, attr, hdferr)
-  !    
+  !
   ! Get datatype and properties for the datatype.
   !
   CALL h5aget_type_f(attr, dtype, hdferr)

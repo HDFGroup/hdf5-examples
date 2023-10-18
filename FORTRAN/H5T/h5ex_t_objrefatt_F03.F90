@@ -99,12 +99,13 @@ PROGRAM main
   !
   CALL h5aget_space_f(attr, space, hdferr)
   CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
+
   ALLOCATE(rdata(1:maxdims(1)))
   !
   ! Read the data.
   !
   f_ptr = C_LOC(rdata(1))
-  CALL h5aread_f( attr, H5T_STD_REF_OBJ, f_ptr, hdferr)
+  CALL h5aread_f(attr, H5T_STD_REF_OBJ, f_ptr, hdferr)
   !
   ! Output the data to the screen.
   !

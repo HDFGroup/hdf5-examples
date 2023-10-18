@@ -54,11 +54,11 @@ PROGRAM main
   !
   CALL h5screate_simple_f(2, dims, space, hdferr)
   !
-  ! Create the dataset and write the floating point data to it.  In
-  ! this example we will save the data as 64 bit little endian IEEE
-  ! floating point numbers, regardless of the native type.  The HDF5
-  ! library automatically converts between different floating point
-  ! types.
+  ! Create the dataset and write the floating point data to it.
+  ! In this example we will save the data as 64 bit little endian
+  ! IEEE floating point numbers, regardless of the native type.  The
+  ! HDF5 library automatically converts between different floating
+  ! point types.
   !
   CALL h5dcreate_f(file, dataset, H5T_IEEE_F64LE, space, dset, hdferr)
   f_ptr = C_LOC(wdata(1,1))
@@ -68,17 +68,19 @@ PROGRAM main
   !
   CALL h5dclose_f(dset , hdferr)
   CALL h5sclose_f(space, hdferr)
-  CALL h5fclose_f(file , hdferr)
+  CALL h5fclose_f(file, hdferr)
+  !
+  ! Now we begin the read section of this example.
   !
   ! Open file and dataset.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
-  CALL h5dopen_f (file, dataset, dset, hdferr)
+  CALL h5dopen_f(file, dataset, dset, hdferr)
   !
   ! Get dataspace and allocate memory for read buffer.
   !
-  CALL h5dget_space_f(dset,space, hdferr)
-  CALL h5sget_simple_extent_dims_f (space, dims, maxdims, hdferr)
+  CALL h5dget_space_f(dset, space, hdferr)
+  CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 
   ALLOCATE(rdata(1:dims(1),1:dims(2)))
   !

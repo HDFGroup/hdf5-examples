@@ -91,7 +91,7 @@ PROGRAM main
   ! Read the data.
   !
   f_ptr = C_LOC(rdata(1,1))
-  CALL h5aread_f( attr, H5T_NATIVE_INTEGER, f_ptr, hdferr)
+  CALL h5aread_f(attr, H5T_NATIVE_INTEGER, f_ptr, hdferr)
   !
   ! Output the data to the screen.
   !

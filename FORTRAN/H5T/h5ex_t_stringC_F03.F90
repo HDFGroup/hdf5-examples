@@ -94,7 +94,7 @@ PROGRAM main
      PRINT*,'ERROR: Character LEN is to small'
      STOP
   ENDIF
-
+  !
   ! Get dataspace.
   !
   CALL H5Dget_space_f(dset, space, hdferr)
@@ -127,6 +127,5 @@ PROGRAM main
   CALL H5Fclose_f(file, hdferr)
 
   DEALLOCATE(rdata)
-
 
 END PROGRAM main

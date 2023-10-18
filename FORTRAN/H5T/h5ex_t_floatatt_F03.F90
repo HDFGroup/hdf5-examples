@@ -114,4 +114,3 @@ PROGRAM main
   CALL h5sclose_f(space, hdferr)
   CALL h5fclose_f(file , hdferr)
 END PROGRAM main
-

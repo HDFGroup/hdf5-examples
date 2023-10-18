@@ -71,7 +71,6 @@ PROGRAM main
   ! Create the compound datatype for memory.
   !
   CALL h5tcreate_f(H5T_COMPOUND_F, H5OFFSETOF(C_LOC(wdata(1)), C_LOC(wdata(2))), memtype, hdferr)
-  
   CALL h5tinsert_f(memtype, "Serial number", &
        H5OFFSETOF(C_LOC(wdata(1)),C_LOC(wdata(1)%serial_no)), H5T_NATIVE_INTEGER, hdferr)
   !

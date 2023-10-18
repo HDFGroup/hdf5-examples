@@ -6,7 +6,7 @@
 
 set (BUILD_SHARED_LIBS ON CACHE BOOL "Build Shared Libraries" FORCE)
 
-set (BUILD_TESTING ON CACHE BOOL "Build HDF5 Unit Testing" FORCE)
+set (H5EX_BUILD_TESTING ON CACHE BOOL "Build HDF5 Unit Testing" FORCE)
 
 #set (HDF_ENABLE_PARALLEL ON CACHE BOOL "Enable parallel build (requires MPI)" FORCE)
 

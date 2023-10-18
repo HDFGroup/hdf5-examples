@@ -23,7 +23,6 @@ PROGRAM main
   INTEGER          , PARAMETER :: dim0      = 4
   INTEGER          , PARAMETER :: adim0     = 3
   INTEGER          , PARAMETER :: adim1     = 5
-
   INTEGER(HID_T)  :: file, filetype, memtype, space, dset, attr ! Handles
   INTEGER :: hdferr
   INTEGER(HSIZE_T), DIMENSION(1:1)   :: dims = (/dim0/)

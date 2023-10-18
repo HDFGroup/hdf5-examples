@@ -78,6 +78,7 @@ PROGRAM main
   CALL h5sclose_f(space, hdferr)
   CALL H5Tclose_f(filetype, hdferr)
   CALL h5fclose_f(file , hdferr)
+
   !
   ! Now we begin the read section of this example.
   !
@@ -97,6 +98,7 @@ PROGRAM main
   CALL H5Sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 
   ALLOCATE(rdata(1:dims(1)))
+
   !
   ! Read the data.
   !

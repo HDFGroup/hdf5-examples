@@ -23,7 +23,6 @@ PROGRAM main
 
   INTEGER(HID_T)  :: file, space, dset ! Handles
   INTEGER :: hdferr
-
   INTEGER(hsize_t),   DIMENSION(1:2) :: dims = (/dim0, dim1/)
   INTEGER, DIMENSION(1:dim0, 1:dim1), TARGET :: wdata ! Write buffer
   INTEGER, DIMENSION(:,:), ALLOCATABLE, TARGET :: rdata ! Read buffer
@@ -66,6 +65,8 @@ PROGRAM main
   CALL h5sclose_f(space, hdferr)
   CALL h5fclose_f(file , hdferr)
   !
+  ! Now we begin the read section of this example.
+  !
   ! Open file and dataset.
   !
   CALL h5fopen_f(filename, H5F_ACC_RDONLY_F, file, hdferr)
@@ -73,7 +74,7 @@ PROGRAM main
   !
   ! Get dataspace and allocate memory for read buffer.
   !
-  CALL h5dget_space_f(dset,space, hdferr)
+  CALL h5dget_space_f(dset, space, hdferr)
   CALL h5sget_simple_extent_dims_f(space, dims, maxdims, hdferr)
 
   ALLOCATE(rdata(1:dims(1),1:dims(2)))
@@ -81,7 +82,7 @@ PROGRAM main
   ! Read the data.
   !
   f_ptr = C_LOC(rdata(1,1))
-  CALL h5dread_f( dset, H5T_NATIVE_INTEGER, f_ptr, hdferr)
+  CALL h5dread_f(dset, H5T_NATIVE_INTEGER, f_ptr, hdferr)
   !
   ! Output the data to the screen.
   !

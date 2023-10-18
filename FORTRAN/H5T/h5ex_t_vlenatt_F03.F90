@@ -9,7 +9,7 @@
 !  This file is intended for use with HDF5 Library version 1.8
 !  with --enable-fortran2003 
 !
-! ************************************************************/
+!************************************************************
 
 PROGRAM main
 
@@ -86,7 +86,6 @@ PROGRAM main
   ! Create dataspace.
   !
   CALL h5screate_simple_f(1, dims, space, hdferr)
-
   !
   ! Create the attribute and write the variable-length data to it
   !
@@ -107,6 +106,7 @@ PROGRAM main
   CALL h5tclose_f(memtype, hdferr)
   CALL h5fclose_f(file , hdferr)
   DEALLOCATE(ptr)
+
   !
   ! Now we begin the read section of this example.
 
@@ -127,6 +127,7 @@ PROGRAM main
   ! Create the memory datatype.
   !
   CALL h5tvlen_create_f(H5T_NATIVE_INTEGER, memtype, hdferr)
+
   !
   ! Read the data.
   !
@@ -144,8 +145,11 @@ PROGRAM main
      ENDDO
      WRITE(*,'( " }")')
   ENDDO
+
   !
-  ! Close and release resources.
+  ! Close and release resources.  Note the use of H5Dvlen_reclaim
+  ! removes the need to manually deallocate the previously allocated
+  ! data.
   !
   CALL h5dvlen_reclaim_f(memtype, space, H5P_DEFAULT_F, f_ptr, hdferr)
   CALL h5aclose_f(attr , hdferr)

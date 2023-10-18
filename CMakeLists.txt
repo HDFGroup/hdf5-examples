@@ -4,6 +4,7 @@ project (H5EXAMPLES C CXX)
 #-----------------------------------------------------------------------------
 # Basic HDF5Examples stuff here
 #-----------------------------------------------------------------------------
+include (${H5EXAMPLES_SOURCE_DIR}/config/cmake/HDFMacros.cmake)
 include (${H5EXAMPLES_SOURCE_DIR}/config/cmake/HDFExampleMacros.cmake)
 set (CMAKE_JAVA_INCLUDE_PATH "")
 
@@ -22,14 +23,14 @@ set (HDF5EX_JAVA_DIR           ${H5EXAMPLES_SOURCE_DIR}/JAVA)
 # HDF5 support
 #-----------------------------------------------------------------------------
 HDF5_SUPPORT (TRUE)
-message (STATUS "HDF5 link libs: ${LINK_LIBS}")
+message (STATUS "HDF5 link libs: ${H5EX_HDF5_LINK_LIBS}")
 APIVersion(${HDF5_VERSION} H5_LIBVER_DIR)
 message (STATUS "HDF5 H5_LIBVER_DIR: ${H5_LIBVER_DIR}")
 
 #-----------------------------------------------------------------------------
 # parse the full version number from H5public.h and include in H5_VERS_INFO
 #-----------------------------------------------------------------------------
-find_file (_h5public_h H5public.h ${HDF5_INCLUDE_DIR})
+find_file (_h5public_h H5public.h ${H5EX_HDF5_INCLUDE_DIRS})
 file (READ ${_h5public_h} _h5public_h_contents)
 
 string (REGEX REPLACE ".*#define[ \t]+H5_VERS_MAJOR[ \t]+([0-9]*).*$"
@@ -70,7 +71,7 @@ endif ()
 
 # Parallel IO usage requires MPI to be Linked and Included
 if (H5_HAVE_PARALLEL)
-  set (LINK_LIBS ${LINK_LIBS} ${MPI_C_LIBRARIES})
+  set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} ${MPI_C_LIBRARIES})
   if (MPI_C_LINK_FLAGS)
     set (CMAKE_EXE_LINKER_FLAGS "${MPI_C_LINK_FLAGS} ${CMAKE_EXE_LINKER_FLAGS}")
   endif ()
@@ -97,14 +98,16 @@ if (HDF_ENABLE_THREADSAFE)
   if (NOT Threads_FOUND)
     message (STATUS " **** thread-safe package not found - threads still might work **** ")
   endif ()
-  set (LINK_LIBS ${LINK_LIBS} Threads::Threads)
+  set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} Threads::Threads)
 endif ()
+
+INCLUDE_DIRECTORIES (${H5EX_HDF5_INCLUDE_DIRS})
 
 #-----------------------------------------------------------------------------
 # Dashboard and Testing Settings
 #-----------------------------------------------------------------------------
-option (BUILD_TESTING "Build HDF5 Example Testing" OFF)
-if (BUILD_TESTING)
+option (H5EX_BUILD_TESTING "Build HDF5 Example Testing" OFF)
+if (H5EX_BUILD_TESTING)
   set (DART_TESTING_TIMEOUT 1200 CACHE STRING
       "Timeout in seconds for each test (default 1200=20minutes)"
   )
@@ -131,7 +134,7 @@ if (${H5_LIBVER_DIR} GREATER 16)
   if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/FORTRAN" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/FORTRAN")
     option (HDF_BUILD_FORTRAN "Build FORTRAN support" OFF)
     if (HDF_BUILD_FORTRAN AND HDF5_BUILD_FORTRAN)
-      set (LINK_Fortran_LIBS ${LINK_LIBS})
+      set (LINK_Fortran_LIBS ${H5EX_HDF5_LINK_LIBS})
 
       # Parallel IO usage requires MPI to be Linked and Included
       if (H5_HAVE_PARALLEL)

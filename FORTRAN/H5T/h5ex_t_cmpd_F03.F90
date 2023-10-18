@@ -16,6 +16,7 @@ PROGRAM main
   USE HDF5
 
   IMPLICIT NONE
+
   ! This should map to REAL*8 on most modern processors
   INTEGER, PARAMETER :: real_kind_15 = SELECTED_REAL_KIND(15,307)
 
