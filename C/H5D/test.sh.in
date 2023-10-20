@@ -71,7 +71,7 @@ do
         echo "  Unsupported feature"
         status=0
     else
-        cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+        cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
         status=$?
         if test $status -ne 0
         then
@@ -79,7 +79,7 @@ do
         else
           dumpout $fname.h5 >tmp.test
           rm -f $fname.h5
-          cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+          cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
           status=$?
           if test $status -ne 0
           then
@@ -115,7 +115,7 @@ if test $status -eq 1
 then
     echo "  Unsupported feature"
 else
-    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -123,7 +123,7 @@ else
     else
         dumpout $fname.h5 >tmp.test
         rm -f $fname.h5
-        cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
+        cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
         status=$?
         if test $status -ne 0
         then
@@ -148,7 +148,7 @@ if test $status -eq 1
 then
     echo "  Unsupported feature"
 else
-    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -156,7 +156,7 @@ else
     else
         dumpout -n $fname.h5 >tmp.test
         rm -f $fname.h5
-        cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+        cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
         status=$?
         if test $status -ne 0
         then

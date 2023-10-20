@@ -55,24 +55,24 @@ h5ex_t_vlen_F03_SOURCES       = h5ex_t_vlen_F03.F90
 
 endif
 
-EXTRA_DIST = testfiles/h5ex_t_arrayatt_F03.tst testfiles/h5ex_t_array_F03.tst testfiles/h5ex_t_bitatt_F03.tst \
-  testfiles/h5ex_t_bit_F03.tst testfiles/h5ex_t_cmpdatt_F03.tst testfiles/h5ex_t_cmpd_F03.tst \
-  testfiles/h5ex_t_Cstring_F03.tst testfiles/h5ex_t_enumatt_F03.tst testfiles/h5ex_t_enum_F03.tst \
-  testfiles/h5ex_t_floatatt_F03.tst testfiles/h5ex_t_float_F03.tst testfiles/h5ex_t_intatt_F03.tst \
-  testfiles/h5ex_t_int_F03.tst testfiles/h5ex_t_objrefatt_F03.tst testfiles/h5ex_t_objref_F03.tst \
-  testfiles/h5ex_t_opaqueatt_F03.tst testfiles/h5ex_t_opaque_F03.tst testfiles/h5ex_t_regrefatt_F03.tst \
-  testfiles/h5ex_t_regref_F03.tst testfiles/h5ex_t_stringCatt_F03.tst testfiles/h5ex_t_stringC_F03.tst \
-  testfiles/h5ex_t_string_F03.tst testfiles/h5ex_t_vlenatt_F03.tst testfiles/h5ex_t_vlen_F03.tst \
-  testfiles/h5ex_t_vlstring.tst \
-  testfiles/h5ex_t_arrayatt_F03.ddl testfiles/h5ex_t_array_F03.ddl testfiles/h5ex_t_bitatt_F03.ddl \
-  testfiles/h5ex_t_bit_F03.ddl testfiles/h5ex_t_cmpdatt_F03.ddl testfiles/h5ex_t_cmpd_F03.ddl \
-  testfiles/h5ex_t_Cstring_F03.ddl testfiles/h5ex_t_enumatt_F03.ddl testfiles/h5ex_t_enum_F03.ddl \
-  testfiles/h5ex_t_floatatt_F03.ddl testfiles/h5ex_t_float_F03.ddl testfiles/h5ex_t_intatt_F03.ddl \
-  testfiles/h5ex_t_int_F03.ddl testfiles/h5ex_t_objrefatt_F03.ddl testfiles/h5ex_t_objref_F03.ddl \
-  testfiles/h5ex_t_opaqueatt_F03.ddl testfiles/h5ex_t_opaque_F03.ddl testfiles/h5ex_t_regrefatt_F03.ddl \
-  testfiles/h5ex_t_regref_F03.ddl testfiles/h5ex_t_stringCatt_F03.ddl testfiles/h5ex_t_stringC_F03.ddl \
-  testfiles/h5ex_t_string_F03.ddl testfiles/h5ex_t_vlenatt_F03.ddl testfiles/h5ex_t_vlen_F03.ddl \
-  testfiles/h5ex_t_vlstring.ddl \
+EXTRA_DIST = tfiles/h5ex_t_arrayatt_F03.tst tfiles/h5ex_t_array_F03.tst tfiles/h5ex_t_bitatt_F03.tst \
+  tfiles/h5ex_t_bit_F03.tst tfiles/h5ex_t_cmpdatt_F03.tst tfiles/h5ex_t_cmpd_F03.tst \
+  tfiles/h5ex_t_Cstring_F03.tst tfiles/h5ex_t_enumatt_F03.tst tfiles/h5ex_t_enum_F03.tst \
+  tfiles/h5ex_t_floatatt_F03.tst tfiles/h5ex_t_float_F03.tst tfiles/h5ex_t_intatt_F03.tst \
+  tfiles/h5ex_t_int_F03.tst tfiles/h5ex_t_objrefatt_F03.tst tfiles/h5ex_t_objref_F03.tst \
+  tfiles/h5ex_t_opaqueatt_F03.tst tfiles/h5ex_t_opaque_F03.tst tfiles/h5ex_t_regrefatt_F03.tst \
+  tfiles/h5ex_t_regref_F03.tst tfiles/h5ex_t_stringCatt_F03.tst tfiles/h5ex_t_stringC_F03.tst \
+  tfiles/h5ex_t_string_F03.tst tfiles/h5ex_t_vlenatt_F03.tst tfiles/h5ex_t_vlen_F03.tst \
+  tfiles/h5ex_t_vlstring.tst \
+  tfiles/h5ex_t_arrayatt_F03.ddl tfiles/h5ex_t_array_F03.ddl tfiles/h5ex_t_bitatt_F03.ddl \
+  tfiles/h5ex_t_bit_F03.ddl tfiles/h5ex_t_cmpdatt_F03.ddl tfiles/h5ex_t_cmpd_F03.ddl \
+  tfiles/h5ex_t_Cstring_F03.ddl tfiles/h5ex_t_enumatt_F03.ddl tfiles/h5ex_t_enum_F03.ddl \
+  tfiles/h5ex_t_floatatt_F03.ddl tfiles/h5ex_t_float_F03.ddl tfiles/h5ex_t_intatt_F03.ddl \
+  tfiles/h5ex_t_int_F03.ddl tfiles/h5ex_t_objrefatt_F03.ddl tfiles/h5ex_t_objref_F03.ddl \
+  tfiles/h5ex_t_opaqueatt_F03.ddl tfiles/h5ex_t_opaque_F03.ddl tfiles/h5ex_t_regrefatt_F03.ddl \
+  tfiles/h5ex_t_regref_F03.ddl tfiles/h5ex_t_stringCatt_F03.ddl tfiles/h5ex_t_stringC_F03.ddl \
+  tfiles/h5ex_t_string_F03.ddl tfiles/h5ex_t_vlenatt_F03.ddl tfiles/h5ex_t_vlen_F03.ddl \
+  tfiles/h5ex_t_vlstring.ddl \
   test.sh
 
 TESTS = test.sh

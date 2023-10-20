@@ -61,13 +61,13 @@ $HDFTEST_HOME/h5ex_g_iterate.h5
 $HDFTEST_HOME/h5ex_g_visit.h5
 "
 LIST_DATA_FILES="
-$HDFTEST_HOME/../testfiles/examples.groups.H5Ex_G_Create.txt
-$HDFTEST_HOME/../testfiles/examples.groups.H5Ex_G_Iterate.txt
-$HDFTEST_HOME/../testfiles/examples.groups.H5Ex_G_Compact.txt
-$HDFTEST_HOME/../testfiles/examples.groups.H5Ex_G_Corder.txt
-$HDFTEST_HOME/../testfiles/examples.groups.H5Ex_G_Intermediate.txt
-$HDFTEST_HOME/../testfiles/examples.groups.H5Ex_G_Phase.txt
-$HDFTEST_HOME/../testfiles/examples.groups.H5Ex_G_Visit.txt
+$HDFTEST_HOME/../tfiles/examples.groups.H5Ex_G_Create.txt
+$HDFTEST_HOME/../tfiles/examples.groups.H5Ex_G_Iterate.txt
+$HDFTEST_HOME/../tfiles/examples.groups.H5Ex_G_Compact.txt
+$HDFTEST_HOME/../tfiles/examples.groups.H5Ex_G_Corder.txt
+$HDFTEST_HOME/../tfiles/examples.groups.H5Ex_G_Intermediate.txt
+$HDFTEST_HOME/../tfiles/examples.groups.H5Ex_G_Phase.txt
+$HDFTEST_HOME/../tfiles/examples.groups.H5Ex_G_Visit.txt
 "
 
 #

@@ -71,10 +71,10 @@ macro (BASIC_SETTINGS varname)
   # Compiler specific flags : Shouldn't there be compiler tests for these
   #-----------------------------------------------------------------------------
   if (CMAKE_COMPILER_IS_GNUCC)
-    set (CMAKE_C_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_C_FLAGS} -std=c99 -fomit-frame-pointer -finline-functions -fno-common")
+    set (CMAKE_C_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_C_FLAGS}")
   endif ()
   if (CMAKE_COMPILER_IS_GNUCXX)
-    set (CMAKE_CXX_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_CXX_FLAGS} -fomit-frame-pointer -finline-functions -fno-common")
+    set (CMAKE_CXX_FLAGS "${CMAKE_ANSI_CFLAGS} ${CMAKE_CXX_FLAGS}")
   endif ()
 
   #-----------------------------------------------------------------------------
@@ -149,6 +149,8 @@ macro (HDF5_SUPPORT)
       set (FIND_HDF_COMPONENTS C shared)
     else ()
       set (FIND_HDF_COMPONENTS C static)
+      set (HDF_BUILD_JAVA OFF CACHE BOOL "Build Java support" FORCE)
+      message (STATUS "Using static HDF5 - disable build of Java examples")
     endif ()
     if (HDF_BUILD_FORTRAN)
       set (FIND_HDF_COMPONENTS ${FIND_HDF_COMPONENTS} Fortran)

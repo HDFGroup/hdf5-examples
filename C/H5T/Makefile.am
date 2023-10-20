@@ -23,24 +23,24 @@ h5ex_t_string h5ex_t_stringatt h5ex_t_vlstring h5ex_t_vlstringatt h5ex_t_cmpd \
 h5ex_t_cmpdatt h5ex_t_cpxcmpd h5ex_t_cpxcmpdatt h5ex_t_objref h5ex_t_objrefatt \
 h5ex_t_regref h5ex_t_regrefatt h5ex_t_commit h5ex_t_convert
 
-EXTRA_DIST = testfiles/h5ex_t_int.tst testfiles/h5ex_t_intatt.tst testfiles/h5ex_t_float.tst \
-testfiles/h5ex_t_floatatt.tst testfiles/h5ex_t_enum.tst testfiles/h5ex_t_enumatt.tst testfiles/h5ex_t_bit.tst \
-testfiles/h5ex_t_bitatt.tst testfiles/h5ex_t_opaque.tst testfiles/h5ex_t_opaqueatt.tst testfiles/h5ex_t_array.tst \
-testfiles/h5ex_t_arrayatt.tst testfiles/h5ex_t_vlen.tst testfiles/h5ex_t_vlenatt.tst testfiles/h5ex_t_string.tst \
-testfiles/h5ex_t_stringatt.tst testfiles/h5ex_t_vlstring.tst testfiles/h5ex_t_vlstringatt.tst \
-testfiles/h5ex_t_cmpd.tst testfiles/h5ex_t_cmpdatt.tst testfiles/h5ex_t_cpxcmpd.tst \
-testfiles/h5ex_t_cpxcmpdatt.tst testfiles/h5ex_t_objref.tst testfiles/h5ex_t_objrefatt.tst \
-testfiles/h5ex_t_regref.tst testfiles/h5ex_t_regrefatt.tst testfiles/h5ex_t_commit.tst \
-testfiles/h5ex_t_convert.tst \
-testfiles/h5ex_t_int.ddl testfiles/h5ex_t_intatt.ddl testfiles/h5ex_t_float.ddl \
-testfiles/h5ex_t_floatatt.ddl testfiles/h5ex_t_enum.ddl testfiles/h5ex_t_enumatt.ddl testfiles/h5ex_t_bit.ddl \
-testfiles/h5ex_t_bitatt.ddl testfiles/h5ex_t_opaque.ddl testfiles/h5ex_t_opaqueatt.ddl testfiles/h5ex_t_array.ddl \
-testfiles/h5ex_t_arrayatt.ddl testfiles/h5ex_t_vlen.ddl testfiles/h5ex_t_vlenatt.ddl testfiles/h5ex_t_string.ddl \
-testfiles/h5ex_t_stringatt.ddl testfiles/h5ex_t_vlstring.ddl testfiles/h5ex_t_vlstringatt.ddl \
-testfiles/h5ex_t_cmpd.ddl testfiles/h5ex_t_cmpdatt.ddl testfiles/h5ex_t_cpxcmpd.ddl \
-testfiles/h5ex_t_cpxcmpdatt.ddl testfiles/h5ex_t_objref.ddl testfiles/h5ex_t_objrefatt.ddl \
-testfiles/h5ex_t_regref.ddl testfiles/h5ex_t_regrefatt.ddl testfiles/h5ex_t_commit.ddl \
-testfiles/h5ex_t_convert.ddl test.sh
+EXTRA_DIST = tfiles/h5ex_t_int.tst tfiles/h5ex_t_intatt.tst tfiles/h5ex_t_float.tst \
+tfiles/h5ex_t_floatatt.tst tfiles/h5ex_t_enum.tst tfiles/h5ex_t_enumatt.tst tfiles/h5ex_t_bit.tst \
+tfiles/h5ex_t_bitatt.tst tfiles/h5ex_t_opaque.tst tfiles/h5ex_t_opaqueatt.tst tfiles/h5ex_t_array.tst \
+tfiles/h5ex_t_arrayatt.tst tfiles/h5ex_t_vlen.tst tfiles/h5ex_t_vlenatt.tst tfiles/h5ex_t_string.tst \
+tfiles/h5ex_t_stringatt.tst tfiles/h5ex_t_vlstring.tst tfiles/h5ex_t_vlstringatt.tst \
+tfiles/h5ex_t_cmpd.tst tfiles/h5ex_t_cmpdatt.tst tfiles/h5ex_t_cpxcmpd.tst \
+tfiles/h5ex_t_cpxcmpdatt.tst tfiles/h5ex_t_objref.tst tfiles/h5ex_t_objrefatt.tst \
+tfiles/h5ex_t_regref.tst tfiles/h5ex_t_regrefatt.tst tfiles/h5ex_t_commit.tst \
+tfiles/h5ex_t_convert.tst \
+tfiles/h5ex_t_int.ddl tfiles/h5ex_t_intatt.ddl tfiles/h5ex_t_float.ddl \
+tfiles/h5ex_t_floatatt.ddl tfiles/h5ex_t_enum.ddl tfiles/h5ex_t_enumatt.ddl tfiles/h5ex_t_bit.ddl \
+tfiles/h5ex_t_bitatt.ddl tfiles/h5ex_t_opaque.ddl tfiles/h5ex_t_opaqueatt.ddl tfiles/h5ex_t_array.ddl \
+tfiles/h5ex_t_arrayatt.ddl tfiles/h5ex_t_vlen.ddl tfiles/h5ex_t_vlenatt.ddl tfiles/h5ex_t_string.ddl \
+tfiles/h5ex_t_stringatt.ddl tfiles/h5ex_t_vlstring.ddl tfiles/h5ex_t_vlstringatt.ddl \
+tfiles/h5ex_t_cmpd.ddl tfiles/h5ex_t_cmpdatt.ddl tfiles/h5ex_t_cpxcmpd.ddl \
+tfiles/h5ex_t_cpxcmpdatt.ddl tfiles/h5ex_t_objref.ddl tfiles/h5ex_t_objrefatt.ddl \
+tfiles/h5ex_t_regref.ddl tfiles/h5ex_t_regrefatt.ddl tfiles/h5ex_t_commit.ddl \
+tfiles/h5ex_t_convert.ddl test.sh
 
 
 TESTS = test.sh

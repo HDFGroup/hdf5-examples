@@ -171,7 +171,7 @@ if (H5EX_BUILD_TESTING)
         TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact.tst ${PROJECT_BINARY_DIR}/h5ex_g_compact.tst
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/h5ex_g_compact.tst ${PROJECT_BINARY_DIR}/h5ex_g_compact.tst
     )
   endif ()
 
@@ -181,20 +181,20 @@ if (H5EX_BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl
       )
       add_custom_command (
           TARGET     ${EXAMPLE_VARNAME}_h5ex_g_compact
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl
       )
     endif ()
     add_custom_command (
         TARGET     ${EXAMPLE_VARNAME}_h5ex_g_create
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl
     )
   endif ()
 
@@ -215,7 +215,7 @@ if (H5EX_BUILD_TESTING)
         TARGET     ${EXAMPLE_VARNAME}_${example}
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
     )
   endforeach ()
 

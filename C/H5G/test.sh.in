@@ -50,7 +50,7 @@ $ECHO_N "Testing C/H5G/h5ex_g_create...$ECHO_C"
 ./h5ex_g_create
 dumpout h5ex_g_create.h5 >tmp.test
 rm -f h5ex_g_create.h5
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_create.ddl
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_create.ddl
 status=$?
 if test $status -ne 0
 then
@@ -70,7 +70,7 @@ else
     exout ./h5ex_g_iterate >tmp.test
     rm  -f h5ex_g_iterate.h5
 fi
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_iterate.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_iterate.tst
 status=$?
 if test $status -ne 0
 then
@@ -90,7 +90,7 @@ else
     exout ./h5ex_g_traverse >tmp.test
     rm  -f h5ex_g_traverse.h5
 fi
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_traverse.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_traverse.tst
 status=$?
 if test $status -ne 0
 then
@@ -110,7 +110,7 @@ else
     exout ./h5ex_g_visit >tmp.test
     rm  -f h5ex_g_visit.h5
 fi
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_visit.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_visit.tst
 status=$?
 if test $status -ne 0
 then
@@ -123,21 +123,21 @@ return_val=`expr $status + $return_val`
 
 $ECHO_N "Testing C/H5G/h5ex_g_compact...$ECHO_C"
 exout ./h5ex_g_compact >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_compact.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_compact.tst
 status=$?
 if test $status -ne 0
 then
     echo "  FAILED!"
 else
   dumpout h5ex_g_compact1.h5 >tmp.test
-  cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_compact1.ddl
+  cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_compact1.ddl
   status=$?
   if test $status -ne 0
   then
       echo "  FAILED!"
   else
     dumpout h5ex_g_compact2.h5 >tmp.test
-    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_compact2.ddl
+    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_compact2.ddl
     status=$?
     if test $status -ne 0
     then
@@ -154,7 +154,7 @@ rm -f h5ex_g_compact2.h5
 
 $ECHO_N "Testing C/H5G/h5ex_g_phase...$ECHO_C"
 exout ./h5ex_g_phase >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_phase.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_phase.tst
 status=$?
 if test $status -ne 0
 then
@@ -168,7 +168,7 @@ rm -f h5ex_g_phase.h5
 
 $ECHO_N "Testing C/H5G/h5ex_g_corder...$ECHO_C"
 exout ./h5ex_g_corder >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_corder.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_corder.tst
 status=$?
 if test $status -ne 0
 then
@@ -182,7 +182,7 @@ rm -f h5ex_g_corder.h5
 
 $ECHO_N "Testing C/H5G/h5ex_g_intermediate...$ECHO_C"
 exout ./h5ex_g_intermediate >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/h5ex_g_intermediate.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/h5ex_g_intermediate.tst
 status=$?
 if test $status -ne 0
 then
