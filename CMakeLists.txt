@@ -162,7 +162,7 @@ if (${H5_LIBVER_DIR} GREATER 16)
   #-----------------------------------------------------------------------------
   # Option to build filter examples
   #-----------------------------------------------------------------------------
-  if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/C/H5Filters" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/C/H5Filters")
+  if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/C/H5F" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/C/H5F")
     option (HDF_BUILD_FILTERS "Test filter support" OFF)
   endif ()
 endif ()

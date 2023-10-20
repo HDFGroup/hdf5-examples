@@ -60,8 +60,8 @@ for topic in $topics
 do
     fname=h5ex_t_$topic
     $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-    exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
-    dumpout $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+    exout ./$fname >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
     rm -f $fname.h5
     echo "  Done."
 done
@@ -91,27 +91,27 @@ for topic in $topics
 do
     fname=h5ex_t_$topic
     $ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-    exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
-    dumpout $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
+    exout ./$fname >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+    dumpout $fname.h5 >$srcdir/tfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
     rm -f $fname.h5
     echo "  Done."
 done
 
 #fname=h5ex_t_cpxcmpd
 #$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-#exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
-#dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+#exout ./$fname >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+#dumpout -n $fname.h5 >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
 #rm -f $fname.h5
 #echo "  Done."
 #
 #fname=h5ex_t_cpxcmpdatt
 #$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-#exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
-#dumpout -n $fname.h5 >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+#exout ./$fname >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+#dumpout -n $fname.h5 >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
 #rm -f $fname.h5
 #echo "  Done."
 
 #fname=h5ex_t_convert
 #$ECHO_N "Creating test reference file for $PWD/$fname...$ECHO_C"
-#exout ./$fname >$srcdir/testfiles/$H5_LIBVER_DIR/$fname.test
+#exout ./$fname >$srcdir/tfiles/$H5_LIBVER_DIR/$fname.test
 #echo "  Done."

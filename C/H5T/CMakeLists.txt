@@ -93,14 +93,14 @@ if (H5EX_BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
       )
       if (HDF5_BUILD_TOOLS)
         add_custom_command (
             TARGET     ${EXAMPLE_VARNAME}_${example_name}
             POST_BUILD
             COMMAND    ${CMAKE_COMMAND}
-            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
         )
       endif ()
       ADD_H5_TEST (${example_name} -n)
@@ -109,7 +109,7 @@ if (H5EX_BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
       )
       ADD_H5_CMP_TEST (${example_name})
     elseif (${example_name} STREQUAL "h5ex_t_vlen" OR ${example_name} STREQUAL "h5ex_t_vlenatt")
@@ -119,7 +119,7 @@ if (H5EX_BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
       )
       if (HDF5_BUILD_TOOLS)
         if (${${EXAMPLE_VARNAME}_USE_16_API} OR ${${EXAMPLE_VARNAME}_USE_18_API} OR ${${EXAMPLE_VARNAME}_USE_110_API} OR ${${EXAMPLE_VARNAME}_USE_112_API})
@@ -128,14 +128,14 @@ if (H5EX_BUILD_TESTING)
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/114/${example_name}.ddl ${testdest}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/114/${example_name}.ddl ${testdest}.ddl
             )
           else ()
             add_custom_command (
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
             )
           endif ()
         else ()
@@ -144,14 +144,14 @@ if (H5EX_BUILD_TESTING)
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}02.ddl ${testdest}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}02.ddl ${testdest}.ddl
             )
           else ()
             add_custom_command (
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
             )
           endif ()
         endif ()
@@ -164,7 +164,7 @@ if (H5EX_BUILD_TESTING)
           TARGET     ${EXAMPLE_VARNAME}_${example_name}
           POST_BUILD
           COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
       )
       if (HDF5_BUILD_TOOLS)
         if (${${EXAMPLE_VARNAME}_USE_16_API} OR ${${EXAMPLE_VARNAME}_USE_18_API} OR ${${EXAMPLE_VARNAME}_USE_110_API})
@@ -173,14 +173,14 @@ if (H5EX_BUILD_TESTING)
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/112/${example_name}.ddl ${testdest}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/112/${example_name}.ddl ${testdest}.ddl
             )
           else ()
             add_custom_command (
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
             )
           endif ()
         else ()
@@ -190,14 +190,14 @@ if (H5EX_BUILD_TESTING)
                   TARGET     ${EXAMPLE_VARNAME}_${example_name}
                   POST_BUILD
                   COMMAND    ${CMAKE_COMMAND}
-                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}22.ddl ${testdest}.ddl
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}22.ddl ${testdest}.ddl
               )
             else ()
               add_custom_command (
                   TARGET     ${EXAMPLE_VARNAME}_${example_name}
                   POST_BUILD
                   COMMAND    ${CMAKE_COMMAND}
-                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
               )
             endif ()
           else ()
@@ -205,7 +205,7 @@ if (H5EX_BUILD_TESTING)
                 TARGET     ${EXAMPLE_VARNAME}_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/testfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
             )
           endif ()
         endif ()

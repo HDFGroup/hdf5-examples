@@ -63,7 +63,7 @@ do
     fname=h5ex_t_$topic
     $ECHO_N "Testing C/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
-    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -71,7 +71,7 @@ do
     else
         dumpout $fname.h5 >tmp.test
       rm -f $fname.h5
-      cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+      cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
       status=$?
       if test $status -ne 0
       then
@@ -110,7 +110,7 @@ do
     fname=h5ex_t_$topic
     $ECHO_N "Testing C/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
-    cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -118,7 +118,7 @@ do
     else
         dumpout $fname.h5 >tmp.test
       rm -f $fname.h5
-      cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
+      cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
       status=$?
       if test $status -ne 0
       then
@@ -133,7 +133,7 @@ done
 fname=h5ex_t_cpxcmpd
 $ECHO_N "Testing C/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
 status=$?
 if test $status -ne 0
 then
@@ -141,7 +141,7 @@ then
 else
   dumpout -n $fname.h5 >tmp.test
   rm -f $fname.h5
-  cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+  cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
   status=$?
   if test $status -ne 0
   then
@@ -156,7 +156,7 @@ return_val=`expr $status + $return_val`
 fname=h5ex_t_cpxcmpdatt
 $ECHO_N "Testing C/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
 status=$?
 if test $status -ne 0
 then
@@ -164,7 +164,7 @@ then
 else
   dumpout -n $fname.h5 >tmp.test
   rm -f $fname.h5
-  cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.ddl
+  cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
   status=$?
   if test $status -ne 0
   then
@@ -179,7 +179,7 @@ return_val=`expr $status + $return_val`
 fname=h5ex_t_convert
 $ECHO_N "Testing C/H5T/$fname...$ECHO_C"
 exout ./$fname >tmp.test
-cmp -s tmp.test $srcdir/testfiles/$H5_LIBVER_DIR/$fname.tst
+cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
 status=$?
 if test $status -ne 0
 then

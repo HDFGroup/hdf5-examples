@@ -55,13 +55,13 @@ $top_builddir/lib/libhdf5_java.*
 $top_builddir/JAVA/intro/$JARFILE
 "
 LIST_DATA_FILES="
-$HDFTEST_HOME/testfiles/114/HDF5AttributeCreate.txt
-$HDFTEST_HOME/testfiles/114/HDF5DatasetCreate.txt
-$HDFTEST_HOME/testfiles/114/HDF5DatasetRead.txt
-$HDFTEST_HOME/testfiles/114/HDF5FileCreate.txt
-$HDFTEST_HOME/testfiles/114/HDF5FileStructure.txt
-$HDFTEST_HOME/testfiles/114/HDF5GroupCreate.txt
-$HDFTEST_HOME/testfiles/114/HDF5SubsetSelect.txt
+$HDFTEST_HOME/tfiles/114/HDF5AttributeCreate.txt
+$HDFTEST_HOME/tfiles/114/HDF5DatasetCreate.txt
+$HDFTEST_HOME/tfiles/114/HDF5DatasetRead.txt
+$HDFTEST_HOME/tfiles/114/HDF5FileCreate.txt
+$HDFTEST_HOME/tfiles/114/HDF5FileStructure.txt
+$HDFTEST_HOME/tfiles/114/HDF5GroupCreate.txt
+$HDFTEST_HOME/tfiles/114/HDF5SubsetSelect.txt
 "
 
 #

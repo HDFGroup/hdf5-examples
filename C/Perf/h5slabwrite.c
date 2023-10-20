@@ -13,8 +13,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+
+#include "../Perf/h5slab.h"
 #include "hdf5.h"
-#include "h5slab.h"
 
 /* Write the chunks in the row order.  This provides good and bad read
  * performance if the read pattern is by row and by column respectively.

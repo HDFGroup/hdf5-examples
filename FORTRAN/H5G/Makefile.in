@@ -471,9 +471,9 @@ h5ex_g_compact_SOURCES = h5ex_g_compact.F90
 h5ex_g_create_SOURCES = h5ex_g_create.F90
 h5ex_g_corder_SOURCES = h5ex_g_corder.F90
 h5ex_g_phase_SOURCES = h5ex_g_phase.F90
-EXTRA_DIST = testfiles/h5ex_g_create.ddl \
-testfiles/h5ex_g_compact1.ddl testfiles/h5ex_g_compact2.ddl testfiles/h5ex_g_corder.tst \
-testfiles/h5ex_g_phase.tst \
+EXTRA_DIST = tfiles/h5ex_g_create.ddl \
+tfiles/h5ex_g_compact1.ddl tfiles/h5ex_g_compact2.ddl tfiles/h5ex_g_corder.tst \
+tfiles/h5ex_g_phase.tst \
 test.sh
 
 TESTS = test.sh

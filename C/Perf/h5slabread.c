@@ -5,8 +5,9 @@
 
 #include <stdlib.h>
 #include <string.h>
+
+#include "../Perf/h5slab.h"
 #include "hdf5.h"
-#include "h5slab.h"
 
 /* Read the chunks in a row pattern.
  *
