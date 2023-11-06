@@ -20,9 +20,8 @@ INCLUDE_DIRECTORIES (
 #-----------------------------------------------------------------------------
 include (Fortran_sourcefiles.cmake)
 
-foreach (example ${examples})
-  get_filename_component (example_name ${example} NAME_WE)
-  add_executable (${EXAMPLE_VARNAME}_f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+foreach (example_name ${examples})
+  add_executable (${EXAMPLE_VARNAME}_f90_${example_name} ${PROJECT_SOURCE_DIR}/${example_name}.F90)
   target_compile_options(${EXAMPLE_VARNAME}_f90_${example_name}
       PRIVATE
           "-DH5_LIBVER_DIR=${H5_LIBVER_DIR}"
@@ -33,63 +32,49 @@ foreach (example ${examples})
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_114_API}>:-DH5_USE_114_API>"
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_116_API}>:-DH5_USE_116_API>"
   )
-  if (H5_HAVE_PARALLEL)
-    target_include_directories (${EXAMPLE_VARNAME}_f90_${example_name} PUBLIC ${MPI_Fortran_INCLUDE_DIRS})
-  endif ()
+  target_include_directories (${EXAMPLE_VARNAME}_f90_${example_name} PUBLIC ${MPI_Fortran_INCLUDE_DIRS})
   target_link_libraries (${EXAMPLE_VARNAME}_f90_${example_name} ${LINK_Fortran_LIBS})
   set_target_properties (${EXAMPLE_VARNAME}_f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
 endforeach ()
 
 if (H5EX_BUILD_TESTING)
-  macro (ADD_H5_TEST testname)
+  macro (ADD_GREP_TEST testname mumprocs)
     add_test (
         NAME ${EXAMPLE_VARNAME}_f90_${testname}-clearall
         COMMAND    ${CMAKE_COMMAND}
             -E remove
             ${testname}.h5
     )
-    add_test (
-        NAME ${EXAMPLE_VARNAME}_f90_${testname}
-        COMMAND "${CMAKE_COMMAND}"
-            -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>"
-            -D "TEST_ARGS:STRING="
-            -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-            -D "TEST_EXPECT=0"
-            -D "TEST_OUTPUT=${testname}.out"
-            -D "TEST_REFERENCE=${testname}.tst"
-            -D "TEST_SKIP_COMPARE=1"
-            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-            -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/runTest.cmake"
-    )
-    set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
-    if (HDF5_BUILD_TOOLS)
-      add_test (
-          NAME ${EXAMPLE_VARNAME}_H5DUMP-f90_${testname}
-          COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
-              -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
-              -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-              -D "TEST_OUTPUT=${testname}.ddl.out"
-              -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}.ddl"
-              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-              -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/runTest.cmake"
-      )
-      set_tests_properties (${EXAMPLE_VARNAME}_H5DUMP-f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname})
+    if (last_test)
+      set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname}-clearall PROPERTIES DEPENDS ${last_test})
     endif ()
+    add_test (NAME ${EXAMPLE_VARNAME}_f90_${testname} COMMAND "${CMAKE_COMMAND}"
+        -D "TEST_PROGRAM=${MPIEXEC_EXECUTABLE};${MPIEXEC_NUMPROC_FLAG};${mumprocs};${MPIEXEC_PREFLAGS};$<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>;${MPIEXEC_POSTFLAGS}"
+        -D "TEST_ARGS:STRING="
+        -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
+        -D "TEST_EXPECT=0"
+        -D "TEST_SKIP_COMPARE=TRUE"
+        -D "TEST_OUTPUT=${testname}.out"
+        -D "TEST_REFERENCE:STRING=PHDF5 example finished with no errors"
+        -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
+        -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/grepTest.cmake"
+    )
+    set_tests_properties (${EXAMPLE_VARNAME}_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname}-clearall)
+    set (last_test "${EXAMPLE_VARNAME}_${testname}")
   endmacro ()
 
-  foreach (example ${examples})
-    get_filename_component (example_name ${example} NAME_WE)
-    set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
-    #message (STATUS " Copying ${example_name}.test")
-    if (HDF5_BUILD_TOOLS)
-      add_custom_command (
-          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-      )
+  # Ensure that 24 is a multiple of the number of processes.
+  # The number 24 corresponds to SPACE1_DIM1 and SPACE1_DIM2 defined in ph5example.c
+  math(EXPR NUMPROCS "24 / ((24 + ${MPIEXEC_MAX_NUMPROCS} - 1) / ${MPIEXEC_MAX_NUMPROCS})")
+
+  foreach (example_name ${examples})
+    if (${example_name} STREQUAL "ph5_hyperslab_by_col")
+      ADD_GREP_TEST (${example_name} 2)
+    elseif (${example_name} STREQUAL "ph5_hyperslab_by_chunk" OR ${example_name} STREQUAL "ph5_hyperslab_by_pattern")
+      ADD_GREP_TEST (${example_name} 4)
+    else ()
+      ADD_GREP_TEST (${example_name} ${NUMPROCS})
     endif ()
   endforeach ()
+
 endif ()

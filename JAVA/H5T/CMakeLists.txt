@@ -81,7 +81,7 @@ if (H5EX_BUILD_TESTING)
         NAME ${EXAMPLE_VARNAME}_jnative-h5-${example_name}-copy-objects
         COMMAND    ${CMAKE_COMMAND}
             -E copy_if_different
-            ${HDFJAVA_EXAMPLES_DATATYPES_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.txt
+            ${HDFJAVA_EXAMPLES_DATATYPES_SOURCE_DIR}/tfiles/110/${example_name}.txt
             ${HDFJAVA_EXAMPLES_DATATYPES_BINARY_DIR}/${example_name}.txt
     )
     set_tests_properties (${EXAMPLE_VARNAME}_jnative-h5-${example_name}-copy-objects PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_jnative-h5-${example_name}-clearall-objects)
