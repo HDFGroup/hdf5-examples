@@ -32,7 +32,7 @@ struct opdata {
  * Operator function to be called by H5Literate.
  */
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-herr_t op_func(hid_t loc_id, const char *name, const H5L_info1_t *info, void *operator_data);
+herr_t op_func(hid_t loc_id, const char *name, const H5L_info2_t *info, void *operator_data);
 #else
 herr_t op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_data);
 #endif
@@ -48,7 +48,7 @@ main(void)
     hid_t  file; /* Handle */
     herr_t status;
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-    H5O_info1_t infobuf;
+    H5O_info2_t infobuf;
 #else
     H5O_info_t infobuf;
 #endif
@@ -72,7 +72,7 @@ main(void)
      */
     printf("/ {\n");
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-    status = H5Literate1(file, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func, (void *)&od);
+    status = H5Literate2(file, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func, (void *)&od);
 #else
     status = H5Literate(file, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func, (void *)&od);
 #endif
@@ -99,7 +99,7 @@ main(void)
  ************************************************************/
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
 herr_t
-op_func(hid_t loc_id, const char *name, const H5L_info1_t *info, void *operator_data)
+op_func(hid_t loc_id, const char *name, const H5L_info2_t *info, void *operator_data)
 #else
 herr_t
 op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_data)
@@ -107,7 +107,7 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
 {
     herr_t status, return_val = 0;
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-    H5O_info1_t infobuf;
+    H5O_info2_t infobuf;
 #else
     H5O_info_t infobuf;
 #endif
@@ -123,7 +123,7 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
      * the Library.
      */
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-    status = H5Oget_info_by_name2(loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
+    status = H5Oget_info_by_name3(loc_id, name, &infobuf, H5O_INFO_ALL, H5P_DEFAULT);
 #else
     status = H5Oget_info_by_name(loc_id, name, &infobuf, H5P_DEFAULT);
 #endif
@@ -159,7 +159,7 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
                 nextod.prev   = od;
                 nextod.addr   = infobuf.addr;
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-                return_val = H5Literate_by_name1(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
+                return_val = H5Literate_by_name2(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
                                                  (void *)&nextod, H5P_DEFAULT);
 #else
                 return_val = H5Literate_by_name(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
