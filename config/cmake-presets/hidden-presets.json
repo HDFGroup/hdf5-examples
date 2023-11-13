@@ -341,7 +341,7 @@
       "hidden": true,
       "inherits": [
         "ci-base"
-      ],
+      ]
     }
   ],
   "packagePresets": [
