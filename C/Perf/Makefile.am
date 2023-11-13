@@ -14,4 +14,4 @@ EXTRA_DIST =
 AM_CPPFLAGS = '-D H5_USE_112_API'
 TESTS = test.sh
 
-CLEANFILES = Makefile test.sh maketestref.sh
+CLEANFILES = Makefile test.sh

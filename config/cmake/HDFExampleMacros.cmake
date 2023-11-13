@@ -353,7 +353,7 @@ macro (APIVersion version xyapi)
   #-----------------------------------------------------------------------------
   # Option to use 1.14.x API
   #-----------------------------------------------------------------------------
-  option (${EXAMPLE_VARNAME}_USE_114_API "Use the HDF5 1.14.x API" ON)
+  option (${EXAMPLE_VARNAME}_USE_114_API "Use the HDF5 1.14.x API" OFF)
   if (${EXAMPLE_VARNAME}_USE_114_API AND ${xyapi} GREATER 114)
     set (${xyapi} "114")
   endif ()
@@ -361,7 +361,7 @@ macro (APIVersion version xyapi)
   #-----------------------------------------------------------------------------
   # Option to use 1.16.x API
   #-----------------------------------------------------------------------------
-  option (${EXAMPLE_VARNAME}_USE_116_API "Use the HDF5 1.16.x API" ON)
+  option (${EXAMPLE_VARNAME}_USE_116_API "Use the HDF5 1.16.x API" OFF)
   if (${EXAMPLE_VARNAME}_USE_116_API AND ${xyapi} GREATER 116)
     set (${xyapi} "116")
   endif ()

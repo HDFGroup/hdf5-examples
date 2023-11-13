@@ -207,13 +207,6 @@ AC_CONFIG_FILES([Makefile
                  FORTRAN/H5T/Makefile
         ])
 
-AC_CONFIG_FILES([C/H5D/maketestref.sh], [chmod +x C/H5D/maketestref.sh])
-AC_CONFIG_FILES([C/H5G/maketestref.sh], [chmod +x C/H5G/maketestref.sh])
-AC_CONFIG_FILES([C/H5T/maketestref.sh], [chmod +x C/H5T/maketestref.sh])
-AC_CONFIG_FILES([FORTRAN/H5D/maketestref.sh], [chmod +x FORTRAN/H5D/maketestref.sh])
-AC_CONFIG_FILES([FORTRAN/H5G/maketestref.sh], [chmod +x FORTRAN/H5G/maketestref.sh])
-AC_CONFIG_FILES([FORTRAN/H5T/maketestref.sh], [chmod +x FORTRAN/H5T/maketestref.sh])
-
 AC_CONFIG_FILES([C/H5D/test.sh], [chmod +x C/H5D/test.sh])
 AC_CONFIG_FILES([C/H5G/test.sh], [chmod +x C/H5G/test.sh])
 AC_CONFIG_FILES([C/H5T/test.sh], [chmod +x C/H5T/test.sh])

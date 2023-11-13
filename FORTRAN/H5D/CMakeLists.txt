@@ -132,12 +132,37 @@ endif ()
 
 if (HDF5_BUILD_TOOLS)
   foreach (example_name ${common_examples})
-    add_custom_command (
-        TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
-        POST_BUILD
-        COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
-    )
+    if (${example_name} STREQUAL "h5ex_d_nbit")
+      if (HDF5_VERSION_MAJOR VERSION_EQUAL "1.8" AND HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.8.22")
+        add_custom_command (
+            TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+            POST_BUILD
+            COMMAND    ${CMAKE_COMMAND}
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}22.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+        )
+      elseif (HDF5_VERSION_MAJOR VERSION_EQUAL "1.10" AND HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.10.7")
+          add_custom_command (
+              TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+              POST_BUILD
+              COMMAND    ${CMAKE_COMMAND}
+              ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}07.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+          )
+      else ()
+        add_custom_command (
+            TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+            POST_BUILD
+            COMMAND    ${CMAKE_COMMAND}
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+        )
+      endif ()
+    else ()
+      add_custom_command (
+          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+          POST_BUILD
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+      )
+    endif ()
   endforeach ()
 
   if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.10")
