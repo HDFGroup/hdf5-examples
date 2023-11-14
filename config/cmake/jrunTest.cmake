@@ -49,6 +49,7 @@ endif ()
 # run the test program, capture the stdout/stderr and the result var
 execute_process (
     COMMAND ${TEST_TESTER} -Xmx1024M
+    -Dorg.slf4j.simpleLogger.defaultLogLevel=${LOG_LEVEL}
     -Djava.library.path=${TEST_LIBRARY_DIRECTORY}
     -cp "${TEST_CLASSPATH}" ${TEST_ARGS} ${TEST_PROGRAM}
     ${ARGN}
