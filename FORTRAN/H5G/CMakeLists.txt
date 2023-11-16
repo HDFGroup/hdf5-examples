@@ -1,37 +1,30 @@
 cmake_minimum_required (VERSION 3.12)
-PROJECT (HDF5Examples_FORTRAN_H5G C CXX Fortran)
+project (HDF5Examples_FORTRAN_H5G C CXX Fortran)
+
+# --------------------------------------------------------------------
+# Notes: When creating examples they should be prefixed
+# with "f90_". This allows for easier filtering of the examples.
+# --------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+# Setup include Directories
+#-----------------------------------------------------------------------------
+INCLUDE_DIRECTORIES (
+    ${CMAKE_Fortran_MODULE_DIRECTORY}
+    ${PROJECT_BINARY_DIR}
+    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+)
 
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
 include (Fortran_sourcefiles.cmake)
 
-#if (HDF_ENABLE_F2003)
-#  foreach (example ${f03examples})
-#    get_filename_component (example_name ${example} NAME_WE)
-#    add_executable (f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
-#    target_compile_options(${EXAMPLE_VARNAME}_f90_${example_name}
-#        PRIVATE
-#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
-#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_18_API}>:-DH5_USE_18_API>"
-#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_110_API}>:-DH5_USE_110_API>"
-#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_112_API}>:-DH5_USE_112_API>"
-#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_114_API}>:-DH5_USE_114_API>"
-#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_116_API}>:-DH5_USE_116_API>"
-#    )
-#    if (H5_HAVE_PARALLEL)
-#      target_include_directories (f90_${example_name} PUBLIC ${MPI_Fortran_INCLUDE_DIRS})
-#    endif ()
-#    target_link_libraries (f90_${example_name} ${LINK_Fortran_LIBS})
-#    set_target_properties (f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
-#  endforeach (example ${f03examples})
-#endif ()
-
-foreach (example ${examples})
-  get_filename_component (example_name ${example} NAME_WE)
-  add_executable (${EXAMPLE_VARNAME}_f90_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+foreach (example_name ${common_examples})
+  add_executable (${EXAMPLE_VARNAME}_f90_${example_name} ${PROJECT_SOURCE_DIR}/${example_name}.F90)
   target_compile_options(${EXAMPLE_VARNAME}_f90_${example_name}
       PRIVATE
+          "-DH5_LIBVER_DIR=${H5_LIBVER_DIR}"
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_18_API}>:-DH5_USE_18_API>"
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_110_API}>:-DH5_USE_110_API>"
@@ -44,9 +37,157 @@ foreach (example ${examples})
   endif ()
   target_link_libraries (${EXAMPLE_VARNAME}_f90_${example_name} ${LINK_Fortran_LIBS})
   set_target_properties (${EXAMPLE_VARNAME}_f90_${example_name} PROPERTIES LINKER_LANGUAGE Fortran)
+  if (H5EX_BUILD_TESTING)
+    if (NOT ${example_name} STREQUAL "h5ex_g_create" AND NOT ${example_name} STREQUAL "h5ex_g_compact")
+      add_custom_command (
+          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+          POST_BUILD
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+      )
+    endif ()
+  endif ()
 endforeach ()
 
+#if (HDF_ENABLE_F2003)
+#  foreach (example_name ${f03examples})
+#    add_executable (${EXAMPLE_VARNAME}_f90_${example_name} ${PROJECT_SOURCE_DIR}/${example_name}.c)
+#    target_compile_options(${EXAMPLE_VARNAME}_f90_${example_name}
+#        PRIVATE
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_18_API}>:-DH5_USE_18_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_110_API}>:-DH5_USE_110_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_112_API}>:-DH5_USE_112_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_114_API}>:-DH5_USE_114_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_116_API}>:-DH5_USE_116_API>"
+#    )
+#    if (H5_HAVE_PARALLEL)
+#      target_include_directories (${EXAMPLE_VARNAME}_f90_${example_name} PUBLIC ${MPI_C_INCLUDE_DIRS})
+#    endif ()
+#    target_link_libraries (${EXAMPLE_VARNAME}_f90_${example_name} ${H5EX_HDF5_LINK_LIBS})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/F03/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.10")
+#  foreach (example_name ${1_10_examples})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12")
+#  foreach (example_name ${1_12_examples})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.14")
+#  foreach (example_name ${1_14_examples})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/114/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.16")
+#  foreach (example_name ${1_16_examples})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/116/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+
+if (HDF5_BUILD_TOOLS)
+  foreach (example_name ${common_examples})
+    if (${example_name} STREQUAL "h5ex_g_create")
+      add_custom_command (
+          TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+          POST_BUILD
+          COMMAND    ${CMAKE_COMMAND}
+          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+      )
+    endif ()
+  endforeach ()
+
+  add_custom_command (
+      TARGET     ${EXAMPLE_VARNAME}_f90_h5ex_g_compact
+      POST_BUILD
+      COMMAND    ${CMAKE_COMMAND}
+      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl
+  )
+  add_custom_command (
+      TARGET     ${EXAMPLE_VARNAME}_f90_h5ex_g_compact
+      POST_BUILD
+      COMMAND    ${CMAKE_COMMAND}
+      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl
+  )
+endif ()
+
+#if (HDF_ENABLE_F2003)
+#  foreach (example_name ${f03examples})
+#    add_custom_command (
+#        TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
+#        POST_BUILD
+#        COMMAND    ${CMAKE_COMMAND}
+#        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/F03/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+#    )
+#  endforeach ()
+
+#  foreach (example_name ${1_10_examples})
+#  endforeach ()
+#  foreach (example_name ${1_12_examples})
+#  endforeach ()
+#  foreach (example_name ${1_14_examples})
+#  endforeach ()
+#  foreach (example_name ${1_16_examples})
+#  endforeach ()
+#endif ()
+
 if (H5EX_BUILD_TESTING)
+#  if (HDF_ENABLE_F2003)
+#    set (exfiles
+#        h5ex_g_iterate
+#        h5ex_g_traverse
+#        h5ex_g_visit
+#    )
+#    foreach (example ${exfiles})
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_f90_${example}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
+#      )
+#    endforeach ()
+#  endif ()
+
   macro (ADD_DUMP_TEST testname)
     add_test (
         NAME ${EXAMPLE_VARNAME}_f90_${testname}-clearall
@@ -182,6 +323,12 @@ if (H5EX_BUILD_TESTING)
 
   macro (ADD_H5_CMP_TEST testname)
     add_test (
+        NAME ${EXAMPLE_VARNAME}_f90_${testname}-clearall
+        COMMAND    ${CMAKE_COMMAND}
+            -E remove
+            ${testname}.out.tmp
+    )
+    add_test (
         NAME ${EXAMPLE_VARNAME}_f90_${testname}
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>"
@@ -193,64 +340,8 @@ if (H5EX_BUILD_TESTING)
             -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
             -P "${${EXAMPLE_PACKAGE_NAME}_RESOURCES_DIR}/runTest.cmake"
     )
+    set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
   endmacro ()
-
-  if (HDF5_BUILD_TOOLS)
-    add_custom_command (
-        TARGET     ${EXAMPLE_VARNAME}_f90_h5ex_g_compact
-        POST_BUILD
-        COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/h5ex_g_compact1.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact1.ddl
-    )
-    add_custom_command (
-        TARGET     ${EXAMPLE_VARNAME}_f90_h5ex_g_compact
-        POST_BUILD
-        COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/h5ex_g_compact2.ddl ${PROJECT_BINARY_DIR}/h5ex_g_compact2.ddl
-    )
-    add_custom_command (
-        TARGET     ${EXAMPLE_VARNAME}_f90_h5ex_g_create
-        POST_BUILD
-        COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/h5ex_g_create.ddl ${PROJECT_BINARY_DIR}/h5ex_g_create.ddl
-    )
-
-  endif ()
-
-  set (exrefs
-      h5ex_g_corder
-      h5ex_g_phase
-  )
-  foreach (example ${exrefs})
-    add_custom_command (
-        TARGET     ${EXAMPLE_VARNAME}_f90_${example}
-        POST_BUILD
-        COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example}.tst ${PROJECT_BINARY_DIR}/${example}.tst
-    )
-  endforeach ()
-
-#  if (HDF_ENABLE_F2003)
-#    set (exfiles
-#        h5ex_g_iterate
-#        h5ex_g_traverse
-#        h5ex_g_visit
-#    )
-#    foreach (example ${exfiles})
-#      add_custom_command (
-#          TARGET     ${EXAMPLE_VARNAME}_f90_${example}_F03
-#          POST_BUILD
-#          COMMAND    ${CMAKE_COMMAND}
-#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example}_F03.tst ${PROJECT_BINARY_DIR}/${example}_F03.tst
-#      )
-#      add_custom_command (
-#          TARGET     ${EXAMPLE_VARNAME}_f90_${example}_F03
-#          POST_BUILD
-#          COMMAND    ${CMAKE_COMMAND}
-#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/${example}.h5 ${PROJECT_BINARY_DIR}/${example}.h5
-#      )
-#    endforeach ()
-#  endif ()
 
   ADD_H5_DUMP2_TEST (h5ex_g_compact NULL)
   ADD_DUMP_TEST (h5ex_g_create)

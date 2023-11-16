@@ -45,4 +45,4 @@ tfiles/h5ex_t_convert.ddl test.sh
 
 TESTS = test.sh
 
-CLEANFILES = Makefile test.sh maketestref.sh
+CLEANFILES = Makefile test.sh

@@ -3845,18 +3845,6 @@ fi
 ac_config_files="$ac_config_files Makefile C/Makefile C/H5D/Makefile C/H5G/Makefile C/H5T/Makefile FORTRAN/Makefile FORTRAN/H5D/h5_version.h FORTRAN/H5D/Makefile FORTRAN/H5G/Makefile FORTRAN/H5T/Makefile"
 
 
-ac_config_files="$ac_config_files C/H5D/maketestref.sh"
-
-ac_config_files="$ac_config_files C/H5G/maketestref.sh"
-
-ac_config_files="$ac_config_files C/H5T/maketestref.sh"
-
-ac_config_files="$ac_config_files FORTRAN/H5D/maketestref.sh"
-
-ac_config_files="$ac_config_files FORTRAN/H5G/maketestref.sh"
-
-ac_config_files="$ac_config_files FORTRAN/H5T/maketestref.sh"
-
 
 ac_config_files="$ac_config_files C/H5D/test.sh"
 
@@ -4632,12 +4620,6 @@ do
     "FORTRAN/H5D/Makefile") CONFIG_FILES="$CONFIG_FILES FORTRAN/H5D/Makefile" ;;
     "FORTRAN/H5G/Makefile") CONFIG_FILES="$CONFIG_FILES FORTRAN/H5G/Makefile" ;;
     "FORTRAN/H5T/Makefile") CONFIG_FILES="$CONFIG_FILES FORTRAN/H5T/Makefile" ;;
-    "C/H5D/maketestref.sh") CONFIG_FILES="$CONFIG_FILES C/H5D/maketestref.sh" ;;
-    "C/H5G/maketestref.sh") CONFIG_FILES="$CONFIG_FILES C/H5G/maketestref.sh" ;;
-    "C/H5T/maketestref.sh") CONFIG_FILES="$CONFIG_FILES C/H5T/maketestref.sh" ;;
-    "FORTRAN/H5D/maketestref.sh") CONFIG_FILES="$CONFIG_FILES FORTRAN/H5D/maketestref.sh" ;;
-    "FORTRAN/H5G/maketestref.sh") CONFIG_FILES="$CONFIG_FILES FORTRAN/H5G/maketestref.sh" ;;
-    "FORTRAN/H5T/maketestref.sh") CONFIG_FILES="$CONFIG_FILES FORTRAN/H5T/maketestref.sh" ;;
     "C/H5D/test.sh") CONFIG_FILES="$CONFIG_FILES C/H5D/test.sh" ;;
     "C/H5G/test.sh") CONFIG_FILES="$CONFIG_FILES C/H5G/test.sh" ;;
     "C/H5T/test.sh") CONFIG_FILES="$CONFIG_FILES C/H5T/test.sh" ;;
@@ -5332,12 +5314,6 @@ $as_echo X"$file" |
   done
 }
  ;;
-    "C/H5D/maketestref.sh":F) chmod +x C/H5D/maketestref.sh ;;
-    "C/H5G/maketestref.sh":F) chmod +x C/H5G/maketestref.sh ;;
-    "C/H5T/maketestref.sh":F) chmod +x C/H5T/maketestref.sh ;;
-    "FORTRAN/H5D/maketestref.sh":F) chmod +x FORTRAN/H5D/maketestref.sh ;;
-    "FORTRAN/H5G/maketestref.sh":F) chmod +x FORTRAN/H5G/maketestref.sh ;;
-    "FORTRAN/H5T/maketestref.sh":F) chmod +x FORTRAN/H5T/maketestref.sh ;;
     "C/H5D/test.sh":F) chmod +x C/H5D/test.sh ;;
     "C/H5G/test.sh":F) chmod +x C/H5G/test.sh ;;
     "C/H5T/test.sh":F) chmod +x C/H5T/test.sh ;;

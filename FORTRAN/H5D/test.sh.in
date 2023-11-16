@@ -91,7 +91,7 @@ do
             # Check if the only difference is the size of the unallocated space. This
             # was fixed later in HDF5 to be of zero size.
             status=0
-            diff tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst > tmp.diff
+            diff tmp.test $srcdir/tfiles/18/$fname.tst > tmp.diff
             if [ $? -ne 0 ]; then
                NumOfFinds=`grep -c "0 bytes" tmp.diff | wc -l`
                rm -f tmp.diff
@@ -100,23 +100,22 @@ do
                fi
             fi
         else
-            cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+            cmp -s tmp.test $srcdir/tfiles/18/$fname.tst
             status=$?
         fi
         status=$?
         if test $status -ne 0
         then
             echo "  FAILED!"
-	    return_val=`expr $status + $return_val`
         else
           dumpout $fname.h5 >tmp.test
           rm -f $fname.h5
-          cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
+          cmp -s tmp.test $srcdir/tfiles/18/$fname.ddl
           status=$?
           if test $status -ne 0
              then 
 	     # test to see if the only difference is because of big-endian and little-endian
-	     \diff tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl > tmp.diff
+	     \diff tmp.test $srcdir/tfiles/18/$fname.ddl > tmp.diff
              echo " "
              NumOfFinds=`grep -c "DATATYPE" tmp.diff`
              NumOfFinds=`expr $NumOfFinds \* 2`
@@ -125,19 +124,16 @@ do
              if test $NumOfLines -gt $NumOfFinds 
              then
                 echo "  FAILED!"
-	        return_val=`expr $status + $return_val`
              else
                 echo "  *Inconsequential difference* ... Passed"
-		return_val=`expr $return_val`
              fi
           else
               echo "  Passed"
-	      return_val=`expr $status + $return_val`
           fi
         fi
+        return_val=`expr $status + $return_val`
     fi
 done
-
 
 #######Non-standard tests#######
 USE_ALT=""
@@ -145,12 +141,14 @@ version_compare "$H5_LIBVER" "1.8.23"
 # check if HDF5 version is < 1.8.23
 if [ "$version_lt" = 1 ]; then
     USE_ALT="22"
+    nbitdir="18"
 else
 # check if HDF5 version is < 1.10.8
   version_compare "$H5_LIBVER" "1.10.8"
   if [ "$version_lt" = 1 ]; then
     USE_ALT="07"
   fi
+  nbitdir="110"
 fi
 
 fname=h5ex_d_nbit
@@ -161,7 +159,7 @@ if test $status -eq 1
 then
     echo "  Unsupported feature"
 else
-    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+    cmp -s tmp.test $srcdir/tfiles/18/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -169,7 +167,7 @@ else
     else
         dumpout $fname.h5 >tmp.test
         rm -f $fname.h5
-        cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
+        cmp -s tmp.test $srcdir/tfiles/$nbitdir/$fname$USE_ALT.ddl
         status=$?
         if test $status -ne 0
         then
@@ -202,7 +200,7 @@ else
     else
         dumpout -n $fname.h5 >tmp.test
         rm -f $fname.h5
-        cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
+        cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
         status=$?
         if test $status -ne 0
         then

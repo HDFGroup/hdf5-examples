@@ -36,4 +36,4 @@ tfiles/h5ex_d_fillval.ddl tfiles/h5ex_d_alloc.ddl test.sh
 
 TESTS = test.sh
 
-CLEANFILES = Makefile test.sh maketestref.sh
+CLEANFILES = Makefile test.sh

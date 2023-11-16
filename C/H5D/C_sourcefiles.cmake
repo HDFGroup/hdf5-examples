@@ -1,57 +1,38 @@
 #-----------------------------------------------------------------------------
 # Define Sources, one file per application
 #-----------------------------------------------------------------------------
-if (${H5_LIBVER_DIR} EQUAL 16)
-  set (examples
-      16/h5ex_d_alloc.c
-      16/h5ex_d_checksum.c
-      16/h5ex_d_chunk.c
-      16/h5ex_d_compact.c
-      16/h5ex_d_extern.c
-      16/h5ex_d_fillval.c
-      16/h5ex_d_hyper.c
-      16/h5ex_d_rdwr.c
-      16/h5ex_d_unlimadd.c
-      16/h5ex_d_unlimmod.c
-  )
-else ()
-  set (examples
-      h5ex_d_alloc.c
-      h5ex_d_checksum.c
-      h5ex_d_chunk.c
-      h5ex_d_compact.c
-      h5ex_d_extern.c
-      h5ex_d_fillval.c
-      h5ex_d_hyper.c
-      h5ex_d_nbit.c
-      h5ex_d_rdwr.c
-      h5ex_d_sofloat.c
-      h5ex_d_soint.c
-      h5ex_d_transform.c
-      h5ex_d_unlimadd.c
-      h5ex_d_unlimmod.c
+set (examples)
+
+set (common_examples
+    h5ex_d_alloc
+    h5ex_d_checksum
+    h5ex_d_chunk
+    h5ex_d_compact
+    h5ex_d_extern
+    h5ex_d_fillval
+    h5ex_d_hyper
+    h5ex_d_rdwr
+    h5ex_d_unlimadd
+    h5ex_d_unlimmod
+)
+
+if (HDF5_ENABLE_Z_LIB_SUPPORT)
+  set (common_examples ${common_examples}
+      h5ex_d_gzip
+      h5ex_d_shuffle
+      h5ex_d_unlimgzip
   )
 endif ()
 
-if (HDF5_ENABLE_Z_LIB_SUPPORT)
-  if (${H5_LIBVER_DIR} EQUAL 16)
-    set (examples ${examples}
-        16/h5ex_d_gzip.c
-        16/h5ex_d_shuffle.c
-        16/h5ex_d_unlimgzip.c
-    )
-  else ()
-    set (examples ${examples}
-        h5ex_d_gzip.c
-        h5ex_d_shuffle.c
-        h5ex_d_unlimgzip.c
-    )
-  endif ()
-endif ()
 if (HDF5_ENABLE_SZIP_SUPPORT)
-  if (${H5_LIBVER_DIR} EQUAL 16)
-    set (examples ${examples} 16/h5ex_d_szip.c)
-  else ()
-    set (examples ${examples} h5ex_d_szip.c)
-  endif ()
+  set (common_examples ${common_examples}
+      h5ex_d_szip
+  )
 endif ()
+
+set (1_8_examples
+    h5ex_d_nbit
+    h5ex_d_sofloat
+    h5ex_d_soint
+    h5ex_d_transform
+)

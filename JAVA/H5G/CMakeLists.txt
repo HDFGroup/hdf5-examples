@@ -50,7 +50,7 @@ if (H5EX_BUILD_TESTING)
             -D "TEST_PROGRAM=${resultfile}"
             -D "TEST_ARGS:STRING=${ARGN}"
             -D "TEST_CLASSPATH:STRING=${CMAKE_JAVA_CLASSPATH}${CMAKE_JAVA_INCLUDE_FLAG_SEP}${${EXAMPLE_VARNAME}_${resultfile}_JAR_FILE}"
-            -D "TEST_LIBRARY_DIRECTORY=${HDF5_JAVA_LIBRARIES}"
+            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_OUTPUT_DIRECTORY}"
             -D "TEST_FOLDER=${HDFJAVA_EXAMPLES_GROUPS_BINARY_DIR}"
             -D "TEST_OUTPUT=${HDFJAVA_EXAMPLES_GROUPS_BINARY_DIR}/${resultfile}.out"
             -D "TEST_REFERENCE=${resultfile}.txt"
@@ -81,7 +81,7 @@ if (H5EX_BUILD_TESTING)
         NAME ${EXAMPLE_VARNAME}_jnative-h5-${example_name}-copy-objects
         COMMAND    ${CMAKE_COMMAND}
             -E copy_if_different
-            ${HDFJAVA_EXAMPLES_GROUPS_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.txt
+            ${HDFJAVA_EXAMPLES_GROUPS_SOURCE_DIR}/tfiles/110/${example_name}.txt
             ${HDFJAVA_EXAMPLES_GROUPS_BINARY_DIR}/${example_name}.txt
     )
     set_tests_properties (${EXAMPLE_VARNAME}_jnative-h5-${example_name}-copy-objects PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_jnative-h5-${example_name}-clearall-objects)

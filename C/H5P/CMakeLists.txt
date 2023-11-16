@@ -6,9 +6,8 @@ PROJECT (H5P_C)
 #-----------------------------------------------------------------------------
 include (C_sourcefiles.cmake)
 
-foreach (example ${examples})
-  get_filename_component (example_name ${example} NAME_WE)
-  add_executable (${EXAMPLE_VARNAME}_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+foreach (example_name ${examples})
+  add_executable (${EXAMPLE_VARNAME}_${example_name} ${PROJECT_SOURCE_DIR}/${example_name}.c)
   target_compile_options(${EXAMPLE_VARNAME}_${example_name}
       PRIVATE
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
@@ -52,8 +51,7 @@ if (H5EX_BUILD_TESTING)
   # The number 24 corresponds to SPACE1_DIM1 and SPACE1_DIM2 defined in ph5example.c
   math(EXPR NUMPROCS "24 / ((24 + ${MPIEXEC_MAX_NUMPROCS} - 1) / ${MPIEXEC_MAX_NUMPROCS})")
 
-  foreach (example ${examples})
-    get_filename_component (example_name ${example} NAME_WE)
+  foreach (example_name ${examples})
     if (${example_name} STREQUAL "ph5_hyperslab_by_col")
       ADD_GREP_TEST (${example_name} 2)
     elseif (${example_name} STREQUAL "ph5_hyperslab_by_chunk" OR ${example_name} STREQUAL "ph5_hyperslab_by_pattern")

@@ -149,13 +149,15 @@ if (${H5_LIBVER_DIR} GREATER 16)
     endif ()
   endif ()
 
-  #-----------------------------------------------------------------------------
-  # Option to build JAVA examples
-  #-----------------------------------------------------------------------------
-  if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/JAVA")
-    option (HDF_BUILD_JAVA "Build JAVA support" OFF)
-    if (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
-      add_subdirectory (JAVA)
+  if (${H5_LIBVER_DIR} GREATER 18)
+    #-----------------------------------------------------------------------------
+    # Option to build JAVA examples
+    #-----------------------------------------------------------------------------
+    if (EXISTS "${H5EXAMPLES_SOURCE_DIR}/JAVA" AND IS_DIRECTORY "${H5EXAMPLES_SOURCE_DIR}/JAVA")
+      option (HDF_BUILD_JAVA "Build JAVA support" OFF)
+      if (HDF_BUILD_JAVA AND HDF5_BUILD_JAVA)
+        add_subdirectory (JAVA)
+      endif ()
     endif ()
   endif ()
 

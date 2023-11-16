@@ -1,14 +1,17 @@
 cmake_minimum_required (VERSION 3.12)
-PROJECT (HDF5Examples_C_H5T)
+project (HDF5Examples_C_H5T)
 
 #-----------------------------------------------------------------------------
 # Define Sources
 #-----------------------------------------------------------------------------
 include (C_sourcefiles.cmake)
 
-foreach (example ${examples})
-  get_filename_component (example_name ${example} NAME_WE)
-  add_executable (${EXAMPLE_VARNAME}_${example_name} ${PROJECT_SOURCE_DIR}/${example})
+foreach (example_name ${common_examples})
+  if (${H5_LIBVER_DIR} EQUAL 16)
+    add_executable (${EXAMPLE_VARNAME}_${example_name} ${PROJECT_SOURCE_DIR}/16/${example_name}.c)
+  else ()
+    add_executable (${EXAMPLE_VARNAME}_${example_name} ${PROJECT_SOURCE_DIR}/${example_name}.c)
+  endif ()
   target_compile_options(${EXAMPLE_VARNAME}_${example_name}
       PRIVATE
           "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
@@ -22,7 +25,279 @@ foreach (example ${examples})
     target_include_directories (${EXAMPLE_VARNAME}_${example_name} PUBLIC ${MPI_C_INCLUDE_DIRS})
   endif ()
   target_link_libraries (${EXAMPLE_VARNAME}_${example_name} ${H5EX_HDF5_LINK_LIBS})
+  if (H5EX_BUILD_TESTING)
+    add_custom_command (
+        TARGET     ${EXAMPLE_VARNAME}_${example_name}
+        POST_BUILD
+        COMMAND    ${CMAKE_COMMAND}
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/16/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+    )
+  endif ()
 endforeach ()
+
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.8")
+#  foreach (example_name ${1_8_examples})
+#    add_executable (${EXAMPLE_VARNAME}_${example_name} ${PROJECT_SOURCE_DIR}/${example_name}.c)
+#    target_compile_options(${EXAMPLE_VARNAME}_${example_name}
+#        PRIVATE
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_16_API}>:-DH5_USE_16_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_18_API}>:-DH5_USE_18_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_110_API}>:-DH5_USE_110_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_112_API}>:-DH5_USE_112_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_114_API}>:-DH5_USE_114_API>"
+#            "$<$<BOOL:${${EXAMPLE_VARNAME}_USE_116_API}>:-DH5_USE_116_API>"
+#    )
+#    if (H5_HAVE_PARALLEL)
+#      target_include_directories (${EXAMPLE_VARNAME}_${example_name} PUBLIC ${MPI_C_INCLUDE_DIRS})
+#    endif ()
+#    target_link_libraries (${EXAMPLE_VARNAME}_${example_name} ${H5EX_HDF5_LINK_LIBS})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.10")
+#  foreach (example_name ${1_10_examples})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12")
+#  foreach (example_name ${1_12_examples})
+#    if (H5EX_BUILD_TESTING)
+#          add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.14")
+#  foreach (example_name ${1_14_examples})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/114/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+#if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.16")
+#  foreach (example_name ${1_16_examples})
+#    if (H5EX_BUILD_TESTING)
+#      add_custom_command (
+#          TARGET     ${EXAMPLE_VARNAME}_${example_name}
+#          POST_BUILD
+#          COMMAND    ${CMAKE_COMMAND}
+#          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/116/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
+#      )
+#    endif ()
+#  endforeach ()
+#endif ()
+
+if (HDF5_BUILD_TOOLS)
+  foreach (example_name ${common_examples})
+    if (NOT ${example_name} STREQUAL "h5ex_t_convert")
+      if (HDF5_VERSION_MAJOR VERSION_EQUAL "1.6")
+        add_custom_command (
+            TARGET     ${EXAMPLE_VARNAME}_${example_name}
+            POST_BUILD
+            COMMAND    ${CMAKE_COMMAND}
+            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/16/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+        )
+      else ()
+        if (${example_name} STREQUAL "h5ex_t_vlen" OR ${example_name} STREQUAL "h5ex_t_vlenatt")
+          if (HDF5_VERSION_STRING VERSION_GREATER_EQUAL "1.14.3")
+            add_custom_command (
+                TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                POST_BUILD
+                COMMAND    ${CMAKE_COMMAND}
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/114/${example_name}.ddl ${example_name}.ddl
+            )
+          else ()
+            add_custom_command (
+                TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                POST_BUILD
+                COMMAND    ${CMAKE_COMMAND}
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+            )
+          endif ()
+        elseif ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt"))
+          if (${${EXAMPLE_VARNAME}_USE_16_API} OR ${${EXAMPLE_VARNAME}_USE_18_API} OR ${${EXAMPLE_VARNAME}_USE_110_API})
+            if (HDF5_VERSION_MAJOR VERSION_EQUAL "1.8")
+              if (HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.8.21")
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}21.ddl ${example_name}.ddl
+                )
+              else ()
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                )
+              endif ()
+            elseif (HDF5_VERSION_MAJOR VERSION_EQUAL "1.10")
+              if (HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.10.6")
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}06.ddl ${example_name}.ddl
+                )
+              else ()
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                )
+              endif ()
+            elseif (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12")
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/112/${example_name}.ddl ${example_name}.ddl
+                )
+            else ()
+              add_custom_command (
+                  TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                  POST_BUILD
+                  COMMAND    ${CMAKE_COMMAND}
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+              )
+            endif ()
+          else ()
+            if (HDF5_VERSION_MAJOR VERSION_EQUAL "1.8")
+              if (HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.8.21")
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}21.ddl ${example_name}.ddl
+                )
+              else ()
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                )
+              endif ()
+            elseif (HDF5_VERSION_MAJOR VERSION_EQUAL "1.10")
+              if (HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.10.6")
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}06.ddl ${example_name}.ddl
+                )
+              else ()
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                )
+              endif ()
+            elseif (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12")
+                add_custom_command (
+                    TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                    POST_BUILD
+                    COMMAND    ${CMAKE_COMMAND}
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.ddl ${example_name}.ddl
+                )
+            else ()
+              add_custom_command (
+                  TARGET     ${EXAMPLE_VARNAME}_${example_name}
+                  POST_BUILD
+                  COMMAND    ${CMAKE_COMMAND}
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+              )
+            endif ()
+          endif ()
+        else ()
+          add_custom_command (
+              TARGET     ${EXAMPLE_VARNAME}_${example_name}
+              POST_BUILD
+              COMMAND    ${CMAKE_COMMAND}
+              ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+          )
+        endif ()
+      endif ()
+    endif ()
+  endforeach ()
+
+#  foreach (example_name ${1_8_examples})
+      #if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.8")
+      #  add_custom_command (
+      #      TARGET     ${EXAMPLE_VARNAME}_${example_name}
+      #      POST_BUILD
+      #      COMMAND    ${CMAKE_COMMAND}
+      #      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+      #  )
+      #endif ()
+      #if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.10")
+      #  add_custom_command (
+      #      TARGET     ${EXAMPLE_VARNAME}_${example_name}
+      #      POST_BUILD
+      #      COMMAND    ${CMAKE_COMMAND}
+      #      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+      #  )
+      #endif ()
+      #if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12")
+      #  add_custom_command (
+      #      TARGET     ${EXAMPLE_VARNAME}_${example_name}
+      #      POST_BUILD
+      #      COMMAND    ${CMAKE_COMMAND}
+      #      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+      #  )
+      #endif ()
+      #if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.14")
+      #  add_custom_command (
+      #      TARGET     ${EXAMPLE_VARNAME}_${example_name}
+      #      POST_BUILD
+      #      COMMAND    ${CMAKE_COMMAND}
+      #      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/114/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+      #  )
+      #endif ()
+      #if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.16")
+      #  add_custom_command (
+      #      TARGET     ${EXAMPLE_VARNAME}_${example_name}
+      #      POST_BUILD
+      #      COMMAND    ${CMAKE_COMMAND}
+      #      ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/116/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
+      #  )
+      #endif ()
+#  endforeach ()
+#  foreach (example_name ${1_10_examples})
+#  endforeach ()
+#  foreach (example_name ${1_12_examples})
+#  endforeach ()
+#  foreach (example_name ${1_14_examples})
+#  endforeach ()
+#  foreach (example_name ${1_16_examples})
+#  endforeach ()
+endif ()
 
 if (H5EX_BUILD_TESTING)
   macro (ADD_H5_TEST testname)
@@ -84,132 +359,12 @@ if (H5EX_BUILD_TESTING)
     set_tests_properties (${EXAMPLE_VARNAME}_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_${testname}-clearall)
   endmacro ()
 
-  foreach (example ${examples})
-    get_filename_component (example_name ${example} NAME_WE)
-    if (${example_name} STREQUAL "h5ex_t_cpxcmpd" OR ${example_name} STREQUAL "h5ex_t_cpxcmpdatt")
-      set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
-      #message (STATUS " Copying ${example_name}.test")
-      add_custom_command (
-          TARGET     ${EXAMPLE_VARNAME}_${example_name}
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
-      )
-      if (HDF5_BUILD_TOOLS)
-        add_custom_command (
-            TARGET     ${EXAMPLE_VARNAME}_${example_name}
-            POST_BUILD
-            COMMAND    ${CMAKE_COMMAND}
-            ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-        )
-      endif ()
-      ADD_H5_TEST (${example_name} -n)
-    elseif (${example_name} STREQUAL "h5ex_t_convert")
-      add_custom_command (
-          TARGET     ${EXAMPLE_VARNAME}_${example_name}
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${PROJECT_BINARY_DIR}/${example_name}.tst
-      )
+  foreach (example_name ${common_examples})
+    if (${example_name} STREQUAL "h5ex_t_convert")
       ADD_H5_CMP_TEST (${example_name})
-    elseif (${example_name} STREQUAL "h5ex_t_vlen" OR ${example_name} STREQUAL "h5ex_t_vlenatt")
-      set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
-      #message (STATUS " Copying ${example_name}.test")
-      add_custom_command (
-          TARGET     ${EXAMPLE_VARNAME}_${example_name}
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
-      )
-      if (HDF5_BUILD_TOOLS)
-        if (${${EXAMPLE_VARNAME}_USE_16_API} OR ${${EXAMPLE_VARNAME}_USE_18_API} OR ${${EXAMPLE_VARNAME}_USE_110_API} OR ${${EXAMPLE_VARNAME}_USE_112_API})
-          if (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.14.3")
-            add_custom_command (
-                TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                POST_BUILD
-                COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/114/${example_name}.ddl ${testdest}.ddl
-            )
-          else ()
-            add_custom_command (
-                TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                POST_BUILD
-                COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-            )
-          endif ()
-        else ()
-          if (HDF5_VERSION_MAJOR VERSION_EQUAL "1.14" AND HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.14.2")
-            add_custom_command (
-                TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                POST_BUILD
-                COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}02.ddl ${testdest}.ddl
-            )
-          else ()
-            add_custom_command (
-                TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                POST_BUILD
-                COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-            )
-          endif ()
-        endif ()
-      endif ()
-      ADD_H5_TEST (${example_name})
+    elseif (${example_name} STREQUAL "h5ex_t_cpxcmpd" OR ${example_name} STREQUAL "h5ex_t_cpxcmpdatt")
+      ADD_H5_TEST (${example_name} -n)
     else ()
-      set (testdest "${PROJECT_BINARY_DIR}/${example_name}")
-      #message (STATUS " Copying ${example_name}.test")
-      add_custom_command (
-          TARGET     ${EXAMPLE_VARNAME}_${example_name}
-          POST_BUILD
-          COMMAND    ${CMAKE_COMMAND}
-          ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.tst ${testdest}.tst
-      )
-      if (HDF5_BUILD_TOOLS)
-        if (${${EXAMPLE_VARNAME}_USE_16_API} OR ${${EXAMPLE_VARNAME}_USE_18_API} OR ${${EXAMPLE_VARNAME}_USE_110_API})
-          if ((HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12") AND ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt")))
-            add_custom_command (
-                TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                POST_BUILD
-                COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/112/${example_name}.ddl ${testdest}.ddl
-            )
-          else ()
-            add_custom_command (
-                TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                POST_BUILD
-                COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-            )
-          endif ()
-        else ()
-          if ((${example_name} STREQUAL "h5ex_t_objref" OR ${example_name} STREQUAL "h5ex_t_objrefatt") OR (${example_name} STREQUAL "h5ex_t_regref" OR ${example_name} STREQUAL "h5ex_t_regrefatt"))
-            if (HDF5_VERSION_MAJOR VERSION_EQUAL "1.8" AND HDF5_VERSION_STRING VERSION_LESS_EQUAL "1.8.22")
-              add_custom_command (
-                  TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                  POST_BUILD
-                  COMMAND    ${CMAKE_COMMAND}
-                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}22.ddl ${testdest}.ddl
-              )
-            else ()
-              add_custom_command (
-                  TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                  POST_BUILD
-                  COMMAND    ${CMAKE_COMMAND}
-                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-              )
-            endif ()
-          else ()
-            add_custom_command (
-                TARGET     ${EXAMPLE_VARNAME}_${example_name}
-                POST_BUILD
-                COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/${H5_LIBVER_DIR}/${example_name}.ddl ${testdest}.ddl
-            )
-          endif ()
-        endif ()
-      endif ()
       ADD_H5_TEST (${example_name})
     endif ()
   endforeach ()

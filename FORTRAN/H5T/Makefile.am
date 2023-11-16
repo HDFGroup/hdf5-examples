@@ -77,4 +77,4 @@ EXTRA_DIST = tfiles/h5ex_t_arrayatt_F03.tst tfiles/h5ex_t_array_F03.tst tfiles/h
 
 TESTS = test.sh
 
-CLEANFILES = Makefile test.sh maketestref.sh
+CLEANFILES = Makefile test.sh

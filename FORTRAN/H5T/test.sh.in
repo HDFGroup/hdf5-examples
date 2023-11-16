@@ -69,7 +69,7 @@ do
     fname=h5ex_t_$topic
     $ECHO_N "Testing FORTRAN/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
-    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+    cmp -s tmp.test $srcdir/tfiles/18/$fname.tst
     status=$?
     if test $status -ne 0
     then
@@ -77,7 +77,7 @@ do
     else
         dumpout $fname.h5 >tmp.test
       rm -f $fname.h5
-      cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.ddl
+      cmp -s tmp.test $srcdir/tfiles/18/$fname.ddl
       status=$?
       if test $status -ne 0
       then
@@ -91,8 +91,15 @@ done
 
 
 #######Non-standard tests#######
+
 USE_ALT=""
-if [ "$H5_LIBVER_DIR" = "110" ]; then
+if [ "$H5_LIBVER_DIR" = "114" ]; then
+   # check if HDF5 version is < 1.14.3
+   version_compare "$H5_LIBVER" "1.10.3"
+   if [ "$version_lt" = 1 ]; then
+      USE_ALT="02"
+   fi
+elif [ "$H5_LIBVER_DIR" = "110" ]; then
    # check if HDF5 version is < 1.10.7
    version_compare "$H5_LIBVER" "1.10.7"
    if [ "$version_lt" = 1 ]; then
@@ -119,22 +126,32 @@ do
     fname=h5ex_t_$topic
     $ECHO_N "Testing FORTRAN/H5T/$fname...$ECHO_C"
     exout ./$fname >tmp.test
-    cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname.tst
+    cmp -s tmp.test $srcdir/tfiles/18/$fname.tst
     status=$?
     if test $status -ne 0
     then
         echo "  FAILED!"
     else
-      dumpout $fname.h5 >tmp.test
-      rm -f $fname.h5
-      cmp -s tmp.test $srcdir/tfiles/$H5_LIBVER_DIR/$fname$USE_ALT.ddl
-      status=$?
-      if test $status -ne 0
-      then
-          echo "  FAILED!"
-      else
-          echo "  Passed"
-      fi
+        dumpout $fname.h5 >tmp.test
+        rm -f $fname.h5
+        version_compare "$H5_LIBVER" "1.10.0"
+        if [ "$version_lt" = 1 ]; then
+            cmp -s tmp.test $srcdir/tfiles/18/$fname$USE_ALT.ddl
+        else
+            version_compare "$H5_LIBVER" "1.12.0"
+            if [ "$version_lt" = 1 ]; then
+                cmp -s tmp.test $srcdir/tfiles/110/$fname$USE_ALT.ddl
+            else
+                cmp -s tmp.test $srcdir/tfiles/112/$fname.ddl
+            fi
+        fi
+        status=$?
+        if test $status -ne 0
+        then
+            echo "  FAILED!"
+        else
+            echo "  Passed"
+        fi
     fi
     return_val=`expr $status + $return_val`
 done
