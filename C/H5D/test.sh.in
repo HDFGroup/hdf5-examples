@@ -59,9 +59,9 @@ topics18=""
 version_compare "$H5_LIBVER" "1.8.0"
 # check if HDF5 version is < 1.8.0
 if [ "$version_lt" = 0 ]; then
-    16dir="/16"
+    dir16="\/16"
 else
-    16dir=""
+    dir16=""
     topics18="nbit sofloat soint transform"
 fi
 
@@ -74,7 +74,7 @@ for topic in $topics
 do
     fname=h5ex_d_$topic
     $ECHO_N "Testing C/H5D/$fname...$ECHO_C"
-    exout .$16dir/$fname >tmp.test
+    exout .$dir16/$fname >tmp.test
     status=$?
     if test $status -eq 1
     then
