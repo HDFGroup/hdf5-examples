@@ -58,7 +58,7 @@ topics18=""
 
 version_compare "$H5_LIBVER" "1.8.0"
 # check if HDF5 version is < 1.8.0
-if [ "$version_lt" = 0 ]; then
+if [ "$version_lt" = 1 ]; then
     dir16="\/16"
 else
     dir16=""
