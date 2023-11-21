@@ -141,7 +141,13 @@ do
         then
             echo "  FAILED!"
         else
-          dumpout $fname.h5 >tmp.test
+          if "fname"=="h5ex_d_transform"
+          then
+              targ="-n"
+          else
+              targ=""
+          fi
+          dumpout $targ $fname.h5 >tmp.test
           rm -f $fname.h5
           cmp -s tmp.test $srcdir/tfiles/$tdir/$fname$USE_ALT.ddl
           status=$?
