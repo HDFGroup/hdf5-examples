@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.18)
-project (HDFJAVA_EXAMPLES_INTRO Java)
+project (HDF5Examples_JAVA_INTRO Java)
 
 set (CMAKE_VERBOSE_MAKEFILE 1)
 
@@ -50,9 +50,9 @@ if (H5EX_BUILD_TESTING)
             -D "TEST_PROGRAM=${resultfile}"
             -D "TEST_ARGS:STRING=${ARGN}"
             -D "TEST_CLASSPATH:STRING=${CMAKE_JAVA_CLASSPATH}${CMAKE_JAVA_INCLUDE_FLAG_SEP}${${EXAMPLE_VARNAME}_${resultfile}_JAR_FILE}"
-            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_OUTPUT_DIRECTORY}"
-            -D "TEST_FOLDER=${HDFJAVA_EXAMPLES_INTRO_BINARY_DIR}"
-            -D "TEST_OUTPUT=${HDFJAVA_EXAMPLES_INTRO_BINARY_DIR}/${resultfile}.out"
+            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
+            -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
+            -D "TEST_OUTPUT=${PROJECT_BINARY_DIR}/${resultfile}.out"
             -D "TEST_REFERENCE=${resultfile}.txt"
             -D "TEST_EXPECT=${resultcode}"
             -D "TEST_SKIP_COMPARE=TRUE"
@@ -81,8 +81,8 @@ if (H5EX_BUILD_TESTING)
         NAME ${EXAMPLE_VARNAME}_jnative-h5-${example_name}-copy-objects
         COMMAND    ${CMAKE_COMMAND}
             -E copy_if_different
-            ${HDFJAVA_EXAMPLES_INTRO_SOURCE_DIR}/tfiles/110/${example_name}.txt
-            ${HDFJAVA_EXAMPLES_INTRO_BINARY_DIR}/${example_name}.txt
+            ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}.txt
+            ${PROJECT_BINARY_DIR}/${example_name}.txt
     )
     set_tests_properties (${EXAMPLE_VARNAME}_jnative-h5-${example_name}-copy-objects PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_jnative-h5-${example_name}-clearall-objects)
     set (last_test "${EXAMPLE_VARNAME}_jnative-h5-${example_name}-copy-objects")

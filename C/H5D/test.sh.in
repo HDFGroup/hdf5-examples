@@ -58,10 +58,10 @@ topics18=""
 
 version_compare "$H5_LIBVER" "1.8.0"
 # check if HDF5 version is < 1.8.0
-if [ "$version_lt" = 0 ]; then
-    16dir="/16"
+if [ "$version_lt" = 1 ]; then
+    dir16="\/16"
 else
-    16dir=""
+    dir16=""
     topics18="nbit sofloat soint transform"
 fi
 
@@ -74,7 +74,7 @@ for topic in $topics
 do
     fname=h5ex_d_$topic
     $ECHO_N "Testing C/H5D/$fname...$ECHO_C"
-    exout .$16dir/$fname >tmp.test
+    exout .$dir16/$fname >tmp.test
     status=$?
     if test $status -eq 1
     then
@@ -104,18 +104,22 @@ done
 
 #######Non-standard tests#######
 USE_ALT=""
+### Set default tfiles directory for tests
+nbitdir="18"
 version_compare "$H5_LIBVER" "1.8.23"
 # check if HDF5 version is < 1.8.23
 if [ "$version_lt" = 1 ]; then
     USE_ALT="22"
-    nbitdir="18"
 else
-# check if HDF5 version is < 1.10.8
-  version_compare "$H5_LIBVER" "1.10.8"
-  if [ "$version_lt" = 1 ]; then
-    USE_ALT="07"
+# check if HDF5 version is >= 1.10.0 and < 1.10.8
+  version_compare "$H5_LIBVER" "1.10.0"
+  if [ "$version_lt" = 0 ]; then
+    version_compare "$H5_LIBVER" "1.10.8"
+    if [ "$version_lt" = 1 ]; then
+      USE_ALT="07"
+      nbitdir="110"
+    fi
   fi
-  nbitdir="110"
 fi
 
 for topic in $topics18
@@ -129,19 +133,32 @@ do
         echo "  Unsupported feature"
         status=0
     else
-        if "fname"=="h5ex_d_nbit"
+        if [[ $fname == "h5ex_d_nbit" ]]
         then
             tdir=$nbitdir
+            if [[ $USE_ALT == "" ]]
+            then
+                ### set USE_ALT=07 if not set above
+                USE_ALT="07"
+            fi
         else
             tdir=18
+            ### unset USE_ALT for the other topics
+            USE_ALT=""
         fi
-        cmp -s tmp.test $srcdir/tfiles/$tdir/$fname.tst
+        cmp -s tmp.test $srcdir/tfiles/18/$fname.tst
         status=$?
         if test $status -ne 0
         then
             echo "  FAILED!"
         else
-          dumpout $fname.h5 >tmp.test
+          if [[ $fname == "h5ex_d_transform" ]]
+          then
+              targ="-n"
+          else
+              targ=""
+          fi
+          dumpout $targ $fname.h5 >tmp.test
           rm -f $fname.h5
           cmp -s tmp.test $srcdir/tfiles/$tdir/$fname$USE_ALT.ddl
           status=$?
