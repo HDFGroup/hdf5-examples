@@ -175,15 +175,13 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
                 nextod.prev   = od;
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
 		nextod.token  = infobuf.token;
-#else
-                nextod.addr   = infobuf.addr;
-#endif
-#if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-                return_val = H5Literate_by_name2(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
+		return_val    = H5Literate_by_name2(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
                                                  (void *)&nextod, H5P_DEFAULT);
 #else
-                return_val = H5Literate_by_name(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
+                nextod.addr   = infobuf.addr;
+		return_val    = H5Literate_by_name(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
                                                 (void *)&nextod, H5P_DEFAULT);
+
 #endif
             }
             printf("%*s}\n", spaces, "");
@@ -209,6 +207,7 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
   is found, and 0 otherwise.
 
  ************************************************************/
+
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
 int
 group_check(hid_t loc_id, struct opdata *od, H5O_token_t target_token)
@@ -223,6 +222,7 @@ group_check(hid_t loc_id, struct opdata *od, H5O_token_t target_token)
         return group_check(loc_id, od->prev, target_token);
     /* Recursively examine the next node */
 }
+
 #else
 int
 group_check(struct opdata *od, haddr_t target_addr)
