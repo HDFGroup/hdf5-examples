@@ -45,7 +45,7 @@ herr_t op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *ope
  * Function to check for duplicate groups in a path.
  */
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-int group_check(struct opdata *od, H5O_token_t target_tok);
+int group_check(hid_t loc_id, struct opdata *od, H5O_token_t target_tok);
 #else 
 int group_check(struct opdata *od, haddr_t target_addr);
 #endif
@@ -156,7 +156,7 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
              * H5Odecr_refcount.
              */
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
-	    if (group_check(od, infobuf.token)) {
+	    if (group_check(loc_id, od, infobuf.token)) {
 #else
 	    if (group_check(od, infobuf.addr)) {
 #endif
@@ -211,14 +211,16 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
  ************************************************************/
 #if H5_VERSION_GE(1, 12, 0) && !defined(H5_USE_110_API) && !defined(H5_USE_18_API) && !defined(H5_USE_16_API)
 int
-group_check(struct opdata *od, H5O_token_t target_token)
+group_check(hid_t loc_id, struct opdata *od, H5O_token_t target_token)
 {
-    if (od->token == target_token)
+    int cmp_value;
+    H5Otoken_cmp(loc_id, &(od->token), &target_token, &cmp_value);
+    if (cmp_value == 0)
         return 1; /* Addresses match */
     else if (!od->recurs)
         return 0; /* Root group reached with no matches */
     else
-        return group_check(od->prev, target_token);
+        return group_check(loc_id, od->prev, target_token);
     /* Recursively examine the next node */
 }
 #else
