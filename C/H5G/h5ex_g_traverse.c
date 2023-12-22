@@ -179,8 +179,8 @@ op_func(hid_t loc_id, const char *name, const H5L_info_t *info, void *operator_d
                                                    (void *)&nextod, H5P_DEFAULT);
 #else
                 nextod.addr = infobuf.addr;
-                return_val  = H5Literate_by_name(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
-                                                 (void *)&nextod, H5P_DEFAULT);
+                return_val = H5Literate_by_name(loc_id, name, H5_INDEX_NAME, H5_ITER_NATIVE, NULL, op_func,
+                                                (void *)&nextod, H5P_DEFAULT);
 #endif
             }
             printf("%*s}\n", spaces, "");
