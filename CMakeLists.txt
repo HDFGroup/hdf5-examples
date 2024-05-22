@@ -36,10 +36,6 @@ message (STATUS "HDF5 H5_LIBVER_DIR: ${H5_LIBVER_DIR} HDF5_VERSION_MAJOR: ${HDF5
 option (HDF_BUILD_JAVA "Build JAVA support" OFF)
 if (HDF_BUILD_JAVA)
   find_package (Java)
-  INCLUDE_DIRECTORIES (
-      ${JAVA_INCLUDE_PATH}
-      ${JAVA_INCLUDE_PATH2}
-  )
 
   include (${H5EX_RESOURCES_DIR}/UseJava.cmake)
 endif ()
@@ -120,7 +116,9 @@ if (HDF_ENABLE_THREADSAFE)
   set (H5EX_HDF5_LINK_LIBS ${H5EX_HDF5_LINK_LIBS} Threads::Threads)
 endif ()
 
-INCLUDE_DIRECTORIES (${H5EX_HDF5_INCLUDE_DIRS})
+set_directory_properties(PROPERTIES INCLUDE_DIRECTORIES 
+    "${H5EX_HDF5_INCLUDE_DIRS}"
+)
 
 #-----------------------------------------------------------------------------
 # Dashboard and Testing Settings
@@ -159,6 +157,7 @@ if (${H5_LIBVER_DIR} GREATER 16)
       endif ()
 
       configure_file (${H5EX_F90_SRC_DIR}/H5D/h5_version.h.in ${PROJECT_BINARY_DIR}/FORTRAN/H5D/h5_version.h @ONLY)
+      configure_file (${H5EX_F90_SRC_DIR}/H5D/h5_version.h.in ${PROJECT_BINARY_DIR}/FORTRAN/H5G/h5_version.h @ONLY)
     else ()
       set (HDF_BUILD_FORTRAN OFF CACHE BOOL "Build examples FORTRAN support" FORCE)
     endif ()

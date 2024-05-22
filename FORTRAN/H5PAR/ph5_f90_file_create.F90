@@ -5,10 +5,10 @@
      PROGRAM FILE_CREATE
 
      USE HDF5 ! This module contains all necessary modules
+     USE MPI
 
      IMPLICIT NONE
 
-     INCLUDE 'mpif.h'
      CHARACTER(LEN=10), PARAMETER :: filename = "sds.h5"  ! File name
 
      INTEGER(HID_T) :: file_id       ! File identifier
@@ -18,9 +18,9 @@
      !
      ! MPI definitions and calls.
      !
-     INTEGER :: mpierror       ! MPI error flag
-     INTEGER :: comm, info
-     INTEGER :: mpi_size, mpi_rank
+     INTEGER(KIND=MPI_INTEGER_KIND) :: mpierror       ! MPI error flag
+     INTEGER(KIND=MPI_INTEGER_KIND) :: comm, info
+     INTEGER(KIND=MPI_INTEGER_KIND) :: mpi_size, mpi_rank
      comm = MPI_COMM_WORLD
      info = MPI_INFO_NULL
 
@@ -53,7 +53,7 @@
      ! Close FORTRAN interface
      !
      CALL h5close_f(error)
-
+     IF(mpi_rank.EQ.0) WRITE(*,'(A)') "PHDF5 example finished with no errors"
      CALL MPI_FINALIZE(mpierror)
 
      END PROGRAM FILE_CREATE

@@ -51,9 +51,7 @@ endif ()
 
 if (TEST_ENV_VAR)
   set (ENV{${TEST_ENV_VAR}} "${TEST_ENV_VALUE}")
-  if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.15.0")
-    message (TRACE "ENV:${TEST_ENV_VAR}=$ENV{${TEST_ENV_VAR}}")
-  endif ()
+  message (TRACE "ENV:${TEST_ENV_VAR}=$ENV{${TEST_ENV_VAR}}")
 endif ()
 
 # run the test program, capture the stdout/stderr and the result var
@@ -72,11 +70,18 @@ message (STATUS "COMMAND Result: ${TEST_RESULT}")
 message (STATUS "COMMAND Error: ${TEST_ERROR}")
 
 # remove special output
-file (READ ${TEST_FOLDER}/${TEST_OUTPUT} TEST_STREAM)
-string (FIND TEST_STREAM "_pmi_alps" TEST_FIND_RESULT)
-if (TEST_FIND_RESULT GREATER -1)
-  string (REGEX REPLACE "^.*_pmi_alps[^\n]+\n" "" TEST_STREAM "${TEST_STREAM}")
-  file (WRITE ${TEST_FOLDER}/${TEST_OUTPUT} ${TEST_STREAM})
+if (EXISTS "${TEST_FOLDER}/${TEST_OUTPUT}")
+  file (READ ${TEST_FOLDER}/${TEST_OUTPUT} TEST_STREAM)
+  string (FIND "${TEST_STREAM}" "_pmi_alps" TEST_FIND_RESULT)
+  if (TEST_FIND_RESULT GREATER -1)
+    string (REGEX REPLACE "^.*_pmi_alps[^\n]+\n" "" TEST_STREAM "${TEST_STREAM}")
+    file (WRITE ${TEST_FOLDER}/${TEST_OUTPUT} "${TEST_STREAM}")
+  endif ()
+  string (FIND "${TEST_STREAM}" "ulimit -s" TEST_FIND_RESULT)
+  if (TEST_FIND_RESULT GREATER -1)
+    string (REGEX REPLACE "^.*ulimit -s[^\n]+\n" "" TEST_STREAM "${TEST_STREAM}")
+    file (WRITE ${TEST_FOLDER}/${TEST_OUTPUT} "${TEST_STREAM}")
+  endif ()
 endif ()
 
 # if the TEST_ERRREF exists grep the error output with the error reference
@@ -114,7 +119,7 @@ if (TEST_ERRREF)
         if (NOT TEST_SORT_COMPARE)
           # now compare the output with the reference
           execute_process (
-              COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_IGNORE_EOL} ${TEST_FOLDER}/${TEST_OUTPUT} ${TEST_FOLDER}/${TEST_REFERENCE}
+              COMMAND ${CMAKE_COMMAND} -E compare_files --ignore-eol ${TEST_FOLDER}/${TEST_OUTPUT} ${TEST_FOLDER}/${TEST_REFERENCE}
               RESULT_VARIABLE TEST_COMPARE_RESULT
           )
         else ()

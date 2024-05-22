@@ -1,3 +1,14 @@
+#
+# Copyright by The HDF Group.
+# All rights reserved.
+#
+# This file is part of HDF5.  The full HDF5 copyright notice, including
+# terms governing use, modification, and redistribution, is contained in
+# the COPYING file, which can be found at the root of the source code
+# distribution tree, or in https://www.hdfgroup.org/licenses.
+# If you do not have access to either file, you may request a copy from
+# help@hdfgroup.org.
+#
 # jrunTest.cmake executes a command and captures the output in a file. File is then compared
 # against a reference file. Exit status of command can also be compared.
 cmake_policy(SET CMP0007 NEW)
@@ -139,7 +150,7 @@ if (NOT TEST_SKIP_COMPARE)
       if (NOT TEST_SORT_COMPARE)
         # now compare the output with the reference
         execute_process (
-            COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_IGNORE_EOL} ${TEST_FOLDER}/${TEST_OUTPUT} ${TEST_FOLDER}/${TEST_REFERENCE}
+            COMMAND ${CMAKE_COMMAND} -E compare_files --ignore-eol ${TEST_FOLDER}/${TEST_OUTPUT} ${TEST_FOLDER}/${TEST_REFERENCE}
             RESULT_VARIABLE TEST_COMPARE_RESULT
         )
       else ()
@@ -209,7 +220,7 @@ if (NOT TEST_SKIP_COMPARE)
 
       # now compare the error output with the error reference
       execute_process (
-          COMMAND ${CMAKE_COMMAND} -E compare_files ${CMAKE_IGNORE_EOL} ${TEST_FOLDER}/${TEST_OUTPUT}.err ${TEST_FOLDER}/${TEST_ERRREF}
+          COMMAND ${CMAKE_COMMAND} -E compare_files --ignore-eol ${TEST_FOLDER}/${TEST_OUTPUT}.err ${TEST_FOLDER}/${TEST_ERRREF}
           RESULT_VARIABLE TEST_ERRREF_RESULT
       )
       if (TEST_ERRREF_RESULT)

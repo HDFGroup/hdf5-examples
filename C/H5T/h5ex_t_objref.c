@@ -36,7 +36,7 @@ main(void)
     hid_t      ref_type = H5T_STD_REF; /* Reference datatype */
     H5R_ref_t  wdata[DIM0];            /* buffer to write to disk */
     H5R_ref_t *rdata = NULL;           /* buffer to read into*/
-    H5R_type_t objtype;                /* Reference type */
+    H5O_type_t objtype;                /* Reference type */
 #else
     hid_t       ref_type = H5T_STD_REF_OBJ; /* Reference datatype */
     hobj_ref_t  wdata[DIM0];                /* Write buffer */
@@ -135,7 +135,7 @@ main(void)
      * Output the data to the screen.
      */
     for (i = 0; i < dims[0]; i++) {
-        printf("%s[%llu]:\n  ->", DATASET, i);
+        printf("%s[%" PRIuHSIZE "]:\n  ->", DATASET, i);
 
         /*
          * Open the referenced object, get its name and type.
@@ -173,6 +173,9 @@ main(void)
                 break;
             case H5O_TYPE_NAMED_DATATYPE:
                 printf("Named Datatype");
+                break;
+            case H5O_TYPE_MAP:
+                printf("Map Object");
                 break;
             case H5O_TYPE_UNKNOWN:
             case H5O_TYPE_NTYPES:

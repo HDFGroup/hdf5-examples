@@ -4,11 +4,10 @@
      PROGRAM DATASET_BY_CHUNK
 
      USE HDF5 ! This module contains all necessary modules
-!     USE MPI
+     USE MPI
 
      IMPLICIT NONE
 
-     include 'mpif.h'
      CHARACTER(LEN=11), PARAMETER :: filename = "sds_chnk.h5"  ! File name
      CHARACTER(LEN=8), PARAMETER :: dsetname = "IntArray" ! Dataset name
 
@@ -20,8 +19,7 @@
 
      INTEGER(HSIZE_T), DIMENSION(2) :: dimsf = (/4,8/) ! Dataset dimensions
                                                        ! in the file.
-!     INTEGER, DIMENSION(7) :: dimsfi = (/4,8,0,0,0,0,0/)
-     INTEGER(HSIZE_T), DIMENSION (2) :: dimsfi = (/4,8/)
+     INTEGER(HSIZE_T), DIMENSION(2) :: dimsfi = (/4,8/)
      INTEGER(HSIZE_T), DIMENSION(2) :: chunk_dims = (/2,4/) ! Chunks dimensions
 
      INTEGER(HSIZE_T),  DIMENSION(2) :: count
@@ -36,9 +34,9 @@
      !
      ! MPI definitions and calls.
      !
-     INTEGER :: mpierror       ! MPI error flag
-     INTEGER :: comm, info
-     INTEGER :: mpi_size, mpi_rank
+     INTEGER(KIND=MPI_INTEGER_KIND) :: mpierror       ! MPI error flag
+     INTEGER(KIND=MPI_INTEGER_KIND) :: comm, info
+     INTEGER(KIND=MPI_INTEGER_KIND) :: mpi_size, mpi_rank
 
      comm = MPI_COMM_WORLD
      info = MPI_INFO_NULL
@@ -163,7 +161,7 @@
      ! Close FORTRAN interfaces and HDF5 library.
      !
      CALL h5close_f(error)
-
+     IF(mpi_rank.EQ.0) WRITE(*,'(A)') "PHDF5 example finished with no errors"
 100  continue
      CALL MPI_FINALIZE(mpierror)
 
