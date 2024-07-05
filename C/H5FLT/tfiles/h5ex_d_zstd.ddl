@@ -10,7 +10,7 @@ GROUP "/" {
       FILTERS {
          USER_DEFINED_FILTER {
             FILTER_ID 32015
-            COMMENT HDF5 zstd filter; see http://www.hdfgroup.org/services/contributions.html
+            COMMENT HDF5 zstd filter; see https://github.com/HDFGroup/hdf5_plugins/blob/master/docs/RegisteredFilterPlugins.md
             PARAMS { 0 }
          }
       }

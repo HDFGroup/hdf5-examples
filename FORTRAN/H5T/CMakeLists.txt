@@ -4,10 +4,8 @@ project (HDF5Examples_FORTRAN_H5T Fortran)
 #-----------------------------------------------------------------------------
 # Setup include Directories
 #-----------------------------------------------------------------------------
-INCLUDE_DIRECTORIES (
-    ${CMAKE_Fortran_MODULE_DIRECTORY}${HDF_MOD_EXT}
-    ${PROJECT_BINARY_DIR}
-    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+set_directory_properties(PROPERTIES INCLUDE_DIRECTORIES
+  "${CMAKE_Fortran_MODULE_DIRECTORY}${HDF_MOD_EXT};${HDF5_F90_BINARY_DIR};${PROJECT_BINARY_DIR};${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
 )
 
 #-----------------------------------------------------------------------------
@@ -124,7 +122,7 @@ if (HDF5_BUILD_TOOLS)
         TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
         POST_BUILD
         COMMAND    ${CMAKE_COMMAND}
-        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+        ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
     )
   endforeach ()
 
@@ -137,14 +135,14 @@ if (HDF5_BUILD_TOOLS)
                 TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/114/${example_name}.ddl ${example_name}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/114/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
             )
           else ()
             add_custom_command (
                 TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                 POST_BUILD
                 COMMAND    ${CMAKE_COMMAND}
-                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
             )
           endif ()
         elseif ((${example_name} STREQUAL "h5ex_t_objref_F03" OR ${example_name} STREQUAL "h5ex_t_objrefatt_F03") OR (${example_name} STREQUAL "h5ex_t_regref_F03" OR ${example_name} STREQUAL "h5ex_t_regrefatt_F03"))
@@ -155,14 +153,14 @@ if (HDF5_BUILD_TOOLS)
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}21.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}21.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               else ()
                 add_custom_command (
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               endif ()
             elseif (HDF5_VERSION_MAJOR VERSION_EQUAL "1.10")
@@ -171,14 +169,14 @@ if (HDF5_BUILD_TOOLS)
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}06.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}06.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               else ()
                 add_custom_command (
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               endif ()
             elseif (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12")
@@ -186,14 +184,14 @@ if (HDF5_BUILD_TOOLS)
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
             else ()
               add_custom_command (
                   TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                   POST_BUILD
                   COMMAND    ${CMAKE_COMMAND}
-                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
               )
             endif ()
           else ()
@@ -203,14 +201,14 @@ if (HDF5_BUILD_TOOLS)
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}21.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}21.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               else ()
                 add_custom_command (
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               endif ()
             elseif (HDF5_VERSION_MAJOR VERSION_EQUAL "1.10")
@@ -219,14 +217,14 @@ if (HDF5_BUILD_TOOLS)
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}06.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/110/${example_name}06.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               else ()
                 add_custom_command (
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
               endif ()
             elseif (HDF5_VERSION_MAJOR VERSION_GREATER_EQUAL "1.12")
@@ -234,14 +232,14 @@ if (HDF5_BUILD_TOOLS)
                     TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                     POST_BUILD
                     COMMAND    ${CMAKE_COMMAND}
-                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.ddl ${example_name}.ddl
+                    ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/112/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
                 )
             else ()
               add_custom_command (
                   TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
                   POST_BUILD
                   COMMAND    ${CMAKE_COMMAND}
-                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+                  ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
               )
             endif ()
           endif ()
@@ -250,7 +248,7 @@ if (HDF5_BUILD_TOOLS)
               TARGET     ${EXAMPLE_VARNAME}_f90_${example_name}
               POST_BUILD
               COMMAND    ${CMAKE_COMMAND}
-              ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${example_name}.ddl
+              ARGS       -E copy_if_different ${PROJECT_SOURCE_DIR}/tfiles/18/${example_name}.ddl ${PROJECT_BINARY_DIR}/${example_name}.ddl
           )
         endif ()
       endif ()
@@ -307,33 +305,40 @@ if (H5EX_BUILD_TESTING)
             -E remove
             ${testname}.h5
     )
-    add_test (
-        NAME ${EXAMPLE_VARNAME}_f90_${testname}
-        COMMAND "${CMAKE_COMMAND}"
-            -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>"
-            -D "TEST_ARGS:STRING="
-            -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-            -D "TEST_EXPECT=0"
-            -D "TEST_OUTPUT=${testname}.out"
-            -D "TEST_REFERENCE=${testname}.tst"
-            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-            -P "${H5EX_RESOURCES_DIR}/runTest.cmake"
-    )
-    set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
-    if (HDF5_BUILD_TOOLS)
+    if (HDF5_USING_ANALYSIS_TOOL)
+      add_test (NAME ${EXAMPLE_VARNAME}_f90_${testname} COMMAND ${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>)
+      set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
+    else ()
       add_test (
-          NAME ${EXAMPLE_VARNAME}_H5DUMP-f90_${testname}
+          NAME ${EXAMPLE_VARNAME}_f90_${testname}
           COMMAND "${CMAKE_COMMAND}"
-              -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
-              -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
+              -D "TEST_EMULATOR=${CMAKE_CROSSCOMPILING_EMULATOR}"
+              -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>"
+              -D "TEST_ARGS:STRING="
               -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-              -D "TEST_OUTPUT=${testname}.ddl.out"
               -D "TEST_EXPECT=0"
-              -D "TEST_REFERENCE=${testname}.ddl"
+              -D "TEST_OUTPUT=${testname}.out"
+              -D "TEST_REFERENCE=${testname}.tst"
               -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
               -P "${H5EX_RESOURCES_DIR}/runTest.cmake"
       )
-      set_tests_properties (${EXAMPLE_VARNAME}_H5DUMP-f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname})
+      set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
+      if (HDF5_BUILD_TOOLS)
+        add_test (
+            NAME ${EXAMPLE_VARNAME}_H5DUMP-f90_${testname}
+            COMMAND "${CMAKE_COMMAND}"
+                -D "TEST_EMULATOR=${CMAKE_CROSSCOMPILING_EMULATOR}"
+                -D "TEST_PROGRAM=${H5EX_HDF5_DUMP_EXECUTABLE}"
+                -D "TEST_ARGS:STRING=${ARGN};${testname}.h5"
+                -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
+                -D "TEST_OUTPUT=${testname}.ddl.out"
+                -D "TEST_EXPECT=0"
+                -D "TEST_REFERENCE=${testname}.ddl"
+                -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
+                -P "${H5EX_RESOURCES_DIR}/runTest.cmake"
+        )
+       set_tests_properties (${EXAMPLE_VARNAME}_H5DUMP-f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname})
+      endif ()
     endif ()
   endmacro ()
 
@@ -344,19 +349,25 @@ if (H5EX_BUILD_TESTING)
             -E remove
             ${testname}.h5
     )
-    add_test (
-        NAME ${EXAMPLE_VARNAME}_f90_${testname}
-        COMMAND "${CMAKE_COMMAND}"
-            -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>"
-            -D "TEST_ARGS:STRING=${ARGN}"
-            -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-            -D "TEST_EXPECT=0"
-            -D "TEST_OUTPUT=${testname}.out"
-            -D "TEST_REFERENCE=${testname}.tst"
-            -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
-            -P "${H5EX_RESOURCES_DIR}/runTest.cmake"
-    )
-    set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
+    if (HDF5_USING_ANALYSIS_TOOL)
+      add_test (NAME ${EXAMPLE_VARNAME}_f90_${testname} COMMAND ${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>)
+      set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
+    else ()
+      add_test (
+          NAME ${EXAMPLE_VARNAME}_f90_${testname}
+          COMMAND "${CMAKE_COMMAND}"
+              -D "TEST_EMULATOR=${CMAKE_CROSSCOMPILING_EMULATOR}"
+              -D "TEST_PROGRAM=$<TARGET_FILE:${EXAMPLE_VARNAME}_f90_${testname}>"
+              -D "TEST_ARGS:STRING=${ARGN}"
+              -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
+              -D "TEST_EXPECT=0"
+              -D "TEST_OUTPUT=${testname}.out"
+              -D "TEST_REFERENCE=${testname}.tst"
+              -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_LIB_DIRECTORY}"
+              -P "${H5EX_RESOURCES_DIR}/runTest.cmake"
+      )
+      set_tests_properties (${EXAMPLE_VARNAME}_f90_${testname} PROPERTIES DEPENDS ${EXAMPLE_VARNAME}_f90_${testname}-clearall)
+    endif ()
   endmacro ()
 
   macro (TEST_EXAMPLE example)

@@ -10,7 +10,7 @@ GROUP "/" {
       FILTERS {
          USER_DEFINED_FILTER {
             FILTER_ID 32019
-            COMMENT HDF5 jpeg filter; see http://www.hdfgroup.org/services/contributions.html
+            COMMENT HDF5 jpeg filter; see https://github.com/HDFGroup/hdf5_plugins/blob/master/docs/RegisteredFilterPlugins.md
             PARAMS { 100 1024 512 0 }
          }
       }

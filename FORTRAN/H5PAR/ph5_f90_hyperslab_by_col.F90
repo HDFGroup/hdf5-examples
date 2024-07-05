@@ -1,14 +1,13 @@
 !
-! Number of processes is assumed to be 1 or multiples of 2 (1,2,4,6,8)
+! Number of processes is assumed to be 1 or powers of 2 (2,4,8)
 !
-
      PROGRAM DATASET_BY_COL
 
      USE HDF5 ! This module contains all necessary modules
+     USE mpi
 
      IMPLICIT NONE
 
-     include 'mpif.h'
      CHARACTER(LEN=10), PARAMETER :: filename = "sds_col.h5"  ! File name
      CHARACTER(LEN=8), PARAMETER :: dsetname = "IntArray" ! Dataset name
 
@@ -31,9 +30,9 @@
      !
      ! MPI definitions and calls.
      !
-     INTEGER :: mpierror       ! MPI error flag
-     INTEGER :: comm, info
-     INTEGER :: mpi_size, mpi_rank
+     INTEGER(KIND=MPI_INTEGER_KIND) :: mpierror       ! MPI error flag
+     INTEGER(KIND=MPI_INTEGER_KIND) :: comm, info
+     INTEGER(KIND=MPI_INTEGER_KIND) :: mpi_size, mpi_rank
      comm = MPI_COMM_WORLD
      info = MPI_INFO_NULL
      CALL MPI_INIT(mpierror)
@@ -127,7 +126,7 @@
      ! Close FORTRAN predefined datatypes.
      !
      CALL h5close_f(error)
-
+     IF(mpi_rank.EQ.0) WRITE(*,'(A)') "PHDF5 example finished with no errors"
      CALL MPI_FINALIZE(mpierror)
 
      END PROGRAM DATASET_BY_COL
